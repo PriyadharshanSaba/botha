@@ -1,0 +1,68 @@
+.container {
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 0 20px;
+}
+
+.module-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+}
+
+.module-number {
+  border-left: 6px solid;
+  padding-left: 12px;
+  font-size: 32px;
+  font-weight: 700;
+}
+
+.module-info h1 {
+  margin: 0;
+  font-size: 32px;
+}
+
+.subtitle {
+  margin-top: 8px;
+  color: #666;
+  font-size: 16px;
+}
+
+.module-links a {
+  color: #0066ff;
+  font-size: 15px;
+}
+
+.divider {
+  border: none;
+  border-top: 1px solid #eee;
+  margin: 40px 0;
+}
+
+.chapters-list .chapter {
+  margin-bottom: 40px;
+}
+
+.chapter h2 {
+  font-size: 22px;
+  margin-bottom: 10px;
+}
+
+.chapter h3 {
+  font-size: 18px;
+  margin-top: 16px;
+}
+
+.chapter p,
+.chapter ul {
+  color: #444;
+  line-height: 1.6;
+}
+
+blockquote {
+  border-left: 4px solid #ccc;
+  padding-left: 12px;
+  margin: 12px 0;
+  color: #666;
+  font-style: italic;
+}

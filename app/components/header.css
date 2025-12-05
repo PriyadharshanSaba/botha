@@ -1,0 +1,54 @@
+.header {
+  width: 100%;
+  padding: 18px 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  /* border-bottom: 1px solid #e6e6e6; */
+  background: #f5f7fa;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.brand {
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.header-nav {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+}
+
+.nav-link {
+  text-decoration: none;
+  font-size: 16px;
+  color: #000;
+}
+
+.nav-link:hover {
+  text-decoration: underline;
+}
+
+.nav-link.active {
+  color: #0066ff;
+  font-weight: 600;
+}
+
+/* logout button */
+.logout-btn {
+  background: none;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  color: #000;
+}
+
+.logout-btn:hover {
+  text-decoration: underline;
+}
