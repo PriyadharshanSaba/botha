@@ -68,5 +68,5 @@ env/
 *.bak
 *.tmp
 
-# botha-specific
+# bodha-specific
 public/uploads/

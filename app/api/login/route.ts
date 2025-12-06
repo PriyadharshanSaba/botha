@@ -1,34 +1,23 @@
 import { NextResponse } from "next/server";
+import { db } from "@/app/lib/db";
+
+import { generateOTP } from "@/app/lib/utils/otp";
+
 
 export async function POST(req: Request) {
-  const { email, password } = await req.json();
+  const { email } = await req.json();
 
-  const validUsers = [
-    { email: "priyadharshan.97@gmail.com", password: "password123" },
-    { email: "amogh036@gmail.com", password: "password123" }, 
-    { email: "1@1", password: "1" }
-  ];
-
-  const isValid = validUsers.some(
-    (u) => u.email === email && u.password === password
-  );
-
-  if (!isValid) {
-    return NextResponse.json({ success: false, message: "Invalid credentials" }, { status: 401 });
+  const user = await db.getUserByEmail(email);
+  if (!user) {
+    return NextResponse.json({ error: "User not found" }, { status: 404 });
   }
 
-  // Set secure, httpOnly cookie
-  const response = NextResponse.json({ success: true });
+  const otp = generateOTP();
+  const expiry = Date.now() + 5 * 60 * 1000;
 
-  response.cookies.set({
-    name: "logged_in",
-    value: "1",
-    httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
-    sameSite: "lax",
-    path: "/",
-    maxAge: 60 * 60 * 24 * 7 // 7 days
-  });
+  await db.saveOTP(email, otp, expiry);
 
-  return response;
+  console.log("Login OTP:", otp); // TODO send email
+
+  return NextResponse.json({ success: true });
 }

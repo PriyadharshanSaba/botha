@@ -22,11 +22,11 @@ export default function Header() {
       <div className="header-left">
         <Image
           src="/logo.svg"
-          alt="botha-logo"
+          alt="bodha-logo"
           width={24}
           height={24}
         />
-        <span className="brand">Botha</span>
+        <span className="brand">Bodha</span>
       </div>
 
       {/* Desktop navigation */}

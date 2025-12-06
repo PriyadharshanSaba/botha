@@ -4,8 +4,8 @@ import React from "react";
 import AppShell from "./AppShell";
 
 export const metadata = {
-  title: "Botha",
-  description: "Botha — finance education",
+  title: "Bodha",
+  description: "Bodha — finance education",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

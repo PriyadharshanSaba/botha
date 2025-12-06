@@ -1,8 +1,9 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
-export function middleware(request: NextRequest) {
-  const loggedIn = request.cookies.get("logged_in")?.value === "1";
+export function proxy(request: NextRequest) {
+  const uid = request.cookies.get("uid")?.value;
+  const loggedIn = Boolean(uid);
 
   const { pathname } = request.nextUrl;
 
@@ -25,6 +26,6 @@ export function middleware(request: NextRequest) {
 
 export const config = {
   matcher: [
-     "/((?!api|_next|static|favicon.ico).*)"
+    "/((?!api|_next|static|favicon.ico).*)"
   ],
 };
