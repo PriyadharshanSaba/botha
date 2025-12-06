@@ -1,7 +1,7 @@
 // app/layout.tsx
 import "./globals.css";
 import React from "react";
-import HeaderWrapper from "./HeaderWrapper";
+import AppShell from "./AppShell";
 
 export const metadata = {
   title: "Botha",
@@ -12,9 +12,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en">
       <body>
-        <HeaderWrapper>
+        <AppShell>
           {children}
-        </HeaderWrapper>
+        </AppShell>
       </body>
     </html>
   );

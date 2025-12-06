@@ -12,39 +12,25 @@ export default function Page() {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
 
-  useEffect(() => {
-    const logged = typeof window !== "undefined" ? localStorage.getItem("logged_in") : null;
-    if (logged === "1") {
-      setIsLoggedIn(true);
-      router.push("/modules");
-    }
-  }, []);
-
-  function handleLogin(e: React.FormEvent) {
+  async function handleLogin(e: React.FormEvent) {
     e.preventDefault();
     setError("");
     setLoading(true);
 
-    setTimeout(() => {
-      setLoading(false);
-      if ( email === "priyadharshan.97@gmail.com" && password === "password123" 
-        || email === "amogh036@gmail.com" && password === "password123" 
-        || email === "1@1" && password === "1") {
-        setIsLoggedIn(true);
-        localStorage.setItem("logged_in", "1");
-        router.push("/modules");
-      } else {
-        setError("Invalid email or password.");
-      }
-    }, 700);
-  }
+    const res = await fetch("/api/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email, password })
+    });
 
-  function handleLogout() {
-    setIsLoggedIn(false);
-    localStorage.removeItem("logged_in");
-    setEmail("");
-    setPassword("");
-    setError("");
+    setLoading(false);
+
+    if (!res.ok) {
+      setError("Invalid email or password.");
+      return;
+    }
+
+    router.push("/modules");
   }
 
   return (

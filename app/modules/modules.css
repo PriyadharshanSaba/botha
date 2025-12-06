@@ -75,3 +75,19 @@
 .module-links .link:hover {
   text-decoration: underline;
 }
+
+/* Modules Page Responsive */
+@media (max-width: 768px) {
+  .modules-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .module-card {
+    padding: 16px;
+  }
+
+  .module-header h1 {
+    font-size: 22px;
+  }
+}
