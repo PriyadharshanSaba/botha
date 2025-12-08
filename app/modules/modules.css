@@ -76,6 +76,69 @@
   text-decoration: underline;
 }
 
+/* Make entire card clickable */
+.module-card-link {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Smooth hover effects */
+.hover-card {
+  /* border: 1px solid #e5e7eb; */
+  border-radius: 12px;
+  padding: 20px;
+  transition: all 0.22s ease;
+  will-change: transform;
+}
+
+.hover-card:hover {
+  cursor: pointer;
+  border-radius: 16px;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.06);
+  transform: translateY(-3px);
+}
+
+.chapter-nav-buttons {
+  position: fixed;
+  bottom: 40px;
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: center; /* center both buttons */
+  gap: 24px; /* space between them */
+  pointer-events: none;
+  z-index: 50;
+}
+
+.chapter-btn {
+  pointer-events: all;
+  background: white;
+  border: 1px solid #dcdcdc;
+  border-radius: 12px;
+  padding: 12px 22px;
+  font-size: 15px;
+  font-weight: 500;
+  color: #1e293b;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+  transition: all 0.22s ease;
+
+  min-width: 120px; /* 🔥 ensures both buttons are the same size */
+  text-align: center;
+}
+
+
+.chapter-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+}
+
+.chapter-btn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+
 /* Modules Page Responsive */
 @media (max-width: 768px) {
   .modules-grid {
@@ -89,5 +152,16 @@
 
   .module-header h1 {
     font-size: 22px;
+  }
+
+
+  .chapter-nav-buttons {
+    padding: 0 60px;
+    bottom: 28px;
+  }
+
+  .chapter-btn {
+    padding: 10px 16px;
+    font-size: 14px;
   }
 }

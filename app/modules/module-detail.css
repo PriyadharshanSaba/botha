@@ -39,6 +39,12 @@
   margin: 40px 0;
 }
 
+.chapter {
+  margin-bottom: 80px;
+  padding-bottom: 120px;
+}
+
+
 .chapters-list .chapter {
   margin-bottom: 40px;
 }

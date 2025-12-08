@@ -1,42 +1,18 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import "../modules.css";
 import "../module-detail.css";
 
 export default function Money101Page() {
-  return (
-    <main className="container">
-
-      {/* === Module Header === */}
-      <section className="module-header">
-        <div className="module-number" style={{ borderColor: "#f1c40f" }}>
-          3
-        </div>
-
-        <div className="module-info">
-          <h1>The Story of Money — From Barter to Bytes</h1>
-
-          <p className="subtitle">
-            Discover how money evolved, why budgeting matters, and how to grow wealth
-            through investing with clarity and confidence.
-          </p>
-
-          <div className="module-links">
-            <a href="#">Watch videos</a>
-          </div>
-        </div>
-      </section>
-
-      <hr className="divider" />
-
-      {/* === Chapters === */}
-      <section className="chapters-list">
-
-        {/* Chapter 1 */}
-        <div className="chapter">
-          <h2>Chapter 1: The Story of Money — From Barter to Bytes</h2>
-
+  // ============================================================
+  //  ALL CHAPTER CONTENT — EXACT FROM YOUR ORIGINAL FILE
+  // ============================================================
+  const chapters = [
+    {
+      title: "Chapter 1: The Story of Money — From Barter to Bytes",
+      content: (
+        <>
           <p>
             Long before coins and cards, people traded what they had for what they needed —
             a fisherman swapped his catch for a farmer’s grain. But barter had a flaw:
@@ -59,12 +35,14 @@ export default function Money101Page() {
             But while money has evolved, our understanding hasn’t. Financial literacy bridges
             that gap — because when you understand money, you don’t just use it — you control it.
           </p>
-        </div>
+        </>
+      ),
+    },
 
-        {/* Chapter 2 */}
-        <div className="chapter">
-          <h2>Chapter 2: The Next Chapter — The Art of Budgeting</h2>
-
+    {
+      title: "Chapter 2: The Next Chapter — The Art of Budgeting",
+      content: (
+        <>
           <p>
             If money is the language of life, budgeting is how you learn to speak it fluently.
             Every rupee tells a story — what you earn, spend, and value. Most of us never track
@@ -81,12 +59,14 @@ export default function Money101Page() {
             Before you grow wealth, you must manage what you already have. Budgeting teaches
             that discipline — turning income into impact.
           </p>
-        </div>
+        </>
+      ),
+    },
 
-        {/* Chapter 3 */}
-        <div className="chapter">
-          <h2>Chapter 3: From Saving to Growing — The Power of Investing</h2>
-
+    {
+      title: "Chapter 3: From Saving to Growing — The Power of Investing",
+      content: (
+        <>
           <p>
             Once you’ve mastered budgeting, the next step is making your money grow. Saving
             keeps you safe, but investing helps you expand your possibilities.
@@ -102,12 +82,14 @@ export default function Money101Page() {
             One protects, the other produces. Both matter, but investing creates growth through
             compounding — where your earnings themselves start to earn more.
           </p>
-        </div>
+        </>
+      ),
+    },
 
-        {/* Chapter 4 */}
-        <div className="chapter">
-          <h2>Chapter 4: How to Think Like an Investor</h2>
-
+    {
+      title: "Chapter 4: How to Think Like an Investor",
+      content: (
+        <>
           <p>
             Investing begins with mindset. An investor doesn’t see money as something to
             spend but as a tool to build and create value.
@@ -123,12 +105,14 @@ export default function Money101Page() {
             To think like an investor is to see value where others see price — to focus
             on growth over instant gratification, and purpose over impulse.
           </p>
-        </div>
+        </>
+      ),
+    },
 
-        {/* Chapter 5 */}
-        <div className="chapter">
-          <h2>Chapter 5: Understanding Investment Options</h2>
-
+    {
+      title: "Chapter 5: Understanding Investment Options",
+      content: (
+        <>
           <p>
             There’s no single “best” investment — only the one that fits your goals,
             risk comfort, and time horizon. Here are the main types:
@@ -165,12 +149,14 @@ export default function Money101Page() {
             <strong>Tip:</strong> Diversify! A balanced mix of different assets
             protects you when markets fluctuate.
           </p>
-        </div>
+        </>
+      ),
+    },
 
-        {/* Chapter 6 */}
-        <div className="chapter">
-          <h2>Chapter 6: The Role of Risk and Emotion in Investing</h2>
-
+    {
+      title: "Chapter 6: The Role of Risk and Emotion in Investing",
+      content: (
+        <>
           <p>
             Investing isn’t just math — it’s mindset. Risk and emotion play huge
             roles in every decision.
@@ -195,12 +181,14 @@ export default function Money101Page() {
             Good investing balances logic and emotion. Build a strategy you trust and
             stick to it — let your plan, not your panic, decide your actions.
           </p>
-        </div>
+        </>
+      ),
+    },
 
-        {/* Chapter 7 */}
-        <div className="chapter">
-          <h2>Chapter 7: How to Start Investing</h2>
-
+    {
+      title: "Chapter 7: How to Start Investing",
+      content: (
+        <>
           <p>
             Every investor begins the same way — by starting. You don’t need to know
             everything, just enough to begin wisely.
@@ -241,12 +229,14 @@ export default function Money101Page() {
               not luck.
             </li>
           </ul>
-        </div>
+        </>
+      ),
+    },
 
-        {/* Chapter 8 */}
-        <div className="chapter">
-          <h2>Chapter 8: You’ve Taken the First Step — Now Let’s Begin the Journey</h2>
-
+    {
+      title: "Chapter 8: You’ve Taken the First Step — Now Let’s Begin the Journey",
+      content: (
+        <>
           <p>
             You’ve come far — understanding how money works, how to budget, and how to
             invest. Now it’s time to act.
@@ -255,19 +245,77 @@ export default function Money101Page() {
           <h3>The First Real Step: Opening Your Demat Account</h3>
           <p>
             A Demat account is your digital vault for stocks and mutual funds. Choose a
-            trusted broker like Zerodha, Groww, or Upstox and take your first step into
-            investing.
+            trusted broker and take your first step into investing.
           </p>
 
           <h3>Celebrate the Start</h3>
           <p>
             This isn’t the end — it’s your beginning. You’re not just learning about money;
-            you’re shaping your financial future. Welcome to the other side of learning —
-            where your knowledge turns into action and growth.
+            you’re shaping your financial future. Your knowledge turns into action and growth.
           </p>
+        </>
+      ),
+    },
+  ];
+
+  // ============================================================
+  // STATE — Which chapter is being viewed?
+  // ============================================================
+  const [chapterIndex, setChapterIndex] = useState(0);
+  const current = chapters[chapterIndex];
+
+  return (
+    <main className="container module-detail-container">
+
+      {/* === Module Header === */}
+      <section className="module-header">
+        <div className="module-number" style={{ borderColor: "#f1c40f" }}>
+          1
         </div>
 
+        <div className="module-info">
+          <h1>The Story of Money — From Barter to Bytes</h1>
+
+          <p className="subtitle">
+            Discover how money evolved, why budgeting matters, and how to grow wealth
+            through investing with clarity and confidence.
+          </p>
+
+          <div className="module-links">
+            <a href="#">Watch videos</a>
+          </div>
+        </div>
       </section>
+
+      <hr className="divider" />
+
+      {/* === Active Chapter === */}
+      <section className="chapters-list">
+        <div className="chapter">
+          <h2>{current.title}</h2>
+          {current.content}
+        </div>
+      </section>
+
+      {/* === Floating Navigation Buttons === */}
+      <div className="chapter-nav-buttons">
+        <button
+          className="chapter-btn prev-btn"
+          onClick={() => setChapterIndex((i) => Math.max(0, i - 1))}
+          disabled={chapterIndex === 0}
+        >
+          Previous
+        </button>
+
+        <button
+          className="chapter-btn next-btn"
+          onClick={() => setChapterIndex((i) => Math.min(chapters.length - 1, i + 1))}
+          disabled={chapterIndex === chapters.length - 1}
+        >
+          Next
+        </button>
+      </div>
+
     </main>
   );
 }

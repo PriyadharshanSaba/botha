@@ -18,8 +18,7 @@ export default function Header() {
   return (
     <header className="header">
 
-      {/* Left side — Logo + Brand */}
-      <div className="header-left">
+      <Link href="/" className="header-left">
         <Image
           src="/logo.svg"
           alt="bodha-logo"
@@ -27,7 +26,7 @@ export default function Header() {
           height={24}
         />
         <span className="brand">Bodha</span>
-      </div>
+      </Link>
 
       {/* Desktop navigation */}
       <nav className="header-nav desktop-nav">

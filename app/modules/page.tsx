@@ -8,6 +8,15 @@ export default function ModulesPage() {
   const modules = [
     {
       id: 1,
+      color: "#FFC107",
+      title: "Money 101",
+      chapters: "8 chapters",
+      description:
+        "Long before coins and cards, people traded what they had for what they needed. Barter was useful, but flawed: what if the farmer didn’t want fish that day?",
+      view_module_link: "/modules/money-101",
+    },
+    {
+      id: 2,
       color: "#1DB954",
       title: "Budgeting 101",
       chapters: "7 chapters",
@@ -16,22 +25,13 @@ export default function ModulesPage() {
       view_module_link: "/modules/budgeting-101",
     },
     {
-      id: 2,
+      id: 3,
       color: "#4A90E2",
       title: "Introduction to Stock Market",
       chapters: "8 chapters",
       description:
         "Imagine your favourite coffee brand wants to open 500 new outlets. That kind of expansion needs money — to buy land, build stores, hire staff, and market the brand.",
       view_module_link: "/modules/stock-market",
-    },
-    {
-      id: 3,
-      color: "#FFC107",
-      title: "Money 101",
-      chapters: "8 chapters",
-      description:
-        "Long before coins and cards, people traded what they had for what they needed. Barter was useful, but flawed: what if the farmer didn’t want fish that day?",
-      view_module_link: "/modules/money-101",
     },
   ];
 
