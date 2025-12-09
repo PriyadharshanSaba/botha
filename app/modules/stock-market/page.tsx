@@ -1,8 +1,11 @@
 "use client";
 
 import React, { useState } from "react";
+import { useEffect } from "react";
+
 import "../modules.css";
 import "../module-detail.css";
+import { useSearchParams } from "next/navigation";
 
 export default function StockMarketPage() {
   // ============================================================
@@ -239,10 +242,65 @@ export default function StockMarketPage() {
   ];
 
   // ============================================================
-  // STATE — Which chapter is currently visible?
+  // STATE & PARAMS
   // ============================================================
+  const [isLoading, setIsLoading] = useState(true);
+
+  const searchParams = useSearchParams();
+  const chapterFromURL = searchParams.get("chapter");
+
   const [chapterIndex, setChapterIndex] = useState(0);
+  const moduleId = "stock-market";
+
   const current = chapters[chapterIndex];
+
+  useEffect(() => {
+    async function loadProgress() {
+      const chapter = chapterFromURL;
+
+      // URL override wins
+      if (chapter) {
+        setChapterIndex(Number(chapter));
+        setIsLoading(false);
+        return;
+      }
+
+      // Load from DB
+      const res = await fetch("/api/modules", { cache: "no-store" });
+      if (res.ok) {
+        const data = await res.json();
+        console.log("progress row:", data);
+
+        if (data.moduleId === moduleId) {
+          setChapterIndex(data.chapterNumber ?? 0);
+        }
+      }
+
+      setIsLoading(false); // done loading regardless
+    }
+
+    loadProgress();
+  }, []);
+
+  async function saveProgress(chapterNumber: number) {
+    await fetch("/api/modules", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        moduleId,
+        chapterNumber,
+      }),
+    });
+  }
+
+  if (isLoading) {
+    return (
+      <main className="module-loading-container">
+        <div className="spinner"></div>
+        <p className="loading-text">Loading your progress…</p>
+      </main>
+    );
+  }
 
   return (
     <main className="container module-detail-container">
@@ -281,7 +339,13 @@ export default function StockMarketPage() {
       <div className="chapter-nav-buttons">
         <button
           className="chapter-btn prev-btn"
-          onClick={() => setChapterIndex((i) => Math.max(0, i - 1))}
+          onClick={async () => {
+            setChapterIndex((i) => {
+              const newIndex = Math.max(0, i - 1);
+              saveProgress(newIndex);
+              return newIndex;
+            });
+          }}
           disabled={chapterIndex === 0}
         >
           Previous
@@ -289,9 +353,13 @@ export default function StockMarketPage() {
 
         <button
           className="chapter-btn next-btn"
-          onClick={() =>
-            setChapterIndex((i) => Math.min(chapters.length - 1, i + 1))
-          }
+          onClick={async () => {
+            setChapterIndex((i) => {
+              const newIndex = Math.min(chapters.length - 1, i + 1);
+              saveProgress(newIndex);
+              return newIndex;
+            });
+          }}
           disabled={chapterIndex === chapters.length - 1}
         >
           Next

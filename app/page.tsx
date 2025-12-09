@@ -109,7 +109,14 @@ export default function Page() {
 
     if (!res.ok) return setError("Invalid OTP.");
 
-    router.push("/modules");
+    const data = await res.json();
+
+    if (data.progress?.moduleId) {
+      router.push(`/modules/${data.progress.moduleId}?chapter=${data.progress.chapterNumber}`);
+    } else {
+      router.push("/modules");
+    }
+
   }
 
 
