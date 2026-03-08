@@ -4,6 +4,12 @@
   padding: 0 20px;
 }
 
+.module-topbar {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 24px;
+}
+
 .module-header {
   display: flex;
   align-items: flex-start;

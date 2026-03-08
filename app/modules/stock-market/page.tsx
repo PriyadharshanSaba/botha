@@ -7,12 +7,25 @@ import { useEffect } from "react";
 import "../modules.css";
 import "../module-detail.css";
 import { useSearchParams } from "next/navigation";
+import { useLanguage } from "../../context/LanguageContext";
 
 export default function StockMarketPage() {
+  const { t } = useLanguage();
   // ============================================================
   // ALL CHAPTER CONTENT — COPIED EXACTLY FROM YOUR FILE
   // ============================================================
   const chapters = [
+    {
+      title: "Introduction to Stock Markets",
+      content: (
+        <>
+          <p style={{ fontSize: 18, color: "#666", lineHeight: 1.7 }}>
+            Understand how companies raise capital, how trades happen,
+            and how the market reflects the pulse of the economy.
+          </p>
+        </>
+      ),
+    },
     {
       title: "Chapter 1: What Is the Stock Market?",
       content: (
@@ -298,7 +311,7 @@ export default function StockMarketPage() {
     return (
       <main className="module-loading-container">
         <div className="spinner"></div>
-        <p className="loading-text">Loading your progress…</p>
+        <p className="loading-text">{t("loadingProgress")}</p>
       </main>
     );
   }
@@ -306,29 +319,7 @@ export default function StockMarketPage() {
   return (
     <main className="container module-detail-container">
 
-      {/* === Module Header === */}
-      <section className="module-header">
-        <div className="module-number" style={{ borderColor: "#2ecc71" }}>
-          3
-        </div>
-
-        <div className="module-info">
-          <h1>Introduction to Stock Markets</h1>
-
-          <p className="subtitle">
-            Understand how companies raise capital, how trades happen,
-            and how the market reflects the pulse of the economy.
-          </p>
-
-          <div className="module-links">
-            <a href="#">Watch videos</a>
-          </div>
-        </div>
-      </section>
-
-      <hr className="divider" />
-
-      {/* === Active Chapter Viewer === */}
+      {/* === Active Chapter === */}
       <section className="chapters-list">
         <div className="chapter">
           <h2>{current.title}</h2>
@@ -349,7 +340,7 @@ export default function StockMarketPage() {
           }}
           disabled={chapterIndex === 0}
         >
-          Previous
+          {t("previous")}
         </button>
 
         <button
@@ -363,7 +354,7 @@ export default function StockMarketPage() {
           }}
           disabled={chapterIndex === chapters.length - 1}
         >
-          Next
+          {t("next")}
         </button>
       </div>
 

@@ -7,15 +7,17 @@ export function proxy(request: NextRequest) {
 
   const { pathname } = request.nextUrl;
 
-  // Logged-out → only allow "/"
-  if (!loggedIn && pathname !== "/") {
+  const publicPaths = ["/", "/signin"];
+
+  // Logged-out → only allow public paths
+  if (!loggedIn && !publicPaths.includes(pathname)) {
     const url = request.nextUrl.clone();
-    url.pathname = "/";
+    url.pathname = "/signin";
     return NextResponse.redirect(url);
   }
 
-  // Logged-in → prevent access to "/"
-  if (loggedIn && pathname === "/") {
+  // Logged-in → redirect public paths to modules
+  if (loggedIn && publicPaths.includes(pathname)) {
     const url = request.nextUrl.clone();
     url.pathname = "/modules";
     return NextResponse.redirect(url);

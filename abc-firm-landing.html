@@ -1,0 +1,1273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ABC Firm — Master Your Financial Future</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #0d0d0d;
+    --cream: #f5f0e8;
+    --gold: #c9a84c;
+    --gold-light: #e8d08a;
+    --slate: #2a2d35;
+    --mist: #e8e4dc;
+    --rust: #b85c38;
+    --white: #fdfcf9;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--white);
+    color: var(--ink);
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 5vw;
+    height: 72px;
+    background: rgba(253,252,249,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(201,168,76,0.18);
+  }
+
+  .logo {
+    display: flex; align-items: center; gap: 10px;
+    text-decoration: none;
+  }
+  .logo-mark {
+    width: 40px; height: 40px;
+    background: var(--ink);
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .logo-mark::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 50%;
+    background: var(--gold);
+  }
+  .logo-mark span {
+    font-family: 'Playfair Display', serif;
+    font-weight: 900;
+    font-size: 15px;
+    color: var(--white);
+    position: relative; z-index: 1;
+    letter-spacing: -0.5px;
+  }
+  .logo-text {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: 20px;
+    color: var(--ink);
+    letter-spacing: -0.3px;
+  }
+  .logo-text span { color: var(--gold); }
+
+  nav .nav-links {
+    display: flex; gap: 32px; list-style: none;
+  }
+  nav .nav-links a {
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--slate);
+    letter-spacing: 0.3px;
+    transition: color 0.2s;
+  }
+  nav .nav-links a:hover { color: var(--gold); }
+
+  .nav-cta {
+    display: flex; align-items: center; gap: 14px;
+  }
+  .btn-ghost {
+    font-size: 14px; font-weight: 500;
+    color: var(--ink);
+    background: none; border: none; cursor: pointer;
+    letter-spacing: 0.3px;
+    transition: color 0.2s;
+  }
+  .btn-ghost:hover { color: var(--gold); }
+
+  .btn-primary {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px; font-weight: 500;
+    color: var(--ink);
+    background: var(--gold);
+    border: none; cursor: pointer;
+    padding: 10px 22px;
+    border-radius: 6px;
+    letter-spacing: 0.4px;
+    transition: background 0.2s, transform 0.15s;
+  }
+  .btn-primary:hover { background: var(--gold-light); transform: translateY(-1px); }
+
+  /* ── HERO RIGHT PANEL ── */
+  .hero-right {
+    position: relative; z-index: 1;
+    display: flex; align-items: center; justify-content: center;
+    padding: 60px 6vw 60px 2vw;
+  }
+  .hero-panel {
+    width: 100%; max-width: 420px;
+    background: var(--white);
+    border: 1px solid rgba(201,168,76,0.2);
+    border-radius: 20px;
+    box-shadow: 0 24px 64px rgba(0,0,0,0.09);
+    overflow: hidden;
+    animation: fadeIn 1s 0.3s ease both;
+  }
+  .hp-header {
+    background: var(--ink);
+    padding: 22px 26px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .hp-header-left { display: flex; flex-direction: column; gap: 4px; }
+  .hp-label { font-size: 11px; letter-spacing: 1.8px; text-transform: uppercase; color: var(--gold); }
+  .hp-title { font-family: 'Playfair Display', serif; font-size: 17px; font-weight: 700; color: var(--white); }
+  .hp-badge {
+    background: rgba(201,168,76,0.18); color: var(--gold-light);
+    font-size: 11px; font-weight: 500; letter-spacing: 0.5px;
+    padding: 5px 12px; border-radius: 100px;
+  }
+  .hp-modules { padding: 8px 0; }
+  .hp-module {
+    display: flex; align-items: center; gap: 14px;
+    padding: 13px 26px;
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+    transition: background 0.15s;
+    cursor: default;
+  }
+  .hp-module:last-child { border-bottom: none; }
+  .hp-module:hover { background: rgba(201,168,76,0.05); }
+  .hp-mod-num {
+    width: 28px; height: 28px; border-radius: 7px; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 11px; font-weight: 700; letter-spacing: 0.5px;
+  }
+  .hp-mod-num.done { background: var(--gold); color: var(--ink); }
+  .hp-mod-num.active { background: var(--ink); color: var(--white); border: 2px solid var(--gold); }
+  .hp-mod-num.locked { background: rgba(0,0,0,0.05); color: #bbb; }
+  .hp-mod-info { flex: 1; }
+  .hp-mod-name { font-size: 13px; font-weight: 500; color: var(--ink); margin-bottom: 2px; }
+  .hp-mod-name.locked-text { color: #bbb; }
+  .hp-mod-sub { font-size: 11px; color: #aaa; }
+  .hp-mod-icon { font-size: 14px; }
+  .hp-footer {
+    background: rgba(201,168,76,0.07);
+    border-top: 1px solid rgba(201,168,76,0.15);
+    padding: 14px 26px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .hp-svc-icon {
+    width: 36px; height: 36px; border-radius: 9px; flex-shrink: 0;
+    background: rgba(201,168,76,0.1);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 17px;
+  }
+  .hp-svc-tag {
+    font-size: 10px; font-weight: 500; letter-spacing: 0.5px;
+    padding: 4px 9px; border-radius: 100px; white-space: nowrap; flex-shrink: 0;
+    background: rgba(0,0,0,0.05); color: #888;
+  }
+  .hp-svc-tag.flagship { background: rgba(201,168,76,0.15); color: #8a6d20; }
+  .hp-svc-tag.free { background: rgba(40,167,69,0.1); color: #2d7a3a; }
+  .hp-progress-wrap { display: flex; flex-direction: column; gap: 5px; flex: 1; margin-right: 16px; }
+  .hp-progress-label { font-size: 11px; color: #999; }
+  .hp-progress-bar { height: 5px; background: rgba(0,0,0,0.08); border-radius: 3px; overflow: hidden; }
+  .hp-progress-fill { height: 100%; width: 30%; background: var(--gold); border-radius: 3px; }
+  .hp-enroll {
+    font-family: 'DM Sans', sans-serif; font-size: 12px; font-weight: 500;
+    background: var(--gold); color: var(--ink);
+    border: none; cursor: pointer; padding: 8px 16px; border-radius: 6px;
+    white-space: nowrap; transition: background 0.2s;
+  }
+  .hp-enroll:hover { background: var(--gold-light); }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 72vh;
+    padding-top: 72px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-bg {
+    position: absolute; inset: 0;
+    background: linear-gradient(135deg, var(--white) 55%, var(--cream) 100%);
+    z-index: 0;
+  }
+  .hero-dots {
+    position: absolute;
+    right: 0; top: 72px; bottom: 0;
+    width: 50%;
+    background-image: radial-gradient(circle, rgba(201,168,76,0.2) 1.5px, transparent 1.5px);
+    background-size: 28px 28px;
+    z-index: 0;
+  }
+
+  .hero-left {
+    position: relative; z-index: 1;
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 60px 10vw 60px 10vw;
+    max-width: 720px;
+  }
+
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(201,168,76,0.12);
+    border: 1px solid rgba(201,168,76,0.3);
+    border-radius: 100px;
+    padding: 6px 14px;
+    font-size: 12px; font-weight: 500;
+    letter-spacing: 1.2px; text-transform: uppercase;
+    color: #8a6d20;
+    margin-bottom: 28px;
+    width: fit-content;
+    animation: fadeUp 0.7s ease both;
+  }
+  .hero-badge::before {
+    content: '';
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--gold);
+  }
+
+  .hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(42px, 5vw, 72px);
+    font-weight: 900;
+    line-height: 1.06;
+    letter-spacing: -2px;
+    color: var(--ink);
+    animation: fadeUp 0.7s 0.1s ease both;
+  }
+  .hero-title em {
+    font-style: italic;
+    color: var(--gold);
+  }
+  .hero-title .line-accent {
+    position: relative; display: inline-block;
+  }
+  .hero-title .line-accent::after {
+    content: '';
+    position: absolute;
+    bottom: 4px; left: 0; right: 0;
+    height: 4px;
+    background: var(--gold);
+    opacity: 0.4;
+    border-radius: 2px;
+  }
+
+  .hero-sub {
+    margin-top: 24px;
+    font-size: 17px;
+    color: #555;
+    line-height: 1.65;
+    max-width: 440px;
+    font-weight: 300;
+    animation: fadeUp 0.7s 0.2s ease both;
+  }
+
+  .hero-actions {
+    margin-top: 40px;
+    display: flex; align-items: center; gap: 20px;
+    animation: fadeUp 0.7s 0.3s ease both;
+  }
+  .btn-big {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px; font-weight: 500;
+    color: var(--white);
+    background: var(--ink);
+    border: none; cursor: pointer;
+    padding: 15px 32px;
+    border-radius: 8px;
+    letter-spacing: 0.3px;
+    transition: background 0.2s, transform 0.15s;
+  }
+  .btn-big:hover { background: var(--slate); transform: translateY(-2px); }
+
+  .btn-outline {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px; font-weight: 500;
+    color: var(--ink);
+    background: transparent;
+    border: 1.5px solid rgba(13,13,13,0.25);
+    cursor: pointer;
+    padding: 14px 28px;
+    border-radius: 8px;
+    letter-spacing: 0.3px;
+    transition: border-color 0.2s, transform 0.15s;
+  }
+  .btn-outline:hover { border-color: var(--gold); color: var(--gold); transform: translateY(-2px); }
+
+  .hero-stats {
+    margin-top: 52px;
+    display: flex; gap: 36px;
+    animation: fadeUp 0.7s 0.4s ease both;
+  }
+  .stat { display: flex; flex-direction: column; gap: 4px; }
+  .stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 32px; font-weight: 700;
+    color: var(--ink);
+    letter-spacing: -1px;
+  }
+  .stat-num span { color: var(--gold); }
+  .stat-label { font-size: 12px; color: #888; letter-spacing: 0.5px; text-transform: uppercase; }
+
+  .hero-right {
+    position: relative; z-index: 1;
+    display: flex; align-items: center; justify-content: center;
+    padding: 80px 8vw 80px 4vw;
+    animation: fadeIn 1s 0.3s ease both;
+  }
+
+  .hero-card-stack {
+    position: relative;
+    width: 340px; height: 460px;
+  }
+
+  .hcard {
+    position: absolute;
+    border-radius: 20px;
+    padding: 28px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.12);
+  }
+  .hcard-back {
+    width: 300px; height: 400px;
+    background: var(--gold);
+    top: 40px; left: 40px;
+    transform: rotate(6deg);
+    opacity: 0.7;
+  }
+  .hcard-main {
+    width: 320px; height: 420px;
+    background: var(--slate);
+    top: 20px; left: 10px;
+    transform: rotate(-2deg);
+    display: flex; flex-direction: column; justify-content: space-between;
+  }
+  .hcard-main .card-label {
+    font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
+    color: rgba(255,255,255,0.5);
+  }
+  .hcard-main .card-value {
+    font-family: 'Playfair Display', serif;
+    font-size: 44px; font-weight: 700;
+    color: var(--white);
+    letter-spacing: -2px;
+    line-height: 1;
+  }
+  .hcard-main .card-value span { color: var(--gold); }
+  .hcard-main .card-desc {
+    font-size: 13px; color: rgba(255,255,255,0.6); line-height: 1.5;
+  }
+  .hcard-main .card-progress-bar {
+    height: 4px; background: rgba(255,255,255,0.15); border-radius: 2px; overflow: hidden;
+  }
+  .hcard-main .card-progress-fill {
+    height: 100%; width: 68%;
+    background: var(--gold);
+    border-radius: 2px;
+  }
+  .hcard-front {
+    width: 200px;
+    background: var(--white);
+    bottom: -10px; right: -20px;
+    padding: 20px 22px;
+    border-radius: 16px;
+    display: flex; flex-direction: column; gap: 8px;
+    z-index: 2;
+  }
+  .hcard-front .mini-label { font-size: 11px; color: #999; letter-spacing: 1px; text-transform: uppercase; }
+  .hcard-front .mini-value {
+    font-family: 'Playfair Display', serif;
+    font-size: 26px; font-weight: 700;
+    color: var(--ink); letter-spacing: -1px;
+  }
+  .hcard-front .mini-tag {
+    font-size: 11px; font-weight: 500;
+    background: rgba(201,168,76,0.15); color: #8a6d20;
+    padding: 3px 8px; border-radius: 4px; width: fit-content;
+  }
+
+  /* ── MARQUEE ── */
+  .marquee-strip {
+    background: var(--ink);
+    padding: 14px 0;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+  .marquee-inner {
+    display: inline-flex; gap: 48px;
+    animation: marquee 20s linear infinite;
+  }
+  .marquee-item {
+    font-size: 13px; font-weight: 500; letter-spacing: 1.5px; text-transform: uppercase;
+    color: rgba(255,255,255,0.5);
+    display: flex; align-items: center; gap: 48px;
+  }
+  .marquee-item::after {
+    content: '✦';
+    color: var(--gold);
+    font-size: 10px;
+  }
+
+  /* ── SECTION COMMONS ── */
+  section { padding: 100px 10vw; }
+  .section-label {
+    font-size: 11px; font-weight: 500; letter-spacing: 2.5px; text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 16px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .section-label::before {
+    content: '';
+    width: 24px; height: 1.5px;
+    background: var(--gold);
+  }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(32px, 3.5vw, 52px);
+    font-weight: 900;
+    letter-spacing: -1.5px;
+    line-height: 1.1;
+    color: var(--ink);
+  }
+
+  /* ── FINANCE COURSE SECTION ── */
+  .course-section { background: var(--white); padding: 100px 10vw; padding-top: 120px; }
+  .course-top { margin-bottom: 48px; }
+
+  .course-manifesto {
+    background: var(--ink);
+    border-radius: 20px;
+    padding: 48px 52px;
+    display: flex; align-items: flex-start; gap: 32px;
+    margin-bottom: 72px;
+    position: relative; overflow: hidden;
+  }
+  .course-manifesto::before {
+    content: '';
+    position: absolute; top: 0; left: 0; bottom: 0; width: 4px;
+    background: var(--gold);
+  }
+  .manifesto-accent {
+    font-size: 48px; color: var(--gold); opacity: 0.4;
+    flex-shrink: 0; margin-top: -6px;
+    font-family: 'Playfair Display', serif;
+  }
+  .manifesto-body h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(22px, 2vw, 30px); font-weight: 700;
+    color: var(--white); letter-spacing: -0.5px; line-height: 1.3;
+    margin-bottom: 16px;
+  }
+  .strikeout {
+    text-decoration: line-through;
+    color: var(--gold);
+    text-decoration-color: var(--gold);
+    text-decoration-thickness: 3px;
+  }
+  .manifesto-body p { font-size: 16px; color: rgba(255,255,255,0.65); line-height: 1.75; font-weight: 300; max-width: 680px; }
+  .manifesto-body strong { color: var(--gold-light); font-weight: 500; }
+
+  .course-journey {
+    display: grid; grid-template-columns: 1fr 1.4fr;
+    gap: 72px; align-items: start;
+    margin-bottom: 64px;
+  }
+  .journey-steps { display: flex; flex-direction: column; gap: 0; }
+  .jstep {
+    display: flex; gap: 20px; align-items: flex-start;
+    padding: 22px 0;
+    border-bottom: 1px solid rgba(0,0,0,0.07);
+    transition: background 0.2s;
+  }
+  .jstep:first-child { padding-top: 0; }
+  .jstep:last-child { border-bottom: none; }
+  .jstep-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 13px; font-weight: 700; color: var(--gold);
+    letter-spacing: 1px; flex-shrink: 0; padding-top: 2px;
+    width: 28px;
+  }
+  .jstep-content h4 { font-size: 15px; font-weight: 500; color: var(--ink); margin-bottom: 5px; }
+  .jstep-content p { font-size: 13px; color: #777; line-height: 1.55; font-weight: 300; }
+
+  .learn-first-banner {
+    background: linear-gradient(135deg, var(--cream) 0%, #ede8da 100%);
+    border: 1px solid rgba(201,168,76,0.25);
+    border-radius: 20px;
+    padding: 44px 48px;
+    display: flex; align-items: center; gap: 32px;
+  }
+  .lfb-icon { font-size: 48px; flex-shrink: 0; }
+  .lfb-body { flex: 1; }
+  .lfb-tag {
+    font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
+    color: var(--gold); font-weight: 500; margin-bottom: 10px;
+  }
+  .lfb-quote {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(20px, 1.8vw, 28px); font-weight: 700;
+    color: var(--ink); letter-spacing: -0.5px; line-height: 1.3;
+    font-style: normal; margin-bottom: 12px;
+  }
+  .lfb-quote em { font-style: italic; color: var(--gold); }
+  .lfb-sub { font-size: 14px; color: #777; line-height: 1.6; font-weight: 300; max-width: 480px; }
+
+  @media (max-width: 900px) {
+    .course-manifesto { flex-direction: column; gap: 16px; padding: 32px 28px; }
+    .course-journey { grid-template-columns: 1fr; gap: 40px; }
+    .learn-first-banner { flex-direction: column; gap: 24px; align-items: flex-start; }
+  }
+
+  /* ── WHAT WE STAND FOR ── */
+  .stand-for {
+    background: var(--cream);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+  }
+  .stand-left {}
+  .stand-left p {
+    margin-top: 24px;
+    font-size: 16px; color: #555; line-height: 1.75; font-weight: 300;
+    max-width: 480px;
+  }
+  .stand-values {
+    margin-top: 40px;
+    display: flex; flex-direction: column; gap: 20px;
+  }
+  .value-item {
+    display: flex; align-items: flex-start; gap: 16px;
+    padding: 20px;
+    background: var(--white);
+    border-radius: 12px;
+    border-left: 3px solid var(--gold);
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .value-item:hover { transform: translateX(6px); box-shadow: 4px 4px 20px rgba(0,0,0,0.07); }
+  .value-icon {
+    width: 36px; height: 36px; flex-shrink: 0;
+    background: rgba(201,168,76,0.12);
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px;
+  }
+  .value-text h4 { font-size: 15px; font-weight: 500; color: var(--ink); margin-bottom: 4px; }
+  .value-text p { font-size: 13px; color: #777; line-height: 1.5; }
+
+  .stand-right {
+    position: relative;
+  }
+  .stand-big-quote {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(28px, 2.5vw, 40px);
+    font-weight: 700;
+    line-height: 1.25;
+    letter-spacing: -1px;
+    color: var(--ink);
+  }
+  .stand-big-quote em { color: var(--gold); font-style: italic; }
+  .quote-mark {
+    font-family: 'Playfair Display', serif;
+    font-size: 120px; line-height: 0.6;
+    color: rgba(201,168,76,0.2);
+    margin-bottom: 10px;
+    display: block;
+  }
+
+  /* ── SERVICES ── */
+  .services { background: var(--white); }
+  .services-head {
+    display: flex; justify-content: space-between; align-items: flex-end;
+    margin-bottom: 56px;
+  }
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+  .service-card {
+    background: var(--white);
+    border: 1px solid rgba(0,0,0,0.08);
+    border-radius: 16px;
+    padding: 32px 28px;
+    transition: transform 0.25s, box-shadow 0.25s, border-color 0.25s;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+  }
+  .service-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: var(--gold);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s;
+  }
+  .service-card:hover { transform: translateY(-6px); box-shadow: 0 20px 50px rgba(0,0,0,0.1); border-color: transparent; }
+  .service-card:hover::before { transform: scaleX(1); }
+  .service-card.featured {
+    background: var(--ink);
+    border-color: var(--ink);
+    grid-column: span 1;
+  }
+  .service-card.featured .service-num,
+  .service-card.featured .service-name,
+  .service-card.featured .service-desc { color: var(--white); }
+  .service-card.featured .service-tag { background: rgba(201,168,76,0.2); color: var(--gold-light); }
+  .service-card.featured::before { background: var(--gold); }
+  .service-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 13px; font-weight: 400; color: var(--gold);
+    letter-spacing: 1px; margin-bottom: 20px;
+  }
+  .service-icon { font-size: 28px; margin-bottom: 16px; }
+  .service-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px; font-weight: 700; color: var(--ink);
+    letter-spacing: -0.5px; margin-bottom: 12px;
+  }
+  .service-desc { font-size: 14px; color: #666; line-height: 1.6; font-weight: 300; }
+  .service-tag {
+    display: inline-block;
+    margin-top: 20px;
+    font-size: 11px; font-weight: 500; letter-spacing: 1px; text-transform: uppercase;
+    background: rgba(201,168,76,0.1); color: #8a6d20;
+    padding: 5px 12px; border-radius: 100px;
+  }
+  .service-arrow {
+    position: absolute; bottom: 28px; right: 28px;
+    font-size: 20px; color: var(--gold);
+    transition: transform 0.2s;
+  }
+  .service-card:hover .service-arrow { transform: translate(3px, -3px); }
+
+  /* ── HOW IT WORKS ── */
+  .how { background: var(--cream); }
+  .how-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    margin-top: 56px;
+    position: relative;
+  }
+  .how-grid::before {
+    content: '';
+    position: absolute;
+    top: 40px; left: 10%; right: 10%;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--gold), transparent);
+  }
+  .how-step {
+    display: flex; flex-direction: column; align-items: center;
+    text-align: center; padding: 0 20px;
+    position: relative;
+  }
+  .step-circle {
+    width: 80px; height: 80px;
+    border-radius: 50%;
+    background: var(--white);
+    border: 2px solid rgba(201,168,76,0.3);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Playfair Display', serif;
+    font-size: 22px; font-weight: 700; color: var(--gold);
+    margin-bottom: 24px;
+    position: relative; z-index: 1;
+    transition: background 0.2s, border-color 0.2s;
+  }
+  .how-step:hover .step-circle { background: var(--gold); color: var(--white); border-color: var(--gold); }
+  .step-title { font-size: 16px; font-weight: 500; color: var(--ink); margin-bottom: 8px; }
+  .step-desc { font-size: 13px; color: #777; line-height: 1.6; }
+
+  /* ── TESTIMONIALS ── */
+  .testimonials { background: var(--ink); }
+  .testimonials .section-label { color: var(--gold); }
+  .testimonials .section-title { color: var(--white); }
+  .testimonials-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-top: 56px;
+  }
+  .tcard {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 16px;
+    padding: 32px;
+    position: relative;
+    transition: background 0.2s, border-color 0.2s;
+  }
+  .tcard:hover { background: rgba(255,255,255,0.08); border-color: rgba(201,168,76,0.3); }
+  .tcard-quote {
+    font-family: 'Playfair Display', serif;
+    font-size: 60px; line-height: 0.8; color: var(--gold);
+    opacity: 0.4;
+    margin-bottom: 12px;
+  }
+  .tcard-text {
+    font-size: 15px; color: rgba(255,255,255,0.75); line-height: 1.7; font-weight: 300;
+    font-style: italic;
+    margin-bottom: 28px;
+  }
+  .tcard-author {
+    display: flex; align-items: center; gap: 12px;
+  }
+  .tcard-avatar {
+    width: 44px; height: 44px; border-radius: 50%;
+    background: var(--gold);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Playfair Display', serif;
+    font-size: 16px; font-weight: 700; color: var(--ink);
+    flex-shrink: 0;
+  }
+  .tcard-name { font-size: 14px; font-weight: 500; color: var(--white); }
+  .tcard-role { font-size: 12px; color: rgba(255,255,255,0.4); }
+  .tcard-stars { font-size: 12px; color: var(--gold); margin-bottom: 4px; }
+
+  /* ── CTA BANNER ── */
+  .cta-banner {
+    background: var(--gold);
+    padding: 80px 10vw;
+    display: flex; align-items: center; justify-content: space-between; gap: 40px;
+    position: relative; overflow: hidden;
+  }
+  .cta-banner::before {
+    content: 'ABC';
+    position: absolute;
+    font-family: 'Playfair Display', serif;
+    font-size: 260px; font-weight: 900;
+    color: rgba(0,0,0,0.06);
+    right: -40px; top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+    letter-spacing: -10px;
+  }
+  .cta-left {}
+  .cta-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(28px, 3vw, 44px); font-weight: 900;
+    color: var(--ink); letter-spacing: -1.5px; line-height: 1.1;
+  }
+  .cta-sub { margin-top: 12px; font-size: 16px; color: rgba(0,0,0,0.6); font-weight: 300; }
+  .btn-dark {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px; font-weight: 500;
+    background: var(--ink); color: var(--white);
+    border: none; cursor: pointer;
+    padding: 16px 36px; border-radius: 8px;
+    letter-spacing: 0.3px; white-space: nowrap;
+    transition: transform 0.15s, background 0.2s;
+    flex-shrink: 0;
+  }
+  .btn-dark:hover { background: var(--slate); transform: translateY(-2px); }
+
+  /* ── FOOTER ── */
+  footer {
+    background: #080808;
+    padding: 64px 10vw 36px;
+  }
+  .footer-top {
+    display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 48px; margin-bottom: 48px;
+  }
+  .footer-brand .logo-text { color: var(--white); }
+  .footer-brand p { margin-top: 14px; font-size: 13px; color: rgba(255,255,255,0.4); line-height: 1.7; max-width: 260px; }
+  .footer-col h5 { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.3); margin-bottom: 20px; }
+  .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+  .footer-col ul a { text-decoration: none; font-size: 14px; color: rgba(255,255,255,0.55); transition: color 0.2s; }
+  .footer-col ul a:hover { color: var(--gold); }
+  .footer-bottom {
+    border-top: 1px solid rgba(255,255,255,0.07);
+    padding-top: 28px;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .footer-bottom p { font-size: 12px; color: rgba(255,255,255,0.25); }
+  .footer-bottom a { font-size: 12px; color: rgba(255,255,255,0.25); text-decoration: none; transition: color 0.2s; }
+  .footer-bottom a:hover { color: var(--gold); }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  /* Scroll animations */
+  .reveal {
+    opacity: 0; transform: translateY(30px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* Signup modal */
+  .modal-overlay {
+    position: fixed; inset: 0; z-index: 200;
+    background: rgba(0,0,0,0.65);
+    backdrop-filter: blur(4px);
+    display: none; align-items: center; justify-content: center;
+  }
+  .modal-overlay.open { display: flex; }
+  .modal {
+    background: var(--white);
+    border-radius: 20px;
+    padding: 48px 44px;
+    width: 100%; max-width: 440px;
+    position: relative;
+    animation: fadeUp 0.35s ease;
+  }
+  .modal-close {
+    position: absolute; top: 18px; right: 20px;
+    font-size: 22px; color: #aaa; cursor: pointer; background: none; border: none;
+    transition: color 0.2s;
+  }
+  .modal-close:hover { color: var(--ink); }
+  .modal h2 { font-family: 'Playfair Display', serif; font-size: 28px; font-weight: 700; letter-spacing: -0.5px; margin-bottom: 6px; }
+  .modal p { font-size: 14px; color: #888; margin-bottom: 28px; }
+  .modal-field { margin-bottom: 16px; }
+  .modal-field label { display: block; font-size: 12px; font-weight: 500; letter-spacing: 0.5px; color: #555; margin-bottom: 6px; }
+  .modal-field input {
+    width: 100%; padding: 12px 14px;
+    border: 1.5px solid #e0e0e0; border-radius: 8px;
+    font-family: 'DM Sans', sans-serif; font-size: 14px; color: var(--ink);
+    background: var(--white);
+    transition: border-color 0.2s;
+    outline: none;
+  }
+  .modal-field input:focus { border-color: var(--gold); }
+  .modal-submit {
+    width: 100%; margin-top: 8px;
+    padding: 14px; border-radius: 8px;
+    background: var(--ink); color: var(--white);
+    border: none; cursor: pointer;
+    font-family: 'DM Sans', sans-serif; font-size: 15px; font-weight: 500;
+    transition: background 0.2s;
+  }
+  .modal-submit:hover { background: var(--slate); }
+  .modal-divider { text-align: center; font-size: 12px; color: #bbb; margin: 16px 0; }
+  .modal-google {
+    width: 100%; padding: 13px;
+    border-radius: 8px; border: 1.5px solid #e0e0e0;
+    background: var(--white); color: var(--ink);
+    font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 500;
+    cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px;
+    transition: border-color 0.2s;
+  }
+  .modal-google:hover { border-color: var(--gold); }
+
+  @media (max-width: 900px) {
+    .hero { grid-template-columns: 1fr; }
+    .hero-right { display: none; }
+    .hero-left { padding: 60px 8vw; }
+    .stand-for { grid-template-columns: 1fr; gap: 48px; }
+    .services-grid { grid-template-columns: 1fr 1fr; }
+    .how-grid { grid-template-columns: 1fr 1fr; }
+    .testimonials-grid { grid-template-columns: 1fr; }
+    .footer-top { grid-template-columns: 1fr 1fr; }
+    nav .nav-links { display: none; }
+    .services-head { flex-direction: column; align-items: flex-start; gap: 16px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="logo">
+    <div class="logo-mark"><span>ABC</span></div>
+    <div class="logo-text">ABC <span>Firm</span></div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#course">Courses</a></li>
+    <li><a href="#services">Virtual CFO</a></li>
+    <li><a href="#services">Venture Capital</a></li>
+    <li><a href="#services">Tools</a></li>
+    <li><a href="#services">Insights</a></li>
+    <li><a href="#about">About Us</a></li>
+  </ul>
+  <div class="nav-cta">
+    <button class="btn-ghost" onclick="openModal()">Log in</button>
+    <span style="color:rgba(0,0,0,0.15);font-size:18px;">|</span>
+    <button class="btn-primary" onclick="openModal()">Sign Up Free</button>
+  </div>
+</nav>
+
+
+<!-- FINANCE COURSE SECTION -->
+<section class="course-section" id="course">
+  <div class="course-top reveal">
+    <div class="section-label">Our Flagship Program</div>
+    <h2 class="section-title">The Personal Finance<br><em style="font-style:italic;color:var(--gold);">Course</em></h2>
+  </div>
+
+  <div class="course-manifesto reveal">
+    <div class="manifesto-accent">✦</div>
+    <div class="manifesto-body">
+      <h3>This course is <span class="strikeout">not</span> for people who want to gamble with their money.</h3>
+      <p>If you're looking for hot tips, overnight returns, or the next "100x coin" — this isn't your place. ABC Firm's Personal Finance Course is built for people who want to <strong>build real, lasting wealth</strong> — patiently, intelligently, and on solid foundations.</p>
+    </div>
+  </div>
+
+  <div class="course-journey reveal">
+    <div class="journey-header">
+      <div class="section-label" style="margin-bottom:8px;">The Journey</div>
+      <h3 style="font-family:'Playfair Display',serif; font-size:clamp(24px,2.2vw,36px); font-weight:700; letter-spacing:-1px; color:var(--ink);">From absolute beginner<br>to knowledgeable investor</h3>
+      <p style="margin-top:14px; font-size:15px; color:#666; max-width:460px; line-height:1.7; font-weight:300;">No finance background needed. We take you step by step through simplified, structured financial education designed to stick — and to work in real life.</p>
+    </div>
+    <div class="journey-steps">
+      <div class="jstep">
+        <div class="jstep-num">01</div>
+        <div class="jstep-content"><h4>Financial Foundations</h4><p>Understand how money actually works — budgeting, cash flow, savings rate, and breaking bad money habits.</p></div>
+      </div>
+      <div class="jstep">
+        <div class="jstep-num">02</div>
+        <div class="jstep-content"><h4>Debt, Credit & Banking</h4><p>Learn to use credit strategically, eliminate bad debt, and make your banking accounts work harder for you.</p></div>
+      </div>
+      <div class="jstep">
+        <div class="jstep-num">03</div>
+        <div class="jstep-content"><h4>Investing Fundamentals</h4><p>Mutual funds, index funds, SIPs, bonds — demystified and explained in plain language with real examples.</p></div>
+      </div>
+      <div class="jstep">
+        <div class="jstep-num">04</div>
+        <div class="jstep-content"><h4>Stock Market Mastery</h4><p>How equities work, reading financials, valuation basics, and building a portfolio that grows over decades.</p></div>
+      </div>
+      <div class="jstep">
+        <div class="jstep-num">05</div>
+        <div class="jstep-content"><h4>Tax, Insurance & Protection</h4><p>Legal tax optimisation, the right coverage, and protecting everything you've built.</p></div>
+      </div>
+      <div class="jstep">
+        <div class="jstep-num">06</div>
+        <div class="jstep-content"><h4>Wealth Building Strategy</h4><p>Long-term planning, real estate, retirement, and creating generational wealth on any income.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="learn-first-banner reveal">
+    <div class="lfb-icon">📚</div>
+    <div class="lfb-body">
+      <div class="lfb-tag">Words to live by</div>
+      <blockquote class="lfb-quote">Invest in learning about the stock market <em>before</em> investing your hard-earned money in it.</blockquote>
+      <p class="lfb-sub">The market rewards the informed and punishes the impulsive. Every hour you spend learning is compounding interest on your future self.</p>
+    </div>
+    <button class="btn-big" onclick="openModal()" style="flex-shrink:0; white-space:nowrap;">Enroll Now →</button>
+  </div>
+</section>
+
+<!-- WHAT WE STAND FOR -->
+<section class="stand-for" id="about">
+  <div class="stand-left reveal">
+    <div class="section-label">Our Philosophy</div>
+    <h2 class="section-title">What we<br>stand for</h2>
+    <p>We believe financial freedom isn't a privilege — it's a skill. ABC Firm was built to democratize world-class financial knowledge and give every individual the tools to build lasting wealth.</p>
+    <div class="stand-values">
+      <div class="value-item">
+        <div class="value-icon">🎯</div>
+        <div class="value-text">
+          <h4>Clarity over complexity</h4>
+          <p>We strip financial jargon down to plain, actionable insight you can actually use.</p>
+        </div>
+      </div>
+      <div class="value-item">
+        <div class="value-icon">🤝</div>
+        <div class="value-text">
+          <h4>Advisor-grade, people-first</h4>
+          <p>Every product we build starts with what's best for you — not our commissions.</p>
+        </div>
+      </div>
+      <div class="value-item">
+        <div class="value-icon">📈</div>
+        <div class="value-text">
+          <h4>Long-term thinking</h4>
+          <p>We help you make decisions that compound — financially and mentally.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="stand-right reveal" style="transition-delay:0.15s">
+    <span class="quote-mark">"</span>
+    <div class="stand-big-quote">
+      The best investment<br>you can make is in<br><em>understanding money</em><br>before it understands you.
+    </div>
+    <div style="margin-top:32px; display:flex; align-items:center; gap:14px;">
+      <div style="width:48px;height:48px;border-radius:50%;background:var(--gold);display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:var(--ink);">A</div>
+      <div>
+        <div style="font-size:15px;font-weight:500;color:var(--ink);">Arjun Mehta</div>
+        <div style="font-size:12px;color:#999;">Founder & Chief Advisor, ABC Firm</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services" id="services">
+  <div class="services-head reveal">
+    <div>
+      <div class="section-label">What We Offer</div>
+      <h2 class="section-title">Our Services</h2>
+    </div>
+    <button class="btn-outline" style="flex-shrink:0">View all →</button>
+  </div>
+  <div class="services-grid">
+    <div class="service-card featured reveal">
+      <div class="service-num">01 — Flagship</div>
+      <div class="service-icon">🏆</div>
+      <div class="service-name">Personal Finance Course</div>
+      <div class="service-desc">Our cornerstone program. 9 modules covering budgeting, investing, tax planning, insurance, and building multi-generational wealth. Updated quarterly.</div>
+      <div class="service-tag">Most Popular</div>
+      <div class="service-arrow">↗</div>
+    </div>
+    <div class="service-card reveal" style="transition-delay:0.1s">
+      <div class="service-num">02</div>
+      <div class="service-icon">💼</div>
+      <div class="service-name">Virtual CFO</div>
+      <div class="service-desc">On-demand CFO expertise for founders and HNIs. We handle cash flow, financial strategy, investor reports, and board-level decisions.</div>
+      <div class="service-tag">For Founders</div>
+      <div class="service-arrow">↗</div>
+    </div>
+    <div class="service-card reveal" style="transition-delay:0.2s">
+      <div class="service-num">03</div>
+      <div class="service-icon">🚀</div>
+      <div class="service-name">Venture Capital</div>
+      <div class="service-desc">Connect with early-stage funding opportunities, curated deal flow, and a network of 200+ angels and VCs looking for India's next big story.</div>
+      <div class="service-tag">Startup Focus</div>
+      <div class="service-arrow">↗</div>
+    </div>
+    <div class="service-card reveal" style="transition-delay:0.3s">
+      <div class="service-num">04</div>
+      <div class="service-icon">🛠️</div>
+      <div class="service-name">Finance Tools</div>
+      <div class="service-desc">A suite of calculators, trackers and planners — SIP optimizer, tax estimator, net worth tracker, retirement planner and more.</div>
+      <div class="service-tag">Free to Use</div>
+      <div class="service-arrow">↗</div>
+    </div>
+    <div class="service-card reveal" style="transition-delay:0.4s">
+      <div class="service-num">05</div>
+      <div class="service-icon">✍️</div>
+      <div class="service-name">Blog & Insights</div>
+      <div class="service-desc">Weekly deep dives on markets, personal finance moves, policy changes and expert commentary — written for humans, not textbooks.</div>
+      <div class="service-tag">Weekly Content</div>
+      <div class="service-arrow">↗</div>
+    </div>
+    <div class="service-card reveal" style="transition-delay:0.5s; background: var(--cream); border-color: transparent; display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center;">
+      <div style="font-family:'Playfair Display',serif; font-size:42px; margin-bottom:16px;">✦</div>
+      <div style="font-family:'Playfair Display',serif; font-size:20px; font-weight:700; margin-bottom:10px; color:var(--ink);">More coming soon</div>
+      <div style="font-size:14px; color:#888; line-height:1.6;">We're always building. Join the waitlist for early access to new offerings.</div>
+      <button class="btn-primary" style="margin-top:20px;" onclick="openModal()">Join Waitlist</button>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials" id="testimonials">
+  <div style="text-align:center;" class="reveal">
+    <div class="section-label" style="justify-content:center; color:var(--gold)">Client Stories</div>
+    <h2 class="section-title" style="color:var(--white)">What our members say</h2>
+  </div>
+  <div class="testimonials-grid">
+    <div class="tcard reveal" style="transition-delay:0.05s">
+      <div class="tcard-quote">"</div>
+      <div class="tcard-stars">★★★★★</div>
+      <p class="tcard-text">ABC Firm's Personal Finance Course completely rewired how I think about money. I cleared ₹8L in debt in 14 months and now have a real investment strategy. Life-changing.</p>
+      <div class="tcard-author">
+        <div class="tcard-avatar">P</div>
+        <div>
+          <div class="tcard-name">Priya Sharma</div>
+          <div class="tcard-role">Product Manager, Bengaluru</div>
+        </div>
+      </div>
+    </div>
+    <div class="tcard reveal" style="transition-delay:0.15s">
+      <div class="tcard-quote">"</div>
+      <div class="tcard-stars">★★★★★</div>
+      <p class="tcard-text">The Virtual CFO service saved my startup during a rough funding round. Their team had board-level clarity and execution speed that we simply couldn't afford in-house. 100% worth it.</p>
+      <div class="tcard-author">
+        <div class="tcard-avatar">R</div>
+        <div>
+          <div class="tcard-name">Rohan Kulkarni</div>
+          <div class="tcard-role">Co-Founder, TechNest</div>
+        </div>
+      </div>
+    </div>
+    <div class="tcard reveal" style="transition-delay:0.25s">
+      <div class="tcard-quote">"</div>
+      <div class="tcard-stars">★★★★★</div>
+      <p class="tcard-text">I've tried 5 finance apps and courses. ABC Firm is the first one that doesn't talk down to you. Their blog alone is worth the subscription — genuinely smart, practical takes every week.</p>
+      <div class="tcard-author">
+        <div class="tcard-avatar">N</div>
+        <div>
+          <div class="tcard-name">Neha Iyer</div>
+          <div class="tcard-role">Freelance Designer, Mumbai</div>
+        </div>
+      </div>
+    </div>
+    <div class="tcard reveal" style="transition-delay:0.1s">
+      <div class="tcard-quote">"</div>
+      <div class="tcard-stars">★★★★★</div>
+      <p class="tcard-text">Their VC network helped us get our first term sheet within 3 months of joining. The warm intros and pitch coaching made all the difference at our pre-seed stage.</p>
+      <div class="tcard-author">
+        <div class="tcard-avatar">S</div>
+        <div>
+          <div class="tcard-name">Siddharth Rao</div>
+          <div class="tcard-role">Founder, GreenStack</div>
+        </div>
+      </div>
+    </div>
+    <div class="tcard reveal" style="transition-delay:0.2s">
+      <div class="tcard-quote">"</div>
+      <div class="tcard-stars">★★★★★</div>
+      <p class="tcard-text">The SIP optimizer tool alone has helped me reallocate ₹15,000/month more efficiently. I used to guess — now I have a proper system. It's free and genuinely brilliant.</p>
+      <div class="tcard-author">
+        <div class="tcard-avatar">A</div>
+        <div>
+          <div class="tcard-name">Aisha Mohammed</div>
+          <div class="tcard-role">Software Engineer, Hyderabad</div>
+        </div>
+      </div>
+    </div>
+    <div class="tcard reveal" style="transition-delay:0.3s">
+      <div class="tcard-quote">"</div>
+      <div class="tcard-stars">★★★★★</div>
+      <p class="tcard-text">From zero financial literacy to confidently managing a ₹40L portfolio in 2 years. ABC Firm gave me the education my MBA never did. I recommend it to every friend who'll listen.</p>
+      <div class="tcard-author">
+        <div class="tcard-avatar">V</div>
+        <div>
+          <div class="tcard-name">Vikram Nair</div>
+          <div class="tcard-role">Senior Consultant, Delhi</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA BANNER -->
+<div class="cta-banner reveal">
+  <div class="cta-left">
+    <div class="cta-title">Ready to take control<br>of your finances?</div>
+    <div class="cta-sub">Join 12,000+ members building real wealth. Start free today.</div>
+  </div>
+  <button class="btn-dark" onclick="openModal()">Sign Up — It's Free →</button>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <a href="#" class="logo">
+        <div class="logo-mark"><span>ABC</span></div>
+        <div class="logo-text" style="color:var(--white)">ABC <span>Firm</span></div>
+      </a>
+      <p>Empowering individuals and founders with the financial clarity they need to build lasting wealth.</p>
+    </div>
+    <div class="footer-col">
+      <h5>Services</h5>
+      <ul>
+        <li><a href="#">Finance Course</a></li>
+        <li><a href="#">Virtual CFO</a></li>
+        <li><a href="#">Venture Capital</a></li>
+        <li><a href="#">Finance Tools</a></li>
+        <li><a href="#">Blog</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Company</h5>
+      <ul>
+        <li><a href="#">About Us</a></li>
+        <li><a href="#">Our Team</a></li>
+        <li><a href="#">Careers</a></li>
+        <li><a href="#">Press</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Legal</h5>
+      <ul>
+        <li><a href="#">Privacy Policy</a></li>
+        <li><a href="#">Terms of Use</a></li>
+        <li><a href="#">Disclaimer</a></li>
+        <li><a href="#">SEBI Disclosure</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2025 ABC Firm. All rights reserved.</p>
+    <a href="#">Back to top ↑</a>
+  </div>
+</footer>
+
+<!-- SIGN UP MODAL -->
+<div class="modal-overlay" id="modal" onclick="closeModalOutside(event)">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal()">×</button>
+    <h2>Create your account</h2>
+    <p>Join 12,000+ members on their path to financial freedom.</p>
+    <button class="modal-google">
+      <svg width="18" height="18" viewBox="0 0 18 18"><path fill="#4285F4" d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844c-.209 1.125-.843 2.078-1.796 2.717v2.258h2.908c1.702-1.567 2.684-3.875 2.684-6.615z"/><path fill="#34A853" d="M9 18c2.43 0 4.467-.806 5.956-2.184l-2.908-2.258c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332A8.997 8.997 0 0 0 9 18z"/><path fill="#FBBC05" d="M3.964 10.707A5.41 5.41 0 0 1 3.682 9c0-.593.102-1.17.282-1.707V4.961H.957A8.996 8.996 0 0 0 0 9c0 1.452.348 2.827.957 4.039l3.007-2.332z"/><path fill="#EA4335" d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0A8.997 8.997 0 0 0 .957 4.961L3.964 7.293C4.672 5.163 6.656 3.58 9 3.58z"/></svg>
+      Continue with Google
+    </button>
+    <div class="modal-divider">or sign up with email</div>
+    <div class="modal-field">
+      <label>Full Name</label>
+      <input type="text" placeholder="Arjun Sharma">
+    </div>
+    <div class="modal-field">
+      <label>Email Address</label>
+      <input type="email" placeholder="arjun@example.com">
+    </div>
+    <div class="modal-field">
+      <label>Password</label>
+      <input type="password" placeholder="Create a strong password">
+    </div>
+    <button class="modal-submit">Create Free Account →</button>
+    <div style="margin-top:16px; text-align:center; font-size:12px; color:#aaa;">
+      Already have an account? <a href="#" style="color:var(--gold); text-decoration:none;">Log in</a>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Modal
+  function openModal() { document.getElementById('modal').classList.add('open'); document.body.style.overflow='hidden'; }
+  function closeModal() { document.getElementById('modal').classList.remove('open'); document.body.style.overflow=''; }
+  function closeModalOutside(e) { if(e.target.id==='modal') closeModal(); }
+
+  // Scroll reveal
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>

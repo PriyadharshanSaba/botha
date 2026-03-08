@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import React from "react";
+import { useLanguage } from "../context/LanguageContext";
 
 interface ModuleCardProps {
   id: number;
@@ -20,6 +21,8 @@ export default function ModuleCard({
   description,
   view_module_link,
 }: ModuleCardProps) {
+  const { t } = useLanguage();
+
   return (
     <Link href={view_module_link} className="module-card-link">
       <div className="module-card hover-card">
@@ -32,7 +35,7 @@ export default function ModuleCard({
         <p className="module-description">{description}</p>
 
         <div className="module-links">
-          <span className="link">View module →</span>
+          <span className="link">{t("viewModule")}</span>
         </div>
       </div>
     </Link>

@@ -2,9 +2,11 @@
 
 import React from "react";
 import ModuleCard from "./ModuleCard";
+import { useLanguage } from "../context/LanguageContext";
 import "./modules.css";
 
 export default function ModulesPage() {
+  const { t } = useLanguage();
   const modules = [
     {
       id: 1,
@@ -37,7 +39,7 @@ export default function ModulesPage() {
 
   return (
     <div className="modules-wrapper">
-      <h1 className="modules-title">Modules</h1>
+      <h1 className="modules-title">{t("courses")}</h1>
       <div className="divider" />
 
       <div className="modules-grid">

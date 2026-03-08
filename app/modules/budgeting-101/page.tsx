@@ -7,12 +7,25 @@ import { useEffect } from "react";
 import "../modules.css";
 import "../module-detail.css";
 import { useSearchParams } from "next/navigation";
+import { useLanguage } from "../../context/LanguageContext";
 
 export default function Budgeting101Page() {
+  const { t } = useLanguage();
   // =============================
   //  ALL CHAPTER CONTENT
   // =============================
   const chapters = [
+    {
+      title: "Mastering Your Money — The Art of Budgeting",
+      content: (
+        <>
+          <p style={{ fontSize: 18, color: "#666", lineHeight: 1.7 }}>
+            Budgeting isn&apos;t about saying no — it&apos;s about learning how to say yes to what truly matters.
+            It&apos;s not restriction, it&apos;s direction — the skill that turns income into progress.
+          </p>
+        </>
+      ),
+    },
     {
       title: "Chapter 1: Why Budgeting Matters",
       content: (
@@ -262,7 +275,7 @@ export default function Budgeting101Page() {
     return (
       <main className="module-loading-container">
         <div className="spinner"></div>
-        <p className="loading-text">Loading your progress…</p>
+        <p className="loading-text">{t("loadingProgress")}</p>
       </main>
     );
   }
@@ -272,27 +285,6 @@ export default function Budgeting101Page() {
   // =============================
   return (
     <main className="container module-detail-container">
-
-      {/* === Module Header === */}
-      <section className="module-header">
-        <div className="module-number" style={{ borderColor: "#27ae60" }}>
-          2
-        </div>
-
-        <div className="module-info">
-          <h1>Mastering Your Money — The Art of Budgeting</h1>
-
-          <p className="subtitle">
-            Budgeting isn’t about saying no — it’s about learning how to say yes to what truly matters.
-          </p>
-
-          <div className="module-links">
-            <a href="#">Watch videos</a>
-          </div>
-        </div>
-      </section>
-
-      <hr className="divider" />
 
       {/* === Active Chapter === */}
       <section className="chapters-list">
@@ -315,7 +307,7 @@ export default function Budgeting101Page() {
           }}
           disabled={chapterIndex === 0}
         >
-          Previous
+          {t("previous")}
         </button>
 
         <button
@@ -329,7 +321,7 @@ export default function Budgeting101Page() {
           }}
           disabled={chapterIndex === chapters.length - 1}
         >
-          Next
+          {t("next")}
         </button>
       </div>
 

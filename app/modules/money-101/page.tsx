@@ -7,12 +7,41 @@ import { useEffect } from "react";
 import "../modules.css";
 import "../module-detail.css";
 import { useSearchParams } from "next/navigation";
+import { useLanguage } from "../../context/LanguageContext";
 
 export default function Money101Page() {
+  const { t } = useLanguage();
   // ============================================================
   //  ALL CHAPTER CONTENT
   // ============================================================
   const chapters = [
+    // ==============================
+    // INTRO SLIDE
+    // ==============================
+    {
+      title: {
+        en: "The Story of Money — From Barter to Bytes",
+        kn: "ಹಣದ ಕಥೆ — ವಿನಿಮಯದಿಂದ ಡಿಜಿಟಲ್ ತನಕ",
+      },
+      content: {
+        en: (
+          <>
+            <p className="subtitle" style={{ fontSize: 18, color: "#666", lineHeight: 1.7 }}>
+              Discover how money evolved, why budgeting matters, and how to grow wealth
+              through investing with clarity and confidence.
+            </p>
+          </>
+        ),
+        kn: (
+          <>
+            <p className="subtitle" style={{ fontSize: 18, color: "#666", lineHeight: 1.7 }}>
+              ಹಣ ಹೇಗೆ ವಿಕಸನಗೊಂಡಿತು, ಬಜೆಟ್ ಏಕೆ ಮುಖ್ಯ, ಮತ್ತು ಸ್ಪಷ್ಟತೆ ಮತ್ತು ಆತ್ಮವಿಶ್ವಾಸದಿಂದ ಹೂಡಿಕೆ ಮಾಡುವ ಮೂಲಕ ಸಂಪತ್ತನ್ನು ಹೇಗೆ ಬೆಳೆಸುವುದು ಎಂದು ತಿಳಿಯಿರಿ.
+            </p>
+          </>
+        ),
+      },
+    },
+
     // ==============================
     // CHAPTER 1
     // ==============================
@@ -477,45 +506,13 @@ export default function Money101Page() {
     return (
       <main className="module-loading-container">
         <div className="spinner"></div>
-        <p className="loading-text">Loading your progress…</p>
+        <p className="loading-text">{t("loadingProgress")}</p>
       </main>
     );
   }
 
   return (
     <main className="container module-detail-container">
-
-      {/* === Module Header === */}
-      <section className="module-header">
-        <div className="module-number" style={{ borderColor: "#f1c40f" }}>
-          1
-        </div>
-
-        <div className="module-info">
-          <h1>The Story of Money — From Barter to Bytes</h1>
-
-          <p className="subtitle">
-            Discover how money evolved, why budgeting matters, and how to grow wealth
-            through investing with clarity and confidence.
-          </p>
-
-          <div className="module-links" style={{ display: "flex", gap: "12px", alignItems: "center" }}>
-            <a href="#">Watch videos</a>
-
-            <select
-              value={language}
-              onChange={(e) => setLanguage(e.target.value as "en" | "kn")}
-              className="language-select"
-            >
-              <option value="en">English</option>
-              <option value="kn">Kannada</option>
-            </select>
-          </div>
-
-        </div>
-      </section>
-
-      <hr className="divider" />
 
       {/* === Active Chapter === */}
       <section className="chapters-list">
@@ -538,7 +535,7 @@ export default function Money101Page() {
           }}
           disabled={chapterIndex === 0}
         >
-          Previous
+          {t("previous")}
         </button>
 
         <button
@@ -552,7 +549,7 @@ export default function Money101Page() {
           }}
           disabled={chapterIndex === chapters.length - 1}
         >
-          Next
+          {t("next")}
         </button>
       </div>
 
