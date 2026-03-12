@@ -154,6 +154,36 @@ section { padding: 100px 10vw; }
 .manifesto-body p { font-size: 16px; color: rgba(255,255,255,0.65); line-height: 1.75; font-weight: 300; max-width: 680px; }
 .manifesto-body strong { color: var(--gold-light); font-weight: 500; }
 
+/* ── COVER STATS ── */
+.cover-stats {
+  display: flex;
+  gap: 2px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 72px;
+}
+.stat-pill {
+  background: var(--ink);
+  border: 1px solid rgba(201,168,76,0.18);
+  padding: 20px 36px;
+  font-size: 0.85rem;
+  color: rgba(255,255,255,0.7);
+  letter-spacing: 0.05em;
+  text-align: center;
+  transition: border-color 0.2s;
+}
+.stat-pill:first-child { border-radius: 12px 0 0 12px; }
+.stat-pill:last-child { border-radius: 0 12px 12px 0; }
+.stat-pill:hover { border-color: rgba(201,168,76,0.4); }
+.stat-pill strong {
+  color: var(--gold);
+  display: block;
+  font-size: 1.6rem;
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
 .course-journey {
   display: grid; grid-template-columns: 1fr 1.4fr;
   gap: 72px; align-items: start;
@@ -495,4 +525,9 @@ section { padding: 100px 10vw; }
   .services-grid { grid-template-columns: 1fr; }
   .testimonials-grid { grid-template-columns: 1fr; }
   .footer-top { grid-template-columns: 1fr; }
+  .cover-stats { gap: 0; }
+  .stat-pill { padding: 14px 20px; font-size: 0.8rem; flex: 1; min-width: 0; }
+  .stat-pill strong { font-size: 1.3rem; }
+  .stat-pill:first-child { border-radius: 12px 0 0 12px; }
+  .stat-pill:last-child { border-radius: 0 12px 12px 0; }
 }

@@ -51,7 +51,7 @@ export default function LandingPage() {
         <div className="nav-cta">
           <Link href="/signin" className="btn-ghost">Sign In</Link>
           <span style={{ color: "rgba(0,0,0,0.15)", fontSize: 18 }}>|</span>
-          <Link href="/signin" className="btn-primary">Sign Up Free</Link>
+          <Link href="/signin" className="btn-primary">Sign Up</Link>
         </div>
       </nav>
 
@@ -70,6 +70,13 @@ export default function LandingPage() {
             <h3>This course is <span className="strikeout">not</span> for people who want to gamble with their money.</h3>
             <p>If you&apos;re looking for hot tips, overnight returns, or the next &quot;100x coin&quot; — this isn&apos;t your place. Bodha is built for people who want to <strong>build real, lasting wealth</strong> — patiently, intelligently, and on solid foundations.</p>
           </div>
+        </div>
+
+        <div className="cover-stats reveal" ref={addRevealRef}>
+          <div className="stat-pill"><strong>6</strong>Chapters</div>
+          <div className="stat-pill"><strong>30+</strong>Real Examples</div>
+          <div className="stat-pill"><strong>20+</strong>Data Tables</div>
+          <div className="stat-pill"><strong>&infin;</strong>Potential</div>
         </div>
 
         <div className="course-journey reveal" ref={addRevealRef}>
