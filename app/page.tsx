@@ -42,11 +42,11 @@ export default function LandingPage() {
         </Link>
         <ul className="nav-links">
           <li><a href="#course">Courses</a></li>
-          <li><a href="#services">Virtual CFO</a></li>
-          <li><a href="#services">Venture Capital</a></li>
-          <li><a href="#services">Tools</a></li>
+          <li><Link href="/vcfo">Virtual CFO</Link></li>
+          <li><Link href="/venture">Venture Capital</Link></li>
+          <li><Link href="/tools">Tools</Link></li>
           <li><a href="#services">Insights</a></li>
-          <li><a href="#about">About Us</a></li>
+          <li><Link href="/about">About Us</Link></li>
         </ul>
         <div className="nav-cta">
           <Link href="/signin" className="btn-ghost">Sign In</Link>
@@ -72,15 +72,14 @@ export default function LandingPage() {
           </div>
         </div>
 
-        <div className="cover-stats reveal" ref={addRevealRef}>
-          <div className="stat-pill"><strong>6</strong>Chapters</div>
-          <div className="stat-pill"><strong>30+</strong>Real Examples</div>
-          <div className="stat-pill"><strong>20+</strong>Data Tables</div>
-          <div className="stat-pill"><strong>&infin;</strong>Potential</div>
-        </div>
-
         <div className="course-journey reveal" ref={addRevealRef}>
           <div className="journey-header">
+            <div className="cover-stats">
+              <div className="stat-pill"><strong>6</strong>Chapters</div>
+              <div className="stat-pill"><strong>30+</strong>Real Examples</div>
+              <div className="stat-pill"><strong>20+</strong>Data Tables</div>
+              <div className="stat-pill"><strong>&infin;</strong>Potential</div>
+            </div>
             <div className="section-label" style={{ marginBottom: 8 }}>The Journey</div>
             <h3 style={{ fontFamily: "'Playfair Display', serif", fontSize: "clamp(24px, 2.2vw, 36px)", fontWeight: 700, letterSpacing: "-1px", color: "var(--ink)" }}>
               From absolute beginner<br />to knowledgeable investor
@@ -275,16 +274,16 @@ export default function LandingPage() {
             <h5>Services</h5>
             <ul>
               <li><a href="#course">Finance Course</a></li>
-              <li><a href="#services">Virtual CFO</a></li>
-              <li><a href="#services">Venture Capital</a></li>
-              <li><a href="#services">Finance Tools</a></li>
+              <li><Link href="/vcfo">Virtual CFO</Link></li>
+              <li><Link href="/venture">Venture Capital</Link></li>
+              <li><Link href="/tools">Finance Tools</Link></li>
               <li><a href="#services">Blog</a></li>
             </ul>
           </div>
           <div className="footer-col">
             <h5>Company</h5>
             <ul>
-              <li><a href="#about">About Us</a></li>
+              <li><Link href="/about">About Us</Link></li>
               <li><Link href="/signin">Sign In</Link></li>
             </ul>
           </div>

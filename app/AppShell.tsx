@@ -8,7 +8,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
 
   // middleware already handles protection!
-  const showHeader = pathname !== "/" && pathname !== "/signin";
+  const showHeader = pathname !== "/" && pathname !== "/signin" && pathname !== "/about" && pathname !== "/vcfo" && pathname !== "/venture" && pathname !== "/tools";
 
   return (
     <LanguageProvider>

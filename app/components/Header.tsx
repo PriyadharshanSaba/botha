@@ -33,25 +33,27 @@ export default function Header() {
 
   return (
     <header className="header">
-
-      <Link href="/" className="header-left">
-        <Image
-          src="/logo.svg"
-          alt="bodha-logo"
-          width={24}
-          height={24}
-        />
-        <span className="brand">Bodha</span>
+      <Link href="/" className="header-logo">
+        <div className="header-logo-mark">
+          <Image
+            src="/logo.svg"
+            alt="Bodha"
+            width={24}
+            height={24}
+            style={{ position: "relative", zIndex: 1 }}
+          />
+        </div>
+        <span className="header-logo-text">Bodha</span>
       </Link>
 
       {/* Desktop navigation */}
       <nav className="header-nav desktop-nav">
         <Link href="/modules" className="nav-link">{t("courses")}</Link>
-        <Link href="#" className="nav-link">{t("virtualCfo")}</Link>
-        <Link href="#" className="nav-link">{t("ventureCapital")}</Link>
-        <Link href="#" className="nav-link">{t("tools")}</Link>
+        <Link href="/vcfo" className="nav-link">{t("virtualCfo")}</Link>
+        <Link href="/venture" className="nav-link">{t("ventureCapital")}</Link>
+        <Link href="/tools" className="nav-link">{t("tools")}</Link>
         <Link href="#" className="nav-link">{t("insights")}</Link>
-        <Link href="#" className="nav-link">{t("aboutUs")}</Link>
+        <Link href="/about" className="nav-link">{t("aboutUs")}</Link>
 
         <div className="account-wrapper" ref={accountRef}>
           <button
@@ -110,19 +112,19 @@ export default function Header() {
           <Link href="/modules" className="mobile-link" onClick={() => setOpen(false)}>
             {t("courses")}
           </Link>
-          <Link href="#" className="mobile-link" onClick={() => setOpen(false)}>
+          <Link href="/vcfo" className="mobile-link" onClick={() => setOpen(false)}>
             {t("virtualCfo")}
           </Link>
-          <Link href="#" className="mobile-link" onClick={() => setOpen(false)}>
+          <Link href="/venture" className="mobile-link" onClick={() => setOpen(false)}>
             {t("ventureCapital")}
           </Link>
-          <Link href="#" className="mobile-link" onClick={() => setOpen(false)}>
+          <Link href="/tools" className="mobile-link" onClick={() => setOpen(false)}>
             {t("tools")}
           </Link>
           <Link href="#" className="mobile-link" onClick={() => setOpen(false)}>
             {t("insights")}
           </Link>
-          <Link href="#" className="mobile-link" onClick={() => setOpen(false)}>
+          <Link href="/about" className="mobile-link" onClick={() => setOpen(false)}>
             {t("aboutUs")}
           </Link>
           <button

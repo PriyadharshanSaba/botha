@@ -1,0 +1,734 @@
+/* ── FINANCE TOOLS PAGE ── */
+/* All classes prefixed ft- to avoid conflicts with landing/about styles */
+
+/* ── 1. PAGE WRAPPER ── */
+.ft-page {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--white);
+  color: var(--ink);
+  overflow-x: hidden;
+}
+
+/* ── 2. PAGE HEADER ── */
+.ft-page-header {
+  padding-top: 72px;
+  background: #fff;
+  border-bottom: 1px solid var(--mist);
+}
+
+.ft-page-header-inner {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: 32px 10vw 28px;
+  gap: 24px;
+}
+
+.ft-header-left {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.ft-breadcrumb {
+  font-size: 13px;
+  color: var(--gold);
+  letter-spacing: 0.4px;
+  margin-bottom: 2px;
+}
+
+.ft-breadcrumb a {
+  color: var(--gold);
+  text-decoration: none;
+}
+
+.ft-breadcrumb a:hover {
+  text-decoration: underline;
+}
+
+.ft-breadcrumb span {
+  color: var(--slate);
+  opacity: 0.5;
+  margin: 0 6px;
+}
+
+.ft-header-label {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.6px;
+  color: var(--gold);
+}
+
+.ft-page-header h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(26px, 3.5vw, 40px);
+  font-weight: 700;
+  color: var(--ink);
+  line-height: 1.15;
+  margin: 4px 0 0;
+}
+
+.ft-header-sub {
+  font-size: 15px;
+  color: var(--slate);
+  opacity: 0.72;
+  line-height: 1.55;
+  max-width: 440px;
+  margin-top: 6px;
+}
+
+.ft-header-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+  padding-top: 10px;
+}
+
+.ft-meta-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  background: rgba(40, 167, 69, 0.08);
+  color: #28a745;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 6px 14px;
+  border-radius: 20px;
+}
+
+.ft-meta-badge::before {
+  content: '';
+  width: 7px;
+  height: 7px;
+  background: #28a745;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.ft-meta-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--cream);
+  color: var(--ink);
+  font-size: 13px;
+  font-weight: 500;
+  padding: 6px 14px;
+  border-radius: 20px;
+}
+
+/* ── 3. MARQUEE STRIP ── */
+.ft-marquee-strip {
+  background: var(--ink);
+  overflow: hidden;
+  white-space: nowrap;
+  padding: 12px 0;
+}
+
+.ft-marquee-track {
+  display: inline-flex;
+  animation: ftMarquee 30s linear infinite;
+}
+
+.ft-marquee-track span {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--cream);
+  opacity: 0.7;
+  letter-spacing: 0.5px;
+  padding: 0 24px;
+}
+
+.ft-marquee-star {
+  color: var(--gold);
+  font-size: 10px;
+  vertical-align: middle;
+  padding: 0 8px;
+}
+
+@keyframes ftMarquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* ── 4. TOOLS INTRO BANNER ── */
+.ft-tools-intro {
+  display: flex;
+  align-items: flex-start;
+  gap: 24px;
+  background: var(--ink);
+  border-radius: 20px;
+  border-left: 4px solid var(--gold);
+  padding: 32px 36px;
+  margin-bottom: 40px;
+}
+
+.ft-tools-intro-accent {
+  font-family: 'Playfair Display', serif;
+  font-size: 48px;
+  font-weight: 700;
+  color: var(--gold);
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.ft-tools-intro-body {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.ft-tools-intro-body h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--white);
+  margin: 0;
+}
+
+.ft-tools-intro-body p {
+  font-size: 15px;
+  color: var(--cream);
+  opacity: 0.78;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* ── 5. TOOLS GRID ── */
+.ft-tools-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.ft-tool-card {
+  background: #fff;
+  border-radius: 16px;
+  border: 1px solid var(--mist);
+  padding: 28px 24px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  position: relative;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  overflow: hidden;
+}
+
+.ft-tool-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--gold);
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+
+.ft-tool-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px rgba(13, 13, 13, 0.08);
+}
+
+.ft-tool-card:hover::before {
+  opacity: 1;
+}
+
+.ft-tool-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.ft-tool-num {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--gold);
+  letter-spacing: 0.5px;
+  opacity: 0.7;
+}
+
+.ft-tool-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  background: var(--cream);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+}
+
+.ft-tool-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--ink);
+  line-height: 1.25;
+}
+
+.ft-tool-desc {
+  font-size: 14px;
+  color: var(--slate);
+  opacity: 0.75;
+  line-height: 1.55;
+  flex: 1;
+}
+
+.ft-tool-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 4px;
+}
+
+.ft-tool-tag {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--gold);
+  background: rgba(201, 168, 76, 0.1);
+  padding: 4px 10px;
+  border-radius: 12px;
+  letter-spacing: 0.2px;
+}
+
+.ft-tool-free-tag {
+  font-size: 11px;
+  font-weight: 600;
+  color: #28a745;
+  background: rgba(40, 167, 69, 0.08);
+  padding: 4px 10px;
+  border-radius: 12px;
+  letter-spacing: 0.2px;
+}
+
+.ft-tool-action {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 8px;
+  padding-top: 12px;
+  border-top: 1px solid var(--mist);
+}
+
+.ft-tool-open-btn {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--gold);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  transition: opacity 0.2s;
+}
+
+.ft-tool-open-btn:hover {
+  opacity: 0.75;
+}
+
+.ft-tool-arrow {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--cream);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  color: var(--gold);
+  transition: background 0.2s;
+}
+
+.ft-tool-card:hover .ft-tool-arrow {
+  background: var(--gold);
+  color: #fff;
+}
+
+/* ── 6. MODAL SYSTEM ── */
+.ft-modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: rgba(13, 13, 13, 0.55);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.ft-modal-overlay.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.ft-modal {
+  background: #fff;
+  border-radius: 20px;
+  max-width: 540px;
+  width: 92vw;
+  max-height: 90vh;
+  overflow-y: auto;
+  padding: 44px;
+  box-shadow: 0 24px 80px rgba(13, 13, 13, 0.18);
+  position: relative;
+  transform: translateY(16px);
+  transition: transform 0.3s ease;
+}
+
+.ft-modal-overlay.open .ft-modal {
+  transform: translateY(0);
+}
+
+.ft-modal--wide {
+  max-width: 600px;
+}
+
+.ft-modal-close {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid var(--mist);
+  background: var(--white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  color: var(--slate);
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+
+.ft-modal-close:hover {
+  background: var(--cream);
+  color: var(--ink);
+}
+
+.ft-modal-label {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.6px;
+  color: var(--gold);
+  margin-bottom: 6px;
+}
+
+.ft-modal-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--ink);
+  line-height: 1.2;
+  margin: 0 0 6px;
+}
+
+.ft-modal-subtitle {
+  font-size: 14px;
+  color: var(--slate);
+  opacity: 0.7;
+  line-height: 1.5;
+  margin-bottom: 28px;
+}
+
+/* Form elements */
+.ft-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 18px;
+}
+
+.ft-form-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.ft-form-input,
+.ft-form-select {
+  width: 100%;
+  padding: 11px 14px;
+  font-size: 14px;
+  font-family: 'DM Sans', sans-serif;
+  color: var(--ink);
+  background: var(--white);
+  border: 1px solid var(--mist);
+  border-radius: 10px;
+  outline: none;
+  transition: border-color 0.2s;
+  box-sizing: border-box;
+}
+
+.ft-form-input:focus,
+.ft-form-select:focus {
+  border-color: var(--gold);
+}
+
+.ft-form-input::placeholder {
+  color: var(--slate);
+  opacity: 0.45;
+}
+
+.ft-form-select {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%232a2d35' stroke-width='1.5'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  padding-right: 36px;
+}
+
+.ft-form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+/* Toggle */
+.ft-toggle-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 0;
+}
+
+.ft-toggle-row span {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--ink);
+}
+
+.ft-toggle {
+  width: 44px;
+  height: 24px;
+  border-radius: 12px;
+  background: var(--mist);
+  border: none;
+  cursor: pointer;
+  position: relative;
+  transition: background 0.25s ease;
+  flex-shrink: 0;
+}
+
+.ft-toggle::after {
+  content: '';
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+  transition: transform 0.25s ease;
+}
+
+.ft-toggle.on {
+  background: var(--gold);
+}
+
+.ft-toggle.on::after {
+  transform: translateX(20px);
+}
+
+/* Divider label */
+.ft-divider-label {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  color: var(--slate);
+  opacity: 0.55;
+  margin: 24px 0 18px;
+}
+
+.ft-divider-label::before,
+.ft-divider-label::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--mist);
+}
+
+/* Calculate button */
+.ft-calc-btn {
+  width: 100%;
+  padding: 14px;
+  font-size: 15px;
+  font-weight: 600;
+  font-family: 'DM Sans', sans-serif;
+  color: #fff;
+  background: var(--ink);
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: opacity 0.2s;
+  margin-top: 8px;
+}
+
+.ft-calc-btn:hover {
+  opacity: 0.88;
+}
+
+/* Result box */
+.ft-result-box {
+  display: none;
+  background: var(--cream);
+  border-left: 4px solid var(--gold);
+  border-radius: 12px;
+  padding: 24px;
+  margin-top: 24px;
+}
+
+.ft-result-box.show {
+  display: block;
+}
+
+.ft-result-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 0;
+}
+
+.ft-result-row + .ft-result-row {
+  border-top: 1px solid rgba(201, 168, 76, 0.15);
+}
+
+.ft-result-label {
+  font-size: 14px;
+  color: var(--slate);
+}
+
+.ft-result-value {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.ft-result-value.big {
+  font-size: 22px;
+  color: var(--gold);
+}
+
+.ft-result-value.negative {
+  color: #b94a3e;
+}
+
+/* ── 7. FULL-SCREEN TRACKER MODAL ── */
+.ft-modal--fullscreen {
+  max-width: none;
+  width: 100vw;
+  height: 100vh;
+  max-height: 100vh;
+  border-radius: 0;
+  padding: 0;
+  display: flex;
+  overflow: hidden;
+}
+
+.ft-tracker-sidebar {
+  width: 340px;
+  flex-shrink: 0;
+  padding: 40px 32px;
+  overflow-y: auto;
+  border-right: 1px solid var(--mist);
+  background: var(--white);
+}
+
+.ft-tracker-main {
+  flex: 1;
+  padding: 40px;
+  overflow-y: auto;
+  background: #fff;
+}
+
+/* ── 8. TOOLS SECTION ── */
+.ft-tools-section {
+  padding: 40px 10vw 80px;
+}
+
+/* ── 9. ANIMATIONS ── */
+.ft-reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.ft-reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── 10. RESPONSIVE ── */
+@media (max-width: 900px) {
+  .ft-tools-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .ft-tools-intro {
+    flex-direction: column;
+  }
+
+  .ft-page-header-inner {
+    flex-direction: column;
+    gap: 18px;
+  }
+
+  .ft-tracker-sidebar {
+    width: 280px;
+  }
+}
+
+@media (max-width: 600px) {
+  .ft-tools-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .ft-form-row {
+    grid-template-columns: 1fr;
+  }
+
+  .ft-modal {
+    padding: 28px 20px;
+    border-radius: 16px;
+  }
+
+  .ft-page-header-inner {
+    padding: 24px 5vw 22px;
+  }
+
+  .ft-tools-section {
+    padding: 28px 5vw 60px;
+  }
+
+  .ft-tools-intro {
+    padding: 24px 20px;
+  }
+
+  .ft-modal--fullscreen {
+    flex-direction: column;
+  }
+
+  .ft-tracker-sidebar {
+    width: 100%;
+    border-right: none;
+    border-bottom: 1px solid var(--mist);
+    max-height: 45vh;
+  }
+
+  .ft-tracker-main {
+    padding: 24px 20px;
+  }
+}

@@ -3,26 +3,50 @@
 ================================ */
 .header {
   width: 100%;
-  padding: 18px 40px;
+  height: 72px;
+  padding: 0 5vw;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: var(--white, #fdfcf9);
-  border-bottom: 1px solid rgba(201,168,76,0.15);
-  position: relative;
+  background: rgba(253,252,249,0.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(201,168,76,0.18);
+  position: sticky;
+  top: 0;
   z-index: 1000;
 }
 
-.header-left {
+/* Logo — matches landing-nav / about-nav style */
+.header-logo {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
+  text-decoration: none;
 }
-
-.brand {
+.header-logo-mark {
+  width: 40px;
+  height: 40px;
+  background: var(--ink, #0d0d0d);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+.header-logo-mark::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 50%;
+  background: var(--gold, #c9a84c);
+}
+.header-logo-text {
   font-family: 'Playfair Display', serif;
-  font-size: 20px;
   font-weight: 700;
+  font-size: 20px;
+  color: var(--ink, #0d0d0d);
+  letter-spacing: -0.3px;
 }
 
 .header-nav {
@@ -128,9 +152,8 @@
 @media (max-width: 768px) {
 
   .header {
-    padding: 14px 16px;
-    flex-direction: row;
-    justify-content: space-between;
+    height: 60px;
+    padding: 0 16px;
   }
 
   .desktop-nav {
@@ -175,7 +198,8 @@
     width: 100%;
     background: var(--white, #fdfcf9);
     padding: 12px 0;
-    border-top: 1px solid rgba(201,168,76,0.15);
+    border-top: 1px solid rgba(201,168,76,0.18);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.08);
     z-index: 999;
   }
 
