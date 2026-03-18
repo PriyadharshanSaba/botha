@@ -16,7 +16,7 @@ const td: React.CSSProperties = { padding: "10px 12px", borderBottom: "1px solid
 const tdAlt: React.CSSProperties = { ...td, background: "rgba(201,168,76,0.06)" };
 
 // ============================================================
-//  ALL CHAPTER CONTENT (English only) — module-level to avoid Turbopack bug
+//  ALL CHAPTER CONTENT (English only) &mdash; module-level to avoid Turbopack bug
 // ============================================================
 const chapters: { title: string; content: React.ReactNode }[] = [
     // ==============================
@@ -27,7 +27,7 @@ const chapters: { title: string; content: React.ReactNode }[] = [
       content: (
         <p className="subtitle" style={{ fontSize: 18, color: "#666", lineHeight: 1.7 }}>
           There are thousands of mutual funds. Not all are good. Learn the step-by-step
-          framework — from goals to metrics — to choose the right fund with clarity and
+          framework &mdash; from goals to metrics &mdash; to choose the right fund with clarity and
           confidence.
         </p>
       ),
@@ -37,7 +37,7 @@ const chapters: { title: string; content: React.ReactNode }[] = [
     // CHAPTER 1
     // ==============================
     {
-      title: "Chapter 1: Introduction — How Do You Choose?",
+      title: "Chapter 1: Introduction &mdash; How Do You Choose?",
       content: (
         <>
           <p>
@@ -47,7 +47,7 @@ const chapters: { title: string; content: React.ReactNode }[] = [
             Now comes the practical question: How do you actually choose the right mutual fund?
           </p>
           <p>
-            Because here&apos;s the truth — there are thousands of mutual funds available. Not all
+            Because here&apos;s the truth &mdash; there are thousands of mutual funds available. Not all
             of them are good. Not all of them are suitable for you. And the &quot;best&quot; fund is not
             the same for everyone.
           </p>
@@ -73,8 +73,8 @@ const chapters: { title: string; content: React.ReactNode }[] = [
           <h3>Example 1: Short-Term Goal</h3>
           <p>
             You want ₹5 lakh in 2 years for buying a car. Since the time horizon is short,
-            capital protection becomes more important than high growth. Equity funds — especially
-            small-cap funds — are unsuitable because markets can fluctuate sharply in the short
+            capital protection becomes more important than high growth. Equity funds &mdash; especially
+            small-cap funds &mdash; are unsuitable because markets can fluctuate sharply in the short
             term, and a temporary downturn could reduce your available amount right when you need
             it.
           </p>
@@ -107,17 +107,17 @@ const chapters: { title: string; content: React.ReactNode }[] = [
               </tr>
               <tr>
                 <td style={td}>Emergency fund</td>
-                <td style={td}>0–1 year</td>
+                <td style={td}>0&ndash;1 year</td>
                 <td style={td}>Liquid / Debt Fund</td>
               </tr>
               <tr>
                 <td style={tdAlt}>Buying a car</td>
-                <td style={tdAlt}>2–3 years</td>
+                <td style={tdAlt}>2&ndash;3 years</td>
                 <td style={tdAlt}>Short Duration / Hybrid</td>
               </tr>
               <tr>
                 <td style={td}>House down payment</td>
-                <td style={td}>3–5 years</td>
+                <td style={td}>3&ndash;5 years</td>
                 <td style={td}>Hybrid / Large Cap</td>
               </tr>
               <tr>
@@ -127,7 +127,7 @@ const chapters: { title: string; content: React.ReactNode }[] = [
               </tr>
               <tr>
                 <td style={td}>Wealth creation</td>
-                <td style={td}>7–10+ years</td>
+                <td style={td}>7&ndash;10+ years</td>
                 <td style={td}>Flexi-cap / Multi-cap</td>
               </tr>
             </tbody>
@@ -152,7 +152,7 @@ const chapters: { title: string; content: React.ReactNode }[] = [
           </p>
           <p>
             Do not compare a small-cap fund with a large-cap fund, or a hybrid fund with a pure
-            equity fund — they serve completely different purposes.
+            equity fund &mdash; they serve completely different purposes.
           </p>
           <p>
             Always compare funds within the same category. For example, if you are evaluating two
@@ -160,7 +160,7 @@ const chapters: { title: string; content: React.ReactNode }[] = [
             compare their CAGR, alpha, volatility, and other metrics.
           </p>
           <div className="pull-quote">
-            Same category. Same benchmark. Only then — compare.
+            Same category. Same benchmark. Only then &mdash; compare.
           </div>
         </>
       ),
@@ -170,7 +170,7 @@ const chapters: { title: string; content: React.ReactNode }[] = [
     // CHAPTER 4
     // ==============================
     {
-      title: "Chapter 4: CAGR — The Real Return Metric",
+      title: "Chapter 4: CAGR &mdash; The Real Return Metric",
       content: (
         <>
           <p>
@@ -214,7 +214,7 @@ const chapters: { title: string; content: React.ReactNode }[] = [
           </table>
           <p>
             At first glance, Fund A looks more attractive because of its 22% one-year return.
-            But investing is not about one exciting year — it&apos;s about consistent compounding.
+            But investing is not about one exciting year &mdash; it&apos;s about consistent compounding.
           </p>
           <p>
             Fund B shows stronger 3-year and 5-year CAGRs, indicating more stable long-term
@@ -222,7 +222,7 @@ const chapters: { title: string; content: React.ReactNode }[] = [
             and Fund B beats it by 2%.
           </p>
           <p>
-            Fund B is not just consistent — it is consistently outperforming the benchmark.
+            Fund B is not just consistent &mdash; it is consistently outperforming the benchmark.
             That matters more than a single strong year.
           </p>
           <hr className="chapter-rule" />
@@ -241,7 +241,7 @@ const chapters: { title: string; content: React.ReactNode }[] = [
     // CHAPTER 5
     // ==============================
     {
-      title: "Chapter 5: Standard Deviation — Understanding Volatility",
+      title: "Chapter 5: Standard Deviation &mdash; Understanding Volatility",
       content: (
         <>
           <p>
@@ -282,7 +282,7 @@ const chapters: { title: string; content: React.ReactNode }[] = [
           </p>
           <div className="pull-quote">
             Volatility control is underrated. A fund that helps you sleep peacefully is often
-            better than one that creates anxiety — even if the returns are similar.
+            better than one that creates anxiety &mdash; even if the returns are similar.
           </div>
         </>
       ),
@@ -292,7 +292,7 @@ const chapters: { title: string; content: React.ReactNode }[] = [
     // CHAPTER 6
     // ==============================
     {
-      title: "Chapter 6: Alpha — Is the Fund Manager Adding Value?",
+      title: "Chapter 6: Alpha &mdash; Is the Fund Manager Adding Value?",
       content: (
         <>
           <p>
@@ -331,9 +331,9 @@ const chapters: { title: string; content: React.ReactNode }[] = [
             </tbody>
           </table>
           <p>
-            Fund A delivers 14% — 2% above the benchmark. Positive alpha (+2%). The manager is
-            adding value. Fund B matches the benchmark — zero alpha, no extra value. Fund C
-            underperforms — negative alpha (−2%), the manager is destroying value.
+            Fund A delivers 14% &mdash; 2% above the benchmark. Positive alpha (+2%). The manager is
+            adding value. Fund B matches the benchmark &mdash; zero alpha, no extra value. Fund C
+            underperforms &mdash; negative alpha (−2%), the manager is destroying value.
           </p>
           <div className="pull-quote">
             One-year alpha is noise. Five-year consistent alpha is signal. It suggests skill,
@@ -347,12 +347,12 @@ const chapters: { title: string; content: React.ReactNode }[] = [
     // CHAPTER 7
     // ==============================
     {
-      title: "Chapter 7: Beta — Market Sensitivity",
+      title: "Chapter 7: Beta &mdash; Market Sensitivity",
       content: (
         <>
           <p>
             Once you understand alpha, the next metric to evaluate is Beta. Beta measures how
-            sensitive a fund is to overall market movements — how much the fund is likely to move
+            sensitive a fund is to overall market movements &mdash; how much the fund is likely to move
             when the benchmark moves.
           </p>
           <p>Beta = 1 → Moves in line with the market.</p>
@@ -385,7 +385,7 @@ const chapters: { title: string; content: React.ReactNode }[] = [
           </table>
           <p>
             Fund A (1.05) moves roughly in line with the market. Fund B (0.95) is slightly less
-            volatile. Fund C (1.30) is significantly more volatile — sharper gains in bull
+            volatile. Fund C (1.30) is significantly more volatile &mdash; sharper gains in bull
             markets, but deeper falls in corrections.
           </p>
           <div className="pull-quote">
@@ -400,7 +400,7 @@ const chapters: { title: string; content: React.ReactNode }[] = [
     // CHAPTER 8
     // ==============================
     {
-      title: "Chapter 8: Sortino Ratio — Reward for Downside Risk",
+      title: "Chapter 8: Sortino Ratio &mdash; Reward for Downside Risk",
       content: (
         <>
           <p>
@@ -409,7 +409,7 @@ const chapters: { title: string; content: React.ReactNode }[] = [
           </p>
           <p>
             Sortino Ratio measures how much return a fund generates per unit of downside risk.
-            Unlike standard deviation, Sortino only penalizes harmful volatility — the negative
+            Unlike standard deviation, Sortino only penalizes harmful volatility &mdash; the negative
             returns. It ignores upside fluctuations because upside volatility is not a problem
             for investors.
           </p>
@@ -443,7 +443,7 @@ const chapters: { title: string; content: React.ReactNode }[] = [
             above 1.5 is considered strong for equity funds over a 5-year period.
           </p>
           <div className="pull-quote">
-            The fund is not just generating returns — it is managing risk intelligently while
+            The fund is not just generating returns &mdash; it is managing risk intelligently while
             doing so.
           </div>
         </>
@@ -454,7 +454,7 @@ const chapters: { title: string; content: React.ReactNode }[] = [
     // CHAPTER 9
     // ==============================
     {
-      title: "Chapter 9: Treynor Ratio — Efficient Market Risk Usage",
+      title: "Chapter 9: Treynor Ratio &mdash; Efficient Market Risk Usage",
       content: (
         <>
           <p>
@@ -485,11 +485,11 @@ const chapters: { title: string; content: React.ReactNode }[] = [
             </tbody>
           </table>
           <p>
-            Fund B has a higher Treynor ratio — it is generating more return for each unit of
+            Fund B has a higher Treynor ratio &mdash; it is generating more return for each unit of
             market risk taken. Fund B is using its market exposure more efficiently than Fund A.
           </p>
           <div className="pull-quote">
-            A higher Treynor ratio indicates smarter risk utilization — not just higher returns,
+            A higher Treynor ratio indicates smarter risk utilization &mdash; not just higher returns,
             but better returns relative to the level of market risk assumed.
           </div>
         </>
@@ -500,7 +500,7 @@ const chapters: { title: string; content: React.ReactNode }[] = [
     // CHAPTER 10
     // ==============================
     {
-      title: "Chapter 10: Capture Ratios — Bull & Bear Behaviour",
+      title: "Chapter 10: Capture Ratios &mdash; Bull & Bear Behaviour",
       content: (
         <>
           <p>
@@ -545,12 +545,12 @@ const chapters: { title: string; content: React.ReactNode }[] = [
           <h3>Upside-to-Downside Capture Ratio</h3>
           <p>
             You can also calculate: Upside Capture ÷ Downside Capture. If the ratio is greater
-            than 1, the fund captures more upside relative to downside — desirable. If equal to
+            than 1, the fund captures more upside relative to downside &mdash; desirable. If equal to
             1, behavior is proportionate to benchmark. If less than 1, too much downside or too
             little upside.
           </p>
           <p>
-            Example: 110 ÷ 80 = 1.38 — strong. The fund participates well in rallies while
+            Example: 110 ÷ 80 = 1.38 &mdash; strong. The fund participates well in rallies while
             controlling losses effectively.
           </p>
           <div className="pull-quote">In long-term investing, downside protection is gold.</div>
@@ -562,12 +562,12 @@ const chapters: { title: string; content: React.ReactNode }[] = [
     // CHAPTER 11
     // ==============================
     {
-      title: "Chapter 11: Rolling Returns — The Truth Detector",
+      title: "Chapter 11: Rolling Returns &mdash; The Truth Detector",
       content: (
         <>
           <p>
             Point-to-point returns can be misleading. If a fund shows 15% 5-year return from
-            2019–2024, that might look impressive — but what if those five years happened during
+            2019&ndash;2024, that might look impressive &mdash; but what if those five years happened during
             a strong bull market? The performance may reflect market conditions more than fund
             manager skill.
           </p>
@@ -578,9 +578,9 @@ const chapters: { title: string; content: React.ReactNode }[] = [
           </p>
           <hr className="chapter-rule" />
           <p>
-            For example, a 5-year rolling return over 15 years will calculate: 2010–2015,
-            2011–2016, 2012–2017… and so on. This shows how the fund performed across different
-            market cycles — bull phases, corrections, and recoveries.
+            For example, a 5-year rolling return over 15 years will calculate: 2010&ndash;2015,
+            2011&ndash;2016, 2012&ndash;2017… and so on. This shows how the fund performed across different
+            market cycles &mdash; bull phases, corrections, and recoveries.
           </p>
           <p>
             If 80% of the rolling 5-year periods beat the benchmark, the fund shows strong
@@ -593,7 +593,7 @@ const chapters: { title: string; content: React.ReactNode }[] = [
             time, or only in favorable conditions?
           </p>
           <div className="pull-quote">
-            Rolling returns reveal stability, reliability, and true long-term performance — far
+            Rolling returns reveal stability, reliability, and true long-term performance &mdash; far
             better than a single headline return number.
           </div>
         </>
@@ -604,12 +604,12 @@ const chapters: { title: string; content: React.ReactNode }[] = [
     // CHAPTER 12
     // ==============================
     {
-      title: "Chapter 12: Expense Ratio — The Compounding Impact",
+      title: "Chapter 12: Expense Ratio &mdash; The Compounding Impact",
       content: (
         <>
           <p>
             The expense ratio is the annual fee charged by a mutual fund for managing your money.
-            It may look small — 1% or 2% — but because it is deducted every year, it directly
+            It may look small &mdash; 1% or 2% &mdash; but because it is deducted every year, it directly
             reduces your CAGR and compounds negatively over time.
           </p>
           <hr className="chapter-rule" />
@@ -619,7 +619,7 @@ const chapters: { title: string; content: React.ReactNode }[] = [
           </p>
           <p>
             Fund A effectively gives you 10.2%. Fund B gives you 11.7%. The difference in final
-            corpus over two decades: ₹21.8 lakh — purely due to a 1.5% cost difference.
+            corpus over two decades: ₹21.8 lakh &mdash; purely due to a 1.5% cost difference.
           </p>
           <p>
             Small annual differences become large wealth gaps due to compounding. This is why
@@ -643,7 +643,7 @@ const chapters: { title: string; content: React.ReactNode }[] = [
     // CHAPTER 13
     // ==============================
     {
-      title: "Chapter 13: Portfolio Structure — What's Inside the Fund?",
+      title: "Chapter 13: Portfolio Structure &mdash; What's Inside the Fund?",
       content: (
         <>
           <p>
@@ -654,7 +654,7 @@ const chapters: { title: string; content: React.ReactNode }[] = [
           <h3>Check Concentration</h3>
           <p>
             If the Top 10 holdings exceed 60%, the fund is highly concentrated. This increases
-            stock-specific risk — if one or two major holdings underperform, the entire fund can
+            stock-specific risk &mdash; if one or two major holdings underperform, the entire fund can
             suffer. If a fund has heavy sector exposure (for example, 40% in IT), it carries high
             sector risk.
           </p>
@@ -674,7 +674,7 @@ const chapters: { title: string; content: React.ReactNode }[] = [
             long-term approach.
           </p>
           <div className="pull-quote">
-            Returns tell you what happened. Portfolio structure tells you why it happened — and
+            Returns tell you what happened. Portfolio structure tells you why it happened &mdash; and
             whether it&apos;s sustainable.
           </div>
         </>
@@ -685,7 +685,7 @@ const chapters: { title: string; content: React.ReactNode }[] = [
     // CHAPTER 14
     // ==============================
     {
-      title: "Chapter 14: AUM — Size & Stability",
+      title: "Chapter 14: AUM &mdash; Size & Stability",
       content: (
         <>
           <p>
@@ -703,14 +703,14 @@ const chapters: { title: string; content: React.ReactNode }[] = [
           <hr className="chapter-rule" />
           <h3>Too Large</h3>
           <p>
-            An extremely large AUM — especially in small-cap funds — can become a disadvantage.
+            An extremely large AUM &mdash; especially in small-cap funds &mdash; can become a disadvantage.
             Small-cap stocks typically have lower liquidity, and managing large inflows can make
             it harder for the fund manager to deploy capital efficiently without impacting stock
             prices. This can dilute performance and reduce alpha generation.
           </p>
           <hr className="chapter-rule" />
           <p>
-            The ideal scenario is a stable, well-established AUM — large enough to ensure
+            The ideal scenario is a stable, well-established AUM &mdash; large enough to ensure
             operational stability, but not so large that it restricts flexibility, especially in
             mid- and small-cap strategies.
           </p>
@@ -726,7 +726,7 @@ const chapters: { title: string; content: React.ReactNode }[] = [
     // CHAPTER 15
     // ==============================
     {
-      title: "Chapter 15: Direct vs Regular — Why Cost Structure Matters",
+      title: "Chapter 15: Direct vs Regular &mdash; Why Cost Structure Matters",
       content: (
         <>
           <p>
@@ -753,17 +753,17 @@ const chapters: { title: string; content: React.ReactNode }[] = [
               <tr>
                 <td style={td}>Regular</td>
                 <td style={td}>12%</td>
-                <td style={td}>~₹95–98 lakh</td>
+                <td style={td}>~₹95&ndash;98 lakh</td>
               </tr>
               <tr>
                 <td style={tdAlt}>Direct</td>
                 <td style={tdAlt}>13%</td>
-                <td style={tdAlt}>~₹1.15–1.20 crore</td>
+                <td style={tdAlt}>~₹1.15&ndash;1.20 crore</td>
               </tr>
             </tbody>
           </table>
           <p>
-            That&apos;s a difference of nearly ₹20–25 lakh — purely due to a 1% cost difference.
+            That&apos;s a difference of nearly ₹20&ndash;25 lakh &mdash; purely due to a 1% cost difference.
             Same fund. Same portfolio. Different outcome.
           </p>
           <p>
@@ -784,7 +784,7 @@ const chapters: { title: string; content: React.ReactNode }[] = [
     // CHAPTER 16
     // ==============================
     {
-      title: "Chapter 16: Growth vs IDCW — Which Option to Choose?",
+      title: "Chapter 16: Growth vs IDCW &mdash; Which Option to Choose?",
       content: (
         <>
           <p>
@@ -793,23 +793,23 @@ const chapters: { title: string; content: React.ReactNode }[] = [
             difference lies in how returns are handled.
           </p>
           <hr className="chapter-rule" />
-          <h3>1. Growth Option — Power of Compounding</h3>
+          <h3>1. Growth Option &mdash; Power of Compounding</h3>
           <p>
-            In the Growth option, the fund does not distribute profits. All gains — whether from
-            dividends, interest, or capital appreciation — remain invested within the fund. The
+            In the Growth option, the fund does not distribute profits. All gains &mdash; whether from
+            dividends, interest, or capital appreciation &mdash; remain invested within the fund. The
             NAV steadily increases as returns compound on previous returns.
           </p>
           <p>
             If a fund earns 12% annually and you stay invested, that 12% is reinvested every
             year. Over time, your returns start generating their own returns. That is compounding
-            — growth on top of growth.
+            &mdash; growth on top of growth.
           </p>
           <p>
             Ideal for: long-term wealth creation, retirement planning, financial goals 5+ years
             away, and investors who do not require regular income.
           </p>
           <hr className="chapter-rule" />
-          <h3>2. IDCW Option — Periodic Payouts</h3>
+          <h3>2. IDCW Option &mdash; Periodic Payouts</h3>
           <p>
             In the IDCW option, the fund distributes money to investors at regular intervals.
             These payouts come directly from the fund&apos;s NAV. After distribution, the NAV falls
@@ -828,7 +828,7 @@ const chapters: { title: string; content: React.ReactNode }[] = [
             sale).
           </p>
           <p>
-            With Growth, taxes are deferred until you exit — the entire amount stays invested and
+            With Growth, taxes are deferred until you exit &mdash; the entire amount stays invested and
             continues compounding. With IDCW, every payout creates a tax event, reducing the
             amount that could have continued compounding.
           </p>
@@ -841,7 +841,7 @@ const chapters: { title: string; content: React.ReactNode }[] = [
           </p>
           <p>
             However, many investors prefer: Growth option + Systematic Withdrawal Plan (SWP).
-            With SWP you stay invested in Growth and withdraw a fixed amount periodically —
+            With SWP you stay invested in Growth and withdraw a fixed amount periodically &mdash;
             offering more control, better tax efficiency, and flexibility to modify withdrawals
             anytime.
           </p>
@@ -917,7 +917,7 @@ const chapters: { title: string; content: React.ReactNode }[] = [
           <h3>CAGR</h3>
           <p>
             Fund A delivers 14% vs Fund B&apos;s 13.5%. A 0.5% difference may look small, but over
-            15–20 years, that compounds meaningfully.
+            15&ndash;20 years, that compounds meaningfully.
           </p>
           <h3>Alpha</h3>
           <p>
@@ -953,19 +953,19 @@ const chapters: { title: string; content: React.ReactNode }[] = [
           <h3>Where to Find the Data</h3>
           <p>
             <strong>AMC Websites</strong> (HDFC AMC, ICICI Prudential AMC, SBI Funds, Nippon AMC)
-            — fact sheets, portfolio holdings, expense ratio, AUM, fund manager details,
+            &mdash; fact sheets, portfolio holdings, expense ratio, AUM, fund manager details,
             riskometer. Most authentic source.
           </p>
           <p>
-            <strong>Value Research</strong> — 1Y/3Y/5Y CAGR, category comparison, risk measures,
+            <strong>Value Research</strong> &mdash; 1Y/3Y/5Y CAGR, category comparison, risk measures,
             portfolio breakdown, rolling returns, expense ratio. Beginner-friendly.
           </p>
           <p>
-            <strong>Morningstar India</strong> — Alpha, Beta, Standard deviation, Sharpe ratio,
+            <strong>Morningstar India</strong> &mdash; Alpha, Beta, Standard deviation, Sharpe ratio,
             Sortino, Capture Ratios. Excellent for risk-adjusted analysis.
           </p>
           <p>
-            <strong>Moneycontrol</strong> — Quick comparison, basic metrics, returns, expense
+            <strong>Moneycontrol</strong> &mdash; Quick comparison, basic metrics, returns, expense
             ratios, holdings. Good for quick filtering.
           </p>
           <hr className="chapter-rule" />

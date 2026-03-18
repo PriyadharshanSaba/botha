@@ -20,8 +20,8 @@ export default function Money101Page() {
     // ==============================
     {
       title: {
-        en: "The Story of Money — From Barter to Bytes",
-        kn: "ಹಣದ ಕಥೆ — ವಿನಿಮಯದಿಂದ ಡಿಜಿಟಲ್ ತನಕ",
+        en: "The Story of Money &mdash; From Barter to Bytes",
+        kn: "ಹಣದ ಕಥೆ &mdash; ವಿನಿಮಯದಿಂದ ಡಿಜಿಟಲ್ ತನಕ",
       },
       content: {
         en: (
@@ -47,33 +47,33 @@ export default function Money101Page() {
     // ==============================
     {
       title: {
-        en: "Chapter 1: The Story of Money — From Barter to Bytes",
-        kn: "ಅಧ್ಯಾಯ 1: ಹಣದ ಕಥೆ — ವಿನಿಮಯದಿಂದ ಡಿಜಿಟಲ್ ತನಕ",
+        en: "Chapter 1: The Story of Money &mdash; From Barter to Bytes",
+        kn: "ಅಧ್ಯಾಯ 1: ಹಣದ ಕಥೆ &mdash; ವಿನಿಮಯದಿಂದ ಡಿಜಿಟಲ್ ತನಕ",
       },
       content: {
         en: (
           <>
             <p>
-              Long before coins and cards, people traded what they had for what they needed —
+              Long before coins and cards, people traded what they had for what they needed &mdash;
               a fisherman swapped his catch for a farmer's grain. But barter had a flaw:
               what if the farmer didn't want fish that day?
             </p>
 
             <p>
-              That's where money was born — a simple tool to make exchange easier. From
+              That's where money was born &mdash; a simple tool to make exchange easier. From
               cowrie shells and metal coins to paper notes and now digital wallets and crypto,
               money has constantly evolved to match how societies grow and trade.
             </p>
 
             <p>
-              At its heart, money isn't just cash or coins — it's trust. A shared belief that
+              At its heart, money isn't just cash or coins &mdash; it's trust. A shared belief that
               a piece of paper or a number on a screen holds value because others agree it does.
             </p>
 
             <p>
-              Money fuels everything — from your morning coffee to global economies.
+              Money fuels everything &mdash; from your morning coffee to global economies.
               But while money has evolved, our understanding hasn't. Financial literacy bridges
-              that gap — because when you understand money, you don't just use it — you control it.
+              that gap &mdash; because when you understand money, you don't just use it &mdash; you control it.
             </p>
           </>
         ),
@@ -87,7 +87,7 @@ export default function Money101Page() {
             </p>
 
             <p>
-              ಅಲ್ಲಿಂದಲೇ "ಹಣ" ಎಂಬ ಕಲ್ಪನೆ ಹುಟ್ಟಿತು — ವಿನಿಮಯವನ್ನು ಸುಲಭಗೊಳಿಸಲು ಒಂದು ಸರಳ ಸಾಧನ. ಮೊದಲು ಜನರು
+              ಅಲ್ಲಿಂದಲೇ "ಹಣ" ಎಂಬ ಕಲ್ಪನೆ ಹುಟ್ಟಿತು &mdash; ವಿನಿಮಯವನ್ನು ಸುಲಭಗೊಳಿಸಲು ಒಂದು ಸರಳ ಸಾಧನ. ಮೊದಲು ಜನರು
               ಚಿಪ್ಪುಗಳು, ಲೋಹದ ನಾಣ್ಯಗಳು, ನಂತರ ಕಾಗದದ ನೋಟುಗಳು, ಈಗ ಡಿಜಿಟಲ್ ಹಣ ಮತ್ತು ಕ್ರಿಪ್ಟೋ - ಹೀಗೆ ಕಾಲ
               ಬದಲಾಗುತ್ತಿದ್ದಂತೆ ಹಣವೂ ಬದಲಾಗ್ತಾ ಬಂದಿದೆ.
             </p>
@@ -101,7 +101,7 @@ export default function Money101Page() {
               ಇಂದು ಹಣ ಎಲ್ಲದರ ಹಿಂದೆ ಕೆಲಸ ಮಾಡುತ್ತದೆ - ನೀವು ಕುಡಿಯುವ ಕಾಫಿಯಿಂದ ನಿಮ್ಮ ಸಂಬಳದವರೆಗೆ, ಮತ್ತು ದೇಶದ ಆರ್ಥಿಕತೆಯ
               ಬೆಳವಣಿಗೆಯವರೆಗೆ. ಆದರೆ ಹಣ ಬದಲಾಗುತ್ತಿದ್ದರೂ, ಅದನ್ನು ಅರ್ಥಮಾಡಿಕೊಳ್ಳುವ ನಮ್ಮ ವಿಧಾನ ಅಷ್ಟೇ ವೇಗವಾಗಿ ಬೆಳೆಯಿಲ್ಲ.
               ಅದಕ್ಕಾಗಿ ಹಣದ ಅರಿವು (Financial Literacy) ತುಂಬಾ ಮುಖ್ಯ. ಹಣವನ್ನು ಅರ್ಥಮಾಡಿಕೊಂಡರೆ, ನೀವು ಕೇವಲ ಖರ್ಚು ಅಥವಾ
-              ಉಳಿಸೋದಿಲ್ಲ — ಅದನ್ನು ನಿಯಂತ್ರಿಸಬಹುದು.
+              ಉಳಿಸೋದಿಲ್ಲ &mdash; ಅದನ್ನು ನಿಯಂತ್ರಿಸಬಹುದು.
             </p>
           </>
         ),
@@ -113,7 +113,7 @@ export default function Money101Page() {
     // ==============================
     {
       title: {
-        en: "Chapter 2: The Next Chapter — The Art of Budgeting",
+        en: "Chapter 2: The Next Chapter &mdash; The Art of Budgeting",
         kn: "ಅಧ್ಯಾಯ 2: ಮುಂದಿನ ಹೆಜ್ಜೆ - ಬಜೆಟ್ ಮಾಡುವ ಕಲೆ",
       },
       content: {
@@ -121,8 +121,8 @@ export default function Money101Page() {
           <>
             <p>
               If money is the language of life, budgeting is how you learn to speak it fluently.
-              Every rupee tells a story — what you earn, spend, and value. Most of us never track
-              that story — we let money come and go without direction.
+              Every rupee tells a story &mdash; what you earn, spend, and value. Most of us never track
+              that story &mdash; we let money come and go without direction.
             </p>
 
             <p>
@@ -133,7 +133,7 @@ export default function Money101Page() {
 
             <p>
               Before you grow wealth, you must manage what you already have. Budgeting teaches
-              that discipline — turning income into impact.
+              that discipline &mdash; turning income into impact.
             </p>
           </>
         ),
@@ -142,17 +142,17 @@ export default function Money101Page() {
           <>
             <p>
               ಹಣ ಅಂದ್ರೆ ಜೀವನದ ಭಾಷೆ ಅಂದ್ರೆ, ಬಜೆಟ್ ಅಂದ್ರೆ ಆ ಭಾಷೆ ಸ್ಪಷ್ಟವಾಗಿ ಮಾತನಾಡೋ ಕಲಿಕೆ. ಪ್ರತಿ ರೂಪಾಯಿ ಒಂದೊಂದು ಕಥೆ
-              ಹೇಳುತ್ತೆ — ನೀವು ಎಷ್ಟು ಸಂಪಾದಿಸುತ್ತೀರಿ, ಎಷ್ಟು ಖರ್ಚು ಮಾಡುತ್ತೀರಿ, ಮತ್ತು ನಿಮಗೆ ಯಾವುದು ಮುಖ್ಯ ಅನ್ನೋದು.
+              ಹೇಳುತ್ತೆ &mdash; ನೀವು ಎಷ್ಟು ಸಂಪಾದಿಸುತ್ತೀರಿ, ಎಷ್ಟು ಖರ್ಚು ಮಾಡುತ್ತೀರಿ, ಮತ್ತು ನಿಮಗೆ ಯಾವುದು ಮುಖ್ಯ ಅನ್ನೋದು.
               ಆದರೆ ನಮ್ಮಲ್ಲಿ ಬಹುತೇಕ ಜನ ಆ ಕಥೆಯನ್ನು ಟ್ರ್ಯಾಕ್ ಮಾಡೋದಿಲ್ಲ.
             </p>
 
             <p>
-              ಬಜೆಟ್ ಮಾಡೋದು ಅಂದ್ರೆ ತಡೆಹಿಡಿಯೋದು ಅಲ್ಲ — ಉದ್ದೇಶದಿಂದ ಖರ್ಚು ಮಾಡೋದು. ಇದು ನಿಮ್ಮ ಹಣ ಎಲ್ಲಿ ಹೋಗ್ತಿದೆ ಮತ್ತು
-              ಅದು ಎಲ್ಲಿ ಹೋಗಬೇಕು ಅನ್ನೋದನ್ನು ತೋರಿಸುತ್ತದೆ. ಖರ್ಚಿಗೆ ಪ್ರತಿಕ್ರಿಯೆ ನೀಡೋದು ಅಲ್ಲ — ನಿಮ್ಮ ಹಣದ ಮೇಲೆ ನಿಯಂತ್ರಣ ಕೊಡೋದು.
+              ಬಜೆಟ್ ಮಾಡೋದು ಅಂದ್ರೆ ತಡೆಹಿಡಿಯೋದು ಅಲ್ಲ &mdash; ಉದ್ದೇಶದಿಂದ ಖರ್ಚು ಮಾಡೋದು. ಇದು ನಿಮ್ಮ ಹಣ ಎಲ್ಲಿ ಹೋಗ್ತಿದೆ ಮತ್ತು
+              ಅದು ಎಲ್ಲಿ ಹೋಗಬೇಕು ಅನ್ನೋದನ್ನು ತೋರಿಸುತ್ತದೆ. ಖರ್ಚಿಗೆ ಪ್ರತಿಕ್ರಿಯೆ ನೀಡೋದು ಅಲ್ಲ &mdash; ನಿಮ್ಮ ಹಣದ ಮೇಲೆ ನಿಯಂತ್ರಣ ಕೊಡೋದು.
             </p>
 
             <p>
-              ಒಳ್ಳೆಯ ಬಜೆಟ್ ಅಂದ್ರೆ ಕೇವಲ ಸಂಖ್ಯೆಗಳ ಟೇಬಲ್ ಅಲ್ಲ — ಅದು ನಿಮ್ಮ ಗುರಿಗಳ ಪ್ರತಿಬಿಂಬ. ಮುಖ್ಯವಾದ ವಿಷಯಗಳಿಗೆ ಆದ್ಯತೆ
+              ಒಳ್ಳೆಯ ಬಜೆಟ್ ಅಂದ್ರೆ ಕೇವಲ ಸಂಖ್ಯೆಗಳ ಟೇಬಲ್ ಅಲ್ಲ &mdash; ಅದು ನಿಮ್ಮ ಗುರಿಗಳ ಪ್ರತಿಬಿಂಬ. ಮುಖ್ಯವಾದ ವಿಷಯಗಳಿಗೆ ಆದ್ಯತೆ
               ಕೊಡಲು ಮತ್ತು ಬೆಳವಣಿಗೆಗೆ ಜಾಗ ಕೊಡುವುದಕ್ಕೆ ಇದು ಸಹಾಯ ಮಾಡುತ್ತದೆ.
             </p>
           </>
@@ -165,7 +165,7 @@ export default function Money101Page() {
     // ==============================
     {
       title: {
-        en: "Chapter 3: From Saving to Growing — The Power of Investing",
+        en: "Chapter 3: From Saving to Growing &mdash; The Power of Investing",
         kn: "ಅಧ್ಯಾಯ 3: ಉಳಿಸುವುದರಿಂದ ಬೆಳೆಯುವ ತನಕ - ಹೂಡಿಕೆಯ ಶಕ್ತಿ",
       },
       content: {
@@ -177,14 +177,14 @@ export default function Money101Page() {
             </p>
 
             <p>
-              Investing means putting your money to work — in businesses, ideas, and assets
-              that generate value. It's not gambling — it's ownership, patience, and discipline.
+              Investing means putting your money to work &mdash; in businesses, ideas, and assets
+              that generate value. It's not gambling &mdash; it's ownership, patience, and discipline.
             </p>
 
             <p>
               Saving is like storing water in a tank; investing is channeling it into a field.
               One protects, the other produces. Both matter, but investing creates growth through
-              compounding — where your earnings themselves start to earn more.
+              compounding &mdash; where your earnings themselves start to earn more.
             </p>
           </>
         ),
@@ -192,18 +192,18 @@ export default function Money101Page() {
         kn: (
           <>
             <p>
-              ನಿಮ್ಮ ಸಂಪಾದನೆ ಮತ್ತು ಖರ್ಚು ನಿಯಂತ್ರಣ ಕಲಿತ್ಮೇಲೆ, ಮುಂದಿನ ಹೆಜ್ಜೆ — ನಿಮ್ಮ ಹಣವನ್ನು ಬೆಳೆಯಿಸುವುದು. ಬಜೆಟ್ ನಿಮ್ಮ
+              ನಿಮ್ಮ ಸಂಪಾದನೆ ಮತ್ತು ಖರ್ಚು ನಿಯಂತ್ರಣ ಕಲಿತ್ಮೇಲೆ, ಮುಂದಿನ ಹೆಜ್ಜೆ &mdash; ನಿಮ್ಮ ಹಣವನ್ನು ಬೆಳೆಯಿಸುವುದು. ಬಜೆಟ್ ನಿಮ್ಮ
               ಹಣವನ್ನು ಹಿಡಿದುಕೊಳ್ಳಲು ಸಹಾಯ ಮಾಡುತ್ತದೆ; ಹೂಡಿಕೆ ಅದನ್ನು ಮುಂದಕ್ಕೆ ತೆಗೆದುಕೊಂಡು ಹೋಗುತ್ತದೆ.
             </p>
 
             <p>
               ಉಳಿಸುವುದು ಮಾತ್ರ ಸಾಕಾಗೋದಿಲ್ಲ, ಏಕೆಂದರೆ ಕಾಲ ಕಳೆದಂತೆ ಬೆಲೆಗಳು ಏರುತ್ತವೆ. ಅದೇ ಹಣ ಹಿಂದಿನಷ್ಟು ವಸ್ತುಗಳನ್ನು
-              ಕೊಳ್ಳಲು ಸಾಧ್ಯವಾಗೋದಿಲ್ಲ. ಹೂಡಿಕೆ ಅಲ್ಲಿ ಕೆಲಸಕ್ಕೆ ಬರುತ್ತದೆ — ನಿಮ್ಮ ಹಣ ನಿಮ್ಮಗಾಗಿ ಕೆಲಸ ಮಾಡುವಂತೆ ಮಾಡುವುದು.
+              ಕೊಳ್ಳಲು ಸಾಧ್ಯವಾಗೋದಿಲ್ಲ. ಹೂಡಿಕೆ ಅಲ್ಲಿ ಕೆಲಸಕ್ಕೆ ಬರುತ್ತದೆ &mdash; ನಿಮ್ಮ ಹಣ ನಿಮ್ಮಗಾಗಿ ಕೆಲಸ ಮಾಡುವಂತೆ ಮಾಡುವುದು.
             </p>
 
             <p>
               ಉಳಿಸುವುದು ಟ್ಯಾಂಕ್‌ನಲ್ಲಿ ನೀರು ಇಟ್ಟಂತೆ; ಹೂಡಿಕೆ ಅದೇ ನೀರನ್ನು ಹೊಲಕ್ಕೆ ಹರಿಸುವಂತೆ. ಒಂದರಿಂದ ಸುರಕ್ಷತೆ, ಮತ್ತೊಂದರಿಂದ
-              ಬೆಳವಣಿಗೆ. ಬೇಗನೆ ಆರಂಭಿಸಿದಷ್ಟು, ಫಲ ಹೆಚ್ಚಾಗುತ್ತದೆ — ಕಂಪೌಂಡಿಂಗ್ ಅದನ್ನೇ ಸಾಬೀತುಪಡಿಸುತ್ತದೆ.
+              ಬೆಳವಣಿಗೆ. ಬೇಗನೆ ಆರಂಭಿಸಿದಷ್ಟು, ಫಲ ಹೆಚ್ಚಾಗುತ್ತದೆ &mdash; ಕಂಪೌಂಡಿಂಗ್ ಅದನ್ನೇ ಸಾಬೀತುಪಡಿಸುತ್ತದೆ.
             </p>
           </>
         ),
@@ -228,11 +228,11 @@ export default function Money101Page() {
 
             <p>
               Thinking like an investor means focusing on the long term, staying consistent,
-              and letting time — not emotion — drive results.
+              and letting time &mdash; not emotion &mdash; drive results.
             </p>
 
             <p>
-              To think like an investor is to see value where others see price — to focus
+              To think like an investor is to see value where others see price &mdash; to focus
               on growth over instant gratification.
             </p>
           </>
@@ -242,12 +242,12 @@ export default function Money101Page() {
           <>
             <p>
               ಹೂಡಿಕೆ ಶುರುಮಾಡೋದಕ್ಕೂ ಮೊದಲು, ಹೂಡಿಕೆದಾರರು ಹೇಗೆ ಯೋಚಿಸುತ್ತಾರೆ ಅನ್ನೋದನ್ನು ಅರ್ಥಮಾಡಿಕೊಳ್ಳಬೇಕು. ಹೂಡಿಕೆ ಅಂದ್ರೆ
-              ಕೇವಲ ಹಣವಲ್ಲ — ಅದು ಮನಸ್ಥಿತಿ.
+              ಕೇವಲ ಹಣವಲ್ಲ &mdash; ಅದು ಮನಸ್ಥಿತಿ.
             </p>
 
             <p>
               ಒಳ್ಳೆಯ ಹೂಡಿಕೆದಾರನಿಗೆ ಸಹನೆ, ನಿಯಮ ಮತ್ತು ದೀರ್ಘಾವಧಿಯ ದೃಷ್ಟಿ ಮುಖ್ಯ. ಮಾರುಕಟ್ಟೆ ಏರಿಳಿತ ಬಂದರೂ, ಅವರು ದೊಡ್ಡ ಚಿತ್ರ
-              ನೋಡುತ್ತಾರೆ — ಬೆಳವಣಿಗೆ ಸಮಯದೊಂದಿಗೆ ಬರುತ್ತದೆ ಅನ್ನೋದನ್ನು ನಂಬುತ್ತಾರೆ.
+              ನೋಡುತ್ತಾರೆ &mdash; ಬೆಳವಣಿಗೆ ಸಮಯದೊಂದಿಗೆ ಬರುತ್ತದೆ ಅನ್ನೋದನ್ನು ನಂಬುತ್ತಾರೆ.
             </p>
 
             <p>
@@ -274,7 +274,7 @@ export default function Money101Page() {
               it&apos;s time to explore where you can put your money to work.
             </p>
             <p>
-              There&apos;s no single best investment — only the one that fits your goals, risk
+              There&apos;s no single best investment &mdash; only the one that fits your goals, risk
               level, and time horizon. Let&apos;s look at some of the most common ways people
               invest and how each helps your wealth grow.
             </p>
@@ -285,7 +285,7 @@ export default function Money101Page() {
               company grows, your share of its value grows too.
             </p>
             <p>
-              Stocks can deliver strong returns over time but can also be volatile — meaning
+              Stocks can deliver strong returns over time but can also be volatile &mdash; meaning
               their prices can rise or fall in the short term. That&apos;s why stocks are great
               for long-term investors who can stay patient through market ups and downs.
             </p>
@@ -298,7 +298,7 @@ export default function Money101Page() {
             <p>
               Systematic Investment Plans (SIPs) let you invest small amounts regularly,
               helping you build wealth slowly through discipline and consistency. They&apos;re
-              perfect for beginners — easy, low-stress, and backed by expert management.
+              perfect for beginners &mdash; easy, low-stress, and backed by expert management.
             </p>
             <hr className="chapter-rule" />
             <h3>3. Bonds &amp; Fixed Income</h3>
@@ -308,7 +308,7 @@ export default function Money101Page() {
             </p>
             <p>
               Bonds are generally safer than stocks but offer lower returns. They help
-              stabilize your portfolio — a balance between risk and security.
+              stabilize your portfolio &mdash; a balance between risk and security.
             </p>
             <hr className="chapter-rule" />
             <h3>4. Gold &amp; Real Estate</h3>
@@ -318,7 +318,7 @@ export default function Money101Page() {
               both growth and rental income.
             </p>
             <p>
-              However, both require thoughtful planning — they can be expensive and less
+              However, both require thoughtful planning &mdash; they can be expensive and less
               liquid (harder to sell quickly).
             </p>
             <hr className="chapter-rule" />
@@ -329,18 +329,18 @@ export default function Money101Page() {
               and uncertainty.
             </p>
             <p>
-              Before investing, understand the technology, regulations, and risks involved —
+              Before investing, understand the technology, regulations, and risks involved &mdash;
               never invest in what you don&apos;t understand.
             </p>
             <hr className="chapter-rule" />
             <h3>Building a Balanced Portfolio</h3>
             <p>
-              The secret to smart investing is diversification — spreading your money across
+              The secret to smart investing is diversification &mdash; spreading your money across
               different types of investments. That way, if one area dips, another can balance
               it out.
             </p>
             <p>
-              Your mix depends on who you are — your age, goals, and comfort with risk. Think
+              Your mix depends on who you are &mdash; your age, goals, and comfort with risk. Think
               of it like your diet: a good mix keeps you healthy and steady.
             </p>
           </>
@@ -349,7 +349,7 @@ export default function Money101Page() {
         kn: (
           <>
             <p>
-              ಒಂದೇ "ಉತ್ತಮ" ಹೂಡಿಕೆ ಎಲ್ಲರಿಗೂ ಒಂದೇ ಆಗೋದಿಲ್ಲ — ಅದು ನಿಮ್ಮ ಗುರಿ, ರಿಸ್ಕ್ ಮಟ್ಟ ಮತ್ತು ಸಮಯಕ್ಕೆ
+              ಒಂದೇ "ಉತ್ತಮ" ಹೂಡಿಕೆ ಎಲ್ಲರಿಗೂ ಒಂದೇ ಆಗೋದಿಲ್ಲ &mdash; ಅದು ನಿಮ್ಮ ಗುರಿ, ರಿಸ್ಕ್ ಮಟ್ಟ ಮತ್ತು ಸಮಯಕ್ಕೆ
               ಅನುಗುಣವಾಗಿರುತ್ತದೆ.
             </p>
 
@@ -358,10 +358,10 @@ export default function Money101Page() {
               <li><strong>ಮ್ಯೂಚುಯಲ್ ಫಂಡ್ಸ್:</strong> ಪರಿಣಿತರಿಂದ ನಿರ್ವಹಣೆ, ವಿಭಜನೆ.</li>
               <li><strong>ಬಾಂಡ್ಸ್:</strong> ಸುರಕ್ಷಿತ, ಸ್ಥಿರ ಬಡ್ಡಿ.</li>
               <li><strong>ಚಿನ್ನ & ಆಸ್ತಿ:</strong> ಮೌಲ್ಯ ಉಳಿಸಿಕೊಳ್ಳುವ ಪರಂಪರೆಯ ಹೂಡಿಕೆ.</li>
-              <li><strong>ಡಿಜಿಟಲ್ ಆಸ್ತಿಗಳು:</strong> ಹೆಚ್ಚು ರಿಸ್ಕ್ — ಎಚ್ಚರಿಕೆಯಿಂದ.</li>
+              <li><strong>ಡಿಜಿಟಲ್ ಆಸ್ತಿಗಳು:</strong> ಹೆಚ್ಚು ರಿಸ್ಕ್ &mdash; ಎಚ್ಚರಿಕೆಯಿಂದ.</li>
             </ul>
 
-            <p>ಒಳ್ಳೆಯ ಹೂಡಿಕೆದಾರರು ವಿಭಜನೆ ಮಾಡುತ್ತಾರೆ — ಇದು ರಕ್ಷಣೆ ಕೊಡುತ್ತದೆ.</p>
+            <p>ಒಳ್ಳೆಯ ಹೂಡಿಕೆದಾರರು ವಿಭಜನೆ ಮಾಡುತ್ತಾರೆ &mdash; ಇದು ರಕ್ಷಣೆ ಕೊಡುತ್ತದೆ.</p>
           </>
         ),
       },
@@ -380,16 +380,16 @@ export default function Money101Page() {
           <>
             <p>
               If investing were only about numbers, spreadsheets would make us all rich.
-              But the truth is — the real game happens in the mind.
+              But the truth is &mdash; the real game happens in the mind.
             </p>
             <p>
               Because in investing, your greatest strength or weakness isn&apos;t the market
-              — it&apos;s you.
+              &mdash; it&apos;s you.
             </p>
             <hr className="chapter-rule" />
             <h3>Understanding Risk</h3>
             <p>
-              Every investment carries some level of risk — even keeping money idle in a bank
+              Every investment carries some level of risk &mdash; even keeping money idle in a bank
               means losing value to inflation.
             </p>
             <p>
@@ -398,19 +398,19 @@ export default function Money101Page() {
               while safer investments usually offer lower rewards.
             </p>
             <p>
-              Smart investors don&apos;t avoid risk — they manage it. They learn how much they can
+              Smart investors don&apos;t avoid risk &mdash; they manage it. They learn how much they can
               handle, spread their investments, and let time reduce the bumps along the way.
-              In the long run, risk isn&apos;t the enemy — impulsive decisions are.
+              In the long run, risk isn&apos;t the enemy &mdash; impulsive decisions are.
             </p>
             <hr className="chapter-rule" />
             <h3>The Emotional Side of Money</h3>
             <p>
-              Money has a way of triggering emotions — excitement when things go up, fear when
+              Money has a way of triggering emotions &mdash; excitement when things go up, fear when
               they fall. But reacting emotionally can lead to buying high, selling low, or
               abandoning plans midway.
             </p>
             <p>
-              Markets move in cycles — optimism, greed, panic, and hope. The best investors
+              Markets move in cycles &mdash; optimism, greed, panic, and hope. The best investors
               learn to recognize these emotions and stay grounded. They understand that patience
               often wins over prediction, and calm over chaos.
             </p>
@@ -420,16 +420,16 @@ export default function Money101Page() {
         kn: (
           <>
             <p>
-              ಹೂಡಿಕೆ ಅಂದ್ರೆ ಕೇವಲ ಅಂಕೆಪಂಕ್ತಿಗಳ ವಿಷಯ ಅಲ್ಲ — ಅದು ಮನಸ್ಸಿನ ಆಟ. ಮಾರುಕಟ್ಟೆಯಿಗಿಂತ ಹೆಚ್ಚು ಪ್ರಭಾವ ಬೀರುವುದೇ ನಮ್ಮ
+              ಹೂಡಿಕೆ ಅಂದ್ರೆ ಕೇವಲ ಅಂಕೆಪಂಕ್ತಿಗಳ ವಿಷಯ ಅಲ್ಲ &mdash; ಅದು ಮನಸ್ಸಿನ ಆಟ. ಮಾರುಕಟ್ಟೆಯಿಗಿಂತ ಹೆಚ್ಚು ಪ್ರಭಾವ ಬೀರುವುದೇ ನಮ್ಮ
               ಭಾವನೆಗಳು.
             </p>
 
             <p>
-              ರಿಸ್ಕ್ ಅಂದ್ರೆ ಭಯಪಡಬೇಕಾದ್ದಲ್ಲ — ಅರ್ಥಮಾಡಿಕೊಳ್ಳಬೇಕಾದ್ದು. ಹೆಚ್ಚು ಲಾಭ ಬೇಕೆಂದರೆ ಹೆಚ್ಚು ಅಸ್ಥಿರತೆ ಒಪ್ಪಿಕೊಳ್ಳಬೇಕು.
+              ರಿಸ್ಕ್ ಅಂದ್ರೆ ಭಯಪಡಬೇಕಾದ್ದಲ್ಲ &mdash; ಅರ್ಥಮಾಡಿಕೊಳ್ಳಬೇಕಾದ್ದು. ಹೆಚ್ಚು ಲಾಭ ಬೇಕೆಂದರೆ ಹೆಚ್ಚು ಅಸ್ಥಿರತೆ ಒಪ್ಪಿಕೊಳ್ಳಬೇಕು.
             </p>
 
             <p>
-              ಭಾವನೆ ಬಂದರೂ, ನಿರ್ಧಾರ ಗುರಿಯ ಆಧಾರದ ಮೇಲೆ ಇರಬೇಕು — ಭಾವನೆಯ ಆಧಾರದ ಮೇಲೆ ಅಲ್ಲ.
+              ಭಾವನೆ ಬಂದರೂ, ನಿರ್ಧಾರ ಗುರಿಯ ಆಧಾರದ ಮೇಲೆ ಇರಬೇಕು &mdash; ಭಾವನೆಯ ಆಧಾರದ ಮೇಲೆ ಅಲ್ಲ.
             </p>
           </>
         ),
@@ -448,7 +448,7 @@ export default function Money101Page() {
         en: (
           <>
             <p>
-              Every investor, no matter how experienced, began with one simple step — starting.
+              Every investor, no matter how experienced, began with one simple step &mdash; starting.
               You don&apos;t need to have it all figured out. You just need to begin with
               intention, consistency, and curiosity.
             </p>
@@ -456,7 +456,7 @@ export default function Money101Page() {
             <h3>1. Define Your Goals</h3>
             <p>
               Before you invest, ask yourself why. Are you investing for short-term goals like
-              a vacation or gadgets? Or long-term ones — a house, retirement, or financial
+              a vacation or gadgets? Or long-term ones &mdash; a house, retirement, or financial
               independence?
             </p>
             <p>
@@ -468,12 +468,12 @@ export default function Money101Page() {
             <hr className="chapter-rule" />
             <h3>2. Understand Your Risk Appetite</h3>
             <p>
-              Not everyone can handle the same level of risk — and that&apos;s okay. Some are
+              Not everyone can handle the same level of risk &mdash; and that&apos;s okay. Some are
               comfortable with market swings, others prefer stability.
             </p>
             <p>
               Be honest about how much volatility you can emotionally and financially handle.
-              Your risk comfort will guide your mix of investments — stocks, funds, bonds,
+              Your risk comfort will guide your mix of investments &mdash; stocks, funds, bonds,
               or gold.
             </p>
             <hr className="chapter-rule" />
@@ -492,7 +492,7 @@ export default function Money101Page() {
         kn: (
           <>
             <p>
-              ಪ್ರತಿ ಹೂಡಿಕೆದಾರರೂ ಒಮ್ಮೆ "ಮೊದಲ ಹೆಜ್ಜೆ" ಇಟ್ಟಿದ್ದಾರೆ. ನೀವು ಎಲ್ಲವನ್ನೂ ಈಗಲೇ ಅರಿತುಕೊಳ್ಳಬೇಕೆಂದಿಲ್ಲ —
+              ಪ್ರತಿ ಹೂಡಿಕೆದಾರರೂ ಒಮ್ಮೆ "ಮೊದಲ ಹೆಜ್ಜೆ" ಇಟ್ಟಿದ್ದಾರೆ. ನೀವು ಎಲ್ಲವನ್ನೂ ಈಗಲೇ ಅರಿತುಕೊಳ್ಳಬೇಕೆಂದಿಲ್ಲ &mdash;
               ಆರಂಭಿಸೋದು ಮುಖ್ಯ.
             </p>
 
@@ -515,16 +515,16 @@ export default function Money101Page() {
     // ==============================
     {
       title: {
-        en: "Chapter 8: You've Taken the First Step — Now Let's Begin the Journey",
-        kn: "ಅಧ್ಯಾಯ 8: ನೀವು ಮೊದಲ ಹೆಜ್ಜೆ ಇಟ್ಟೆಯಾ — ಈಗ ಪ್ರಯಾಣ ಶುರುವಾಗಲಿ",
+        en: "Chapter 8: You've Taken the First Step &mdash; Now Let's Begin the Journey",
+        kn: "ಅಧ್ಯಾಯ 8: ನೀವು ಮೊದಲ ಹೆಜ್ಜೆ ಇಟ್ಟೆಯಾ &mdash; ಈಗ ಪ್ರಯಾಣ ಶುರುವಾಗಲಿ",
       },
       content: {
         en: (
           <>
             <p>
-              You&apos;ve made it this far — and that already puts you ahead of most.
+              You&apos;ve made it this far &mdash; and that already puts you ahead of most.
               Understanding how money works, how to manage it, and how to make it grow
-              isn&apos;t just education — it&apos;s empowerment.
+              isn&apos;t just education &mdash; it&apos;s empowerment.
             </p>
             <p>
               You&apos;ve learned about the origin of money, why budgeting matters, the importance
@@ -534,20 +534,20 @@ export default function Money101Page() {
             <hr className="chapter-rule" />
             <h3>The First Real Step: Opening Your Demat Account</h3>
             <p>
-              Before you can start investing — in stocks, ETFs, or mutual funds — you&apos;ll need
-              a Demat account. Think of it as your digital vault for investments — a safe,
+              Before you can start investing &mdash; in stocks, ETFs, or mutual funds &mdash; you&apos;ll need
+              a Demat account. Think of it as your digital vault for investments &mdash; a safe,
               regulated space where your shares are held electronically.
             </p>
             <p>
-              Choose a trusted broker — one you&apos;re comfortable with, one that fits your goals.
+              Choose a trusted broker &mdash; one you&apos;re comfortable with, one that fits your goals.
               You could explore platforms like Zerodha, Groww, Upstox, or Angel One to get
               started.
             </p>
             <hr className="chapter-rule" />
             <h3>Celebrate the Start</h3>
             <p>
-              This isn&apos;t the end — it&apos;s your beginning. You&apos;ve taken the first step toward
-              financial independence. Your knowledge now becomes action — keep going.
+              This isn&apos;t the end &mdash; it&apos;s your beginning. You&apos;ve taken the first step toward
+              financial independence. Your knowledge now becomes action &mdash; keep going.
             </p>
           </>
         ),
@@ -555,11 +555,11 @@ export default function Money101Page() {
         kn: (
           <>
             <p>
-              ಇಲ್ಲಿವರೆಗೆ ಬಂದಿದ್ದರೆ, ನೀವು ಈಗಾಗಲೇ ಬಹಳ ಜನರಿಗಿಂತ ಮುಂದೆ ಇದ್ದೀರಿ. ಇದು ಅಂತ್ಯವಲ್ಲ — ಇದು ನಿಮ್ಮ ನಿಜವಾದ
+              ಇಲ್ಲಿವರೆಗೆ ಬಂದಿದ್ದರೆ, ನೀವು ಈಗಾಗಲೇ ಬಹಳ ಜನರಿಗಿಂತ ಮುಂದೆ ಇದ್ದೀರಿ. ಇದು ಅಂತ್ಯವಲ್ಲ &mdash; ಇದು ನಿಮ್ಮ ನಿಜವಾದ
               ಪ್ರಯಾಣದ ಆರಂಭ.
             </p>
 
-            <h3>ಮೊದಲ ನಿಜವಾದ ಹೆಜ್ಜೆ — ಡಿಮಾಟ್ ಖಾತೆ ತೆರೆಯುವುದು</h3>
+            <h3>ಮೊದಲ ನಿಜವಾದ ಹೆಜ್ಜೆ &mdash; ಡಿಮಾಟ್ ಖಾತೆ ತೆರೆಯುವುದು</h3>
             <p>
               ಷೇರು, ETF ಅಥವಾ ಮ್ಯೂಚುಯಲ್ ಫಂಡ್‌ನಲ್ಲಿ ಹೂಡಿಕೆ ಮಾಡಲು ಮೊದಲು ಡಿಮಾಟ್ ಖಾತೆ ಬೇಕು. Zerodha, Groww,
               Upstox ಮುಂತಾದ ಪ್ಲಾಟ್‌ಫಾರ್ಮ್‌ಗಳಿಂದ ಆರಂಭಿಸಬಹುದು.
@@ -567,7 +567,7 @@ export default function Money101Page() {
 
             <h3>ಪ್ರಾರಂಭವನ್ನು ಆಚರಿಸು</h3>
             <p>
-              ನೀವು ಕೇವಲ ಕಲಿತದ್ದಲ್ಲ — ಈಗ ಕಾರ್ಯರೂಪ ಕೊಡಲು ಸಿದ್ಧ. ನಿಮ್ಮ ಜ್ಞಾನವೇ ನಿಮ್ಮ ಸಂಪತ್ತು.
+              ನೀವು ಕೇವಲ ಕಲಿತದ್ದಲ್ಲ &mdash; ಈಗ ಕಾರ್ಯರೂಪ ಕೊಡಲು ಸಿದ್ಧ. ನಿಮ್ಮ ಜ್ಞಾನವೇ ನಿಮ್ಮ ಸಂಪತ್ತು.
             </p>
           </>
         ),

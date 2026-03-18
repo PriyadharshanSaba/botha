@@ -12,7 +12,7 @@ import { useLanguage } from "../../context/LanguageContext";
 export default function StockMarketPage() {
   const { t, lang } = useLanguage();
   // ============================================================
-  // ALL CHAPTER CONTENT — BILINGUAL (English + Kannada)
+  // ALL CHAPTER CONTENT &mdash; BILINGUAL (English + Kannada)
   // ============================================================
   const chapters = [
     {
@@ -49,22 +49,22 @@ export default function StockMarketPage() {
         en: (
           <>
             <p>
-              Imagine your favourite coffee brand — say, Tata Coffee — wants to open 500 new
-              outlets across India. That kind of expansion needs money — to buy land, build
+              Imagine your favourite coffee brand &mdash; say, Tata Coffee &mdash; wants to open 500 new
+              outlets across India. That kind of expansion needs money &mdash; to buy land, build
               stores, hire staff, and market the brand. Instead of borrowing a huge amount
-              from banks, the company can raise money by offering ownership stakes — called
-              shares — to people like you and me.
+              from banks, the company can raise money by offering ownership stakes &mdash; called
+              shares &mdash; to people like you and me.
             </p>
 
             <p>
-              When you buy a share, you're not just investing your money — you're becoming a
+              When you buy a share, you're not just investing your money &mdash; you're becoming a
               co-owner of that company. If the business does well, your share becomes more
-              valuable too. You might even receive a dividend — a portion of the company's
+              valuable too. You might even receive a dividend &mdash; a portion of the company's
               profits.
             </p>
 
             <p>
-              This is the essence of the stock market — an organized marketplace where
+              This is the essence of the stock market &mdash; an organized marketplace where
               companies raise funds and investors share in their success.
             </p>
 
@@ -77,12 +77,12 @@ export default function StockMarketPage() {
 
             <p>
               From giants like Reliance and Infosys to new-age startups like Nykaa and Zomato
-              — thousands of companies are listed on India's stock exchanges.
+              &mdash; thousands of companies are listed on India's stock exchanges.
             </p>
 
             <h3>A Marketplace Built on Belief</h3>
             <p>
-              The stock market isn't just about numbers — it's about belief in the future of
+              The stock market isn't just about numbers &mdash; it's about belief in the future of
               businesses. Prices move constantly due to demand, supply, and global or company
               events. It's a living reflection of the economy.
             </p>
@@ -91,26 +91,26 @@ export default function StockMarketPage() {
         kn: (
           <>
             <p>
-              ನಿಮ್ಮ ನೆಚ್ಚಿನ ಕಾಫಿ ಬ್ರ್ಯಾಂಡ್ — ಉದಾಹರಣೆಗೆ, ಟಾಟಾ ಕಾಫಿ — ಭಾರತಾದ್ಯಂತ 500 ಹೊಸ ಮಳಿಗೆಗಳನ್ನು ತೆರೆಯಲು ಬಯಸುತ್ತದೆ ಎಂದು ಕಲ್ಪಿಸಿಕೊಳ್ಳಿ. ಅಂತಹ ವಿಸ್ತರಣೆಗೆ ಹಣ ಬೇಕು — ಭೂಮಿ ಖರೀದಿಸಲು, ಅಂಗಡಿ ನಿರ್ಮಿಸಲು, ಸಿಬ್ಬಂದಿ ನೇಮಿಸಲು, ಮತ್ತು ಬ್ರ್ಯಾಂಡ್ ಪ್ರಚಾರ ಮಾಡಲು.
+              ನಿಮ್ಮ ನೆಚ್ಚಿನ ಕಾಫಿ ಬ್ರ್ಯಾಂಡ್ &mdash; ಉದಾಹರಣೆಗೆ, ಟಾಟಾ ಕಾಫಿ &mdash; ಭಾರತಾದ್ಯಂತ 500 ಹೊಸ ಮಳಿಗೆಗಳನ್ನು ತೆರೆಯಲು ಬಯಸುತ್ತದೆ ಎಂದು ಕಲ್ಪಿಸಿಕೊಳ್ಳಿ. ಅಂತಹ ವಿಸ್ತರಣೆಗೆ ಹಣ ಬೇಕು &mdash; ಭೂಮಿ ಖರೀದಿಸಲು, ಅಂಗಡಿ ನಿರ್ಮಿಸಲು, ಸಿಬ್ಬಂದಿ ನೇಮಿಸಲು, ಮತ್ತು ಬ್ರ್ಯಾಂಡ್ ಪ್ರಚಾರ ಮಾಡಲು.
             </p>
             <p>
-              ಬ್ಯಾಂಕ್‌ಗಳಿಂದ ದೊಡ್ಡ ಮೊತ್ತ ಎರವಲು ಪಡೆಯುವ ಬದಲು, ಕಂಪನಿಯು ನಿಮ್ಮಂತಹ ಜನರಿಗೆ ಮಾಲೀಕತ್ವದ ಪಾಲು — ಅಂದರೆ ಷೇರುಗಳನ್ನು — ನೀಡಿ ಹಣ ಸಂಗ್ರಹಿಸಬಹುದು.
+              ಬ್ಯಾಂಕ್‌ಗಳಿಂದ ದೊಡ್ಡ ಮೊತ್ತ ಎರವಲು ಪಡೆಯುವ ಬದಲು, ಕಂಪನಿಯು ನಿಮ್ಮಂತಹ ಜನರಿಗೆ ಮಾಲೀಕತ್ವದ ಪಾಲು &mdash; ಅಂದರೆ ಷೇರುಗಳನ್ನು &mdash; ನೀಡಿ ಹಣ ಸಂಗ್ರಹಿಸಬಹುದು.
             </p>
             <p>
-              ನೀವು ಒಂದು ಷೇರು ಖರೀದಿಸಿದಾಗ, ನೀವು ಕೇವಲ ಹಣ ಹೂಡಿಕೆ ಮಾಡುತ್ತಿಲ್ಲ — ನೀವು ಆ ಕಂಪನಿಯ ಸಹ-ಮಾಲೀಕರಾಗುತ್ತಿದ್ದೀರಿ.
+              ನೀವು ಒಂದು ಷೇರು ಖರೀದಿಸಿದಾಗ, ನೀವು ಕೇವಲ ಹಣ ಹೂಡಿಕೆ ಮಾಡುತ್ತಿಲ್ಲ &mdash; ನೀವು ಆ ಕಂಪನಿಯ ಸಹ-ಮಾಲೀಕರಾಗುತ್ತಿದ್ದೀರಿ.
             </p>
             <p>
-              ವ್ಯವಹಾರ ಚೆನ್ನಾಗಿ ನಡೆದರೆ, ಲಾಭ ಗಳಿಸಿದರೆ, ಮತ್ತು ಮೌಲ್ಯ ಹೆಚ್ಚಿದರೆ, ನಿಮ್ಮ ಷೇರೂ ಹೆಚ್ಚು ಮೌಲ್ಯಯುತವಾಗುತ್ತದೆ. ನಿಮಗೆ ಡಿವಿಡೆಂಡ್ ಕೂಡ ಸಿಗಬಹುದು — ಕಂಪನಿಯ ಲಾಭದ ಒಂದು ಭಾಗ ಷೇರುದಾರರಿಗೆ ವಿತರಿಸಲಾಗುತ್ತದೆ.
+              ವ್ಯವಹಾರ ಚೆನ್ನಾಗಿ ನಡೆದರೆ, ಲಾಭ ಗಳಿಸಿದರೆ, ಮತ್ತು ಮೌಲ್ಯ ಹೆಚ್ಚಿದರೆ, ನಿಮ್ಮ ಷೇರೂ ಹೆಚ್ಚು ಮೌಲ್ಯಯುತವಾಗುತ್ತದೆ. ನಿಮಗೆ ಡಿವಿಡೆಂಡ್ ಕೂಡ ಸಿಗಬಹುದು &mdash; ಕಂಪನಿಯ ಲಾಭದ ಒಂದು ಭಾಗ ಷೇರುದಾರರಿಗೆ ವಿತರಿಸಲಾಗುತ್ತದೆ.
             </p>
             <p>
-              ಅದೇ ಷೇರು ಮಾರುಕಟ್ಟೆಯ ಸಾರ — ಕಂಪನಿಗಳು ಹಣ ಸಂಗ್ರಹಿಸುವ ಮತ್ತು ಹೂಡಿಕೆದಾರರು ಅವರ ಯಶಸ್ಸಿನಲ್ಲಿ ಭಾಗವಹಿಸುವ ದೊಡ್ಡ, ಸಂಘಟಿತ ಮಾರುಕಟ್ಟೆ.
+              ಅದೇ ಷೇರು ಮಾರುಕಟ್ಟೆಯ ಸಾರ &mdash; ಕಂಪನಿಗಳು ಹಣ ಸಂಗ್ರಹಿಸುವ ಮತ್ತು ಹೂಡಿಕೆದಾರರು ಅವರ ಯಶಸ್ಸಿನಲ್ಲಿ ಭಾಗವಹಿಸುವ ದೊಡ್ಡ, ಸಂಘಟಿತ ಮಾರುಕಟ್ಟೆ.
             </p>
             <h3>ಪಟ್ಟಿ ಕಂಪನಿಗಳ ನೆಲೆ</h3>
             <p>
               ಸಾರ್ವಜನಿಕರು ಖರೀದಿ-ಮಾರಾಟ ಮಾಡಬಹುದಾದ ಷೇರುಗಳನ್ನು ಹೊಂದಿರುವ ಕಂಪನಿಯನ್ನು ಪಟ್ಟಿ ಕಂಪನಿ ಎನ್ನುತ್ತಾರೆ.
             </p>
             <p>
-              ಪಟ್ಟಿಗೊಳ್ಳಲು, ಕಂಪನಿಯು SEBI (ಭಾರತೀಯ ಭದ್ರತೆಗಳು ಮತ್ತು ವಿನಿಮಯ ಮಂಡಳಿ) ಮತ್ತು ಷೇರು ವಿನಿಮಯಗಳು — ಮುಖ್ಯವಾಗಿ NSE ಮತ್ತು BSE — ಜೊತೆಗೆ ಕಠಿಣ ಅನುಮೋದನಾ ಪ್ರಕ್ರಿಯೆ ಮೂಲಕ ಹಾದುಹೋಗಬೇಕು.
+              ಪಟ್ಟಿಗೊಳ್ಳಲು, ಕಂಪನಿಯು SEBI (ಭಾರತೀಯ ಭದ್ರತೆಗಳು ಮತ್ತು ವಿನಿಮಯ ಮಂಡಳಿ) ಮತ್ತು ಷೇರು ವಿನಿಮಯಗಳು &mdash; ಮುಖ್ಯವಾಗಿ NSE ಮತ್ತು BSE &mdash; ಜೊತೆಗೆ ಕಠಿಣ ಅನುಮೋದನಾ ಪ್ರಕ್ರಿಯೆ ಮೂಲಕ ಹಾದುಹೋಗಬೇಕು.
             </p>
             <p>
               ಪಟ್ಟಿಗೊಂಡ ನಂತರ, ಕಂಪನಿಯ ಷೇರುಗಳು ಸಾರ್ವಜನಿಕವಾಗಿ ವಹಿವಾಟು ಮಾಡಬಹುದು, ಪಾರದರ್ಶಕತೆ ನಿಯಮಗಳನ್ನು ಪಾಲಿಸಬೇಕು, ಮತ್ತು ಷೇರುದಾರರಿಗೆ ಉತ್ತರದಾಯಿಯಾಗಿರಬೇಕು.
@@ -120,10 +120,10 @@ export default function StockMarketPage() {
             </p>
             <h3>ನಂಬಿಕೆಯ ಮೇಲೆ ನಿರ್ಮಿತ ಮಾರುಕಟ್ಟೆ</h3>
             <p>
-              ಸಾಮಾನ್ಯ ಮಾರುಕಟ್ಟೆಯಲ್ಲಿ ನೀವು ವಸ್ತು ಖರೀದಿಸುತ್ತೀರಿ — ಷೇರು ಮಾರುಕಟ್ಟೆಯಲ್ಲಿ ನೀವು ಸಾಧ್ಯತೆಯನ್ನು ಖರೀದಿಸುತ್ತೀರಿ, ನೀವು ನಂಬುವ ವ್ಯವಹಾರಗಳ ಭವಿಷ್ಯವನ್ನು.
+              ಸಾಮಾನ್ಯ ಮಾರುಕಟ್ಟೆಯಲ್ಲಿ ನೀವು ವಸ್ತು ಖರೀದಿಸುತ್ತೀರಿ &mdash; ಷೇರು ಮಾರುಕಟ್ಟೆಯಲ್ಲಿ ನೀವು ಸಾಧ್ಯತೆಯನ್ನು ಖರೀದಿಸುತ್ತೀರಿ, ನೀವು ನಂಬುವ ವ್ಯವಹಾರಗಳ ಭವಿಷ್ಯವನ್ನು.
             </p>
             <p>
-              ಈ ಷೇರುಗಳು ಪ್ರತಿದಿನ ವಹಿವಾಟಾಗುವುದರಿಂದ, ಬೆಲೆಗಳು ನಿರಂತರ ಚಲಿಸುತ್ತವೆ — ಬೇಡಿಕೆ, ಪೂರೈಕೆ, ಕಂಪನಿ ಕಾರ್ಯಕ್ಷಮತೆ, ಜಾಗತಿಕ ಘಟನೆಗಳು, ಮತ್ತು ಹೂಡಿಕೆದಾರರ ಭಾವನೆಗಳಿಂದ ಚಾಲಿತ.
+              ಈ ಷೇರುಗಳು ಪ್ರತಿದಿನ ವಹಿವಾಟಾಗುವುದರಿಂದ, ಬೆಲೆಗಳು ನಿರಂತರ ಚಲಿಸುತ್ತವೆ &mdash; ಬೇಡಿಕೆ, ಪೂರೈಕೆ, ಕಂಪನಿ ಕಾರ್ಯಕ್ಷಮತೆ, ಜಾಗತಿಕ ಘಟನೆಗಳು, ಮತ್ತು ಹೂಡಿಕೆದಾರರ ಭಾವನೆಗಳಿಂದ ಚಾಲಿತ.
             </p>
             <p>
               ಷೇರು ಮಾರುಕಟ್ಟೆ, ಆ ಅರ್ಥದಲ್ಲಿ, ಆರ್ಥಿಕತೆಯ ಜೀವಂತ, ಉಸಿರಾಡುವ ಪ್ರತಿಬಿಂಬ.
@@ -144,13 +144,13 @@ export default function StockMarketPage() {
             <p>
               The stock market exists because ambition needs capital. Before markets, only
               kings and banks could fund growth. When the Dutch East India Company issued the
-              first shares in the 1600s, it gave ordinary people the power to invest —
+              first shares in the 1600s, it gave ordinary people the power to invest &mdash;
               birthing the modern economy.
             </p>
 
             <p>
               In India, companies like Infosys, TCS, and Reliance have used stock markets to
-              raise funds, expand, and innovate — creating jobs and wealth. Every trade
+              raise funds, expand, and innovate &mdash; creating jobs and wealth. Every trade
               represents investment that fuels national growth.
             </p>
           </>
@@ -158,16 +158,16 @@ export default function StockMarketPage() {
         kn: (
           <>
             <p>
-              ಷೇರು ಮಾರುಕಟ್ಟೆ ಅಸ್ತಿತ್ವದಲ್ಲಿದೆ ಏಕೆಂದರೆ ಮಹತ್ವಾಕಾಂಕ್ಷೆಗೆ ಯಾವಾಗಲೂ ಇಂಧನ ಬೇಕು — ಮತ್ತು ಆ ಇಂಧನವೇ ಬಂಡವಾಳ.
+              ಷೇರು ಮಾರುಕಟ್ಟೆ ಅಸ್ತಿತ್ವದಲ್ಲಿದೆ ಏಕೆಂದರೆ ಮಹತ್ವಾಕಾಂಕ್ಷೆಗೆ ಯಾವಾಗಲೂ ಇಂಧನ ಬೇಕು &mdash; ಮತ್ತು ಆ ಇಂಧನವೇ ಬಂಡವಾಳ.
             </p>
             <p>
               ಷೇರು ಮಾರುಕಟ್ಟೆಗಳ ಮೊದಲು, ಕೇವಲ ರಾಜರು, ಬ್ಯಾಂಕ್‌ಗಳು, ಅಥವಾ ಶ್ರೀಮಂತ ವ್ಯಾಪಾರಿಗಳು ಮಾತ್ರ ವ್ಯವಹಾರಗಳಿಗೆ ಹಣ ಒದಗಿಸಬಹುದಿತ್ತು. 1600ರ ದಶಕದಲ್ಲಿ ಡಚ್ ಈಸ್ಟ್ ಇಂಡಿಯಾ ಕಂಪನಿ ಮೊದಲ ಷೇರುಗಳನ್ನು ನೀಡಿದಾಗ, ಎಲ್ಲವೂ ಬದಲಾಯಿತು. ಇದ್ದಕ್ಕಿದ್ದಂತೆ ಸಾಮಾನ್ಯ ನಾಗರಿಕರೂ ಜಾಗತಿಕ ವ್ಯಾಪಾರದಲ್ಲಿ ಹೂಡಿಕೆ ಮಾಡಬಹುದಾಯಿತು.
             </p>
             <p>
-              ಭಾರತದಲ್ಲಿ, ಇನ್ಫೋಸಿಸ್, TCS, ಮತ್ತು ರಿಲಯನ್ಸ್‌ನಂತಹ ಕಂಪನಿಗಳು ಮಾರುಕಟ್ಟೆಯನ್ನು ಬಳಸಿ ಹಣ ಸಂಗ್ರಹಿಸಿ ವಿಸ್ತರಿಸಿಕೊಂಡಿವೆ — ಉದ್ಯೋಗ, ನಾವೀನ್ಯ, ಮತ್ತು ಸಂಪತ್ತನ್ನು ಸೃಷ್ಟಿಸಿವೆ.
+              ಭಾರತದಲ್ಲಿ, ಇನ್ಫೋಸಿಸ್, TCS, ಮತ್ತು ರಿಲಯನ್ಸ್‌ನಂತಹ ಕಂಪನಿಗಳು ಮಾರುಕಟ್ಟೆಯನ್ನು ಬಳಸಿ ಹಣ ಸಂಗ್ರಹಿಸಿ ವಿಸ್ತರಿಸಿಕೊಂಡಿವೆ &mdash; ಉದ್ಯೋಗ, ನಾವೀನ್ಯ, ಮತ್ತು ಸಂಪತ್ತನ್ನು ಸೃಷ್ಟಿಸಿವೆ.
             </p>
             <p>
-              ಪ್ರತಿ ವಹಿವಾಟು ಕೇವಲ ಪರದೆಯ ಮೇಲಿನ ಒಂದು ಸಂಖ್ಯೆಯಲ್ಲ — ಅದು ದೇಶಾದ್ಯಂತ ಬೆಳವಣಿಗೆಯನ್ನು ಚಾಲನೆ ಮಾಡುವ ಹೂಡಿಕೆ.
+              ಪ್ರತಿ ವಹಿವಾಟು ಕೇವಲ ಪರದೆಯ ಮೇಲಿನ ಒಂದು ಸಂಖ್ಯೆಯಲ್ಲ &mdash; ಅದು ದೇಶಾದ್ಯಂತ ಬೆಳವಣಿಗೆಯನ್ನು ಚಾಲನೆ ಮಾಡುವ ಹೂಡಿಕೆ.
             </p>
           </>
         ),
@@ -176,61 +176,61 @@ export default function StockMarketPage() {
 
     {
       title: {
-        en: "Chapter 3: The Key Players — Who Makes It All Work",
-        kn: "ಅಧ್ಯಾಯ 3: ಪ್ರಮುಖ ಆಟಗಾರರು — ಇದನ್ನು ಯಾರು ನಡೆಸುತ್ತಾರೆ?",
+        en: "Chapter 3: The Key Players &mdash; Who Makes It All Work",
+        kn: "ಅಧ್ಯಾಯ 3: ಪ್ರಮುಖ ಆಟಗಾರರು &mdash; ಇದನ್ನು ಯಾರು ನಡೆಸುತ್ತಾರೆ?",
       },
       content: {
         en: (
           <>
             <p>
               When you tap 'Buy' on your trading app, an intricate system springs into action
-              — powered by investors, brokers, exchanges, clearing corporations, depositories,
+              &mdash; powered by investors, brokers, exchanges, clearing corporations, depositories,
               and SEBI.
             </p>
 
-            <h3>1. Investors — The Heartbeat of the Market</h3>
+            <h3>1. Investors &mdash; The Heartbeat of the Market</h3>
             <p>
               Investors can be retail (everyday individuals), institutional (mutual funds,
               insurance firms), or foreign (FIIs). Their collective decisions determine which
               businesses thrive.
             </p>
 
-            <h3>2. Brokers — The Bridge Between You and the Market</h3>
+            <h3>2. Brokers &mdash; The Bridge Between You and the Market</h3>
             <p>
               Brokers like Zerodha, Upstox, and Groww connect you to the exchange. They handle
-              order routing, compliance, and reports — acting as your gateway to trading.
+              order routing, compliance, and reports &mdash; acting as your gateway to trading.
             </p>
 
-            <h3>3. Stock Exchanges — The Marketplace</h3>
+            <h3>3. Stock Exchanges &mdash; The Marketplace</h3>
             <p>
               The NSE and BSE match buyers and sellers, ensuring fast and fair trades. They're
               the market's matchmakers, executing millions of transactions in seconds.
             </p>
 
-            <h3>4. Clearing Corporations — The Market's Guarantee</h3>
+            <h3>4. Clearing Corporations &mdash; The Market's Guarantee</h3>
             <p>
               Institutions like NCL and ICCL verify both sides of a trade, ensuring money and
               shares are exchanged correctly. They guarantee smooth settlement and eliminate
               counterparty risk.
             </p>
 
-            <h3>5. Depositories — The Digital Vaults</h3>
+            <h3>5. Depositories &mdash; The Digital Vaults</h3>
             <p>
-              Your shares are stored digitally with NSDL or CDSL — accessed through your
+              Your shares are stored digitally with NSDL or CDSL &mdash; accessed through your
               broker-linked Demat account. This replaces old paper certificates with secure
               digital ownership.
             </p>
 
-            <h3>6. SEBI — The Watchdog of the Market</h3>
+            <h3>6. SEBI &mdash; The Watchdog of the Market</h3>
             <p>
               SEBI ensures transparency and fairness. It regulates brokers, monitors insider
               trading, approves IPOs, and ensures companies disclose results on time.
             </p>
 
-            <h3>Putting It All Together — The Journey of a Trade</h3>
+            <h3>Putting It All Together &mdash; The Journey of a Trade</h3>
             <p>
               When you buy shares, your order passes through your broker, gets matched on the
-              exchange, verified by the clearing corporation, and credited to your Demat —
+              exchange, verified by the clearing corporation, and credited to your Demat &mdash;
               all under SEBI's oversight. In seconds, your investment journey begins.
             </p>
           </>
@@ -238,35 +238,35 @@ export default function StockMarketPage() {
         kn: (
           <>
             <p>
-              ನೀವು ನಿಮ್ಮ ಟ್ರೇಡಿಂಗ್ ಅಪ್ಲಿಕೇಶನ್‌ನಲ್ಲಿ 'ಖರೀದಿ' ಟ್ಯಾಪ್ ಮಾಡಿದಾಗ, ಅದು ಮ್ಯಾಜಿಕ್‌ನಂತೆ ಕಾಣಬಹುದು — ಆದರೆ ಆ ತಕ್ಷಣದ ಕ್ಲಿಕ್ ಹಿಂದೆ ಸಂಸ್ಥೆಗಳು, ತಂತ್ರಜ್ಞಾನ, ಮತ್ತು ವಿಶ್ವಾಸದ ಸಂಕೀರ್ಣ ಜಾಲ ಇದೆ.
+              ನೀವು ನಿಮ್ಮ ಟ್ರೇಡಿಂಗ್ ಅಪ್ಲಿಕೇಶನ್‌ನಲ್ಲಿ 'ಖರೀದಿ' ಟ್ಯಾಪ್ ಮಾಡಿದಾಗ, ಅದು ಮ್ಯಾಜಿಕ್‌ನಂತೆ ಕಾಣಬಹುದು &mdash; ಆದರೆ ಆ ತಕ್ಷಣದ ಕ್ಲಿಕ್ ಹಿಂದೆ ಸಂಸ್ಥೆಗಳು, ತಂತ್ರಜ್ಞಾನ, ಮತ್ತು ವಿಶ್ವಾಸದ ಸಂಕೀರ್ಣ ಜಾಲ ಇದೆ.
             </p>
-            <h3>1. ಹೂಡಿಕೆದಾರರು — ಮಾರುಕಟ್ಟೆಯ ಹೃದಯಬಡಿತ</h3>
+            <h3>1. ಹೂಡಿಕೆದಾರರು &mdash; ಮಾರುಕಟ್ಟೆಯ ಹೃದಯಬಡಿತ</h3>
             <p>
-              ಝೆರೋಧಾ ಅಥವಾ ಗ್ರೋ ಬಳಸುವ ಚಿಲ್ಲರೆ ಹೂಡಿಕೆದಾರರು, ಮ್ಯೂಚುವಲ್ ಫಂಡ್ ಮತ್ತು ವಿಮಾ ಕಂಪನಿಗಳಂತಹ ಸಾಂಸ್ಥಿಕ ಹೂಡಿಕೆದಾರರು, ಮತ್ತು ಭಾರತದ ಮಾರುಕಟ್ಟೆಗಳಲ್ಲಿ ಹೂಡಿಕೆ ಮಾಡುವ ವಿದೇಶಿ ಸಾಂಸ್ಥಿಕ ಹೂಡಿಕೆದಾರರು (FII) — ಎಲ್ಲರೂ ಮಾರುಕಟ್ಟೆಯ ಜೀವಶಕ್ತಿ.
+              ಝೆರೋಧಾ ಅಥವಾ ಗ್ರೋ ಬಳಸುವ ಚಿಲ್ಲರೆ ಹೂಡಿಕೆದಾರರು, ಮ್ಯೂಚುವಲ್ ಫಂಡ್ ಮತ್ತು ವಿಮಾ ಕಂಪನಿಗಳಂತಹ ಸಾಂಸ್ಥಿಕ ಹೂಡಿಕೆದಾರರು, ಮತ್ತು ಭಾರತದ ಮಾರುಕಟ್ಟೆಗಳಲ್ಲಿ ಹೂಡಿಕೆ ಮಾಡುವ ವಿದೇಶಿ ಸಾಂಸ್ಥಿಕ ಹೂಡಿಕೆದಾರರು (FII) &mdash; ಎಲ್ಲರೂ ಮಾರುಕಟ್ಟೆಯ ಜೀವಶಕ್ತಿ.
             </p>
-            <h3>2. ಬ್ರೋಕರ್‌ಗಳು — ನಿಮ್ಮ ಮತ್ತು ಮಾರುಕಟ್ಟೆಯ ನಡುವಿನ ಸೇತುವೆ</h3>
+            <h3>2. ಬ್ರೋಕರ್‌ಗಳು &mdash; ನಿಮ್ಮ ಮತ್ತು ಮಾರುಕಟ್ಟೆಯ ನಡುವಿನ ಸೇತುವೆ</h3>
             <p>
-              ನೀವು ನೇರವಾಗಿ ಷೇರು ವಿನಿಮಯದಲ್ಲಿ ವ್ಯಾಪಾರ ಮಾಡಲು ಸಾಧ್ಯವಿಲ್ಲ — ನಿಮಗೆ ನೋಂದಾಯಿತ ಬ್ರೋಕರ್ ಅಗತ್ಯ. ಝೆರೋಧಾ, ಅಪ್‌ಸ್ಟಾಕ್ಸ್, ಏಂಜಲ್ ಒನ್, ಗ್ರೋ, ಮತ್ತು ICICI ಡೈರೆಕ್ಟ್ ಮಧ್ಯವರ್ತಿಗಳಾಗಿ ಕಾರ್ಯನಿರ್ವಹಿಸುತ್ತಾರೆ.
+              ನೀವು ನೇರವಾಗಿ ಷೇರು ವಿನಿಮಯದಲ್ಲಿ ವ್ಯಾಪಾರ ಮಾಡಲು ಸಾಧ್ಯವಿಲ್ಲ &mdash; ನಿಮಗೆ ನೋಂದಾಯಿತ ಬ್ರೋಕರ್ ಅಗತ್ಯ. ಝೆರೋಧಾ, ಅಪ್‌ಸ್ಟಾಕ್ಸ್, ಏಂಜಲ್ ಒನ್, ಗ್ರೋ, ಮತ್ತು ICICI ಡೈರೆಕ್ಟ್ ಮಧ್ಯವರ್ತಿಗಳಾಗಿ ಕಾರ್ಯನಿರ್ವಹಿಸುತ್ತಾರೆ.
             </p>
-            <h3>3. ಷೇರು ವಿನಿಮಯಗಳು — ಮಾರುಕಟ್ಟೆ ಸ್ಥಳ</h3>
+            <h3>3. ಷೇರು ವಿನಿಮಯಗಳು &mdash; ಮಾರುಕಟ್ಟೆ ಸ್ಥಳ</h3>
             <p>
               NSE (ನ್ಯಾಷನಲ್ ಸ್ಟಾಕ್ ಎಕ್ಸ್‌ಚೇಂಜ್) ಮತ್ತು BSE (ಬಾಂಬೆ ಸ್ಟಾಕ್ ಎಕ್ಸ್‌ಚೇಂಜ್) ಖರೀದಿದಾರರು ಮತ್ತು ಮಾರಾಟಗಾರರನ್ನು ಜೋಡಿಸುತ್ತವೆ. ಸೆಕೆಂಡುಗಳಲ್ಲಿ ಲಕ್ಷಾಂತರ ವ್ಯವಹಾರಗಳನ್ನು ನಡೆಸಲಾಗುತ್ತದೆ.
             </p>
-            <h3>4. ಕ್ಲಿಯರಿಂಗ್ ಕಾರ್ಪೊರೇಶನ್‌ಗಳು — ಮಾರುಕಟ್ಟೆಯ ಖಾತರಿ</h3>
+            <h3>4. ಕ್ಲಿಯರಿಂಗ್ ಕಾರ್ಪೊರೇಶನ್‌ಗಳು &mdash; ಮಾರುಕಟ್ಟೆಯ ಖಾತರಿ</h3>
             <p>
               NSE ಕ್ಲಿಯರಿಂಗ್ ಮತ್ತು ICCL ನಂತಹ ಸಂಸ್ಥೆಗಳು ಖರೀದಿ ಮತ್ತು ಮಾರಾಟ ಎರಡೂ ಕಡೆ ಎಲ್ಲ ಸರಿಯಿದೆ ಎಂದು ಖಚಿತಪಡಿಸುತ್ತವೆ. ಅವರು ಮಧ್ಯ ಪ್ರವೇಶಿಸಿ ಎರಡೂ ಕಡೆ ಡೀಲ್ ಪ್ರಕ್ರಿಯೆಗೊಳ್ಳಲಾಗುವುದು ಎಂದು ಖಾತ್ರಿ ನೀಡುತ್ತಾರೆ.
             </p>
-            <h3>5. ಡಿಪಾಸಿಟರಿಗಳು — ಡಿಜಿಟಲ್ ವಾಲ್ಟ್</h3>
+            <h3>5. ಡಿಪಾಸಿಟರಿಗಳು &mdash; ಡಿಜಿಟಲ್ ವಾಲ್ಟ್</h3>
             <p>
-              ನಿಮ್ಮ ಷೇರುಗಳು NSDL ಅಥವಾ CDSL ಮೂಲಕ ಡಿಜಿಟಲ್ ರೂಪದಲ್ಲಿ ಸಂಗ್ರಹಿಸಲ್ಪಡುತ್ತವೆ — ನಿಮ್ಮ ಬ್ರೋಕರ್‌ಗೆ ಲಿಂಕ್ ಆದ ಡಿಮ್ಯಾಟ್ ಖಾತೆ ಮೂಲಕ ಪ್ರವೇಶಿಸಬಹುದು.
+              ನಿಮ್ಮ ಷೇರುಗಳು NSDL ಅಥವಾ CDSL ಮೂಲಕ ಡಿಜಿಟಲ್ ರೂಪದಲ್ಲಿ ಸಂಗ್ರಹಿಸಲ್ಪಡುತ್ತವೆ &mdash; ನಿಮ್ಮ ಬ್ರೋಕರ್‌ಗೆ ಲಿಂಕ್ ಆದ ಡಿಮ್ಯಾಟ್ ಖಾತೆ ಮೂಲಕ ಪ್ರವೇಶಿಸಬಹುದು.
             </p>
-            <h3>6. SEBI — ಮಾರುಕಟ್ಟೆಯ ರಕ್ಷಕ</h3>
+            <h3>6. SEBI &mdash; ಮಾರುಕಟ್ಟೆಯ ರಕ್ಷಕ</h3>
             <p>
               SEBI (ಭಾರತೀಯ ಭದ್ರತೆಗಳು ಮತ್ತು ವಿನಿಮಯ ಮಂಡಳಿ) ಮಾರುಕಟ್ಟೆ ನ್ಯಾಯಯುತ, ಪಾರದರ್ಶಕ, ಮತ್ತು ಸ್ಥಿರವಾಗಿ ಇರುವಂತೆ ನೋಡಿಕೊಳ್ಳುತ್ತದೆ. ಇದು ಬ್ರೋಕರ್‌ಗಳನ್ನು ನಿಯಂತ್ರಿಸುತ್ತದೆ, ಒಳಗಿನ ವ್ಯಾಪಾರವನ್ನು ಮೇಲ್ವಿಚಾರಣೆ ಮಾಡುತ್ತದೆ, IPO ಗಳನ್ನು ಅನುಮೋದಿಸುತ್ತದೆ, ಮತ್ತು ಕಂಪನಿಗಳು ಫಲಿತಾಂಶಗಳನ್ನು ಸಮಯಕ್ಕೆ ಸರಿಯಾಗಿ ಬಹಿರಂಗಪಡಿಸುತ್ತವೆ ಎಂದು ಖಚಿತಪಡಿಸುತ್ತದೆ.
             </p>
-            <h3>ಒಟ್ಟಾಗಿ — ವ್ಯಾಪಾರದ ಯಾತ್ರೆ</h3>
+            <h3>ಒಟ್ಟಾಗಿ &mdash; ವ್ಯಾಪಾರದ ಯಾತ್ರೆ</h3>
             <p>
-              ನೀವು ಷೇರು ಖರೀದಿಸಿದಾಗ, ನಿಮ್ಮ ಆದೇಶ ನಿಮ್ಮ ಬ್ರೋಕರ್ ಮೂಲಕ ಹೋಗಿ, ವಿನಿಮಯದಲ್ಲಿ ಹೊಂದಾಣಿಕೆ ಆಗಿ, ಕ್ಲಿಯರಿಂಗ್ ಕಾರ್ಪೊರೇಶನ್ ಪರಿಶೀಲಿಸಿ, ನಿಮ್ಮ ಡಿಮ್ಯಾಟ್‌ಗೆ ಜಮಾ ಆಗುತ್ತದೆ — ಇವೆಲ್ಲ SEBI ನಿಗಾದಲ್ಲಿ. ಸೆಕೆಂಡುಗಳಲ್ಲಿ, ನಿಮ್ಮ ಹೂಡಿಕೆ ಪ್ರಯಾಣ ಆರಂಭವಾಗುತ್ತದೆ.
+              ನೀವು ಷೇರು ಖರೀದಿಸಿದಾಗ, ನಿಮ್ಮ ಆದೇಶ ನಿಮ್ಮ ಬ್ರೋಕರ್ ಮೂಲಕ ಹೋಗಿ, ವಿನಿಮಯದಲ್ಲಿ ಹೊಂದಾಣಿಕೆ ಆಗಿ, ಕ್ಲಿಯರಿಂಗ್ ಕಾರ್ಪೊರೇಶನ್ ಪರಿಶೀಲಿಸಿ, ನಿಮ್ಮ ಡಿಮ್ಯಾಟ್‌ಗೆ ಜಮಾ ಆಗುತ್ತದೆ &mdash; ಇವೆಲ್ಲ SEBI ನಿಗಾದಲ್ಲಿ. ಸೆಕೆಂಡುಗಳಲ್ಲಿ, ನಿಮ್ಮ ಹೂಡಿಕೆ ಪ್ರಯಾಣ ಆರಂಭವಾಗುತ್ತದೆ.
             </p>
           </>
         ),
@@ -275,8 +275,8 @@ export default function StockMarketPage() {
 
     {
       title: {
-        en: "Chapter 4: IPOs & FPOs — How Companies Raise Money",
-        kn: "ಅಧ್ಯಾಯ 4: IPO ಮತ್ತು FPO — ಕಂಪನಿಗಳು ಹಣ ಸಂಗ್ರಹಿಸುವ ವಿಧಾನ",
+        en: "Chapter 4: IPOs & FPOs &mdash; How Companies Raise Money",
+        kn: "ಅಧ್ಯಾಯ 4: IPO ಮತ್ತು FPO &mdash; ಕಂಪನಿಗಳು ಹಣ ಸಂಗ್ರಹಿಸುವ ವಿಧಾನ",
       },
       content: {
         en: (
@@ -292,13 +292,13 @@ export default function StockMarketPage() {
         kn: (
           <>
             <p>
-              IPO (ಆರಂಭಿಕ ಸಾರ್ವಜನಿಕ ಕೊಡುಗೆ) ಎಂದರೆ ಒಂದು ಖಾಸಗಿ ಕಂಪನಿ ಸಾರ್ವಜನಿಕವಾಗುವ ಸಂದರ್ಭ — ಮೊದಲ ಬಾರಿಗೆ ಜನರನ್ನು ಹೂಡಿಕೆ ಮಾಡಲು ಆಹ್ವಾನಿಸುವುದು.
+              IPO (ಆರಂಭಿಕ ಸಾರ್ವಜನಿಕ ಕೊಡುಗೆ) ಎಂದರೆ ಒಂದು ಖಾಸಗಿ ಕಂಪನಿ ಸಾರ್ವಜನಿಕವಾಗುವ ಸಂದರ್ಭ &mdash; ಮೊದಲ ಬಾರಿಗೆ ಜನರನ್ನು ಹೂಡಿಕೆ ಮಾಡಲು ಆಹ್ವಾನಿಸುವುದು.
             </p>
             <p>
               ಜೊಮ್ಯಾಟೋ, ನ್ಯಾಕಾ, ಮತ್ತು LIC ನಂತಹ ಕಂಪನಿಗಳ IPO ಭಾರತಾದ್ಯಂತ ಸಂಚಲನ ಸೃಷ್ಟಿಸಿದವು. ಹೂಡಿಕೆದಾರರಿಗೆ, ಇದು ಕಂಪನಿಯ ಬೆಳವಣಿಗೆಯ ಕಥೆಯಲ್ಲಿ ಆರಂಭದಲ್ಲೇ ಭಾಗಿಯಾಗುವ ಅವಕಾಶ. ಕಂಪನಿಗೆ, ಇದು ಕಾರ್ಯ ವಿಸ್ತರಿಸಲು, ಸಾಲ ತೀರಿಸಲು, ಅಥವಾ ನಾವೀನ್ಯಕ್ಕಾಗಿ ಹಣ ಪಡೆಯುವ ದಾರಿ.
             </p>
             <p>
-              FPO (ಅನುಸರಣ ಸಾರ್ವಜನಿಕ ಕೊಡುಗೆ) ಪಟ್ಟಿ ಕಂಪನಿ ಮತ್ತಷ್ಟು ಷೇರುಗಳನ್ನು ನೀಡುವಾಗ ನಡೆಯುತ್ತದೆ — ಹಣ ಸಂಗ್ರಹದ "ಎರಡನೇ ಸುತ್ತಿನಂತೆ."
+              FPO (ಅನುಸರಣ ಸಾರ್ವಜನಿಕ ಕೊಡುಗೆ) ಪಟ್ಟಿ ಕಂಪನಿ ಮತ್ತಷ್ಟು ಷೇರುಗಳನ್ನು ನೀಡುವಾಗ ನಡೆಯುತ್ತದೆ &mdash; ಹಣ ಸಂಗ್ರಹದ "ಎರಡನೇ ಸುತ್ತಿನಂತೆ."
             </p>
             <p>
               IPO ಎಂದರೆ ಕಂಪನಿ ಸಾರ್ವಜನಿಕರಿಗೆ ನೀಡುವ ಆಹ್ವಾನ: "ನಮ್ಮಲ್ಲಿ ನಂಬಿಕೆ ಇಡಿ. ನಮ್ಮ ಪ್ರಯಾಣದಲ್ಲಿ ಭಾಗಿಯಾಗಿ."
@@ -310,14 +310,14 @@ export default function StockMarketPage() {
 
     {
       title: {
-        en: "Chapter 5: Indices — The Market's Pulse",
-        kn: "ಅಧ್ಯಾಯ 5: ಸೂಚ್ಯಂಕಗಳು — ಮಾರುಕಟ್ಟೆಯ ನಾಡಿಮಿಡಿತ",
+        en: "Chapter 5: Indices &mdash; The Market's Pulse",
+        kn: "ಅಧ್ಯಾಯ 5: ಸೂಚ್ಯಂಕಗಳು &mdash; ಮಾರುಕಟ್ಟೆಯ ನಾಡಿಮಿಡಿತ",
       },
       content: {
         en: (
           <>
             <p>
-              Indices measure how groups of companies perform — much like a scoreboard in a
+              Indices measure how groups of companies perform &mdash; much like a scoreboard in a
               cricket match. When indices like the Nifty 50 or Sensex rise, it reflects
               optimism and growth. When they fall, it signals caution.
             </p>
@@ -332,7 +332,7 @@ export default function StockMarketPage() {
             <h3>Sectoral and Thematic Indices</h3>
             <p>
               Indices like Nifty Bank, Nifty IT, or Nifty FMCG let investors focus on
-              industries they believe in — banking, tech, or consumer goods.
+              industries they believe in &mdash; banking, tech, or consumer goods.
             </p>
 
             <h3>Why Indices Matter</h3>
@@ -348,14 +348,14 @@ export default function StockMarketPage() {
               ಷೇರು ಮಾರುಕಟ್ಟೆ ಕ್ರಿಕೆಟ್ ಪಂದ್ಯವಾಗಿದ್ದರೆ, ಸೂಚ್ಯಂಕಗಳು ಸ್ಕೋರ್‌ಬೋರ್ಡ್.
             </p>
             <p>
-              ಪ್ರತಿ ಓವರ್‌ನಲ್ಲಿ ಏನು ನಡೆಯುತ್ತಿದೆ ಎಂಬ ಎಲ್ಲ ವಿವರ ಅವು ಹೇಳದಿದ್ದರೂ — ಆಟ ಯಾವ ದಿಕ್ಕಿನಲ್ಲಿ ಸಾಗುತ್ತಿದೆ ಎಂಬ ತ್ವರಿತ ಅಂದಾಜು ಕೊಡುತ್ತವೆ.
+              ಪ್ರತಿ ಓವರ್‌ನಲ್ಲಿ ಏನು ನಡೆಯುತ್ತಿದೆ ಎಂಬ ಎಲ್ಲ ವಿವರ ಅವು ಹೇಳದಿದ್ದರೂ &mdash; ಆಟ ಯಾವ ದಿಕ್ಕಿನಲ್ಲಿ ಸಾಗುತ್ತಿದೆ ಎಂಬ ತ್ವರಿತ ಅಂದಾಜು ಕೊಡುತ್ತವೆ.
             </p>
             <p>
-              ಅದೇ ರೀತಿ, ಷೇರು ಮಾರುಕಟ್ಟೆ ಸೂಚ್ಯಂಕ ನಿರ್ದಿಷ್ಟ ಕಂಪನಿ ಗುಂಪು ಹೇಗೆ ಕಾರ್ಯನಿರ್ವಹಿಸುತ್ತಿದೆ ಎಂಬುದನ್ನು ಅಳೆಯುತ್ತದೆ — ಮಾರುಕಟ್ಟೆಯ ಒಟ್ಟಾರೆ ಮನಸ್ಥಿತಿ, ಪ್ರವೃತ್ತಿ, ಮತ್ತು ದಿಕ್ಕನ್ನು ಅರ್ಥಮಾಡಿಕೊಳ್ಳಲು ಸಹಾಯ ಮಾಡುತ್ತದೆ.
+              ಅದೇ ರೀತಿ, ಷೇರು ಮಾರುಕಟ್ಟೆ ಸೂಚ್ಯಂಕ ನಿರ್ದಿಷ್ಟ ಕಂಪನಿ ಗುಂಪು ಹೇಗೆ ಕಾರ್ಯನಿರ್ವಹಿಸುತ್ತಿದೆ ಎಂಬುದನ್ನು ಅಳೆಯುತ್ತದೆ &mdash; ಮಾರುಕಟ್ಟೆಯ ಒಟ್ಟಾರೆ ಮನಸ್ಥಿತಿ, ಪ್ರವೃತ್ತಿ, ಮತ್ತು ದಿಕ್ಕನ್ನು ಅರ್ಥಮಾಡಿಕೊಳ್ಳಲು ಸಹಾಯ ಮಾಡುತ್ತದೆ.
             </p>
             <h3>ಸೂಚ್ಯಂಕ ನಿಜವಾಗಿ ಏನು?</h3>
             <p>
-              ಸೂಚ್ಯಂಕ ಎಂದರೆ ಸರಳವಾಗಿ ಒಂದು ಆಯ್ದ ಕಂಪನಿಗಳ ಬುಟ್ಟಿ — ಅದು ವಿಶಾಲ ಮಾರುಕಟ್ಟೆ ಅಥವಾ ಒಂದು ನಿರ್ದಿಷ್ಟ ವಲಯವನ್ನು ಪ್ರತಿನಿಧಿಸುತ್ತದೆ.
+              ಸೂಚ್ಯಂಕ ಎಂದರೆ ಸರಳವಾಗಿ ಒಂದು ಆಯ್ದ ಕಂಪನಿಗಳ ಬುಟ್ಟಿ &mdash; ಅದು ವಿಶಾಲ ಮಾರುಕಟ್ಟೆ ಅಥವಾ ಒಂದು ನಿರ್ದಿಷ್ಟ ವಲಯವನ್ನು ಪ್ರತಿನಿಧಿಸುತ್ತದೆ.
             </p>
             <p>
               ಸೆನ್ಸೆಕ್ಸ್ ಅಥವಾ ನಿಫ್ಟಿ 50 ಏರಿದೆ ಅಥವಾ ಇಳಿದಿದೆ ಎಂದು ಕೇಳಿದಾಗ, ಆ ಬುಟ್ಟಿಯಲ್ಲಿರುವ ಕಂಪನಿಗಳ ಬೆಲೆ ಸರಾಸರಿ ಏರಿದೆ ಅಥವಾ ಇಳಿದಿದೆ ಎಂದರ್ಥ.
@@ -378,7 +378,7 @@ export default function StockMarketPage() {
 
     {
       title: {
-        en: "Chapter 6: Understanding the Basics — Key Jargon Simplified",
+        en: "Chapter 6: Understanding the Basics &mdash; Key Jargon Simplified",
         kn: "ಅಧ್ಯಾಯ 6: ಮೂಲಭೂತ ಪರಿಭಾಷೆ ಸರಳೀಕರಿಸಲಾಗಿದೆ",
       },
       content: {
@@ -386,11 +386,11 @@ export default function StockMarketPage() {
           <>
             <ul>
               <li><strong>Stock / Share:</strong> A unit of ownership in a company.</li>
-              <li><strong>Equity:</strong> Ownership stake — not a loan, but a share of the business.</li>
+              <li><strong>Equity:</strong> Ownership stake &mdash; not a loan, but a share of the business.</li>
               <li><strong>Market Capitalization:</strong> Total company value = Share price × Number of shares.</li>
               <li><strong>Bull Market:</strong> A period of rising optimism and prices.</li>
               <li><strong>Bear Market:</strong> A period of pessimism and falling prices.</li>
-              <li><strong>Portfolio:</strong> Your collection of investments — across stocks, funds, real estate, etc.</li>
+              <li><strong>Portfolio:</strong> Your collection of investments &mdash; across stocks, funds, real estate, etc.</li>
               <li><strong>Dividend:</strong> Profit shared by companies with their shareholders.</li>
             </ul>
           </>
@@ -398,7 +398,7 @@ export default function StockMarketPage() {
         kn: (
           <>
             <p>
-              ಹೂಡಿಕೆ ಜಗತ್ತಿಗೆ ಮೊದಲ ಬಾರಿ ಕಾಲಿಡುವಾಗ, ಪರಿಭಾಷೆ ಅಭಿಭೂತಗೊಳಿಸಬಹುದು — ಎಲ್ಲರೂ ಈಗಾಗಲೇ ಮಾತನಾಡುವ ಹೊಸ ಭಾಷೆಯಂತೆ. ಆದರೆ ಕೆಲವು ಪ್ರಮುಖ ಪದಗಳನ್ನು ತಿಳಿದ ನಂತರ, ಮಾರುಕಟ್ಟೆ ಹೆಚ್ಚು ಅರ್ಥವಾಗಲು ಆರಂಭಿಸುತ್ತದೆ.
+              ಹೂಡಿಕೆ ಜಗತ್ತಿಗೆ ಮೊದಲ ಬಾರಿ ಕಾಲಿಡುವಾಗ, ಪರಿಭಾಷೆ ಅಭಿಭೂತಗೊಳಿಸಬಹುದು &mdash; ಎಲ್ಲರೂ ಈಗಾಗಲೇ ಮಾತನಾಡುವ ಹೊಸ ಭಾಷೆಯಂತೆ. ಆದರೆ ಕೆಲವು ಪ್ರಮುಖ ಪದಗಳನ್ನು ತಿಳಿದ ನಂತರ, ಮಾರುಕಟ್ಟೆ ಹೆಚ್ಚು ಅರ್ಥವಾಗಲು ಆರಂಭಿಸುತ್ತದೆ.
             </p>
             <h3>ಷೇರು / ಶೇರ್</h3>
             <p>
@@ -406,7 +406,7 @@ export default function StockMarketPage() {
             </p>
             <h3>ಈಕ್ವಿಟಿ</h3>
             <p>
-              ಮಾಲೀಕತ್ವದ ಇನ್ನೊಂದು ಪದ. ನೀವು ಕಂಪನಿಗೆ ಹಣ ಸಾಲ ನೀಡುತ್ತಿಲ್ಲ — ನೀವು ಅದರ ಭಾಗ ಮಾಲೀಕರಾಗುತ್ತೀರಿ.
+              ಮಾಲೀಕತ್ವದ ಇನ್ನೊಂದು ಪದ. ನೀವು ಕಂಪನಿಗೆ ಹಣ ಸಾಲ ನೀಡುತ್ತಿಲ್ಲ &mdash; ನೀವು ಅದರ ಭಾಗ ಮಾಲೀಕರಾಗುತ್ತೀರಿ.
             </p>
             <h3>ಮಾರುಕಟ್ಟೆ ಬಂಡವಾಳೀಕರಣ</h3>
             <p>
@@ -422,11 +422,11 @@ export default function StockMarketPage() {
             </p>
             <h3>ಪೋರ್ಟ್‌ಫೋಲಿಯೊ</h3>
             <p>
-              ನೀವು ಹೊಂದಿರುವ ಎಲ್ಲ ಹೂಡಿಕೆಗಳ ಸಂಗ್ರಹ — ಷೇರುಗಳು, ಮ್ಯೂಚುವಲ್ ಫಂಡ್‌ಗಳು, ಬಾಂಡ್‌ಗಳು, ಚಿನ್ನ, ರಿಯಲ್ ಎಸ್ಟೇಟ್.
+              ನೀವು ಹೊಂದಿರುವ ಎಲ್ಲ ಹೂಡಿಕೆಗಳ ಸಂಗ್ರಹ &mdash; ಷೇರುಗಳು, ಮ್ಯೂಚುವಲ್ ಫಂಡ್‌ಗಳು, ಬಾಂಡ್‌ಗಳು, ಚಿನ್ನ, ರಿಯಲ್ ಎಸ್ಟೇಟ್.
             </p>
             <h3>ಡಿವಿಡೆಂಡ್</h3>
             <p>
-              ಕಂಪನಿ ಷೇರುದಾರರಿಗೆ ಲಾಭ ಹಂಚಿಕೊಂಡಾಗ. TCS ಸ್ಥಿರವಾಗಿ ₹72–80 ವಾರ್ಷಿಕ ಡಿವಿಡೆಂಡ್ ನೀಡಿದೆ.
+              ಕಂಪನಿ ಷೇರುದಾರರಿಗೆ ಲಾಭ ಹಂಚಿಕೊಂಡಾಗ. TCS ಸ್ಥಿರವಾಗಿ ₹72&ndash;80 ವಾರ್ಷಿಕ ಡಿವಿಡೆಂಡ್ ನೀಡಿದೆ.
             </p>
           </>
         ),
@@ -435,14 +435,14 @@ export default function StockMarketPage() {
 
     {
       title: {
-        en: "Chapter 7: Corporate Actions — When Companies Reshape Value",
+        en: "Chapter 7: Corporate Actions &mdash; When Companies Reshape Value",
         kn: "ಅಧ್ಯಾಯ 7: ಕಾರ್ಪೊರೇಟ್ ಕ್ರಮಗಳ ಬಗ್ಗೆ ಮಾತನಾಡೋಣ",
       },
       content: {
         en: (
           <>
             <p>
-              Owning a share doesn&apos;t just mean watching prices go up and down — companies
+              Owning a share doesn&apos;t just mean watching prices go up and down &mdash; companies
               often take actions that directly impact your holdings. These are called corporate
               actions.
             </p>
@@ -494,7 +494,7 @@ export default function StockMarketPage() {
         kn: (
           <>
             <p>
-              ಷೇರು ಹೊಂದಿರುವುದು ಕೇವಲ ಬೆಲೆ ಏರಿಳಿತ ನೋಡುವುದಲ್ಲ — ಕಂಪನಿಗಳು ನಿಮ್ಮ ಹೋಲ್ಡಿಂಗ್‌ಗಳ ಮೇಲೆ ನೇರ ಪರಿಣಾಮ ಬೀರುವ ಕ್ರಮಗಳನ್ನು ಆಗಾಗ ತೆಗೆದುಕೊಳ್ಳುತ್ತವೆ. ಇವನ್ನು ಕಾರ್ಪೊರೇಟ್ ಕ್ರಮಗಳು ಎನ್ನುತ್ತಾರೆ.
+              ಷೇರು ಹೊಂದಿರುವುದು ಕೇವಲ ಬೆಲೆ ಏರಿಳಿತ ನೋಡುವುದಲ್ಲ &mdash; ಕಂಪನಿಗಳು ನಿಮ್ಮ ಹೋಲ್ಡಿಂಗ್‌ಗಳ ಮೇಲೆ ನೇರ ಪರಿಣಾಮ ಬೀರುವ ಕ್ರಮಗಳನ್ನು ಆಗಾಗ ತೆಗೆದುಕೊಳ್ಳುತ್ತವೆ. ಇವನ್ನು ಕಾರ್ಪೊರೇಟ್ ಕ್ರಮಗಳು ಎನ್ನುತ್ತಾರೆ.
             </p>
             <h3>ಬೋನಸ್ ಷೇರು</h3>
             <p>
@@ -527,20 +527,20 @@ export default function StockMarketPage() {
 
     {
       title: {
-        en: "Chapter 8: Wrapping Up — You Now Speak the Market's Language",
+        en: "Chapter 8: Wrapping Up &mdash; You Now Speak the Market's Language",
         kn: "ಅಧ್ಯಾಯ 8: ನೀವು ಈಗ ಮಾರುಕಟ್ಟೆಯ ಭಾಷೆ ಮಾತನಾಡುತ್ತೀರಿ",
       },
       content: {
         en: (
           <>
             <p>
-              You've come a long way — understanding what markets are, how trades happen,
+              You've come a long way &mdash; understanding what markets are, how trades happen,
               and who makes it all work. You can now read financial headlines with
               confidence.
             </p>
 
             <p>
-              The stock market isn't a casino — it's a living ecosystem of businesses,
+              The stock market isn't a casino &mdash; it's a living ecosystem of businesses,
               investors, and systems shaping our economy. When you invest, you're
               supporting progress and innovation.
             </p>
@@ -557,16 +557,16 @@ export default function StockMarketPage() {
               ನೀವು ಬಹಳ ದೂರ ಬಂದಿದ್ದೀರಿ.
             </p>
             <p>
-              ಷೇರು ಮಾರುಕಟ್ಟೆ ಏನು ಎಂಬುದರಿಂದ ಹಿಡಿದು, ವ್ಯಾಪಾರಗಳು ಹೇಗೆ ನಡೆಯುತ್ತವೆ, ಯಾರು ಅವನ್ನು ನಿರ್ವಹಿಸುತ್ತಾರೆ, ಮತ್ತು ಆ ಗೊಂದಲ ಮೂಡಿಸುವ ಪದಗಳ ಅರ್ಥ ಏನು — ನೀವು ಪ್ರತಿ ಹೂಡಿಕೆದಾರರಿಗೆ ಅಗತ್ಯವಾದ ಅಡಿಪಾಯ ನಿರ್ಮಿಸಿದ್ದೀರಿ.
+              ಷೇರು ಮಾರುಕಟ್ಟೆ ಏನು ಎಂಬುದರಿಂದ ಹಿಡಿದು, ವ್ಯಾಪಾರಗಳು ಹೇಗೆ ನಡೆಯುತ್ತವೆ, ಯಾರು ಅವನ್ನು ನಿರ್ವಹಿಸುತ್ತಾರೆ, ಮತ್ತು ಆ ಗೊಂದಲ ಮೂಡಿಸುವ ಪದಗಳ ಅರ್ಥ ಏನು &mdash; ನೀವು ಪ್ರತಿ ಹೂಡಿಕೆದಾರರಿಗೆ ಅಗತ್ಯವಾದ ಅಡಿಪಾಯ ನಿರ್ಮಿಸಿದ್ದೀರಿ.
             </p>
             <p>
               ಒಮ್ಮೆ ಗೊಂದಲ ಮೂಡಿಸುತ್ತಿದ್ದ ಪರಿಭಾಷೆ ಈಗ ಅರ್ಥವಾಗುತ್ತದೆ. "ನಿಫ್ಟಿ ಏರಿದೆ, ರಿಲಯನ್ಸ್ ಬೈಬ್ಯಾಕ್ ಪ್ರಕಟಿಸಿದೆ, SEBI ನಿಯಮಗಳನ್ನು ಬಿಗಿಗೊಳಿಸುತ್ತಿದೆ" ಎಂದು ಯಾರಾದರೂ ಹೇಳಿದಾಗ ಅದರ ಅರ್ಥ ನಿಮಗೆ ತಿಳಿಯುತ್ತದೆ.
             </p>
             <p>
-              ಮಾರುಕಟ್ಟೆ ಯಾವುದೋ ಅಮೂರ್ತ ಜೂಜಿನ ತಾಣವಲ್ಲ — ಅದು ವ್ಯವಹಾರಗಳು, ಹೂಡಿಕೆದಾರರು, ಮತ್ತು ವ್ಯವಸ್ಥೆಗಳ ಜೀವಂತ ಪರಿಸರ ವ್ಯವಸ್ಥೆ. ನೀವು ಹೂಡಿಕೆ ಮಾಡಿದಾಗ, ಆರ್ಥಿಕತೆಯ ಭವಿಷ್ಯ ರೂಪಿಸುತ್ತಿರುವ ಕಲ್ಪನೆಗಳು, ಜನರು, ಮತ್ತು ಕಂಪನಿಗಳ ಹಿಂದೆ ನಿಮ್ಮ ಹಣ ಇಡುತ್ತೀರಿ.
+              ಮಾರುಕಟ್ಟೆ ಯಾವುದೋ ಅಮೂರ್ತ ಜೂಜಿನ ತಾಣವಲ್ಲ &mdash; ಅದು ವ್ಯವಹಾರಗಳು, ಹೂಡಿಕೆದಾರರು, ಮತ್ತು ವ್ಯವಸ್ಥೆಗಳ ಜೀವಂತ ಪರಿಸರ ವ್ಯವಸ್ಥೆ. ನೀವು ಹೂಡಿಕೆ ಮಾಡಿದಾಗ, ಆರ್ಥಿಕತೆಯ ಭವಿಷ್ಯ ರೂಪಿಸುತ್ತಿರುವ ಕಲ್ಪನೆಗಳು, ಜನರು, ಮತ್ತು ಕಂಪನಿಗಳ ಹಿಂದೆ ನಿಮ್ಮ ಹಣ ಇಡುತ್ತೀರಿ.
             </p>
             <p>
-              ಮುಂದಿನ ಹಂತ ಹೆಚ್ಚು ಪ್ರಾಯೋಗಿಕವಾಗಿರುತ್ತದೆ — ಕಂಪನಿಗಳನ್ನು ಹೇಗೆ ವಿಶ್ಲೇಷಿಸುವುದು, ಮೌಲ್ಯಮಾಪನ ಅರ್ಥಮಾಡಿಕೊಳ್ಳುವುದು, ಮತ್ತು ಶಾಂತ ಮನಸ್ಸಿನಿಂದ ಸ್ಮಾರ್ಟ್ ಹೂಡಿಕೆ ನಿರ್ಧಾರಗಳನ್ನು ತೆಗೆದುಕೊಳ್ಳುವುದು ಹೇಗೆ. ನಿಜವಾದ ಪ್ರಯಾಣ ಇಲ್ಲಿಂದ ಆರಂಭವಾಗುತ್ತದೆ.
+              ಮುಂದಿನ ಹಂತ ಹೆಚ್ಚು ಪ್ರಾಯೋಗಿಕವಾಗಿರುತ್ತದೆ &mdash; ಕಂಪನಿಗಳನ್ನು ಹೇಗೆ ವಿಶ್ಲೇಷಿಸುವುದು, ಮೌಲ್ಯಮಾಪನ ಅರ್ಥಮಾಡಿಕೊಳ್ಳುವುದು, ಮತ್ತು ಶಾಂತ ಮನಸ್ಸಿನಿಂದ ಸ್ಮಾರ್ಟ್ ಹೂಡಿಕೆ ನಿರ್ಧಾರಗಳನ್ನು ತೆಗೆದುಕೊಳ್ಳುವುದು ಹೇಗೆ. ನಿಜವಾದ ಪ್ರಯಾಣ ಇಲ್ಲಿಂದ ಆರಂಭವಾಗುತ್ತದೆ.
             </p>
           </>
         ),
