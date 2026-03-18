@@ -2,15 +2,20 @@ import { NextRequest, NextResponse } from "next/server";
 import { db } from "@/app/lib/db";
 
 // --------------------------------------
-// GET → Fetch last completed chapter
-// /api/modules?moduleId=budgeting-101
+// GET → Fetch progress
+// /api/modules        → last completed chapter
+// /api/modules?all=1  → { [moduleId]: chapterNumber } for all modules
 // --------------------------------------
 export async function GET(req: NextRequest) {
   const userId = req.cookies.get("uid")?.value;
   if (!userId) return NextResponse.json({ error: "Not logged in" }, { status: 401 });
 
-  const data = await db.getLastCompletedChapter(userId);
+  if (req.nextUrl.searchParams.get("all") === "1") {
+    const data = await db.getAllProgress(userId);
+    return NextResponse.json(data);
+  }
 
+  const data = await db.getLastCompletedChapter(userId);
   return NextResponse.json(data);
 }
 

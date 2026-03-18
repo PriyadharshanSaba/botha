@@ -390,7 +390,7 @@ export default function ToolsPage() {
             <div className="ft-header-label">Finance Tools</div>
             <h1>Your financial <em>toolkit</em></h1>
             <p className="ft-header-sub">
-              Six free calculators for real decisions &mdash; plus the Net Worth Tracker, included with the Personal Finance Course.
+              Six free calculators for real decisions - plus the Net Worth Tracker, included with the Personal Finance Course.
             </p>
           </div>
           <div className="ft-header-right">
@@ -421,7 +421,7 @@ export default function ToolsPage() {
               onClick={() => setActiveModal(tool.id)}
             >
               <div className="ft-tool-top">
-                <div className="ft-tool-num">{tool.num} &mdash;&mdash;</div>
+                <div className="ft-tool-num">{tool.num} --</div>
                 <div className="ft-tool-icon">{tool.icon}</div>
               </div>
               <div className="ft-tool-name">{tool.name}</div>
@@ -702,20 +702,20 @@ export default function ToolsPage() {
           <div className="ft-modal-title">Tax Estimator</div>
           <div className="ft-modal-subtitle">FY 2025-26 &middot; New Regime</div>
 
-          <div className="ft-divider-label">Head 1 &mdash; Salary</div>
+          <div className="ft-divider-label">Head 1 - Salary</div>
           <div className="ft-form-group">
             <label className="ft-form-label">Gross Salary</label>
             <input className="ft-form-input" type="number" placeholder="0" value={taxSalary || ""} onChange={(e) => setTaxSalary(Number(e.target.value) || 0)} />
             <span style={{ fontSize: 11, color: "#888", marginTop: 2 }}>Standard deduction of &#8377;75,000 applied automatically</span>
           </div>
 
-          <div className="ft-divider-label">Head 2 &mdash; Business / Profession</div>
+          <div className="ft-divider-label">Head 2 - Business / Profession</div>
           <div className="ft-form-group">
             <label className="ft-form-label">Net Business / Professional Income</label>
             <input className="ft-form-input" type="number" placeholder="0" value={taxBusiness || ""} onChange={(e) => setTaxBusiness(Number(e.target.value) || 0)} />
           </div>
 
-          <div className="ft-divider-label">Head 3 &mdash; House Property</div>
+          <div className="ft-divider-label">Head 3 - House Property</div>
           <div className="ft-form-row">
             <div className="ft-form-group">
               <label className="ft-form-label">Gross Rent Received</label>
@@ -736,33 +736,33 @@ export default function ToolsPage() {
             </div>
           )}
 
-          <div className="ft-divider-label">Head 4 &mdash; Capital Gains</div>
+          <div className="ft-divider-label">Head 4 - Capital Gains</div>
           <div className="ft-form-row">
             <div className="ft-form-group">
-              <label className="ft-form-label">STCG &mdash; Equity (20%)</label>
+              <label className="ft-form-label">STCG - Equity (20%)</label>
               <input className="ft-form-input" type="number" placeholder="0" value={taxStcgEq || ""} onChange={(e) => setTaxStcgEq(Number(e.target.value) || 0)} />
             </div>
             <div className="ft-form-group">
-              <label className="ft-form-label">STCG &mdash; Debt (slab rate)</label>
+              <label className="ft-form-label">STCG - Debt (slab rate)</label>
               <input className="ft-form-input" type="number" placeholder="0" value={taxStcgDebt || ""} onChange={(e) => setTaxStcgDebt(Number(e.target.value) || 0)} />
             </div>
           </div>
           <div className="ft-form-group">
-            <label className="ft-form-label">LTCG &mdash; Equity (12.5% above &#8377;1.25L)</label>
+            <label className="ft-form-label">LTCG - Equity (12.5% above &#8377;1.25L)</label>
             <input className="ft-form-input" type="number" placeholder="0" value={taxLtcgEq || ""} onChange={(e) => setTaxLtcgEq(Number(e.target.value) || 0)} />
           </div>
           <div className="ft-form-row">
             <div className="ft-form-group">
-              <label className="ft-form-label">LTCG &mdash; Debt pre-Apr 2023 (12.5%)</label>
+              <label className="ft-form-label">LTCG - Debt pre-Apr 2023 (12.5%)</label>
               <input className="ft-form-input" type="number" placeholder="0" value={taxLtcgDebtPre || ""} onChange={(e) => setTaxLtcgDebtPre(Number(e.target.value) || 0)} />
             </div>
             <div className="ft-form-group">
-              <label className="ft-form-label">LTCG &mdash; Debt post-Apr 2023 (slab)</label>
+              <label className="ft-form-label">LTCG - Debt post-Apr 2023 (slab)</label>
               <input className="ft-form-input" type="number" placeholder="0" value={taxLtcgDebtPost || ""} onChange={(e) => setTaxLtcgDebtPost(Number(e.target.value) || 0)} />
             </div>
           </div>
 
-          <div className="ft-divider-label">Head 5 &mdash; Other Sources</div>
+          <div className="ft-divider-label">Head 5 - Other Sources</div>
           <div className="ft-form-row">
             <div className="ft-form-group">
               <label className="ft-form-label">Interest Income</label>
@@ -1005,7 +1005,7 @@ export default function ToolsPage() {
               </div>
               <div className="logo-text" style={{ color: "#fff" }}>Bodha</div>
             </Link>
-            <p>Empowering individuals with the financial literacy they need to build lasting wealth &mdash; for free.</p>
+            <p>Empowering individuals with the financial literacy they need to build lasting wealth - for free.</p>
           </div>
           <div className="footer-col">
             <h5>Services</h5>

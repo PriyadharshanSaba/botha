@@ -162,7 +162,7 @@ export default function VcfoPage() {
             Board-level finance,<br />without the <em>full-time</em><br />cost.
           </h1>
           <p className="vcfo-hero-sub">
-            Most growing businesses outgrow their bookkeeper before they can afford a CFO. We fill that gap &mdash; embedded financial leadership that brings clarity, structure and strategy exactly when you need it.
+            Most growing businesses outgrow their bookkeeper before they can afford a CFO. We fill that gap - embedded financial leadership that brings clarity, structure and strategy exactly when you need it.
           </p>
           <div className="vcfo-hero-actions">
             <a href="#vcfo-request" className="btn-big" style={{ textDecoration: "none" }}>Request a Virtual CFO &rarr;</a>
@@ -193,7 +193,7 @@ export default function VcfoPage() {
             </div>
             <div className="vcfo-hc">
               <div className="vcfo-hc-icon">&#9989;</div>
-              <div><div className="vcfo-hc-title">Compliance On Track</div><div className="vcfo-hc-sub">GST, TDS, ROC &mdash; zero missed deadlines</div></div>
+              <div><div className="vcfo-hc-title">Compliance On Track</div><div className="vcfo-hc-sub">GST, TDS, ROC - zero missed deadlines</div></div>
               <div className="vcfo-hc-val" style={{ color: "#2d7a3a" }}>100%</div>
             </div>
           </div>
@@ -207,12 +207,12 @@ export default function VcfoPage() {
             <div className="vcfo-section-label">What We Do</div>
             <div className="vcfo-section-title">Everything a CFO<br />is supposed to own.</div>
           </div>
-          <p>From day-to-day financial ops to board-level strategy &mdash; we cover the full spectrum so you can focus on building.</p>
+          <p>From day-to-day financial ops to board-level strategy - we cover the full spectrum so you can focus on building.</p>
         </div>
         <div className="vcfo-services-grid">
           {services.map((svc, i) => (
             <div key={i} className="vcfo-svc-card vcfo-reveal" ref={addRevealRef} style={{ transitionDelay: `${0.05 * (i + 1)}s` }}>
-              <div className="vcfo-svc-num">{svc.num} &mdash;&mdash;</div>
+              <div className="vcfo-svc-num">{svc.num} --</div>
               <div className="vcfo-svc-icon">{svc.icon}</div>
               <div className="vcfo-svc-name">{svc.name}</div>
               <div className="vcfo-svc-desc">{svc.desc}</div>
@@ -274,7 +274,7 @@ export default function VcfoPage() {
           <div className="vcfo-why-right vcfo-reveal" ref={addRevealRef} style={{ transitionDelay: "0.15s" }}>
             <span className="vcfo-big-quote-mark">&ldquo;</span>
             <div className="vcfo-big-quote">
-              We don&apos;t just report<br />what happened &mdash; we help you<br /><em>decide what happens next.</em>
+              We don&apos;t just report<br />what happened - we help you<br /><em>decide what happens next.</em>
             </div>
             <p style={{ fontSize: 14, color: "#888", fontWeight: 300, lineHeight: 1.7, maxWidth: 360 }}>
               Our team comes from Big 4 backgrounds, with hands-on experience across sectors and business sizes. The kind of perspective that takes years to build and is hard to find anywhere else.
@@ -320,7 +320,7 @@ export default function VcfoPage() {
           <div className="vcfo-form-left vcfo-reveal" ref={addRevealRef}>
             <div className="vcfo-section-label">Get Started</div>
             <div className="vcfo-section-title">Tell us about<br />your business.</div>
-            <p>Fill in the form and we&apos;ll set up a no-obligation discovery call within 24 hours. No pitch, no hard sell &mdash; just a conversation about whether we&apos;re a fit.</p>
+            <p>Fill in the form and we&apos;ll set up a no-obligation discovery call within 24 hours. No pitch, no hard sell - just a conversation about whether we&apos;re a fit.</p>
             <div className="vcfo-form-checklist">
               <div className="vcfo-form-check">Response within 24 hours, guaranteed</div>
               <div className="vcfo-form-check">30-minute discovery call, zero obligation</div>
@@ -329,7 +329,7 @@ export default function VcfoPage() {
               <div className="vcfo-form-check">Onboarding in under 2 weeks</div>
             </div>
             <div className="vcfo-form-trust">
-              <p><strong>Already have a CA or accountant?</strong> No problem. Our Virtual CFO works alongside your existing team &mdash; we handle strategy, reporting, and oversight; they handle execution.</p>
+              <p><strong>Already have a CA or accountant?</strong> No problem. Our Virtual CFO works alongside your existing team - we handle strategy, reporting, and oversight; they handle execution.</p>
             </div>
           </div>
 
@@ -417,7 +417,7 @@ export default function VcfoPage() {
                     <option>Compliance &amp; Statutory</option>
                     <option>Finance Function Setup</option>
                     <option>Full Virtual CFO Engagement</option>
-                    <option>Not sure &mdash; need guidance</option>
+                    <option>Not sure - need guidance</option>
                   </select>
                 </div>
 
@@ -446,7 +446,7 @@ export default function VcfoPage() {
               <div className="vcfo-success-state show">
                 <div className="vcfo-success-icon">&#9989;</div>
                 <h3>Request received!</h3>
-                <p>Thank you &mdash; we&apos;ll review your details and reach out within <strong>24 hours</strong> to schedule your discovery call. Check your inbox for a confirmation.</p>
+                <p>Thank you - we&apos;ll review your details and reach out within <strong>24 hours</strong> to schedule your discovery call. Check your inbox for a confirmation.</p>
               </div>
             )}
           </div>

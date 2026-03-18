@@ -131,6 +131,18 @@ export const PostgresDB: DBDriver = {
       moduleId: res[0]?.moduleId ?? null,
       chapterNumber: res[0]?.chapterNumber ?? 0,
     };
+  },
+
+  /* --------------------------------
+     PROGRESS: Get All Modules Progress
+  ----------------------------------*/
+  async getAllProgress(userId) {
+    const rows = await db
+      .select()
+      .from(userProgress)
+      .where(eq(userProgress.userId, userId));
+
+    return Object.fromEntries(rows.map((r) => [r.moduleId, r.chapterNumber]));
   }
 };
 

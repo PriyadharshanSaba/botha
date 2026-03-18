@@ -51,5 +51,10 @@ export const MockDB: DBDriver = {
       moduleId: null,
       chapterNumber: 0,
     };
+  },
+
+  async getAllProgress(userId) {
+    console.log("Mock getAllProgress for:", userId);
+    return {};
   }
 };

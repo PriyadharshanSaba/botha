@@ -28,4 +28,5 @@ export interface DBDriver {
   markChapterViewed(userId: string, moduleId: string, chapterNumber: number): Promise<void>;
   hasCompletedChapter(userId: string, moduleId: string, chapterNumber: number): Promise<boolean>;
   getLastCompletedChapter(userId: string): Promise<{moduleId: string | null; chapterNumber: number;}>;
+  getAllProgress(userId: string): Promise<Record<string, number>>;
 }

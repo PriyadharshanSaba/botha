@@ -9,8 +9,11 @@ interface ModuleCardProps {
   color: string;
   title: string;
   chapters: string;
+  chaptersNum: number;
   description: string;
   view_module_link: string;
+  moduleId: string;
+  progressChapter?: number; // current chapter index (0-based)
 }
 
 export default function ModuleCard({
@@ -18,10 +21,17 @@ export default function ModuleCard({
   color,
   title,
   chapters,
+  chaptersNum,
   description,
   view_module_link,
+  progressChapter,
 }: ModuleCardProps) {
   const { t } = useLanguage();
+
+  const hasProgress = progressChapter !== undefined && progressChapter > 0;
+  const progressPct = hasProgress
+    ? Math.round(((progressChapter) / (chaptersNum - 1)) * 100)
+    : 0;
 
   return (
     <Link href={view_module_link} className="module-card-link">
@@ -32,6 +42,19 @@ export default function ModuleCard({
 
         <h3 className="module-name">{title}</h3>
         <p className="module-chapters">{chapters}</p>
+
+        <div className="module-progress-wrap">
+          <div className="module-progress-bar">
+            <div
+              className="module-progress-fill"
+              style={{ width: `${progressPct}%` }}
+            />
+          </div>
+          <div className="module-progress-label">
+            {hasProgress ? `Chapter ${progressChapter} of ${chaptersNum}` : "Module not started yet"}
+          </div>
+        </div>
+
         <p className="module-description">{description}</p>
 
         <div className="module-links">

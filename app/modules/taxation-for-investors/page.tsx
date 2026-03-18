@@ -6,7 +6,7 @@ import { useEffect } from "react";
 
 import "../modules.css";
 import "../module-detail.css";
-import { useSearchParams } from "next/navigation";
+import { useSearchParams, useRouter } from "next/navigation";
 import { useLanguage } from "../../context/LanguageContext";
 
 const imgStyle: React.CSSProperties = {
@@ -18,23 +18,9 @@ const imgStyle: React.CSSProperties = {
 };
 
 // ============================================================
-//  ALL CHAPTER CONTENT &mdash; module-level to avoid Turbopack bug
+//  ALL CHAPTER CONTENT - module-level to avoid Turbopack bug
 // ============================================================
 const chapters: { title: string; content: React.ReactNode }[] = [
-
-    // ==============================
-    // INTRO SLIDE
-    // ==============================
-    {
-      title: "Taxation for Investors",
-      content: (
-        <p className="subtitle" style={{ fontSize: 18, color: "#666", lineHeight: 1.7 }}>
-          The return that ultimately matters is the one you keep after taxes. Understand how
-          capital gains, dividends, and mutual fund income are taxed in India &mdash; and how smart
-          planning helps you retain more.
-        </p>
-      ),
-    },
 
     // ==============================
     // CHAPTER 1
@@ -55,8 +41,8 @@ const chapters: { title: string; content: React.ReactNode }[] = [
           </p>
           <p>
             In India, investment income interacts with the broader{" "}
-            <strong>income tax framework</strong> and different types of income &mdash; such as
-            capital gains, dividends or interest &mdash; are taxed in different ways. India currently
+            <strong>income tax framework</strong> and different types of income - such as
+            capital gains, dividends or interest - are taxed in different ways. India currently
             has two tax structures: the <strong>old tax regime</strong> and the{" "}
             <strong>new tax regime</strong>. The new regime has become the default option and
             is expected to be more relevant for many taxpayers. This module will focus
@@ -75,31 +61,31 @@ const chapters: { title: string; content: React.ReactNode }[] = [
           </p>
           <img src="/taxation/image5.png" alt="Five heads of income under Indian tax law" style={imgStyle} />
           <p>
-            <strong>1. Income from Salary</strong> &mdash; monthly salary, bonuses and incentives,
+            <strong>1. Income from Salary</strong> - monthly salary, bonuses and incentives,
             allowances and employer-provided benefits. While salary income is not directly
             related to investing, it often forms the primary source of capital that investors
             use to build their portfolios.
           </p>
           <p>
-            <strong>2. Income from House Property</strong> &mdash; rental income from residential or
+            <strong>2. Income from House Property</strong> - rental income from residential or
             commercial property. Since real estate is often a major component of personal
             wealth, income from property may play a role in an investor&apos;s overall financial
             planning.
           </p>
           <p>
-            <strong>3. Profits and Gains from Business or Profession</strong> &mdash; income through
+            <strong>3. Profits and Gains from Business or Profession</strong> - income through
             business activities, professional services, freelancing or consulting. For many
             investors, business income becomes an important source of capital that is later
             allocated to financial investments.
           </p>
           <p>
-            <strong>4. Capital Gains</strong> &mdash; arise when an asset is sold for more than its
+            <strong>4. Capital Gains</strong> - arise when an asset is sold for more than its
             purchase price. This is one of the most important categories for investors. Capital
             gains may occur when selling stocks, mutual funds, real estate, gold or bonds.
             Taxation depends on several factors, particularly the holding period of the asset.
           </p>
           <p>
-            <strong>5. Income from Other Sources</strong> &mdash; a residual category for income
+            <strong>5. Income from Other Sources</strong> - a residual category for income
             that does not fall under the other four heads. Many common investment-related
             earnings fall here: interest earned from fixed deposits, savings account interest,
             bond interest, and dividend income from stocks or mutual funds.
@@ -114,7 +100,7 @@ const chapters: { title: string; content: React.ReactNode }[] = [
             understand how various investment returns interact with the tax system.
           </p>
           <div className="pull-quote">
-            The return that ultimately matters is not the return your investment generates &mdash;
+            The return that ultimately matters is not the return your investment generates -
             it is the return you keep after taxes. Understanding taxation is as important as
             understanding markets.
           </div>
@@ -126,7 +112,7 @@ const chapters: { title: string; content: React.ReactNode }[] = [
     // CHAPTER 2
     // ==============================
     {
-      title: "Chapter 2: Capital Gains &mdash; The Foundation of Investment Taxation",
+      title: "Chapter 2: Capital Gains - The Foundation of Investment Taxation",
       content: (
         <>
           <p>
@@ -134,7 +120,7 @@ const chapters: { title: string; content: React.ReactNode }[] = [
             <strong>capital gains</strong>. A capital gain arises when you{" "}
             <strong>sell an asset for a price higher than the price you originally paid for
             it</strong>. The difference between the selling price and the purchase price
-            represents the gain &mdash; and this gain may be subject to taxation.
+            represents the gain - and this gain may be subject to taxation.
           </p>
           <p>
             Common assets that generate capital gains include stocks, mutual funds, real
@@ -151,11 +137,11 @@ const chapters: { title: string; content: React.ReactNode }[] = [
             categories:
           </p>
           <p>
-            <strong>Short-Term Capital Gains (STCG)</strong> &mdash; gains from assets held for a
+            <strong>Short-Term Capital Gains (STCG)</strong> - gains from assets held for a
             shorter period. Typically taxed at higher or less favorable rates.
           </p>
           <p>
-            <strong>Long-Term Capital Gains (LTCG)</strong> &mdash; gains from assets held for
+            <strong>Long-Term Capital Gains (LTCG)</strong> - gains from assets held for
             longer. Often receive preferential tax treatment.
           </p>
           <p>
@@ -183,7 +169,7 @@ const chapters: { title: string; content: React.ReactNode }[] = [
           </p>
           <div className="pull-quote">
             The timing of a sale matters as much as the sale itself. A few extra months of
-            holding can move a gain from short-term to long-term &mdash; significantly changing the
+            holding can move a gain from short-term to long-term - significantly changing the
             tax outcome.
           </div>
         </>
@@ -287,7 +273,7 @@ const chapters: { title: string; content: React.ReactNode }[] = [
           <p>
             Equity mutual funds are funds where{" "}
             <strong>at least 65% of the portfolio is invested in equities</strong>. These
-            funds are taxed <strong>in the same way as listed stocks</strong> &mdash; STCG at 20%
+            funds are taxed <strong>in the same way as listed stocks</strong> - STCG at 20%
             if sold within 12 months, and LTCG at 12.5% above the ₹1.25 lakh exemption if
             held beyond 12 months.
           </p>
@@ -317,7 +303,7 @@ const chapters: { title: string; content: React.ReactNode }[] = [
             months, gains may be taxed at{" "}
             <strong>12.5% LTCG without indexation</strong>. Example: ₹5,00,000 invested in
             2022, grows to ₹5,80,000 after three years. Tax payable: 12.5% × ₹80,000 =
-            ₹10,000 &mdash; significantly lower than slab-based tax on newer investments.
+            ₹10,000 - significantly lower than slab-based tax on newer investments.
           </p>
           <hr className="chapter-rule" />
           <h3>Hybrid Mutual Funds</h3>
@@ -352,7 +338,7 @@ const chapters: { title: string; content: React.ReactNode }[] = [
     // CHAPTER 5
     // ==============================
     {
-      title: "Chapter 5: Growth vs IDCW &mdash; Tax Impact and Compounding",
+      title: "Chapter 5: Growth vs IDCW - Tax Impact and Compounding",
       content: (
         <>
           <p>
@@ -382,7 +368,7 @@ const chapters: { title: string; content: React.ReactNode }[] = [
           <h3>IDCW Option</h3>
           <p>
             In the IDCW option, the mutual fund distributes profits periodically. However,
-            IDCW payouts are <strong>not additional returns</strong> &mdash; the payout comes from
+            IDCW payouts are <strong>not additional returns</strong> - the payout comes from
             the fund&apos;s existing assets, which means the <strong>NAV of the fund falls by the
             amount distributed</strong>. More importantly, these distributions are{" "}
             <strong>taxed as income according to the investor&apos;s income tax slab</strong>.
@@ -501,7 +487,7 @@ const chapters: { title: string; content: React.ReactNode }[] = [
           </p>
           <p>
             Unlike capital gains from equities, interest income{" "}
-            <strong>does not receive preferential tax treatment</strong> &mdash; it is generally
+            <strong>does not receive preferential tax treatment</strong> - it is generally
             taxed according to the <strong>investor&apos;s income tax slab</strong>.
           </p>
           <hr className="chapter-rule" />
@@ -558,12 +544,12 @@ const chapters: { title: string; content: React.ReactNode }[] = [
             Since interest income is taxed at slab rates, investors should always compare{" "}
             <strong>post-tax returns</strong> rather than headline interest rates.
             Fixed-income investments still play an important role in portfolio stability,
-            liquidity and risk management &mdash; but understanding their tax treatment helps
+            liquidity and risk management - but understanding their tax treatment helps
             investors evaluate them more accurately within a diversified portfolio.
           </p>
           <div className="pull-quote">
             A 7% fixed deposit taxed at 30% yields approximately 4.9% after tax. Always
-            compare investments on their post-tax return &mdash; the headline rate rarely tells the
+            compare investments on their post-tax return - the headline rate rarely tells the
             full story.
           </div>
         </>
@@ -606,18 +592,18 @@ const chapters: { title: string; content: React.ReactNode }[] = [
           <hr className="chapter-rule" />
           <h3>Short-Term vs Long-Term Loss Rules</h3>
           <p>
-            <strong>Short-Term Capital Loss (STCL)</strong> is the most flexible &mdash; it can be
+            <strong>Short-Term Capital Loss (STCL)</strong> is the most flexible - it can be
             adjusted against both Short-Term Capital Gains (STCG) and Long-Term Capital
             Gains (LTCG).
           </p>
           <p>
-            <strong>Long-Term Capital Loss (LTCL)</strong> is more restrictive &mdash; it can only
+            <strong>Long-Term Capital Loss (LTCL)</strong> is more restrictive - it can only
             be adjusted against Long-Term Capital Gains (LTCG). It{" "}
             <strong>cannot be offset against short-term capital gains</strong>.
           </p>
           <p>
             <strong>Example:</strong> Suppose an investor realizes STCG of ₹80,000 and LTCL
-            of ₹50,000. The long-term loss cannot be used to offset the short-term gain &mdash;
+            of ₹50,000. The long-term loss cannot be used to offset the short-term gain -
             the ₹80,000 STCG remains taxable. However, if the investor instead had a
             short-term loss of ₹50,000, it could offset the gain, reducing the taxable
             amount to ₹30,000.
@@ -626,8 +612,8 @@ const chapters: { title: string; content: React.ReactNode }[] = [
           <h3>Carrying Forward Capital Losses</h3>
           <p>
             If total losses exceed gains in a financial year, the remaining losses may be{" "}
-            <strong>carried forward to future years</strong> &mdash; generally for up to{" "}
-            <strong>eight financial years</strong> &mdash; to offset eligible capital gains.
+            <strong>carried forward to future years</strong> - generally for up to{" "}
+            <strong>eight financial years</strong> - to offset eligible capital gains.
           </p>
           <img src="/taxation/image2.png" alt="Carrying forward capital losses" style={imgStyle} />
           <p>
@@ -653,7 +639,7 @@ const chapters: { title: string; content: React.ReactNode }[] = [
             allocation.
           </p>
           <div className="pull-quote">
-            Short-term capital losses are the most flexible tax tool &mdash; they can offset both
+            Short-term capital losses are the most flexible tax tool - they can offset both
             short-term and long-term gains. Long-term losses can only offset long-term gains.
             Know the rules before you harvest.
           </div>
@@ -713,7 +699,7 @@ const chapters: { title: string; content: React.ReactNode }[] = [
             Many investors unknowingly trigger short-term taxation simply because they do not
             track purchase dates carefully. A difference of a few weeks can sometimes change a
             gain from short-term to long-term. Maintaining clear records helps avoid such
-            situations &mdash; these are available with your broker.
+            situations - these are available with your broker.
           </p>
           <p>
             If an investment has declined significantly and no longer fits the portfolio
@@ -737,7 +723,7 @@ const chapters: { title: string; content: React.ReactNode }[] = [
             fundamentals, portfolio diversification and risk management.
           </p>
           <div className="pull-quote">
-            Taxes are not the enemy of investing &mdash; ignorance of taxes is. A few simple
+            Taxes are not the enemy of investing - ignorance of taxes is. A few simple
             habits: hold longer, use the LTCG exemption, prefer the growth option, track your
             dates. Small adjustments, significant long-term impact.
           </div>
@@ -758,6 +744,8 @@ export default function TaxationForInvestorsPage() {
   const chapterFromURL = searchParams.get("chapter");
 
   const [chapterIndex, setChapterIndex] = useState(0);
+  const [isComplete, setIsComplete] = useState(false);
+  const router = useRouter();
   const moduleId = "taxation-for-investors";
 
   const current = chapters[chapterIndex];
@@ -794,6 +782,48 @@ export default function TaxationForInvestorsPage() {
     });
   }
 
+  if (isComplete) {
+    return (
+      <main className="container module-detail-container">
+        <div className="module-progress-header">
+          <div className="progress-wrap">
+            <div className="progress-bar">
+              <div className="progress-fill" style={{ width: "100%" }} />
+            </div>
+            <span className="progress-label">
+              {chapters.length} of {chapters.length} {t("chapters")}
+            </span>
+          </div>
+          <div className="chapter-dots">
+            {chapters.map((_, i) => (
+              <button
+                key={i}
+                className="chapter-dot done"
+                onClick={() => { setIsComplete(false); setChapterIndex(i); saveProgress(i); }}
+              >
+                {i + 1}
+              </button>
+            ))}
+          </div>
+        </div>
+        <div className="complete-body">
+        <div className="complete-inner">
+          <div className="complete-icon">🎓</div>
+          <div className="complete-title">
+            Module 9<br /><em>Complete.</em>
+          </div>
+          <p className="complete-sub">
+            You&apos;ve finished Taxation for Investors &mdash; all 9 chapters. You now understand how capital gains, mutual fund income, dividends, interest and tax loss harvesting work under the Indian tax system &mdash; and how to apply that knowledge to keep more of what you earn.
+          </p>
+          <button className="complete-btn" onClick={() => router.push("/modules")}>
+            ← Back to All Modules
+          </button>
+        </div>
+      </div>
+      </main>
+    );
+  }
+
   if (isLoading) {
     return (
       <main className="module-loading-container">
@@ -816,12 +846,12 @@ export default function TaxationForInvestorsPage() {
             />
           </div>
           <span className="progress-label">
-            {chapterIndex} of {chapters.length - 1} {t("chapters")}
+            {chapterIndex + 1} of {chapters.length} {t("chapters")}
           </span>
         </div>
         <div className="chapter-dots">
-          {chapters.slice(1).map((_, i) => {
-            const dotIdx = i + 1;
+          {chapters.map((_, i) => {
+            const dotIdx = i;
             return (
               <button
                 key={dotIdx}
@@ -837,7 +867,7 @@ export default function TaxationForInvestorsPage() {
                   saveProgress(dotIdx);
                 }}
               >
-                {dotIdx}
+                {dotIdx + 1}
               </button>
             );
           })}
@@ -853,9 +883,9 @@ export default function TaxationForInvestorsPage() {
       </section>
 
       {/* === Floating Navigation Buttons === */}
-      <div className="chapter-nav-buttons">
+      <div className="chapter-nav">
         <button
-          className="chapter-btn prev-btn"
+          className="nav-btn prev"
           onClick={async () => {
             setChapterIndex((i) => {
               const newIndex = Math.max(0, i - 1);
@@ -865,21 +895,29 @@ export default function TaxationForInvestorsPage() {
           }}
           disabled={chapterIndex === 0}
         >
-          {t("previous")}
+          ← {t("previous")}
         </button>
 
+          <span className="nav-chapter-info">
+            {`${chapterIndex + 1} / ${chapters.length}`}
+          </span>
+          <span className="nav-divider" />
         <button
-          className="chapter-btn next-btn"
+          className="nav-btn next"
           onClick={async () => {
-            setChapterIndex((i) => {
-              const newIndex = Math.min(chapters.length - 1, i + 1);
-              saveProgress(newIndex);
-              return newIndex;
-            });
+            if (chapterIndex === chapters.length - 1) {
+              await saveProgress(chapterIndex);
+              setIsComplete(true);
+            } else {
+              setChapterIndex((i) => {
+                const newIndex = Math.min(chapters.length - 1, i + 1);
+                saveProgress(newIndex);
+                return newIndex;
+              });
+            }
           }}
-          disabled={chapterIndex === chapters.length - 1}
         >
-          {t("next")}
+          {chapterIndex === chapters.length - 1 ? "Finish ✓" : `${t("next")} →`}
         </button>
       </div>
 

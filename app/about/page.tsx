@@ -134,7 +134,7 @@ export default function AboutPage() {
             A firm built to<br /><em>educate</em> and support.
           </h1>
           <p className="about-hero-sub">
-            Bodha was built on a simple belief &mdash; that individuals, founders and businesses deserve financial expertise that is honest, hands-on and genuinely invested in their success. We educate, advise and support &mdash; so the people we work with can make better decisions and build stronger futures.
+            Bodha was built on a simple belief - that individuals, founders and businesses deserve financial expertise that is honest, hands-on and genuinely invested in their success. We educate, advise and support - so the people we work with can make better decisions and build stronger futures.
           </p>
         </div>
       </div>
@@ -148,7 +148,7 @@ export default function AboutPage() {
               Built from experience,<br />for one purpose.
             </div>
             <p>
-              Bodha was built around a simple observation &mdash; most people don&apos;t lack ambition, they lack access to honest, credible financial guidance. Whether you&apos;re a founder trying to make sense of your numbers, a business looking for strategic financial leadership or an individual taking control of your personal finances, the gap between where you are and where you want to be is often just knowledge and the right support.
+              Bodha was built around a simple observation - most people don&apos;t lack ambition, they lack access to honest, credible financial guidance. Whether you&apos;re a founder trying to make sense of your numbers, a business looking for strategic financial leadership or an individual taking control of your personal finances, the gap between where you are and where you want to be is often just knowledge and the right support.
             </p>
             <p>
               We work across the full spectrum of financial need. We educate through our Finance Course, designed to give individuals and aspiring investors the knowledge that actually matters. We advise and operate through our Virtual CFO service, embedding financial leadership into growing businesses. We back early builders through our venture arm. And we give everyone access to free tools to make better financial decisions every day.
@@ -201,12 +201,12 @@ export default function AboutPage() {
             <div className="about-partner-card-top">
               <div className="about-partner-num">01</div>
               <div className="about-partner-avatar">A</div>
-              <div className="about-partner-name">Partner &mdash; Finance</div>
+              <div className="about-partner-name">Partner - Finance</div>
               <div className="about-partner-title">Chartered Accountant &middot; Co-Founder</div>
             </div>
             <div className="about-partner-card-body">
               <p className="about-partner-bio">
-                Our finance partner is a <strong>Chartered Accountant, CFA Level 3 candidate</strong> and <strong>former Deloitte Manager</strong> who has spent years working alongside some of the most experienced financial minds in the industry &mdash; Senior Partners, CFOs and other C-suite executives across Financial Services, Consumer and Life Sciences. That proximity to excellence shapes everything: how we think, how we work and the standard we hold ourselves to.
+                Our finance partner is a <strong>Chartered Accountant, CFA Level 3 candidate</strong> and <strong>former Deloitte Manager</strong> who has spent years working alongside some of the most experienced financial minds in the industry - Senior Partners, CFOs and other C-suite executives across Financial Services, Consumer and Life Sciences. That proximity to excellence shapes everything: how we think, how we work and the standard we hold ourselves to.
               </p>
               <p className="about-partner-bio" style={{ marginTop: -10 }}>
                 It&apos;s a rare kind of formation, not just technical training, but years of watching how the best in the business approach complexity, make decisions under pressure and lead with clarity. That perspective now sits at the centre of Bodha and it&apos;s what every client benefits from.
@@ -219,15 +219,15 @@ export default function AboutPage() {
             <div className="about-partner-card-top">
               <div className="about-partner-num">02</div>
               <div className="about-partner-avatar" style={{ background: "var(--slate)" }}>T</div>
-              <div className="about-partner-name">Partner &mdash; Technology</div>
+              <div className="about-partner-name">Partner - Technology</div>
               <div className="about-partner-title">Senior Developer &middot; Co-Founder</div>
             </div>
             <div className="about-partner-card-body">
               <p className="about-partner-bio">
-                A <strong>senior developer with a career spent inside early-stage startups</strong> &mdash; not as a contractor, but as a core team member working directly alongside founders through the chaos, pivots, and milestones that define the early years of a company. This is someone who has seen from the inside what it takes to build something from nothing.
+                A <strong>senior developer with a career spent inside early-stage startups</strong> - not as a contractor, but as a core team member working directly alongside founders through the chaos, pivots, and milestones that define the early years of a company. This is someone who has seen from the inside what it takes to build something from nothing.
               </p>
               <p className="about-partner-bio" style={{ marginTop: -10 }}>
-                Having been on the <strong>founder&apos;s side of the table</strong>, this partner brings something rare to Bodha: a genuine, lived understanding of what entrepreneurs need &mdash; not just on the technical side, but in terms of support, clarity, and someone who truly gets the journey. That empathy informs how we engage with founders across our Virtual CFO service, our venture investing, and every conversation we have with a business that&apos;s trying to grow.
+                Having been on the <strong>founder&apos;s side of the table</strong>, this partner brings something rare to Bodha: a genuine, lived understanding of what entrepreneurs need - not just on the technical side, but in terms of support, clarity, and someone who truly gets the journey. That empathy informs how we engage with founders across our Virtual CFO service, our venture investing, and every conversation we have with a business that&apos;s trying to grow.
               </p>
             </div>
           </div>
@@ -269,7 +269,7 @@ export default function AboutPage() {
             Education meets expertise.<br />Knowledge meets execution.
           </div>
           <p className="about-edge-intro">
-            Most financial firms advise. Most educators teach. We do both &mdash; combining professional-grade financial expertise with a genuine commitment to helping people understand and act on their finances. That&apos;s what makes us different.
+            Most financial firms advise. Most educators teach. We do both - combining professional-grade financial expertise with a genuine commitment to helping people understand and act on their finances. That&apos;s what makes us different.
           </p>
         </div>
         <div className="about-edge-grid">
@@ -309,7 +309,7 @@ export default function AboutPage() {
               </div>
               <div className="logo-text" style={{ color: "#fff" }}>Bodha</div>
             </Link>
-            <p>Empowering individuals with the financial literacy they need to build lasting wealth &mdash; for free.</p>
+            <p>Empowering individuals with the financial literacy they need to build lasting wealth - for free.</p>
           </div>
           <div className="footer-col">
             <h5>Services</h5>

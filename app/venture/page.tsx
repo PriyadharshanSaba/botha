@@ -120,7 +120,7 @@ export default function VenturePage() {
             <div className="vc-header-label">Venture Capital &middot; Bodha</div>
             <h1>Backing founders<br />who dare to build<br /><em>something real.</em></h1>
             <p className="vc-header-sub">
-              We invest our <strong>own capital</strong> &mdash; no LPs, no external fund, no mandates to answer to. Just us, backing entrepreneurs we believe in, with the full weight of our experience and network behind every cheque we write.
+              We invest our <strong>own capital</strong> - no LPs, no external fund, no mandates to answer to. Just us, backing entrepreneurs we believe in, with the full weight of our experience and network behind every cheque we write.
             </p>
             <div className="vc-hero-actions">
               <a href="#vc-apply" className="vc-btn-gold" style={{ textDecoration: "none" }}>Pitch Your Idea &rarr;</a>
@@ -128,7 +128,7 @@ export default function VenturePage() {
             </div>
           </div>
           <div className="vc-page-header-right">
-            <div className="vc-meta-badge">Own Capital &mdash; No LPs</div>
+            <div className="vc-meta-badge">Own Capital - No LPs</div>
             <div className="vc-meta-pill">Pre-seed &amp; Seed Stage</div>
           </div>
         </div>
@@ -150,7 +150,7 @@ export default function VenturePage() {
             <div className="vc-section-label">Our Philosophy</div>
             <div className="vc-section-title">Skin in the game.<br />No exceptions.</div>
             <p>Every rupee we invest comes from our own pocket. There are no institutional limited partners, no quarterly return targets, and no investment committee to convince. When we say yes to a founder, it&apos;s because <strong>we genuinely believe</strong> in the business, not because it fits a fund thesis.</p>
-            <p>This means we can move fast, think long-term, and support founders in ways a traditional VC simply can&apos;t &mdash; including rolling up our sleeves on the finance and operations side.</p>
+            <p>This means we can move fast, think long-term, and support founders in ways a traditional VC simply can&apos;t - including rolling up our sleeves on the finance and operations side.</p>
             <div className="vc-own-money-box">
               <h4>Why our own money matters to you</h4>
               <p>When your investor&apos;s capital is their own, <strong>alignment is total</strong>. We win only when you win. There&apos;s no pressure to exit early, no fund lifecycle to manage, and no conflict between your interests and ours.</p>
@@ -194,7 +194,7 @@ export default function VenturePage() {
             { num: "06", icon: "\u{1F3D7}\uFE0F", title: "Building for India\u2019s next decade", desc: "We\u2019re excited about businesses solving real Indian problems at scale \u2014 across fintech, healthcare, commerce, education, climate, or anything in between. Ambition for India matters to us." },
           ].map((crit, i) => (
             <div key={i} className="vc-crit-card vc-reveal" ref={addRevealRef} style={{ transitionDelay: `${0.05 * (i + 1)}s` }}>
-              <div className="vc-crit-num">{crit.num} &mdash;&mdash;</div>
+              <div className="vc-crit-num">{crit.num} --</div>
               <div className="vc-crit-icon">{crit.icon}</div>
               <div className="vc-crit-title">{crit.title}</div>
               <div className="vc-crit-desc">{crit.desc}</div>
@@ -235,7 +235,7 @@ export default function VenturePage() {
           </div>
           <div className="vc-reveal" ref={addRevealRef} style={{ transitionDelay: "0.1s" }}>
             <p>We won&apos;t pretend to have a decade of portfolio exits behind us. Bodha is entering venture investing because we believe our <strong>financial expertise, in-the-trenches perspective and genuine care for entrepreneurs</strong> makes us a different and a better kind of early backer.</p>
-            <p>We&apos;ve spent years helping businesses understand their numbers and build financial discipline. Now we want to go further &mdash; to back founders from the very beginning, not just advise them on the way up.</p>
+            <p>We&apos;ve spent years helping businesses understand their numbers and build financial discipline. Now we want to go further - to back founders from the very beginning, not just advise them on the way up.</p>
           </div>
           <div className="vc-honest-cards vc-reveal" ref={addRevealRef} style={{ transitionDelay: "0.15s" }}>
             {[
@@ -259,7 +259,7 @@ export default function VenturePage() {
           <div className="vc-apply-left vc-reveal" ref={addRevealRef}>
             <div className="vc-section-label">Pitch to Us</div>
             <div className="vc-section-title">Tell us what<br />you&apos;re building.</div>
-            <p>Fill this in and we&apos;ll get back to you within 5 business days. If there&apos;s a fit, we&apos;ll set up a call. If not, we&apos;ll tell you why &mdash; clearly and respectfully.</p>
+            <p>Fill this in and we&apos;ll get back to you within 5 business days. If there&apos;s a fit, we&apos;ll set up a call. If not, we&apos;ll tell you why - clearly and respectfully.</p>
             <div className="vc-apply-checklist">
               <div className="vc-apply-check">Response within 5 business days</div>
               <div className="vc-apply-check">All ideas treated with full confidentiality</div>
@@ -268,7 +268,7 @@ export default function VenturePage() {
               <div className="vc-apply-check">Solo founders encouraged to apply</div>
             </div>
             <div className="vc-apply-note">
-              <p><strong>Not ready to pitch yet?</strong> That&apos;s fine &mdash; drop us a message anyway. We&apos;re happy to have a no-pressure conversation about your idea, the market, or your journey so far.</p>
+              <p><strong>Not ready to pitch yet?</strong> That&apos;s fine - drop us a message anyway. We&apos;re happy to have a no-pressure conversation about your idea, the market, or your journey so far.</p>
             </div>
           </div>
 
@@ -276,7 +276,7 @@ export default function VenturePage() {
             {!submitted ? (
               <>
                 <h3>Submit Your Pitch</h3>
-                <p className="vc-form-desc">Short and simple &mdash; we&apos;ll ask for more if we&apos;re interested.</p>
+                <p className="vc-form-desc">Short and simple - we&apos;ll ask for more if we&apos;re interested.</p>
 
                 <div className="vc-field-row">
                   <div className="vc-field"><label>Your Name</label><input type="text" placeholder="Arjun Mehta" /></div>
@@ -344,8 +344,8 @@ export default function VenturePage() {
                   <textarea rows={3} placeholder="What&apos;s your solution, and what makes you uniquely positioned to build it?" />
                 </div>
                 <div className="vc-field">
-                  <label>Traction so far <span style={{ textTransform: "none", letterSpacing: 0, color: "#bbb", fontSize: 11 }}>(optional &mdash; honest is best)</span></label>
-                  <textarea rows={2} placeholder="Revenue, users, pilots, partnerships, prototypes &mdash; anything that shows the idea is working." />
+                  <label>Traction so far <span style={{ textTransform: "none", letterSpacing: 0, color: "#bbb", fontSize: 11 }}>(optional - honest is best)</span></label>
+                  <textarea rows={2} placeholder="Revenue, users, pilots, partnerships, prototypes - anything that shows the idea is working." />
                 </div>
                 <div className="vc-field">
                   <label>Pitch deck or website link <span style={{ textTransform: "none", letterSpacing: 0, color: "#bbb", fontSize: 11 }}>(optional)</span></label>
