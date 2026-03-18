@@ -15,13 +15,10 @@ const th: React.CSSProperties = { background: "#c9a84c", color: "#fdfcf9", paddi
 const td: React.CSSProperties = { padding: "10px 12px", borderBottom: "1px solid rgba(0,0,0,0.08)" };
 const tdAlt: React.CSSProperties = { ...td, background: "rgba(201,168,76,0.06)" };
 
-export default function ChoosingTheRightFundPage() {
-  const { t } = useLanguage();
-
-  // ============================================================
-  //  ALL CHAPTER CONTENT (English only)
-  // ============================================================
-  const chapters: { title: string; content: React.ReactNode }[] = [
+// ============================================================
+//  ALL CHAPTER CONTENT (English only) — module-level to avoid Turbopack bug
+// ============================================================
+const chapters: { title: string; content: React.ReactNode }[] = [
     // ==============================
     // INTRO SLIDE
     // ==============================
@@ -1031,7 +1028,10 @@ export default function ChoosingTheRightFundPage() {
         </>
       ),
     },
-  ];
+];
+
+export default function ChoosingTheRightFundPage() {
+  const { t } = useLanguage();
 
   // ============================================================
   // STATE & PARAMS

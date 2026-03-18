@@ -17,13 +17,10 @@ const imgStyle: React.CSSProperties = {
   border: "1px solid rgba(201,168,76,0.15)",
 };
 
-export default function TaxationForInvestorsPage() {
-  const { t } = useLanguage();
-
-  // ============================================================
-  //  ALL CHAPTER CONTENT
-  // ============================================================
-  const chapters: { title: string; content: React.ReactNode }[] = [
+// ============================================================
+//  ALL CHAPTER CONTENT — module-level to avoid Turbopack bug
+// ============================================================
+const chapters: { title: string; content: React.ReactNode }[] = [
 
     // ==============================
     // INTRO SLIDE
@@ -747,7 +744,10 @@ export default function TaxationForInvestorsPage() {
         </>
       ),
     },
-  ];
+];
+
+export default function TaxationForInvestorsPage() {
+  const { t } = useLanguage();
 
   // ============================================================
   // STATE & PARAMS
