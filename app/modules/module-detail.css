@@ -120,6 +120,223 @@ blockquote {
 }
 
 
+/* ── Chapter Illustrations ── */
+.ch-illustration {
+  margin: 36px 0;
+  border-radius: 16px;
+  background: var(--cream, #f5f0e8);
+  border: 1px solid rgba(201,168,76,0.2);
+  padding: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 32px;
+  flex-wrap: wrap;
+}
+.ch-illus-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  flex: 1;
+  min-width: 80px;
+}
+.ch-illus-icon { font-size: 36px; }
+.ch-illus-label {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  color: #aaa;
+  text-align: center;
+}
+.ch-illus-arrow {
+  font-size: 20px;
+  color: rgba(201,168,76,0.4);
+  flex-shrink: 0;
+  align-self: center;
+}
+
+/* ── Timeline ── */
+.ch-timeline { margin: 36px 0; display: flex; flex-direction: column; gap: 0; }
+.ch-timeline-item { display: flex; gap: 20px; align-items: flex-start; }
+.ch-timeline-left {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+  flex-shrink: 0;
+}
+.ch-timeline-dot {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--cream, #f5f0e8);
+  border: 2px solid rgba(201,168,76,0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-family: "Playfair Display", serif;
+  font-weight: 700;
+  color: var(--gold, #c9a84c);
+  flex-shrink: 0;
+}
+.ch-timeline-line {
+  width: 2px;
+  background: rgba(201,168,76,0.2);
+  flex: 1;
+  min-height: 28px;
+  margin: 0 auto;
+}
+.ch-timeline-content { padding: 6px 0 28px; }
+.ch-timeline-content h4 { font-size: 14px; font-weight: 500; color: var(--ink, #0d0d0d); margin-bottom: 4px; }
+.ch-timeline-content p { font-size: 14px; color: #666; line-height: 1.65; font-weight: 300; margin: 0; }
+
+/* ── Card Row ── */
+.ch-card-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  margin: 32px 0;
+}
+.ch-card {
+  background: var(--cream, #f5f0e8);
+  border-radius: 12px;
+  padding: 20px 18px;
+  border: 1px solid rgba(0,0,0,0.07);
+}
+.ch-card-icon { font-size: 24px; margin-bottom: 10px; }
+.ch-card-title { font-size: 13px; font-weight: 500; color: var(--ink, #0d0d0d); margin-bottom: 5px; }
+.ch-card-desc { font-size: 12px; color: #888; line-height: 1.55; font-weight: 300; }
+
+/* ── Pull Quote ── */
+.pull-quote {
+  margin: 32px 0;
+  padding: 26px 30px;
+  background: var(--cream, #f5f0e8);
+  border-radius: 14px;
+  border-left: 4px solid var(--gold, #c9a84c);
+  font-family: 'Playfair Display', serif;
+  font-size: 17px;
+  font-style: italic;
+  color: var(--slate, #2a2d35);
+  line-height: 1.6;
+}
+
+/* ── Chapter Rule ── */
+.chapter-rule {
+  height: 1px;
+  background: rgba(201,168,76,0.2);
+  margin: 32px 0;
+  border: none;
+}
+
+/* ── Chapter body typography ── */
+.chapter p {
+  font-size: 16px;
+  color: #444;
+  line-height: 1.85;
+  font-weight: 300;
+  margin-bottom: 22px;
+  text-align: justify;
+}
+.chapter p:last-child { margin-bottom: 0; }
+.chapter strong { color: var(--ink, #0d0d0d); font-weight: 500; }
+.chapter h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--ink, #0d0d0d);
+  letter-spacing: -0.5px;
+  margin: 40px 0 14px;
+  padding-left: 14px;
+  border-left: 3px solid var(--gold, #c9a84c);
+}
+
+@media (max-width: 600px) {
+  .ch-card-row { grid-template-columns: 1fr 1fr; }
+  .ch-illus-arrow { display: none; }
+}
+
+/* Progress Header */
+.module-progress-header {
+  margin-bottom: 32px;
+  padding: 20px 0 24px;
+  border-bottom: 1px solid rgba(201,168,76,0.15);
+}
+
+.progress-wrap {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.progress-bar {
+  flex: 1;
+  max-width: 260px;
+  height: 4px;
+  background: rgba(0,0,0,0.08);
+  border-radius: 100px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: var(--gold, #c9a84c);
+  border-radius: 100px;
+  transition: width 0.4s ease;
+}
+
+.progress-label {
+  font-size: 12px;
+  color: #aaa;
+  font-weight: 300;
+}
+
+.chapter-dots {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.chapter-dot {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(201,168,76,0.3);
+  background: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  font-weight: 500;
+  color: #bbb;
+  cursor: pointer;
+  transition: all 0.2s;
+  padding: 0;
+  font-family: inherit;
+}
+
+.chapter-dot:hover {
+  border-color: var(--gold, #c9a84c);
+  color: var(--gold, #c9a84c);
+}
+
+.chapter-dot.done {
+  background: rgba(201,168,76,0.15);
+  border-color: var(--gold, #c9a84c);
+  color: var(--gold, #c9a84c);
+}
+
+.chapter-dot.active {
+  background: var(--gold, #c9a84c);
+  border-color: var(--gold, #c9a84c);
+  color: var(--ink, #0d0d0d);
+  font-weight: 700;
+}
+
 /* Module Detail Responsive */
 @media (max-width: 768px) {
   .container {

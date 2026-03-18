@@ -10,7 +10,7 @@ import { useSearchParams } from "next/navigation";
 import { useLanguage } from "../../context/LanguageContext";
 
 export default function Money101Page() {
-  const { t } = useLanguage();
+  const { t, lang } = useLanguage();
   // ============================================================
   //  ALL CHAPTER CONTENT
   // ============================================================
@@ -55,25 +55,25 @@ export default function Money101Page() {
           <>
             <p>
               Long before coins and cards, people traded what they had for what they needed —
-              a fisherman swapped his catch for a farmer’s grain. But barter had a flaw:
-              what if the farmer didn’t want fish that day?
+              a fisherman swapped his catch for a farmer's grain. But barter had a flaw:
+              what if the farmer didn't want fish that day?
             </p>
 
             <p>
-              That’s where money was born — a simple tool to make exchange easier. From
+              That's where money was born — a simple tool to make exchange easier. From
               cowrie shells and metal coins to paper notes and now digital wallets and crypto,
               money has constantly evolved to match how societies grow and trade.
             </p>
 
             <p>
-              At its heart, money isn’t just cash or coins — it’s trust. A shared belief that
+              At its heart, money isn't just cash or coins — it's trust. A shared belief that
               a piece of paper or a number on a screen holds value because others agree it does.
             </p>
 
             <p>
               Money fuels everything — from your morning coffee to global economies.
-              But while money has evolved, our understanding hasn’t. Financial literacy bridges
-              that gap — because when you understand money, you don’t just use it — you control it.
+              But while money has evolved, our understanding hasn't. Financial literacy bridges
+              that gap — because when you understand money, you don't just use it — you control it.
             </p>
           </>
         ),
@@ -87,14 +87,14 @@ export default function Money101Page() {
             </p>
 
             <p>
-              ಅಲ್ಲಿಂದಲೇ “ಹಣ” ಎಂಬ ಕಲ್ಪನೆ ಹುಟ್ಟಿತು — ವಿನಿಮಯವನ್ನು ಸುಲಭಗೊಳಿಸಲು ಒಂದು ಸರಳ ಸಾಧನ. ಮೊದಲು ಜನರು
+              ಅಲ್ಲಿಂದಲೇ "ಹಣ" ಎಂಬ ಕಲ್ಪನೆ ಹುಟ್ಟಿತು — ವಿನಿಮಯವನ್ನು ಸುಲಭಗೊಳಿಸಲು ಒಂದು ಸರಳ ಸಾಧನ. ಮೊದಲು ಜನರು
               ಚಿಪ್ಪುಗಳು, ಲೋಹದ ನಾಣ್ಯಗಳು, ನಂತರ ಕಾಗದದ ನೋಟುಗಳು, ಈಗ ಡಿಜಿಟಲ್ ಹಣ ಮತ್ತು ಕ್ರಿಪ್ಟೋ - ಹೀಗೆ ಕಾಲ
               ಬದಲಾಗುತ್ತಿದ್ದಂತೆ ಹಣವೂ ಬದಲಾಗ್ತಾ ಬಂದಿದೆ.
             </p>
 
             <p>
               ಆದರೆ ಮೂಲದಲ್ಲಿ, ಹಣ ಅಂದ್ರೆ ಕೇವಲ ನೋಟು ಅಥವಾ ನಾಣ್ಯ ಅಲ್ಲ - ಅದು ನಂಬಿಕೆ. ಎಲ್ಲರೂ ಒಟ್ಟಿಗೆ ಒಪ್ಪಿಕೊಂಡಿದ್ದರಿಂದಲೇ
-              ಒಂದು ಕಾಗದದ ತುಂಡು ಅಥವಾ ಸ್ಕ್ರೀನ್ ಮೇಲಿನ ಸಂಖ್ಯೆ “ಮೌಲ್ಯ” ಹೊಂದುತ್ತದೆ.
+              ಒಂದು ಕಾಗದದ ತುಂಡು ಅಥವಾ ಸ್ಕ್ರೀನ್ ಮೇಲಿನ ಸಂಖ್ಯೆ "ಮೌಲ್ಯ" ಹೊಂದುತ್ತದೆ.
             </p>
 
             <p>
@@ -126,8 +126,8 @@ export default function Money101Page() {
             </p>
 
             <p>
-              Budgeting isn’t about restriction; it’s about intention. It helps you guide your
-              money toward what truly matters. It’s the foundation of financial freedom and the
+              Budgeting isn't about restriction; it's about intention. It helps you guide your
+              money toward what truly matters. It's the foundation of financial freedom and the
               first step toward building wealth.
             </p>
 
@@ -172,13 +172,13 @@ export default function Money101Page() {
         en: (
           <>
             <p>
-              Once you’ve mastered budgeting, the next step is making your money grow. Saving
+              Once you've mastered budgeting, the next step is making your money grow. Saving
               keeps you safe, but investing helps you expand your possibilities.
             </p>
 
             <p>
               Investing means putting your money to work — in businesses, ideas, and assets
-              that generate value. It’s not gambling — it’s ownership, patience, and discipline.
+              that generate value. It's not gambling — it's ownership, patience, and discipline.
             </p>
 
             <p>
@@ -222,7 +222,7 @@ export default function Money101Page() {
         en: (
           <>
             <p>
-              Investing begins with mindset. An investor doesn’t see money as something to
+              Investing begins with mindset. An investor doesn't see money as something to
               spend but as a tool to build and create value.
             </p>
 
@@ -270,26 +270,86 @@ export default function Money101Page() {
         en: (
           <>
             <p>
-              There’s no single “best” investment — only the one that fits your goals,
-              risk comfort, and time horizon.
+              Now that you know why investing matters and how to think like an investor,
+              it&apos;s time to explore where you can put your money to work.
             </p>
-
-            <ul>
-              <li><strong>Stocks:</strong> Ownership with high growth potential.</li>
-              <li><strong>Mutual Funds:</strong> Managed diversification.</li>
-              <li><strong>Bonds:</strong> Safer, stable returns.</li>
-              <li><strong>Gold & Real Estate:</strong> Traditional stores of value.</li>
-              <li><strong>Digital Assets:</strong> Volatile — invest carefully.</li>
-            </ul>
-
-            <p>Tip: Diversify! A balanced mix protects you during market swings.</p>
+            <p>
+              There&apos;s no single best investment — only the one that fits your goals, risk
+              level, and time horizon. Let&apos;s look at some of the most common ways people
+              invest and how each helps your wealth grow.
+            </p>
+            <hr className="chapter-rule" />
+            <h3>1. Stocks (Equity)</h3>
+            <p>
+              When you buy a stock, you&apos;re buying a small ownership in a company. If the
+              company grows, your share of its value grows too.
+            </p>
+            <p>
+              Stocks can deliver strong returns over time but can also be volatile — meaning
+              their prices can rise or fall in the short term. That&apos;s why stocks are great
+              for long-term investors who can stay patient through market ups and downs.
+            </p>
+            <hr className="chapter-rule" />
+            <h3>2. Mutual Funds &amp; SIPs</h3>
+            <p>
+              Mutual funds pool money from many investors and invest it in stocks, bonds, or
+              other assets. A professional fund manager handles where the money goes.
+            </p>
+            <p>
+              Systematic Investment Plans (SIPs) let you invest small amounts regularly,
+              helping you build wealth slowly through discipline and consistency. They&apos;re
+              perfect for beginners — easy, low-stress, and backed by expert management.
+            </p>
+            <hr className="chapter-rule" />
+            <h3>3. Bonds &amp; Fixed Income</h3>
+            <p>
+              Think of bonds as loans you give to companies or governments. They promise to
+              pay you interest at regular intervals.
+            </p>
+            <p>
+              Bonds are generally safer than stocks but offer lower returns. They help
+              stabilize your portfolio — a balance between risk and security.
+            </p>
+            <hr className="chapter-rule" />
+            <h3>4. Gold &amp; Real Estate</h3>
+            <p>
+              Traditionally, Indians have always trusted gold and property as stores of value.
+              Gold protects against inflation and uncertainty, while real estate can provide
+              both growth and rental income.
+            </p>
+            <p>
+              However, both require thoughtful planning — they can be expensive and less
+              liquid (harder to sell quickly).
+            </p>
+            <hr className="chapter-rule" />
+            <h3>5. Digital Assets (With Caution)</h3>
+            <p>
+              Cryptocurrencies and new digital assets are becoming popular among young
+              investors. While they can offer high returns, they also come with high risk
+              and uncertainty.
+            </p>
+            <p>
+              Before investing, understand the technology, regulations, and risks involved —
+              never invest in what you don&apos;t understand.
+            </p>
+            <hr className="chapter-rule" />
+            <h3>Building a Balanced Portfolio</h3>
+            <p>
+              The secret to smart investing is diversification — spreading your money across
+              different types of investments. That way, if one area dips, another can balance
+              it out.
+            </p>
+            <p>
+              Your mix depends on who you are — your age, goals, and comfort with risk. Think
+              of it like your diet: a good mix keeps you healthy and steady.
+            </p>
           </>
         ),
 
         kn: (
           <>
             <p>
-              ಒಂದೇ “ಉತ್ತಮ” ಹೂಡಿಕೆ ಎಲ್ಲರಿಗೂ ಒಂದೇ ಆಗೋದಿಲ್ಲ — ಅದು ನಿಮ್ಮ ಗುರಿ, ರಿಸ್ಕ್ ಮಟ್ಟ ಮತ್ತು ಸಮಯಕ್ಕೆ
+              ಒಂದೇ "ಉತ್ತಮ" ಹೂಡಿಕೆ ಎಲ್ಲರಿಗೂ ಒಂದೇ ಆಗೋದಿಲ್ಲ — ಅದು ನಿಮ್ಮ ಗುರಿ, ರಿಸ್ಕ್ ಮಟ್ಟ ಮತ್ತು ಸಮಯಕ್ಕೆ
               ಅನುಗುಣವಾಗಿರುತ್ತದೆ.
             </p>
 
@@ -319,14 +379,40 @@ export default function Money101Page() {
         en: (
           <>
             <p>
-              Investing isn’t just math — it’s mindset. Risk and emotion shape every decision.
+              If investing were only about numbers, spreadsheets would make us all rich.
+              But the truth is — the real game happens in the mind.
             </p>
-
-            <p>All investments carry risk — the goal isn’t to avoid it but to manage it.</p>
-
             <p>
-              Good investors acknowledge emotions but don’t let them take control. Strategy
-              beats panic.
+              Because in investing, your greatest strength or weakness isn&apos;t the market
+              — it&apos;s you.
+            </p>
+            <hr className="chapter-rule" />
+            <h3>Understanding Risk</h3>
+            <p>
+              Every investment carries some level of risk — even keeping money idle in a bank
+              means losing value to inflation.
+            </p>
+            <p>
+              Risk isn&apos;t something to fear; it&apos;s something to understand. It&apos;s the price we
+              pay for opportunity. Higher potential returns often come with higher uncertainty,
+              while safer investments usually offer lower rewards.
+            </p>
+            <p>
+              Smart investors don&apos;t avoid risk — they manage it. They learn how much they can
+              handle, spread their investments, and let time reduce the bumps along the way.
+              In the long run, risk isn&apos;t the enemy — impulsive decisions are.
+            </p>
+            <hr className="chapter-rule" />
+            <h3>The Emotional Side of Money</h3>
+            <p>
+              Money has a way of triggering emotions — excitement when things go up, fear when
+              they fall. But reacting emotionally can lead to buying high, selling low, or
+              abandoning plans midway.
+            </p>
+            <p>
+              Markets move in cycles — optimism, greed, panic, and hope. The best investors
+              learn to recognize these emotions and stay grounded. They understand that patience
+              often wins over prediction, and calm over chaos.
             </p>
           </>
         ),
@@ -361,24 +447,52 @@ export default function Money101Page() {
       content: {
         en: (
           <>
-            <p>Every investor begins by starting small. You don’t need to know everything.</p>
-
-            <ul>
-              <li>Define your goals.</li>
-              <li>Understand your risk appetite.</li>
-              <li>Start small, stay consistent.</li>
-              <li>Choose trusted platforms.</li>
-              <li>Diversify wisely.</li>
-              <li>Review, don’t react.</li>
-              <li>Keep learning.</li>
-            </ul>
+            <p>
+              Every investor, no matter how experienced, began with one simple step — starting.
+              You don&apos;t need to have it all figured out. You just need to begin with
+              intention, consistency, and curiosity.
+            </p>
+            <hr className="chapter-rule" />
+            <h3>1. Define Your Goals</h3>
+            <p>
+              Before you invest, ask yourself why. Are you investing for short-term goals like
+              a vacation or gadgets? Or long-term ones — a house, retirement, or financial
+              independence?
+            </p>
+            <p>
+              Your goals determine your time horizon, and your time horizon shapes your strategy.
+            </p>
+            <div className="pull-quote">
+              &quot;If you don&apos;t know where you&apos;re going, any road will take you there.&quot;
+            </div>
+            <hr className="chapter-rule" />
+            <h3>2. Understand Your Risk Appetite</h3>
+            <p>
+              Not everyone can handle the same level of risk — and that&apos;s okay. Some are
+              comfortable with market swings, others prefer stability.
+            </p>
+            <p>
+              Be honest about how much volatility you can emotionally and financially handle.
+              Your risk comfort will guide your mix of investments — stocks, funds, bonds,
+              or gold.
+            </p>
+            <hr className="chapter-rule" />
+            <h3>3. Start Small, Stay Consistent</h3>
+            <p>
+              You don&apos;t need a huge sum to begin. Even ₹500 or ₹1,000 a month through a
+              Systematic Investment Plan (SIP) can build serious wealth over time.
+            </p>
+            <p>
+              The magic lies in consistency, not size. Regular investing helps you average out
+              market fluctuations and build discipline.
+            </p>
           </>
         ),
 
         kn: (
           <>
             <p>
-              ಪ್ರತಿ ಹೂಡಿಕೆದಾರರೂ ಒಮ್ಮೆ “ಮೊದಲ ಹೆಜ್ಜೆ” ಇಟ್ಟಿದ್ದಾರೆ. ನೀವು ಎಲ್ಲವನ್ನೂ ಈಗಲೇ ಅರಿತುಕೊಳ್ಳಬೇಕೆಂದಿಲ್ಲ —
+              ಪ್ರತಿ ಹೂಡಿಕೆದಾರರೂ ಒಮ್ಮೆ "ಮೊದಲ ಹೆಜ್ಜೆ" ಇಟ್ಟಿದ್ದಾರೆ. ನೀವು ಎಲ್ಲವನ್ನೂ ಈಗಲೇ ಅರಿತುಕೊಳ್ಳಬೇಕೆಂದಿಲ್ಲ —
               ಆರಂಭಿಸೋದು ಮುಖ್ಯ.
             </p>
 
@@ -401,25 +515,39 @@ export default function Money101Page() {
     // ==============================
     {
       title: {
-        en: "Chapter 8: You’ve Taken the First Step — Now Let’s Begin the Journey",
+        en: "Chapter 8: You've Taken the First Step — Now Let's Begin the Journey",
         kn: "ಅಧ್ಯಾಯ 8: ನೀವು ಮೊದಲ ಹೆಜ್ಜೆ ಇಟ್ಟೆಯಾ — ಈಗ ಪ್ರಯಾಣ ಶುರುವಾಗಲಿ",
       },
       content: {
         en: (
           <>
             <p>
-              This isn’t the end — it’s your beginning. Your knowledge now becomes action.
+              You&apos;ve made it this far — and that already puts you ahead of most.
+              Understanding how money works, how to manage it, and how to make it grow
+              isn&apos;t just education — it&apos;s empowerment.
             </p>
-
+            <p>
+              You&apos;ve learned about the origin of money, why budgeting matters, the importance
+              of investing, and how mindset shapes wealth. Now it&apos;s time to take that knowledge
+              from your screen to the real world.
+            </p>
+            <hr className="chapter-rule" />
             <h3>The First Real Step: Opening Your Demat Account</h3>
             <p>
-              A Demat account is your digital vault for stocks and funds. Choose a trusted broker
-              and begin.
+              Before you can start investing — in stocks, ETFs, or mutual funds — you&apos;ll need
+              a Demat account. Think of it as your digital vault for investments — a safe,
+              regulated space where your shares are held electronically.
             </p>
-
+            <p>
+              Choose a trusted broker — one you&apos;re comfortable with, one that fits your goals.
+              You could explore platforms like Zerodha, Groww, Upstox, or Angel One to get
+              started.
+            </p>
+            <hr className="chapter-rule" />
             <h3>Celebrate the Start</h3>
             <p>
-              You’ve taken the first step toward financial independence — keep going.
+              This isn&apos;t the end — it&apos;s your beginning. You&apos;ve taken the first step toward
+              financial independence. Your knowledge now becomes action — keep going.
             </p>
           </>
         ),
@@ -452,7 +580,6 @@ export default function Money101Page() {
   // STATE & PARAMS
   // ============================================================
   const [isLoading, setIsLoading] = useState(true);
-  const [language, setLanguage] = useState<"en" | "kn">("en");
 
   const searchParams = useSearchParams();
   const chapterFromURL = searchParams.get("chapter");
@@ -514,11 +641,40 @@ export default function Money101Page() {
   return (
     <main className="container module-detail-container">
 
+      {/* === Chapter Progress Header === */}
+      <div className="module-progress-header">
+        <div className="progress-wrap">
+          <div className="progress-bar">
+            <div
+              className="progress-fill"
+              style={{ width: `${Math.round((chapterIndex / (chapters.length - 1)) * 100)}%` }}
+            />
+          </div>
+          <span className="progress-label">
+            {chapterIndex} of {chapters.length - 1} {t("chapters")}
+          </span>
+        </div>
+        <div className="chapter-dots">
+          {chapters.slice(1).map((_, i) => {
+            const dotIdx = i + 1;
+            return (
+              <button
+                key={dotIdx}
+                className={["chapter-dot", chapterIndex > dotIdx ? "done" : "", chapterIndex === dotIdx ? "active" : ""].filter(Boolean).join(" ")}
+                onClick={() => { setChapterIndex(dotIdx); saveProgress(dotIdx); }}
+              >
+                {dotIdx}
+              </button>
+            );
+          })}
+        </div>
+      </div>
+
       {/* === Active Chapter === */}
       <section className="chapters-list">
         <div className="chapter">
-          <h2>{current.title[language]}</h2>
-          {current.content[language]}
+          <h2>{current.title[lang]}</h2>
+          {current.content[lang]}
         </div>
       </section>
 

@@ -1,8 +1,7 @@
 "use client";
 export const dynamic = "force-dynamic";
 
-import React, { useState } from "react";
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 
 import "../modules.css";
 import "../module-detail.css";
@@ -10,211 +9,425 @@ import { useSearchParams } from "next/navigation";
 import { useLanguage } from "../../context/LanguageContext";
 
 export default function Budgeting101Page() {
-  const { t } = useLanguage();
+  const { t, lang } = useLanguage();
   // =============================
   //  ALL CHAPTER CONTENT
   // =============================
   const chapters = [
     {
-      title: "Mastering Your Money — The Art of Budgeting",
-      content: (
-        <>
-          <p style={{ fontSize: 18, color: "#666", lineHeight: 1.7 }}>
-            Budgeting isn&apos;t about saying no — it&apos;s about learning how to say yes to what truly matters.
-            It&apos;s not restriction, it&apos;s direction — the skill that turns income into progress.
-          </p>
-        </>
-      ),
+      title: {
+        en: "Mastering Your Money — The Art of Budgeting",
+        kn: "ನಿಮ್ಮ ಹಣವನ್ನು ಮಾಸ್ಟರ್ ಮಾಡಿ — ಬಜೆಟ್ ರಚಿಸುವ ಕಲೆ",
+      },
+      content: {
+        en: (
+          <>
+            <p style={{ fontSize: 18, color: "#666", lineHeight: 1.7 }}>
+              Budgeting isn&apos;t about saying no — it&apos;s about learning how to say yes to what truly matters.
+              It&apos;s not restriction, it&apos;s direction — the skill that turns income into progress.
+            </p>
+            <p style={{ fontSize: 18, color: "#666", lineHeight: 1.7 }}>
+              You&apos;ve learnt how money works. Now, it&apos;s time to learn how to make it work for you.
+            </p>
+          </>
+        ),
+        kn: (
+          <>
+            <p style={{ fontSize: 18, color: "#666", lineHeight: 1.7 }}>
+              ಬಜೆಟ್ ರಚನೆ ಎಂದರೆ &quot;ಬೇಡ&quot; ಎನ್ನುವುದಲ್ಲ — ನಿಜವಾಗಿಯೂ ಮುಖ್ಯವಾದುದಕ್ಕೆ &quot;ಹೌದು&quot; ಎನ್ನುವುದನ್ನು ಕಲಿಯುವ ಕಲೆ.
+              ಇದು ನಿರ್ಬಂಧವಲ್ಲ — ಇದು ದಿಕ್ಕು; ಆದಾಯವನ್ನು ಪ್ರಗತಿಯನ್ನಾಗಿ ಪರಿವರ್ತಿಸುವ ಕೌಶಲ್ಯ.
+            </p>
+            <p style={{ fontSize: 18, color: "#666", lineHeight: 1.7 }}>
+              ಹಣ ಹೇಗೆ ಕೆಲಸ ಮಾಡುತ್ತದೆ ಎಂಬುದನ್ನು ನೀವು ಅರಿತಿದ್ದೀರಿ. ಈಗ, ಅದನ್ನು ನಿಮಗಾಗಿ ಕೆಲಸ ಮಾಡಿಸಿಕೊಳ್ಳುವ ಸಮಯ ಬಂದಿದೆ.
+            </p>
+          </>
+        ),
+      },
     },
     {
-      title: "Chapter 1: Why Budgeting Matters",
-      content: (
-        <>
-          <p>
-            Most of us think we know where our money goes — until we start tracking
-            it. A coffee here, a delivery there, a weekend out… and suddenly, the
-            money’s gone before the month is.
-          </p>
-
-          <p>
-            Budgeting gives your money clarity — it turns your spending from random
-            into intentional. It’s the map that connects your goals with your daily
-            choices.
-          </p>
-
-          <p>
-            When you budget, you’re not limiting yourself — you’re choosing what’s
-            worth your energy and effort.
-          </p>
-
-          <blockquote>“You can’t grow what you don’t track.”</blockquote>
-
-          <p>
-            Budgeting builds awareness, and awareness builds control — the foundation
-            of wealth.
-          </p>
-        </>
-      ),
-    },
-
-    {
-      title: "Chapter 2: Track Before You Tweak",
-      content: (
-        <>
-          <p>
-            Before you can improve your finances, you need to understand them. Start
-            by tracking your spending for at least one full month.
-          </p>
-
-          <ul>
-            <li>
-              List every source of income — salary, side hustle, or freelance gigs.
-            </li>
-            <li>
-              Note down expenses — group them as needs, wants, savings, and debt
-              repayments.
-            </li>
-            <li>
-              Review — where does most of your money go? What can you optimize?
-            </li>
-          </ul>
-
-          <p>
-            Tracking isn’t about judgment — it’s observation. You can’t fix leaks
-            until you know where they are.
-          </p>
-        </>
-      ),
-    },
-
-    {
-      title: "Chapter 3: The 50-30-20 Rule (and Beyond)",
-      content: (
-        <>
-          <p>This timeless budgeting rule is simple and effective:</p>
-
-          <ul>
-            <li>
-              <strong>50%</strong> — Needs (rent, groceries, utilities, transport)
-            </li>
-            <li>
-              <strong>30%</strong> — Wants (dining out, shopping, hobbies, travel)
-            </li>
-            <li>
-              <strong>20%</strong> — Savings & Investments (emergency fund, SIPs,
-              long-term goals)
-            </li>
-          </ul>
-
-          <p>
-            Start here, then adapt it — maybe 40-30-30 for big goals, or 60-25-15
-            for flexibility. There’s no perfect ratio, only consistency.
-          </p>
-        </>
-      ),
-    },
-
-    {
-      title: "Chapter 4: Smart Saving & Spending Hacks",
-      content: (
-        <>
-          <p>Money management isn’t just about cutting down — it’s about spending smarter:</p>
-
-          <ul>
-            <li>Automate savings — transfer automatically on salary day.</li>
-            <li>Sleep on impulse buys — wait 24 hours before spending.</li>
-            <li>Track subscriptions — cancel unused ones.</li>
-            <li>Use digital “envelopes” to separate fun and essentials.</li>
-            <li>Keep a guilt-free fund — it keeps you consistent and sane.</li>
-          </ul>
-
-          <p>
-            Spend on what you love. Save on what doesn’t matter.
-            Every expense becomes an investment in your priorities.
-          </p>
-        </>
-      ),
+      title: {
+        en: "Chapter 1: Why Budgeting Matters",
+        kn: "ಅಧ್ಯಾಯ 1: ಬಜೆಟ್ ರಚನೆ ಏಕೆ ಮುಖ್ಯ?",
+      },
+      content: {
+        en: (
+          <>
+            <p>
+              Most of us think we know where our money goes — until we start tracking it.
+            </p>
+            <p>
+              A coffee here, a delivery there, a weekend out… and suddenly, the money&apos;s gone before the month is.
+            </p>
+            <p>
+              Budgeting is what gives your money clarity.
+            </p>
+            <p>
+              It turns your spending from random into intentional.
+            </p>
+            <p>
+              It&apos;s the map that connects your goals with your daily choices.
+            </p>
+            <p>
+              When you budget, you&apos;re not limiting yourself — you&apos;re choosing what&apos;s worth your energy and effort.
+            </p>
+            <div className="pull-quote">&quot;You can&apos;t grow what you don&apos;t track.&quot;</div>
+            <p>
+              Budgeting is the foundation of wealth because it builds awareness — and awareness builds control.
+            </p>
+          </>
+        ),
+        kn: (
+          <>
+            <p>
+              ಬಜೆಟ್ ರಚನೆ ಎಂದರೆ &quot;ಬೇಡ&quot; ಎನ್ನುವುದಲ್ಲ — ನಿಜವಾಗಿಯೂ ಮುಖ್ಯವಾದುದಕ್ಕೆ &quot;ಹೌದು&quot; ಎನ್ನುವುದನ್ನು ಕಲಿಯುವ ಕಲೆ.
+            </p>
+            <p>
+              ಇದು ನಿರ್ಬಂಧವಲ್ಲ — ಇದು ದಿಕ್ಕು; ಆದಾಯವನ್ನು ಪ್ರಗತಿಯನ್ನಾಗಿ ಪರಿವರ್ತಿಸುವ ಕೌಶಲ್ಯ.
+            </p>
+            <hr className="chapter-rule" />
+            <p>
+              ನಮ್ಮಲ್ಲಿ ಹೆಚ್ಚಿನವರಿಗೆ ತಮ್ಮ ಹಣ ಎಲ್ಲಿ ಹೋಗುತ್ತದೆ ಎಂದು ಗೊತ್ತಿದೆ ಎನಿಸುತ್ತದೆ, ಆದರೆ ಅದನ್ನು ಲೆಕ್ಕ ಇಡಲು ಶುರು ಮಾಡಿದಾಗಲೇ ನಿಜ ಗೊತ್ತಾಗುತ್ತದೆ.
+            </p>
+            <p>
+              ಒಂದು ಕಡೆ ಕಾಫಿ, ಮತ್ತೊಂದು ಕಡೆ ಮನೆ ತಲುಪಿಸುವ ಆಹಾರ, ವಾರಾಂತ್ಯದ ಒಂದು ಹೊರಗಡೆ ತಿರುಗಾಟ… ಮತ್ತು ತಿಂಗಳು ಮುಗಿಯುವ ಮೊದಲೇ ಹಣ ಖಾಲಿಯಾಗಿರುತ್ತದೆ.
+            </p>
+            <p>
+              ಬಜೆಟ್ ರಚನೆ ನಿಮ್ಮ ಹಣಕ್ಕೆ ಸ್ಪಷ್ಟತೆ ನೀಡುತ್ತದೆ.
+            </p>
+            <p>
+              ಅದು ನಿಮ್ಮ ಖರ್ಚನ್ನು ಅಸ್ತವ್ಯಸ್ತದಿಂದ ಉದ್ದೇಶಪೂರ್ವಕವಾಗಿ ಪರಿವರ್ತಿಸುತ್ತದೆ.
+            </p>
+            <p>
+              ನಿಮ್ಮ ಗುರಿಗಳನ್ನು ನಿಮ್ಮ ದೈನಂದಿನ ಆಯ್ಕೆಗಳೊಂದಿಗೆ ಜೋಡಿಸುವ ನಕ್ಷೆ ಅದು.
+            </p>
+            <p>
+              ನೀವು ಬಜೆಟ್ ಮಾಡಿದಾಗ, ನೀವು ನಿಮ್ಮನ್ನು ಸೀಮಿತಗೊಳಿಸಿಕೊಳ್ಳುತ್ತಿಲ್ಲ — ನಿಮ್ಮ ಶ್ರಮ ಮತ್ತು ಪರಿಶ್ರಮಕ್ಕೆ ನಿಜವಾಗಿ ಯೋಗ್ಯವಾದುದನ್ನು ನೀವು ಆರಿಸಿಕೊಳ್ಳುತ್ತಿದ್ದೀರಿ.
+            </p>
+            <div className="pull-quote">&quot;ನೀವು ಲೆಕ್ಕ ಇಡದ್ದನ್ನು ನೀವು ಬೆಳೆಸಲು ಸಾಧ್ಯವಿಲ್ಲ.&quot;</div>
+            <p>
+              ಬಜೆಟ್ ರಚನೆ ಸಂಪತ್ತಿನ ಅಡಿಪಾಯ, ಏಕೆಂದರೆ ಅದು ಜಾಗೃತಿಯನ್ನು ಬೆಳೆಸುತ್ತದೆ — ಮತ್ತು ಜಾಗೃತಿ ನಿಯಂತ್ರಣವನ್ನು ರೂಪಿಸುತ್ತದೆ.
+            </p>
+          </>
+        ),
+      },
     },
 
     {
-      title: "Chapter 5: Build Your Emergency Fund — Your First Line of Defense",
-      content: (
-        <>
-          <p>Investing without an emergency fund is like driving fast without brakes.</p>
-
-          <p>
-            Life’s surprises — job loss, medical expenses, or repairs — come unannounced.
-            Your emergency fund gives you the calm to handle them without debt.
-          </p>
-
-          <h3>How Much Should You Save?</h3>
-
-          <p>
-            Set aside 3–6 months of expenses (6–9 months if self-employed or supporting
-            others). It’s your safety net — peace of mind over profit.
-          </p>
-
-          <h3>Where to Park It</h3>
-
-          <ul>
-            <li>Debt funds (liquid / ultra-short-term) — ~6–7% returns, quick access.</li>
-            <li>High-interest savings accounts — for 1–2 months of liquidity.</li>
-            <li>Short-term FDs — safe but less flexible.</li>
-          </ul>
-
-          <p>Avoid risky assets — the goal here is stability and access.</p>
-
-          <h3>How to Build It</h3>
-
-          <p>
-            Start small, stay consistent. Automate transfers, redirect bonuses,
-            and keep this fund separate from regular savings.
-          </p>
-        </>
-      ),
+      title: {
+        en: "Chapter 2: Track Before You Tweak",
+        kn: "ಅಧ್ಯಾಯ 2: ಬದಲಾವಣೆ ಮಾಡುವ ಮೊದಲು ಲೆಕ್ಕ ಇಡಿ",
+      },
+      content: {
+        en: (
+          <>
+            <p>
+              Before you can improve your finances, you need to understand them.
+            </p>
+            <p>
+              Start by tracking your spending for at least one full month.
+            </p>
+            <hr className="chapter-rule" />
+            <h3>Step 1: List Every Source of Income</h3>
+            <p>Your salary, side hustle, freelance gigs, or even rent earned — write it all down.</p>
+            <hr className="chapter-rule" />
+            <h3>Step 2: Note Down Your Expenses</h3>
+            <p>Split them into categories like needs, wants, savings, and debt repayments.</p>
+            <hr className="chapter-rule" />
+            <h3>Step 3: Review</h3>
+            <p>Where does most of your money go? What could you cut or optimize?</p>
+            <p>You can use a budgeting tool or simply Excel / Google Sheets — whatever helps you stay consistent and honest.</p>
+            <p>Don&apos;t rush to fix everything right away. Tracking is about observation, not judgment.</p>
+            <div className="pull-quote">You can&apos;t fix leaks until you know where they are.</div>
+          </>
+        ),
+        kn: (
+          <>
+            <p>
+              ನಿಮ್ಮ ಆರ್ಥಿಕ ಸ್ಥಿತಿಯನ್ನು ಸುಧಾರಿಸುವ ಮೊದಲು, ಅದನ್ನು ಅರ್ಥಮಾಡಿಕೊಳ್ಳುವುದು ಅವಶ್ಯಕ. ಕನಿಷ್ಠ ಒಂದು ಪೂರ್ಣ ತಿಂಗಳ ಕಾಲ ನಿಮ್ಮ ಖರ್ಚನ್ನು ದಾಖಲಿಸುವ ಮೂಲಕ ಪ್ರಾರಂಭಿಸಿ.
+            </p>
+            <hr className="chapter-rule" />
+            <h3>ಹಂತ ೧: ಆದಾಯದ ಪಟ್ಟಿ</h3>
+            <p>ನಿಮ್ಮ ವೇತನ, ಹೆಚ್ಚುವರಿ ಉದ್ಯೋಗ, ಸ್ವತಂತ್ರ ಕೆಲಸ, ಅಥವಾ ಬಾಡಿಗೆ ಆದಾಯ — ಎಲ್ಲವನ್ನೂ ಬರೆಯಿರಿ.</p>
+            <hr className="chapter-rule" />
+            <h3>ಹಂತ ೨: ಖರ್ಚಿನ ದಾಖಲೆ</h3>
+            <p>ಅಗತ್ಯತೆಗಳು, ಬಯಕೆಗಳು, ಉಳಿತಾಯ ಮತ್ತು ಸಾಲ ಮರುಪಾವತಿ ಎಂದು ವಿಭಾಗಗಳಾಗಿ ವಿಂಗಡಿಸಿ.</p>
+            <hr className="chapter-rule" />
+            <h3>ಹಂತ ೩: ಪರಿಶೀಲಿಸಿ</h3>
+            <p>ನಿಮ್ಮ ಹೆಚ್ಚಿನ ಹಣ ಎಲ್ಲಿ ಹೋಗುತ್ತದೆ? ಏನನ್ನು ಕಡಿತಗೊಳಿಸಬಹುದು ಅಥವಾ ಉತ್ತಮಗೊಳಿಸಬಹುದು?</p>
+            <p>ನೀವು ಯಾವುದಾದರೂ ಬಜೆಟ್ ಸಾಧನ ಅಥವಾ ಸರಳವಾಗಿ Excel / Google Sheets ಬಳಸಬಹುದು — ನಿಮಗೆ ನಿರಂತರತೆ ಮತ್ತು ಪ್ರಾಮಾಣಿಕತೆ ಕಾಪಾಡಲು ಸಹಾಯ ಮಾಡುವುದು ಯಾವುದಾದರೂ ಸರಿ.</p>
+            <p>
+              ಎಲ್ಲವನ್ನೂ ತಕ್ಷಣವೇ ಸರಿಪಡಿಸಲು ಆತುರ ಪಡಬೇಡಿ. ಲೆಕ್ಕ ಇಡುವುದು ವಿಮರ್ಶೆಗಾಗಿ ಅಲ್ಲ — ಅವಲೋಕನಕ್ಕಾಗಿ.
+            </p>
+            <div className="pull-quote">ಸೋರಿಕೆ ಎಲ್ಲಿದೆ ಎಂದು ತಿಳಿಯದ ಹೊರತು ಅದನ್ನು ಮುಚ್ಚಲು ಸಾಧ್ಯವಿಲ್ಲ.</div>
+          </>
+        ),
+      },
     },
 
     {
-      title: "Chapter 6: Automate & Simplify",
-      content: (
-        <>
-          <p>The best budget is the one that runs on autopilot.</p>
-
-          <ul>
-            <li>Auto-transfer a fixed % into savings or investments monthly.</li>
-            <li>Set reminders for bills and reviews.</li>
-            <li>Use apps or spreadsheets to track progress.</li>
-            <li>Review money once a month — not daily.</li>
-          </ul>
-
-          <p>
-            Automation keeps you consistent — you don’t need to control every rupee,
-            just direct it.
-          </p>
-        </>
-      ),
+      title: {
+        en: "Chapter 3: The 50-30-20 Rule",
+        kn: "ಅಧ್ಯಾಯ 3: ೫೦-೩೦-೨೦ ನಿಯಮ",
+      },
+      content: {
+        en: (
+          <>
+            <p>This simple rule is a timeless favourite because it&apos;s easy, balanced, and effective.</p>
+            <hr className="chapter-rule" />
+            <h3>50% — Needs</h3>
+            <p>Essentials like rent, groceries, utilities, transport.</p>
+            <hr className="chapter-rule" />
+            <h3>30% — Wants</h3>
+            <p>Dining out, shopping, hobbies, travel.</p>
+            <hr className="chapter-rule" />
+            <h3>20% — Savings &amp; Investments</h3>
+            <p>Emergency fund, SIPs, or long-term goals.</p>
+            <hr className="chapter-rule" />
+            <p>Start here and then adapt it as you grow.</p>
+            <p>If you&apos;re saving for a big goal, go 40-30-30. If you&apos;re early in your career and want flexibility, maybe 60-25-15.</p>
+            <p>There&apos;s no perfect ratio — just the one that helps you stay consistent.</p>
+            <div className="pull-quote">Budgeting isn&apos;t about strict rules — it&apos;s about balance with purpose.</div>
+          </>
+        ),
+        kn: (
+          <>
+            <p>ಈ ಸರಳ ನಿಯಮವು ಎಂದೆಂದಿಗೂ ಜನಪ್ರಿಯವಾಗಿದೆ — ಏಕೆಂದರೆ ಇದು ಸುಲಭ, ಸಮತೋಲಿತ ಮತ್ತು ಪರಿಣಾಮಕಾರಿ.</p>
+            <hr className="chapter-rule" />
+            <h3>೫೦% — ಅಗತ್ಯತೆಗಳು</h3>
+            <p>ಬಾಡಿಗೆ, ದಿನಸಿ, ನೀರು-ವಿದ್ಯುತ್, ಸಾರಿಗೆಯಂತಹ ಮೂಲಭೂತ ಅವಶ್ಯಕತೆಗಳು.</p>
+            <hr className="chapter-rule" />
+            <h3>೩೦% — ಬಯಕೆಗಳು</h3>
+            <p>ಹೊರಗಡೆ ಊಟ, ಶಾಪಿಂಗ್, ಹವ್ಯಾಸಗಳು, ಪ್ರಯಾಣ.</p>
+            <hr className="chapter-rule" />
+            <h3>೨೦% — ಉಳಿತಾಯ ಮತ್ತು ಹೂಡಿಕೆ</h3>
+            <p>ತುರ್ತು ನಿಧಿ, SIP ಗಳು, ಅಥವಾ ದೀರ್ಘಕಾಲೀನ ಗುರಿಗಳು.</p>
+            <hr className="chapter-rule" />
+            <p>
+              ಇಲ್ಲಿಂದ ಪ್ರಾರಂಭಿಸಿ, ನಂತರ ನಿಮ್ಮ ಬೆಳವಣಿಗೆಗೆ ತಕ್ಕಂತೆ ಅದನ್ನು ಅಳವಡಿಸಿಕೊಳ್ಳಿ. ದೊಡ್ಡ ಗುರಿಗಾಗಿ ಉಳಿತಾಯ ಮಾಡುತ್ತಿದ್ದರೆ, ೪೦-೩೦-೩೦ ಅನುಸರಿಸಿ. ವೃತ್ತಿಜೀವನದ ಆರಂಭದಲ್ಲಿದ್ದು ಹೊಂದಿಕೊಳ್ಳುವಿಕೆ ಬೇಕಿದ್ದರೆ, ೬೦-೨೫-೧೫ ಸರಿಹೊಂದಬಹುದು.
+            </p>
+            <p>ಯಾವುದೇ ನಿಖರವಾದ ಅನುಪಾತ ಇಲ್ಲ — ನಿಮಗೆ ನಿರಂತರತೆ ಕಾಪಾಡಲು ಸಹಾಯ ಮಾಡುವ ಅನುಪಾತವೇ ಸರಿಯಾದದ್ದು.</p>
+            <div className="pull-quote">ಬಜೆಟ್ ರಚನೆ ಎಂದರೆ ಕಟ್ಟುನಿಟ್ಟಾದ ನಿಯಮಗಳಲ್ಲ — ಉದ್ದೇಶದೊಂದಿಗೆ ಸಮತೋಲನ ಕಾಪಾಡುವುದು.</div>
+          </>
+        ),
+      },
     },
 
     {
-      title: "Chapter 7: Your Finances, Your Control",
-      content: (
-        <>
-          <p>
-            Budgeting isn’t restriction — it’s freedom. Freedom to spend on what matters,
-            save for what’s important, and live life on your terms.
-          </p>
+      title: {
+        en: "Chapter 4: Smart Saving & Spending Hacks",
+        kn: "ಅಧ್ಯಾಯ 4: ಬುದ್ಧಿವಂತ ಉಳಿತಾಯ ಮತ್ತು ಖರ್ಚಿನ ಸಲಹೆಗಳು",
+      },
+      content: {
+        en: (
+          <>
+            <p>Money management isn&apos;t only about cutting down — it&apos;s about making your spending smarter.</p>
+            <p>Here are some habits that actually work:</p>
+            <hr className="chapter-rule" />
+            <h3>Automate Savings</h3>
+            <p>Set them up to transfer on salary day — before you can spend them.</p>
+            <hr className="chapter-rule" />
+            <h3>Sleep on Impulse Buys</h3>
+            <p>Wait 24 hours before you spend on anything non-essential.</p>
+            <hr className="chapter-rule" />
+            <h3>Track Subscriptions</h3>
+            <p>Cancel the ones you don&apos;t use regularly. They add up fast.</p>
+            <hr className="chapter-rule" />
+            <h3>Use the Envelope Method (Digitally)</h3>
+            <p>Separate &quot;fun money&quot; from essentials so you spend guilt-free within limits.</p>
+            <hr className="chapter-rule" />
+            <h3>Have a Guilt-Free Fund</h3>
+            <p>It keeps you consistent and sane. Spend on what you love. Save on what doesn&apos;t matter.</p>
+            <div className="pull-quote">When you&apos;re intentional, every expense starts to feel like an investment in your own priorities.</div>
+          </>
+        ),
+        kn: (
+          <>
+            <p>ಹಣ ನಿರ್ವಹಣೆ ಎಂದರೆ ಕೇವಲ ಖರ್ಚು ಕಡಿತಗೊಳಿಸುವುದಲ್ಲ — ನಿಮ್ಮ ಖರ್ಚನ್ನು ಹೆಚ್ಚು ಬುದ್ಧಿವಂತಿಕೆಯಿಂದ ಮಾಡುವುದು.</p>
+            <hr className="chapter-rule" />
+            <h3>ಉಳಿತಾಯವನ್ನು ಸ್ವಯಂಚಾಲಿತಗೊಳಿಸಿ</h3>
+            <p>ವೇತನ ಬಂದ ದಿನವೇ ವರ್ಗಾವಣೆಯಾಗುವಂತೆ ಹೊಂದಿಸಿ — ಖರ್ಚು ಮಾಡುವ ಮೊದಲೇ.</p>
+            <hr className="chapter-rule" />
+            <h3>ಆವೇಗದ ಖರೀದಿಗೆ ತಡೆ ಹಾಕಿ</h3>
+            <p>ಅನಗತ್ಯ ವಸ್ತುವಿಗೆ ಖರ್ಚು ಮಾಡುವ ಮೊದಲು ೨೪ ಗಂಟೆ ಕಾಯಿರಿ.</p>
+            <hr className="chapter-rule" />
+            <h3>ಚಂದಾದಾರಿಕೆಗಳನ್ನು ಪರಿಶೀಲಿಸಿ</h3>
+            <p>ನಿಯಮಿತವಾಗಿ ಬಳಸದವುಗಳನ್ನು ರದ್ದುಗೊಳಿಸಿ. ಅವು ವೇಗವಾಗಿ ಸೇರಿಕೊಳ್ಳುತ್ತವೆ.</p>
+            <hr className="chapter-rule" />
+            <h3>ಹೊದಿಕೆ ವಿಧಾನ (ಡಿಜಿಟಲ್ ರೂಪದಲ್ಲಿ)</h3>
+            <p>&quot;ಮನರಂಜನೆಯ ಹಣ&quot;ವನ್ನು ಅಗತ್ಯ ಖರ್ಚಿನಿಂದ ಪ್ರತ್ಯೇಕವಾಗಿ ಇರಿಸಿ.</p>
+            <hr className="chapter-rule" />
+            <h3>ಅಪರಾಧಭಾವನೆ ಇಲ್ಲದ ನಿಧಿ</h3>
+            <p>ಇದು ನಿಮ್ಮನ್ನು ನಿರಂತರ ಮತ್ತು ಮಾನಸಿಕವಾಗಿ ಸ್ಥಿರವಾಗಿರಿಸುತ್ತದೆ. ನೀವು ಪ್ರೀತಿಸುವುದರ ಮೇಲೆ ಖರ್ಚು ಮಾಡಿ. ಮುಖ್ಯವಲ್ಲದ್ದರ ಮೇಲೆ ಉಳಿಸಿ.</p>
+            <div className="pull-quote">ನೀವು ಉದ್ದೇಶಪೂರ್ವಕವಾಗಿ ನಿರ್ಧರಿಸಿದಾಗ, ಪ್ರತಿಯೊಂದು ಖರ್ಚು ನಿಮ್ಮ ಆದ್ಯತೆಗಳಲ್ಲಿನ ಹೂಡಿಕೆಯಂತೆ ಭಾಸವಾಗತೊಡಗುತ್ತದೆ.</div>
+          </>
+        ),
+      },
+    },
 
-          <p>
-            Every decision reflects your priorities — a promise to your future self.
-            Awareness brings control; control brings peace and growth.
-          </p>
+    {
+      title: {
+        en: "Chapter 5: Build Your Emergency Fund — Your First Line of Defense",
+        kn: "ಅಧ್ಯಾಯ 5: ನಿಮ್ಮ ತುರ್ತು ನಿಧಿ ನಿರ್ಮಿಸಿ",
+      },
+      content: {
+        en: (
+          <>
+            <p>Before you start chasing returns, make sure you&apos;re protected.</p>
+            <p>Investing without an emergency fund is like driving fast without brakes.</p>
+            <p>
+              Life&apos;s surprises — job loss, medical expenses, home or car repairs — can arrive unannounced.
+              An emergency fund gives you the financial breathing room to handle them calmly,
+              without touching your investments or going into debt.
+            </p>
+            <hr className="chapter-rule" />
+            <h3>How Much Should You Save?</h3>
+            <p>Aim to set aside 3–6 months of your monthly expenses.</p>
+            <p>
+              If you&apos;re self-employed, freelancing, or supporting dependents, build a larger cushion — around 6–9 months of expenses.
+            </p>
+            <p>This might sound like a big goal, but remember, it&apos;s your financial safety net.</p>
+            <p>Every rupee here buys you peace of mind. Build it aggressively before you focus on investing.</p>
+            <hr className="chapter-rule" />
+            <h3>Where to Park It</h3>
+            <p>
+              Your emergency fund needs to be safe, stable, and quickly accessible — but still earn better returns than a regular savings account.
+            </p>
+            <p>
+              <strong>Debt Funds (Liquid or Ultra Short-Term):</strong> Ideal for slightly better returns (~6–7%) with easy access in 1–2 days.
+            </p>
+            <p>
+              <strong>High-Interest Savings Accounts:</strong> Good for partial liquidity — keep 1–2 months&apos; worth here for instant access.
+            </p>
+            <p>
+              <strong>Short-Term FDs (1–3 months):</strong> Optional for those who prefer fixed returns, but less flexible than debt funds.
+            </p>
+            <p>
+              Avoid putting this money in stocks, mutual funds, or any high-risk investment. Your goal here isn&apos;t growth — it&apos;s stability and access.
+            </p>
+            <hr className="chapter-rule" />
+            <h3>How to Build It</h3>
+            <p>
+              Start small, but stay consistent — set up an automatic transfer every month.
+              Redirect bonuses, tax refunds, or side income into your fund.
+              Keep your emergency fund separate from regular savings so you don&apos;t dip into it casually.
+            </p>
+            <div className="pull-quote">When you have an emergency fund, you don&apos;t just survive uncertainty — you stay in control.</div>
+          </>
+        ),
+        kn: (
+          <>
+            <p>ಲಾಭದ ಹಿಂದೆ ಓಡುವ ಮೊದಲು, ನೀವು ಸುರಕ್ಷಿತವಾಗಿದ್ದೀರಾ ಎಂದು ಖಚಿತಪಡಿಸಿಕೊಳ್ಳಿ.</p>
+            <p>
+              ತುರ್ತು ನಿಧಿಯಿಲ್ಲದೆ ಹೂಡಿಕೆ ಮಾಡುವುದು, ಬ್ರೇಕ್ ಇಲ್ಲದ ವಾಹನದಲ್ಲಿ ವೇಗವಾಗಿ ಚಲಿಸಿದಂತೆ.
+            </p>
+            <p>
+              ಉದ್ಯೋಗ ನಷ್ಟ, ವೈದ್ಯಕೀಯ ಖರ್ಚು, ಮನೆ ಅಥವಾ ವಾಹನದ ದುರಸ್ತಿ — ಜೀವನದ ಅನಿರೀಕ್ಷಿತ ಸಂದರ್ಭಗಳು ಯಾವಾಗ ಬೇಕಾದರೂ ಬರಬಹುದು. ತುರ್ತು ನಿಧಿ ನಿಮ್ಮ ಹೂಡಿಕೆಗೆ ಕೈ ಹಾಕದೆ ಅಥವಾ ಸಾಲದ ಮೊರೆ ಹೋಗದೆ, ಅವುಗಳನ್ನು ಶಾಂತಚಿತ್ತದಿಂದ ನಿಭಾಯಿಸಲು ಅವಕಾಶ ನೀಡುತ್ತದೆ.
+            </p>
+            <hr className="chapter-rule" />
+            <h3>ಎಷ್ಟು ಉಳಿಸಬೇಕು?</h3>
+            <p>ನಿಮ್ಮ ಮಾಸಿಕ ಖರ್ಚಿನ ೩ ರಿಂದ ೬ ತಿಂಗಳಿನಷ್ಟು ಮೊತ್ತ ಪ್ರತ್ಯೇಕವಾಗಿ ಇರಿಸಿ. ಸ್ವಯಂ ಉದ್ಯೋಗಿಯಾಗಿದ್ದರೆ ಅಥವಾ ಅವಲಂಬಿತರನ್ನು ಸಾಕುತ್ತಿದ್ದರೆ, ೬ ರಿಂದ ೯ ತಿಂಗಳ ದೊಡ್ಡ ನಿಧಿ ನಿರ್ಮಿಸಿ.</p>
+            <hr className="chapter-rule" />
+            <h3>ಎಲ್ಲಿ ಇರಿಸಬೇಕು?</h3>
+            <p><strong>ಡೆಟ್ ಫಂಡ್‌ಗಳು:</strong> ೧-೨ ದಿನಗಳಲ್ಲಿ ಸುಲಭ ಹಿಂಪಡೆಯುವಿಕೆಯೊಂದಿಗೆ ಸ್ವಲ್ಪ ಉತ್ತಮ ಆದಾಯ (~೬-೭%).</p>
+            <p><strong>ಹೆಚ್ಚಿನ ಬಡ್ಡಿ ಉಳಿತಾಯ ಖಾತೆಗಳು:</strong> ತಕ್ಷಣದ ಲಭ್ಯತೆಗಾಗಿ ೧-೨ ತಿಂಗಳ ಮೊತ್ತ ಇಲ್ಲಿ ಇರಿಸಿ.</p>
+            <p><strong>ಅಲ್ಪಾವಧಿ ಎಫ್‌ಡಿಗಳು:</strong> ಸ್ಥಿರ ಆದಾಯ ಬಯಸುವವರಿಗೆ ಐಚ್ಛಿಕ.</p>
+            <p>ಈ ಹಣವನ್ನು ಷೇರುಗಳು ಅಥವಾ ಯಾವುದೇ ಅಧಿಕ ಅಪಾಯದ ಹೂಡಿಕೆಯಲ್ಲಿ ಹಾಕಬೇಡಿ. ಇಲ್ಲಿ ನಿಮ್ಮ ಗುರಿ ಬೆಳವಣಿಗೆಯಲ್ಲ — ಸ್ಥಿರತೆ ಮತ್ತು ಲಭ್ಯತೆ.</p>
+            <hr className="chapter-rule" />
+            <h3>ಹೇಗೆ ನಿರ್ಮಿಸಬೇಕು?</h3>
+            <p>ಚಿಕ್ಕದಾಗಿ ಪ್ರಾರಂಭಿಸಿ, ನಿರಂತರವಾಗಿ ಮುಂದುವರಿಯಿರಿ. ಬೋನಸ್, ತೆರಿಗೆ ಮರುಪಾವತಿ ಅಥವಾ ಹೆಚ್ಚುವರಿ ಆದಾಯವನ್ನು ನಿಮ್ಮ ನಿಧಿಗೆ ತಿರುಗಿಸಿ. ಸಾಮಾನ್ಯ ಉಳಿತಾಯದಿಂದ ಪ್ರತ್ಯೇಕವಾಗಿ ಇರಿಸಿ.</p>
+            <div className="pull-quote">ತುರ್ತು ನಿಧಿ ಇದ್ದಾಗ, ನೀವು ಅನಿಶ್ಚಿತತೆಯನ್ನು ಕೇವಲ ಬದುಕಿ ಉಳಿಯುವುದಿಲ್ಲ — ನೀವು ನಿಯಂತ್ರಣದಲ್ಲಿ ಇರುತ್ತೀರಿ.</div>
+          </>
+        ),
+      },
+    },
 
-          <p>
-            Now that you understand how money moves, it’s time to grow it.
-            Budget wisely today so you can invest boldly tomorrow.
-          </p>
-        </>
-      ),
+    {
+      title: {
+        en: "Chapter 6: Automate & Simplify",
+        kn: "ಅಧ್ಯಾಯ 6: ಸ್ವಯಂಚಾಲಿತಗೊಳಿಸಿ ಮತ್ತು ಸರಳಗೊಳಿಸಿ",
+      },
+      content: {
+        en: (
+          <>
+            <p>The best budget is the one that runs on autopilot.</p>
+            <hr className="chapter-rule" />
+            <h3>Auto-Transfer Savings</h3>
+            <p>Set up a fixed % of your income to move into savings/investments every month — on salary day.</p>
+            <hr className="chapter-rule" />
+            <h3>Set Reminders</h3>
+            <p>For bill payments and financial reviews — so nothing slips through the cracks.</p>
+            <hr className="chapter-rule" />
+            <h3>Use a Budgeting Tool</h3>
+            <p>A simple Excel or budgeting app lets you track progress without obsessing daily.</p>
+            <hr className="chapter-rule" />
+            <h3>Review Monthly, Not Daily</h3>
+            <p>Check in on your finances once a month — not every single day. Automation keeps you consistent even on lazy or busy days.</p>
+            <div className="pull-quote">You don&apos;t need to control every rupee. You just need to direct it.</div>
+          </>
+        ),
+        kn: (
+          <>
+            <p>ಅತ್ಯುತ್ತಮ ಬಜೆಟ್ ಎಂದರೆ ತಾನಾಗಿಯೇ ನಡೆಯುವಂಥದ್ದು.</p>
+            <hr className="chapter-rule" />
+            <h3>ಉಳಿತಾಯ ಸ್ವಯಂಚಾಲಿತಗೊಳಿಸಿ</h3>
+            <p>ಪ್ರತಿ ತಿಂಗಳು ನಿಮ್ಮ ಆದಾಯದ ನಿಗದಿತ ಶೇಕಡಾವಾರು ಮೊತ್ತವನ್ನು ಉಳಿತಾಯ/ಹೂಡಿಕೆಗೆ ಸ್ವಯಂಚಾಲಿತವಾಗಿ ವರ್ಗಾಯಿಸುವಂತೆ ಹೊಂದಿಸಿ.</p>
+            <hr className="chapter-rule" />
+            <h3>ಜ್ಞಾಪನೆಗಳನ್ನು ಹೊಂದಿಸಿ</h3>
+            <p>ಬಿಲ್ ಪಾವತಿ ಮತ್ತು ಆರ್ಥಿಕ ಪರಿಶೀಲನೆಗಾಗಿ — ಯಾವುದೂ ತಪ್ಪಿಹೋಗದಂತೆ.</p>
+            <hr className="chapter-rule" />
+            <h3>ಬಜೆಟ್ ಸಾಧನ ಬಳಸಿ</h3>
+            <p>ಸರಳ Excel ಅಥವಾ ಬಜೆಟ್ ಅಪ್ಲಿಕೇಶನ್ ನಿಮ್ಮ ಪ್ರಗತಿ ಗಮನಿಸಲು ಸಹಾಯ ಮಾಡುತ್ತದೆ — ಪ್ರತಿದಿನ ಗಮನಿಸದೆ.</p>
+            <hr className="chapter-rule" />
+            <h3>ತಿಂಗಳಿಗೊಮ್ಮೆ ಪರಿಶೀಲಿಸಿ</h3>
+            <p>ನಿಮ್ಮ ಆರ್ಥಿಕ ಸ್ಥಿತಿಯನ್ನು ಪ್ರತಿದಿನ ಅಲ್ಲ — ತಿಂಗಳಿಗೊಮ್ಮೆ ಪರಿಶೀಲಿಸಿ. ಸ್ವಯಂಚಾಲನೆ ಸೋಮಾರಿ ಅಥವಾ ಒತ್ತಡದ ದಿನಗಳಲ್ಲಿಯೂ ನಿಮ್ಮನ್ನು ನಿರಂತರವಾಗಿ ಮುನ್ನಡೆಸುತ್ತದೆ.</p>
+            <div className="pull-quote">ಪ್ರತಿಯೊಂದು ರೂಪಾಯಿಯನ್ನೂ ನಿಯಂತ್ರಿಸುವ ಅಗತ್ಯವಿಲ್ಲ. ಅದಕ್ಕೆ ಸರಿಯಾದ ದಿಕ್ಕು ತೋರಿಸಿದರೆ ಸಾಕು.</div>
+          </>
+        ),
+      },
+    },
+
+    {
+      title: {
+        en: "Chapter 7: Your Finances, Your Control",
+        kn: "ಅಧ್ಯಾಯ 7: ನಿಮ್ಮ ಆರ್ಥಿಕತೆ, ನಿಮ್ಮ ನಿಯಂತ್ರಣ",
+      },
+      content: {
+        en: (
+          <>
+            <p>Budgeting isn&apos;t about cutting down — it&apos;s about choosing better.</p>
+            <p>
+              It&apos;s not a restriction; it&apos;s freedom — the freedom to spend on what matters,
+              to save for what&apos;s important, and to live life on your terms.
+            </p>
+            <p>Every decision in your budget is a reflection of your priorities and a quiet promise to your future self.</p>
+            <p>When you plan your money, you gain control. And with control comes confidence, peace, and growth.</p>
+            <hr className="chapter-rule" />
+            <p>You&apos;ve made it this far — understanding how money moves, where it goes, and how to make it work for you.</p>
+            <p>That&apos;s no small feat. You&apos;ve built the foundation — awareness, clarity, and intent.</p>
+            <p>Now, it&apos;s time to take the next step.</p>
+            <p>Because once you&apos;ve learned to manage money, the real magic begins when you learn to grow it.</p>
+            <div className="pull-quote">Budget wisely today, so you can invest boldly tomorrow.</div>
+          </>
+        ),
+        kn: (
+          <>
+            <p>ಬಜೆಟ್ ರಚನೆ ಎಂದರೆ ಕಡಿತಗೊಳಿಸುವುದಲ್ಲ — ಉತ್ತಮ ಆಯ್ಕೆ ಮಾಡುವುದು.</p>
+            <p>
+              ಇದು ನಿರ್ಬಂಧವಲ್ಲ; ಇದು ಸ್ವಾತಂತ್ರ್ಯ — ಮುಖ್ಯವಾದುದರ ಮೇಲೆ ಖರ್ಚು ಮಾಡುವ, ಮಹತ್ವದ್ದನ್ನು ಉಳಿಸುವ, ಮತ್ತು ನಿಮ್ಮ ಷರತ್ತುಗಳ ಮೇಲೆ ಜೀವನ ನಡೆಸುವ ಸ್ವಾತಂತ್ರ್ಯ.
+            </p>
+            <p>
+              ನಿಮ್ಮ ಬಜೆಟ್‌ನಲ್ಲಿನ ಪ್ರತಿಯೊಂದು ನಿರ್ಧಾರವೂ ನಿಮ್ಮ ಆದ್ಯತೆಗಳ ಪ್ರತಿಬಿಂಬ ಮತ್ತು ನಿಮ್ಮ ಭವಿಷ್ಯದ ನಿಮಗೆ ನೀವೇ ನೀಡುವ ಮೌನ ವಾಗ್ದಾನ.
+            </p>
+            <p>ನೀವು ಹಣವನ್ನು ಯೋಜಿಸಿದಾಗ, ನಿಯಂತ್ರಣ ದೊರೆಯುತ್ತದೆ. ಮತ್ತು ನಿಯಂತ್ರಣದೊಂದಿಗೆ ಆತ್ಮವಿಶ್ವಾಸ, ಮನಃಶಾಂತಿ ಮತ್ತು ಬೆಳವಣಿಗೆ ಬರುತ್ತದೆ.</p>
+            <hr className="chapter-rule" />
+            <p>
+              ನೀವು ಇಲ್ಲಿಯವರೆಗೆ ಬಂದಿದ್ದೀರಿ! ಹಣ ಹೇಗೆ ಚಲಿಸುತ್ತದೆ, ಎಲ್ಲಿ ಹೋಗುತ್ತದೆ, ಮತ್ತು ಅದನ್ನು ನಿಮಗಾಗಿ ಹೇಗೆ ಕೆಲಸ ಮಾಡಿಸಿಕೊಳ್ಳಬೇಕು ಎಂಬುದನ್ನು ಅರ್ಥಮಾಡಿಕೊಂಡಿದ್ದೀರಿ. ಇದು ಚಿಕ್ಕ ಸಾಧನೆಯೇನಲ್ಲ. ನೀವು ಅಡಿಪಾಯ ನಿರ್ಮಿಸಿದ್ದೀರಿ — ಜಾಗೃತಿ, ಸ್ಪಷ್ಟತೆ ಮತ್ತು ಉದ್ದೇಶ.
+            </p>
+            <p>ಈಗ, ಮುಂದಿನ ಹೆಜ್ಜೆ ಇಡುವ ಸಮಯ ಬಂದಿದೆ. ಏಕೆಂದರೆ ಹಣವನ್ನು ನಿರ್ವಹಿಸಲು ಕಲಿತ ನಂತರ, ಅದನ್ನು ಬೆಳೆಸಲು ಕಲಿತಾಗ ನಿಜವಾದ ಮಾಯಾಜಾಲ ಆರಂಭವಾಗುತ್ತದೆ.</p>
+            <div className="pull-quote">ಇಂದು ವಿವೇಕದಿಂದ ಬಜೆಟ್ ರಚಿಸಿ — ನಾಳೆ ಧೈರ್ಯದಿಂದ ಹೂಡಿಕೆ ಮಾಡಲು.</div>
+          </>
+        ),
+      },
     },
   ];
 
@@ -286,11 +499,40 @@ export default function Budgeting101Page() {
   return (
     <main className="container module-detail-container">
 
+      {/* === Chapter Progress Header === */}
+      <div className="module-progress-header">
+        <div className="progress-wrap">
+          <div className="progress-bar">
+            <div
+              className="progress-fill"
+              style={{ width: `${Math.round((chapterIndex / (chapters.length - 1)) * 100)}%` }}
+            />
+          </div>
+          <span className="progress-label">
+            {chapterIndex} of {chapters.length - 1} {t("chapters")}
+          </span>
+        </div>
+        <div className="chapter-dots">
+          {chapters.slice(1).map((_, i) => {
+            const dotIdx = i + 1;
+            return (
+              <button
+                key={dotIdx}
+                className={["chapter-dot", chapterIndex > dotIdx ? "done" : "", chapterIndex === dotIdx ? "active" : ""].filter(Boolean).join(" ")}
+                onClick={() => { setChapterIndex(dotIdx); saveProgress(dotIdx); }}
+              >
+                {dotIdx}
+              </button>
+            );
+          })}
+        </div>
+      </div>
+
       {/* === Active Chapter === */}
       <section className="chapters-list">
         <div className="chapter">
-          <h2>{current.title}</h2>
-          {current.content}
+          <h2>{current.title[lang]}</h2>
+          {current.content[lang]}
         </div>
       </section>
 
