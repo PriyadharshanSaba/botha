@@ -358,20 +358,26 @@ export default function TechnicalAnalysisPage() {
             </ul>
             <p>A large bullish body suggests strong buying conviction.</p>
             <p>                                        A long upper wick suggests rejection at higher prices.</p>
-            <img src="/technical-analysis/image95.png" alt="" style={imgStyle} />
+            <img src="/technical-analysis/image81.png" alt="" style={imgStyle} />
             <p>                                    A long lower wick suggests buyers stepped in aggressively.</p>
+            <img src="/technical-analysis/image95.png" alt="" style={imgStyle} />
+            <img src="/technical-analysis/image97.png" alt="" style={imgStyle} />
             <p>(These snippets are extracted from the Reliance chart for reference)</p>
             <p>When you combine candlesticks with trend structure, price starts to make logical sense instead of looking random.</p>
             <hr className="chapter-rule" />
             <h3>1 The Body  &mdash;  Measuring Conviction</h3>
             <p>The body of a candlestick represents the distance between the open and the close. It tells you how much progress one side made during that time period.</p>
             <p>A large body signals strong conviction. It means one side, buyers or sellers, controlled the session decisively and moved price with authority.</p>
+            <img src="/technical-analysis/image87.png" alt="" style={imgStyle} />
+            <img src="/technical-analysis/image70.png" alt="" style={imgStyle} />
             <p>                                             Buyers in Control             Sellers in Control</p>
             <p>A small body, on the other hand, reflects hesitation or balance. Price may have moved during the session but it ultimately closed near where it opened. That suggests indecision or lack of strong participation.</p>
             <img src="/technical-analysis/image6.png" alt="" style={imgStyle} />
             <p>                                         An extreme example but again from the Reliance Chart </p>
             <p>If a candle closes significantly higher than it opened, buyers clearly dominated the session. They not only absorbed selling pressure but pushed price higher into the close. The stronger and cleaner the body, the stronger the buying pressure.</p>
+            <img src="/technical-analysis/image87.png" alt="" style={imgStyle} />
             <p>If a candle closes much lower than it opened, sellers controlled the session. It indicates supply overwhelmed demand, especially if the candle closes near its low.</p>
+            <img src="/technical-analysis/image70.png" alt="" style={imgStyle} />
             <p>For investors, location gives meaning to the body.</p>
             <p>A large bullish body near support can indicate renewed strength and potential continuation of the broader uptrend.</p>
             <p>A large bearish body near resistance can signal emerging supply and possible short-term weakness.</p>
@@ -381,16 +387,19 @@ export default function TechnicalAnalysisPage() {
             <h3>2 The Wicks  &mdash;  Measuring Rejection</h3>
             <p>The thin lines above and below the candlestick body are called <strong>wicks</strong>. While the body shows conviction, the wicks reveal rejection, where price attempted to move but failed to sustain.</p>
             <p>An <strong>upper wick</strong> represents rejection from higher prices.A <strong>lower wick</strong> represents rejection from lower prices.</p>
+            <img src="/technical-analysis/image70.png" alt="" style={imgStyle} />
             <p>A long lower wick tells a clear story:</p>
             <p>Sellers pushed the price down during the session.</p>
             <p>Buyers stepped in and absorbed that selling pressure.</p>
             <p>Price recovered significantly before the close.</p>
             <p>This suggests demand emerging at lower levels.</p>
+            <img src="/technical-analysis/image75.png" alt="" style={imgStyle} />
             <p>A long upper wick tells the opposite story:</p>
             <p>Buyers pushed the price higher.</p>
             <p>Sellers entered aggressively at higher levels.</p>
             <p>Price failed to sustain the highs and pulled back before closing.</p>
             <p>This suggests supply emerging above.</p>
+            <img src="/technical-analysis/image77.png" alt="" style={imgStyle} />
             <p>Wicks are important because they show what the body alone cannot. A candle may close bullish, but a long upper wick can indicate hidden selling pressure. Similarly, a candle may close bearish, but a long lower wick can show strong buying interest underneath.</p>
             <p>In simple terms, the body shows control.The wicks show resistance and rejection.</p>
             <hr className="chapter-rule" />
@@ -404,6 +413,7 @@ export default function TechnicalAnalysisPage() {
               <li>Shows little to no upper wick</li>
             </ul>
             <p>This tells you buyers maintained control throughout the session and faced minimal resistance near the top. There was sustained demand and price did not retreat significantly before the close.</p>
+            <img src="/technical-analysis/image73.png" alt="" style={imgStyle} />
             <p>A <strong>weak bullish candle</strong>, however, may:</p>
             <ul>
               <li>Have a long upper wick</li>
@@ -411,7 +421,10 @@ export default function TechnicalAnalysisPage() {
               <li>Show signs of hesitation</li>
             </ul>
             <p>In this case, buyers pushed price up, but sellers stepped in before the close. Even though the candle may still appear green, it reflects reduced conviction.</p>
+            <img src="/technical-analysis/image79.png" alt="" style={imgStyle} />
             <p>The same principle applies to bearish candles. A strong bearish candle closes near its low with a large body and minimal lower wick. A weak bearish candle shows recovery from the lows, indicating buyers are absorbing some selling pressure.</p>
+            <img src="/technical-analysis/image88.png" alt="" style={imgStyle} />
+            <img src="/technical-analysis/image78.png" alt="" style={imgStyle} />
             <p>                                             Strong Bearish Candle           Weak Bearish Candle</p>
             <p>The key lesson is simple:</p>
             <p><strong>Context matters more than color.</strong></p>
@@ -430,6 +443,7 @@ export default function TechnicalAnalysisPage() {
               <li>Typically appears after a decline</li>
             </ul>
             <p>Behaviorally, a hammer tells this story: sellers pushed the price down significantly during the session, but buyers stepped in aggressively and drove it back up before the close. The market rejected lower prices.</p>
+            <img src="/technical-analysis/image3.png" alt="" style={imgStyle} />
             <p>                                                          (A snippet from ITC Chart)</p>
             <p>When this appears after a pullback or near support, it can indicate potential buyer strength. It suggests that selling pressure may be exhausting and demand is returning. However, confirmation from the next candle is important.</p>
             <img src="/technical-analysis/image2.png" alt="" style={imgStyle} />
@@ -444,6 +458,7 @@ export default function TechnicalAnalysisPage() {
               <li>Typically appears near recent highs</li>
             </ul>
             <p>This candle tells the opposite story. Buyers pushed the price higher during the session, but sellers entered strongly and forced price back down before the close. Higher prices were rejected.</p>
+            <img src="/technical-analysis/image28.png" alt="" style={imgStyle} />
             <p>                                               (A snippet from HDFC Bank Chart)</p>
             <p>When this appears near resistance or after a strong rally, it can indicate potential supply entering the market. It may signal a pause, pullback or short-term exhaustion.</p>
             <img src="/technical-analysis/image10.png" alt="" style={imgStyle} />
@@ -479,6 +494,7 @@ export default function TechnicalAnalysisPage() {
               <li>Price closes near the high</li>
             </ul>
             <p>There is minimal rejection. Sellers had very little control during the period.</p>
+            <img src="/technical-analysis/image11.png" alt="" style={imgStyle} />
             <p>                                     (A snippet from Reliance Chart on a 5m time frame)</p>
             <p>This often appears:</p>
             <ul>
@@ -496,6 +512,7 @@ export default function TechnicalAnalysisPage() {
               <li>Price closes near the low</li>
             </ul>
             <p>There is very little buying support during that session.</p>
+            <img src="/technical-analysis/image15.png" alt="" style={imgStyle} />
             <p>                                              (A snippet from Reliance Chart on a 5m time frame)</p>
             <p>This often appears:</p>
             <ul>
@@ -584,6 +601,7 @@ export default function TechnicalAnalysisPage() {
             <p><strong>On Day 2, something changes. Buyers step in with force. They absorb the remaining selling pressure and push price strongly upward, closing above the entire body of the previous session.</strong></p>
             <p><strong>This represents a clear shift in momentum.</strong></p>
             <p><strong>It signals that demand has not only returned, it has taken control decisively.</strong></p>
+            <img src="/technical-analysis/image36.png" alt="" style={imgStyle} />
             <hr className="chapter-rule" />
             <h3>(A snippet of bullish engulfing pattern from Reliance Chart)</h3>
             <hr className="chapter-rule" />
@@ -624,6 +642,7 @@ export default function TechnicalAnalysisPage() {
             <p><strong>On Day 2, sellers enter aggressively. They not only absorb buying pressure but push price down strongly, closing below the entire body of the previous candle.</strong></p>
             <p><strong>This signals a sharp shift in momentum.</strong></p>
             <p><strong>It suggests that supply has emerged decisively and buyers are losing short-term control.</strong></p>
+            <img src="/technical-analysis/image13.png" alt="" style={imgStyle} />
             <hr className="chapter-rule" />
             <h3>(A snippet of bearish engulfing pattern from Reliance Chart)</h3>
             <hr className="chapter-rule" />
@@ -713,6 +732,7 @@ export default function TechnicalAnalysisPage() {
             <p><strong>Finally, strong selling emerges and pushes price lower.</strong></p>
             <p><strong>This sequence reflects exhaustion near highs. Buying momentum weakens, uncertainty appears and sellers begin taking control.</strong></p>
             <p><strong>Unlike a single shooting star, the Evening Star builds confirmation across sessions. It shows that the shift from demand to supply is not just momentary, it is developing.</strong></p>
+            <img src="/technical-analysis/image8.png" alt="" style={imgStyle} />
             <hr className="chapter-rule" />
             <h3>(A snippet of evening star pattern from Reliance Chart)</h3>
             <hr className="chapter-rule" />
