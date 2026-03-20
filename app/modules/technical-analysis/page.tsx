@@ -8,6 +8,7 @@ import "../modules.css";
 import "../module-detail.css";
 import { useSearchParams, useRouter } from "next/navigation";
 import { useLanguage } from "../../context/LanguageContext";
+import { chaptersKn } from "./chapters-kn";
 
 const imgStyle: React.CSSProperties = {
   display: "block", margin: "28px auto", maxWidth: "100%",
@@ -15,7 +16,7 @@ const imgStyle: React.CSSProperties = {
 };
 
 export default function TechnicalAnalysisPage() {
-  const { t } = useLanguage();
+  const { t, lang } = useLanguage();
   // ============================================================
   // ALL CHAPTER CONTENT
   // ============================================================
@@ -3737,6 +3738,14 @@ export default function TechnicalAnalysisPage() {
   ];
 
   // ============================================================
+  // BILINGUAL MERGE (English chapters + Kannada chapters)
+  // ============================================================
+  const bilingualChapters = chapters.map((ch, i) => ({
+    title: { en: ch.title as string, kn: chaptersKn[i]?.title ?? ch.title },
+    content: { en: ch.content as React.ReactNode, kn: chaptersKn[i]?.content ?? ch.content },
+  }));
+
+  // ============================================================
   // STATE & PARAMS
   // ============================================================
   const [isLoading, setIsLoading] = useState(true);
@@ -3749,7 +3758,7 @@ export default function TechnicalAnalysisPage() {
   const router = useRouter();
   const moduleId = "technical-analysis";
 
-  const current = chapters[chapterIndex];
+  const current = bilingualChapters[chapterIndex];
 
   useEffect(() => {
     async function loadProgress() {
@@ -3799,11 +3808,11 @@ export default function TechnicalAnalysisPage() {
               <div className="progress-fill" style={{ width: "100%" }} />
             </div>
             <span className="progress-label">
-              {chapters.length} of {chapters.length} {t("chapters")}
+              {bilingualChapters.length} of {bilingualChapters.length} {t("chapters")}
             </span>
           </div>
           <div className="chapter-dots">
-            {chapters.map((_, i) => (
+            {bilingualChapters.map((_, i) => (
               <button
                 key={i}
                 className="chapter-dot done"
@@ -3850,15 +3859,15 @@ export default function TechnicalAnalysisPage() {
           <div className="progress-bar">
             <div
               className="progress-fill"
-              style={{ width: `${Math.round((chapterIndex / (chapters.length - 1)) * 100)}%` }}
+              style={{ width: `${Math.round((chapterIndex / (bilingualChapters.length - 1)) * 100)}%` }}
             />
           </div>
           <span className="progress-label">
-            {chapterIndex + 1} of {chapters.length} {t("chapters")}
+            {chapterIndex + 1} of {bilingualChapters.length} {t("chapters")}
           </span>
         </div>
         <div className="chapter-dots">
-          {chapters.map((_, i) => {
+          {bilingualChapters.map((_, i) => {
             const dotIdx = i;
             return (
               <button
@@ -3876,8 +3885,8 @@ export default function TechnicalAnalysisPage() {
       {/* === Active Chapter === */}
       <section className="chapters-list">
         <div className="chapter">
-          <h2>{current.title}</h2>
-          {current.content}
+          <h2>{current.title[lang]}</h2>
+          {current.content[lang]}
         </div>
       </section>
 
@@ -3898,25 +3907,25 @@ export default function TechnicalAnalysisPage() {
         </button>
 
           <span className="nav-chapter-info">
-            {`${chapterIndex + 1} / ${chapters.length}`}
+            {`${chapterIndex + 1} / ${bilingualChapters.length}`}
           </span>
           <span className="nav-divider" />
         <button
           className="nav-btn next"
           onClick={async () => {
-            if (chapterIndex === chapters.length - 1) {
+            if (chapterIndex === bilingualChapters.length - 1) {
               await saveProgress(chapterIndex);
               setIsComplete(true);
             } else {
               setChapterIndex((i) => {
-                const newIndex = Math.min(chapters.length - 1, i + 1);
+                const newIndex = Math.min(bilingualChapters.length - 1, i + 1);
                 saveProgress(newIndex);
                 return newIndex;
               });
             }
           }}
         >
-          {chapterIndex === chapters.length - 1 ? "Finish ✓" : `${t("next")} →`}
+          {chapterIndex === bilingualChapters.length - 1 ? "Finish ✓" : `${t("next")} →`}
         </button>
       </div>
 
