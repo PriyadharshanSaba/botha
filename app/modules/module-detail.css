@@ -70,6 +70,14 @@
   margin-top: 16px;
 }
 
+.caption {
+  font-size: 13px;
+  color: #999;
+  margin-top: 6px;
+  margin-bottom: 16px;
+  font-style: italic;
+}
+
 .chapter p,
 .chapter ul {
   color: #444;
