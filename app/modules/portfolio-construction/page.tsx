@@ -8,7 +8,7 @@ import "../module-detail.css";
 import { useSearchParams, useRouter } from "next/navigation";
 import { useLanguage } from "../../context/LanguageContext";
 
-export const imgStyle: React.CSSProperties = {
+const imgStyle: React.CSSProperties = {
   display: "block", margin: "28px auto", maxWidth: "100%",
   borderRadius: 12, border: "1px solid rgba(201,168,76,0.15)",
 };
@@ -24,6 +24,7 @@ const ChapterOneEn = () => (
     <p>This is where the concept of <strong>net worth</strong> becomes useful.</p>
     <p>Net worth is calculated as:</p>
     <p><strong>Net Worth = Assets – Liabilities</strong></p>
+    <img src="/portfolio-construction/image9.png" alt="Net worth formula diagram" style={imgStyle} />
 
     <h3>Assets</h3>
     <p>Assets are things that <strong>you own that have financial value</strong>.</p>
@@ -71,6 +72,7 @@ const ChapterOneEn = () => (
     </ul>
     <p>Consistent investing is rarely the result of occasional large investments. Instead, it is usually built through <strong>regular savings and disciplined capital allocation over many years</strong>.</p>
     <p>Before thinking about portfolio construction, it is therefore essential to ensure that your financial foundation, <strong>your net worth and your cash flow</strong>, is stable and well understood.</p>
+    <img src="/portfolio-construction/image1.png" alt="Net worth and cash flow overview" style={imgStyle} />
   </>
 );
 
@@ -105,6 +107,7 @@ const ChapterThreeEn = () => (
     </ul>
     <p>For example, an individual with a stable salary, a growing net worth and a long investment horizon may have a relatively high risk capacity. Temporary market fluctuations are less likely to affect their financial security because their income and savings continue to support their financial position.</p>
     <p>On the other hand, someone who depends on their investments for regular income or who has limited financial reserves may have a much lower risk capacity. Large market declines could significantly impact their ability to meet expenses.</p>
+    <img src="/portfolio-construction/image7.png" alt="Risk appetite vs risk capacity diagram" style={imgStyle} />
     <p>Your <strong>income and net worth play a critical role in determining risk capacity</strong>. Higher income stability and stronger financial reserves generally increase the ability to absorb market volatility, while limited financial buffers reduce that flexibility.</p>
     <p>A successful investment strategy must consider <strong>both factors together</strong>. Taking excessive risk beyond your financial capacity can create instability, while investing too conservatively due to emotional discomfort may limit long-term growth.</p>
     <p>By understanding the difference between risk appetite and risk capacity, you can design an investment approach that is <strong>both financially sustainable and psychologically comfortable</strong>, helping you stay disciplined during inevitable market fluctuations.</p>
@@ -126,6 +129,7 @@ const ChapterFourEn = () => (
     <p>Without an emergency fund, investors may be forced to liquidate long-term investments during unfavorable market conditions simply to meet short-term financial needs.</p>
     <p>A commonly recommended guideline is to maintain <strong>six to twelve months of essential living expenses</strong> in highly liquid instruments such as savings accounts or liquid mutual funds. These funds should be easily accessible and should not be exposed to significant market volatility.</p>
     <p>The purpose of this reserve is not to generate high returns, but to provide <strong>financial stability and flexibility during difficult periods</strong>.</p>
+    <img src="/portfolio-construction/image5.png" alt="Emergency fund illustration" style={imgStyle} />
     <p>By maintaining an adequate emergency fund, you give your long-term investments the time they need to grow without being disrupted by short-term financial pressures. This buffer allows you to remain invested through market cycles rather than making forced decisions during periods of uncertainty.</p>
   </>
 );
@@ -141,6 +145,7 @@ const ChapterFiveEn = () => (
       <li><strong>Long-term capital appreciation</strong> — benefiting from increases in property values over time</li>
     </ul>
     <p>For many families, owning a home also provides stability and long-term security. However, from an investment perspective, it is important to recognize that property behaves differently from financial assets.</p>
+    <img src="/portfolio-construction/image6.png" alt="Real estate in wealth allocation" style={imgStyle} />
     <p>Real estate investments typically have certain characteristics:</p>
     <ul className="pl-6">
       <li><strong>low liquidity</strong> — property cannot be easily sold quickly when cash is needed</li>
@@ -215,6 +220,7 @@ const ChapterSevenEn = () => (
     </ul>
     <p>Each asset class behaves differently under various economic conditions. Because of this, the way capital is allocated across these assets has a major influence on the overall performance and stability of a portfolio.</p>
     <p>In fact, many studies in portfolio management suggest that <strong>asset allocation plays a larger role in long-term returns than the selection of individual securities</strong>.</p>
+    <img src="/portfolio-construction/image10.png" alt="Asset allocation overview" style={imgStyle} />
 
     <h3>Why Asset Allocation Matters</h3>
     <p>Different asset classes respond differently to economic environments.</p>
@@ -293,6 +299,7 @@ const ChapterEightEn = () => (
     <p>Investors may also diversify across <strong>different economies or markets</strong>.</p>
     <p>For example, some investors allocate a portion of their portfolio to international equities through global funds or exchange-traded funds.</p>
     <p>This helps reduce the risk of relying entirely on the economic performance of a single country.</p>
+    <img src="/portfolio-construction/image4.png" alt="Geographic diversification diagram" style={imgStyle} />
 
     <h3>Diversification by Investment Style</h3>
     <p>Another dimension of diversification involves mixing different types of investments such as:</p>
@@ -389,6 +396,7 @@ const ChapterTenEn = () => (
       <li>5% gold</li>
     </ul>
     <p>While this may appear beneficial during a bull market, the portfolio has now become <strong>more vulnerable to market corrections</strong>. Rebalancing helps restore the intended balance.</p>
+    <img src="/portfolio-construction/image8.png" alt="Portfolio drift and rebalancing illustration" style={imgStyle} />
 
     <h3>Why Rebalancing Matters</h3>
     <p>Rebalancing plays an important role in maintaining long-term discipline.</p>
@@ -449,6 +457,7 @@ const ChapterElevenEn = () => (
     <p>When it comes to investing, many investors face a common question:</p>
     <p><strong>Should I invest all my money at once or should I invest gradually over time?</strong></p>
     <p>These two approaches are known as <strong>lump sum investing</strong> and <strong>Systematic Investment Plan (SIP) investing</strong>. Both methods can be effective, but the appropriate approach often depends on your financial situation, income patterns and comfort with market volatility.</p>
+    <img src="/portfolio-construction/image2.png" alt="Lump sum vs SIP investing comparison" style={imgStyle} />
 
     <h3>Lump Sum Investing</h3>
     <p>Lump sum investing involves <strong>deploying a large amount of capital into investments at one time</strong>.</p>
@@ -514,6 +523,7 @@ const ChapterTwelveEn = () => (
     <p>One of the most underestimated challenges in investing is <strong>human behavior</strong>.</p>
     <p>Markets are influenced not only by economic data and company performance, but also by the <strong>collective emotions and decisions of millions of investors</strong>. Even individuals who understand financial concepts well can make poor investment decisions when emotions take over.</p>
     <p>Behavioral finance studies how psychological biases influence financial decision-making. Recognizing these biases can help investors remain disciplined and avoid common mistakes that damage long-term returns.</p>
+    <img src="/portfolio-construction/image3.png" alt="Behavioral finance and psychological biases" style={imgStyle} />
 
     <h3>Fear and Panic</h3>
     <p>During periods of market decline, fear can cause investors to react impulsively.</p>
