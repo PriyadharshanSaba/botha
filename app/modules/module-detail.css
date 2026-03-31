@@ -306,7 +306,6 @@ blockquote {
   color: #444;
   line-height: 1.85;
   font-weight: 300;
-  margin-bottom: 22px;
   text-align: justify;
 }
 .chapter p:last-child { margin-bottom: 0; }

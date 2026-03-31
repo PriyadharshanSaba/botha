@@ -83,6 +83,10 @@ const ChapterTwoEn = () => (
     <p>Several factors shape your financial starting point, including:</p>
     <ul className="pl-6">
       <li>the stability and predictability of your income</li>
+      <li>family responsibilities and dependents</li>
+      <li>the amount of savings or investments you already have</li>
+      <li>existing debt obligations</li>
+      <li>your short-term and long-term financial goals</li>
     </ul>
     <p>Each of these elements influences how much risk you can reasonably take and how your investments should be structured.</p>
     <p>For example, a young professional early in their career may have <strong>many years ahead to grow their wealth</strong>. With fewer financial obligations and a longer investment horizon, they may be able to allocate a larger portion of their portfolio toward growth-oriented assets such as equities.</p>
@@ -104,6 +108,10 @@ const ChapterThreeEn = () => (
     <p>Risk capacity is influenced by several factors, including:</p>
     <ul className="pl-6">
       <li>the stability of your income</li>
+      <li>your current net worth</li>
+      <li>your savings and financial reserves</li>
+      <li>the time horizon for your financial goals</li>
+      <li>your reliance on investment income</li>
     </ul>
     <p>For example, an individual with a stable salary, a growing net worth and a long investment horizon may have a relatively high risk capacity. Temporary market fluctuations are less likely to affect their financial security because their income and savings continue to support their financial position.</p>
     <p>On the other hand, someone who depends on their investments for regular income or who has limited financial reserves may have a much lower risk capacity. Large market declines could significantly impact their ability to meet expenses.</p>

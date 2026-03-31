@@ -910,7 +910,7 @@ const chapters: {
   // ── Chapter 7 ──────────────────────────────────────────────────────────────
   {
     title: {
-      en: "Chapter 7: Corporate Actions - When Companies Reshape Value",
+      en: "Chapter 7: Corporate Actions",
       kn: "ಅಧ್ಯಾಯ 7: ಕಾರ್ಪೊರೇಟ್ ಕ್ರಮಗಳ ಬಗ್ಗೆ ಮಾತನಾಡೋಣ",
     },
     content: {
@@ -945,6 +945,23 @@ export default function StockMarketPage() {
 
   const [chapterIndex, setChapterIndex] = useState(0);
   const [isComplete, setIsComplete] = useState(false);
+
+  const shouldScroll = React.useRef(false);
+
+  useEffect(() => {
+    if (shouldScroll.current) {
+      const h2 = document.querySelector(".chapter h2");
+      if (h2) {
+        h2.scrollIntoView({ behavior: "instant", block: "start" });
+        window.scrollBy(0, -20);
+      }
+      shouldScroll.current = false;
+    }
+  }, [chapterIndex, isComplete]);
+
+  function scrollToChapter() {
+    shouldScroll.current = true;
+  }
   const router = useRouter();
   const moduleId = "stock-market";
 
@@ -998,7 +1015,7 @@ export default function StockMarketPage() {
               <button
                 key={i}
                 className="chapter-dot done"
-                onClick={() => { setIsComplete(false); setChapterIndex(i); saveProgress(i); }}
+                onClick={() => { setIsComplete(false); setChapterIndex(i); saveProgress(i); scrollToChapter(); }}
               >
                 {i + 1}
               </button>
@@ -1063,7 +1080,7 @@ export default function StockMarketPage() {
                   chapterIndex > dotIdx ? "done" : "",
                   chapterIndex === dotIdx ? "active" : "",
                 ].filter(Boolean).join(" ")}
-                onClick={() => { setChapterIndex(dotIdx); saveProgress(dotIdx); }}
+                onClick={() => { setChapterIndex(dotIdx); saveProgress(dotIdx); scrollToChapter(); }}
               >
                 {dotIdx + 1}
               </button>
@@ -1090,6 +1107,7 @@ export default function StockMarketPage() {
               saveProgress(newIndex);
               return newIndex;
             });
+            scrollToChapter();
           }}
           disabled={chapterIndex === 0}
         >
@@ -1113,6 +1131,7 @@ export default function StockMarketPage() {
                 saveProgress(newIndex);
                 return newIndex;
               });
+              scrollToChapter();
             }
           }}
         >

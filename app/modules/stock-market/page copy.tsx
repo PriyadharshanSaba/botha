@@ -410,7 +410,7 @@ export default function StockMarketPage() {
 
     {
       title: {
-        en: "Chapter 7: Corporate Actions - When Companies Reshape Value",
+        en: "Chapter 7: Corporate Actions",
         kn: "ಅಧ್ಯಾಯ 7: ಕಾರ್ಪೊರೇಟ್ ಕ್ರಮಗಳ ಬಗ್ಗೆ ಮಾತನಾಡೋಣ",
       },
       content: {
