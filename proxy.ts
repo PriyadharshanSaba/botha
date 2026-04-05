@@ -7,15 +7,18 @@ export function proxy(request: NextRequest) {
 
   const { pathname } = request.nextUrl;
 
-  // Logged-out → only allow "/"
-  if (!loggedIn && pathname !== "/") {
+  const publicPaths = ["/", "/signin", "/about", "/vcfo", "/venture", "/tools"];
+  const authRedirectPaths = ["/", "/signin"];
+
+  // Logged-out → only allow public paths
+  if (!loggedIn && !publicPaths.includes(pathname)) {
     const url = request.nextUrl.clone();
-    url.pathname = "/";
+    url.pathname = "/signin";
     return NextResponse.redirect(url);
   }
 
-  // Logged-in → prevent access to "/"
-  if (loggedIn && pathname === "/") {
+  // Logged-in → redirect auth pages (not all public pages) to modules
+  if (loggedIn && authRedirectPaths.includes(pathname)) {
     const url = request.nextUrl.clone();
     url.pathname = "/modules";
     return NextResponse.redirect(url);

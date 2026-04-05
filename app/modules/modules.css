@@ -6,15 +6,17 @@
 }
 
 .modules-title {
+  font-family: 'Playfair Display', serif;
   font-size: 48px;
   font-weight: 700;
   margin-bottom: 20px;
+  letter-spacing: -1px;
 }
 
 .divider {
   width: 100%;
   height: 2px;
-  background: #e6e6e6;
+  background: rgba(201,168,76,0.2);
   margin-bottom: 50px;
 }
 
@@ -41,9 +43,11 @@
 }
 
 .module-number {
+  font-family: 'Playfair Display', serif;
   font-size: 38px;
   font-weight: 700;
   margin: 0;
+  color: var(--gold, #c9a84c);
 }
 
 .module-name {
@@ -68,13 +72,76 @@
 .module-links .link {
   margin-right: 18px;
   font-size: 14px;
-  color: #0066ff;
+  color: var(--gold, #c9a84c);
   text-decoration: none;
+  font-weight: 500;
 }
 
 .module-links .link:hover {
   text-decoration: underline;
 }
+
+/* Make entire card clickable */
+.module-card-link {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Smooth hover effects */
+.hover-card {
+  border-radius: 12px;
+  padding: 20px;
+  transition: all 0.22s ease;
+  will-change: transform;
+}
+
+.hover-card:hover {
+  cursor: pointer;
+  border-radius: 16px;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.06);
+  transform: translateY(-3px);
+}
+
+.chapter-nav-buttons {
+  position: fixed;
+  bottom: 40px;
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  pointer-events: none;
+  z-index: 50;
+}
+
+.chapter-btn {
+  pointer-events: all;
+  background: white;
+  border: 1px solid rgba(201,168,76,0.25);
+  border-radius: 12px;
+  padding: 12px 22px;
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--ink, #0d0d0d);
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+  transition: all 0.22s ease;
+  min-width: 120px;
+  text-align: center;
+}
+
+
+.chapter-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+  border-color: var(--gold, #c9a84c);
+}
+
+.chapter-btn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
 
 /* Modules Page Responsive */
 @media (max-width: 768px) {
@@ -90,4 +157,42 @@
   .module-header h1 {
     font-size: 22px;
   }
+
+
+  .chapter-nav-buttons {
+    padding: 0 60px;
+    bottom: 28px;
+  }
+
+  .chapter-btn {
+    padding: 10px 16px;
+    font-size: 14px;
+  }
+}
+
+/* ── Module Card Progress Bar ── */
+.module-progress-wrap {
+  margin: 8px 0 14px;
+}
+
+.module-progress-bar {
+  width: 100%;
+  height: 3px;
+  background: rgba(201, 168, 76, 0.2);
+  border-radius: 100px;
+  overflow: hidden;
+}
+
+.module-progress-fill {
+  height: 100%;
+  background: var(--gold, #c9a84c);
+  border-radius: 100px;
+  transition: width 0.4s ease;
+}
+
+.module-progress-label {
+  font-size: 11px;
+  color: #aaa;
+  margin-top: 5px;
+  font-weight: 300;
 }

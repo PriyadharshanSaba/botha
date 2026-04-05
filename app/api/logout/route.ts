@@ -1,14 +1,17 @@
 import { NextResponse } from "next/server";
 
 export async function POST() {
-  const response = NextResponse.json({ success: true });
+  const res = NextResponse.json({ success: true });
 
-  response.cookies.set({
-    name: "uid",
-    value: "",
+  res.cookies.set("uid", "", {
+    httpOnly: true,
+    secure: true,
+    sameSite: "lax",
     path: "/",
-    expires: new Date(0) // instantly expires
+    expires: new Date(0),
   });
 
-  return response;
+  res.headers.set("Cache-Control", "no-store");
+
+  return res;
 }

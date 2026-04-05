@@ -21,24 +21,40 @@ export const MockDB: DBDriver = {
 
   async saveOTP(email, otp, expiry) {
     const user = users.find(u => u.email === email);
-    // if (user) {
-      // user.otp = otp;
-      // user.otpExpiry = expiry;
-    // }
+    // Mocked out (no-op)
   },
 
   async verifyOTP(email, otp) {
     const user = users.find(u => u.email === email);
     if (!user) return false;
 
-    console.log("\n\nilli nodappa :\n", {emailid: email, otpp:otp, storedotp:user.otp})
+    console.log("\n\nilli nodappa :\n", { emailid: email, otpp: otp, storedotp: user.otp });
 
     if (user.otp !== otp) return false;
-    // if (!user.otpExpiry || Date.now() > user.otpExpiry) return false;
-
-    // user.otp = undefined;  // todo: reqired in prod
-    // user.otpExpiry = undefined;
 
     return true;
+  },
+
+  async markChapterViewed(userId, moduleId, chapterNumber) {
+    console.log("Mock markChapterViewed:", { userId, moduleId, chapterNumber });
+    return;
+  },
+
+  async hasCompletedChapter(userId, moduleId, chapterNumber) {
+    console.log("Mock hasCompletedChapter:", { userId, moduleId, chapterNumber });
+    return false; // fake response
+  },
+
+  async getLastCompletedChapter(userId) {
+    console.log("Mock getLastCompletedChapter for:", userId);
+    return {
+      moduleId: null,
+      chapterNumber: 0,
+    };
+  },
+
+  async getAllProgress(userId) {
+    console.log("Mock getAllProgress for:", userId);
+    return {};
   }
 };

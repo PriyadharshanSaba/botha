@@ -25,4 +25,8 @@ export interface DBDriver {
   getUserByEmail(email: string): Promise<User | null>;
   saveOTP(email: string, otp: string, expiry: number): Promise<void>;
   verifyOTP(email: string, otp: string): Promise<boolean>;
+  markChapterViewed(userId: string, moduleId: string, chapterNumber: number): Promise<void>;
+  hasCompletedChapter(userId: string, moduleId: string, chapterNumber: number): Promise<boolean>;
+  getLastCompletedChapter(userId: string): Promise<{moduleId: string | null; chapterNumber: number;}>;
+  getAllProgress(userId: string): Promise<Record<string, number>>;
 }

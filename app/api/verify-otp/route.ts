@@ -13,8 +13,10 @@ export async function POST(req: Request) {
   if (!success) {
     return NextResponse.json({ error: "Invalid OTP" }, { status: 401 });
   }
+  
+  const progress = await db.getLastCompletedChapter(user.id);
 
-  const response = NextResponse.json({ success: true });
+  const response = NextResponse.json({ success: true, progress });
 
   response.cookies.set({
     name: "uid",
