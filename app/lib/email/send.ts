@@ -1,8 +1,7 @@
 import { Resend } from "resend";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
-
 export async function sendOtpEmail(to: string, otp: string, firstName: string) {
+  const resend = new Resend(process.env.RESEND_API_KEY);
   const { data, error } = await resend.emails.send({
     from: "Bodha Ventures <info@bodhaventures.in>",
     to,
