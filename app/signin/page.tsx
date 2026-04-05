@@ -1,13 +1,16 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
 export default function Page() {
   const router = useRouter();
+  const searchParams = useSearchParams();
 
   // --- Modes ---
-  const [mode, setMode] = useState<"login" | "login-otp" | "signup" | "signup-otp">("login");
+  const [mode, setMode] = useState<"login" | "login-otp" | "signup" | "signup-otp">(() =>
+    searchParams.get("mode") === "signup" ? "signup" : "login"
+  );
 
   // --- Form fields ---
   const [email, setEmail] = useState("");
@@ -61,7 +64,8 @@ export default function Page() {
     setLoading(false);
 
     if (!res.ok) {
-      setError("Could not create account.");
+      const data = await res.json().catch(() => ({}));
+      setError(data.error || "Could not create account.");
       return;
     }
 

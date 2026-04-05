@@ -1,8 +1,10 @@
 import { DBDriver, CreateUserInput, User } from "./types";
 import { db } from "./connection";
-import { users, userProgress } from "./schema";
-import { eq, and, desc } from "drizzle-orm";
+import { users, userProgress, otpAttempts } from "./schema";
+import { eq, and, gte, count } from "drizzle-orm";
 import crypto from "crypto";
+
+const DAILY_OTP_LIMIT = 2;
 
 export const PostgresDB: DBDriver = {
   /* --------------------------------
@@ -18,7 +20,7 @@ export const PostgresDB: DBDriver = {
       email: data.email,
     });
 
-    return { id, ...data };
+    return { id, ...data, verified: false };
   },
 
   /* --------------------------------
@@ -45,6 +47,42 @@ export const PostgresDB: DBDriver = {
         otpExpiry: new Date(expiry),
       })
       .where(eq(users.email, email));
+  },
+
+  /* --------------------------------
+     MARK USER VERIFIED
+  ----------------------------------*/
+  async markUserVerified(email: string) {
+    await db
+      .update(users)
+      .set({ verified: true })
+      .where(eq(users.email, email));
+  },
+
+  /* --------------------------------
+     RATE LIMIT: Check
+  ----------------------------------*/
+  async checkRateLimit(email: string) {
+    const startOfDay = new Date();
+    startOfDay.setUTCHours(0, 0, 0, 0);
+
+    const result = await db
+      .select({ total: count() })
+      .from(otpAttempts)
+      .where(and(eq(otpAttempts.email, email), gte(otpAttempts.attemptedAt, startOfDay)));
+
+    const used = result[0]?.total ?? 0;
+    return {
+      allowed: used < DAILY_OTP_LIMIT,
+      attemptsLeft: Math.max(0, DAILY_OTP_LIMIT - used),
+    };
+  },
+
+  /* --------------------------------
+     RATE LIMIT: Record attempt
+  ----------------------------------*/
+  async recordOtpAttempt(email: string) {
+    await db.insert(otpAttempts).values({ email });
   },
 
   /* --------------------------------

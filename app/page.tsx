@@ -51,7 +51,7 @@ export default function LandingPage() {
         <div className="nav-cta">
           <Link href="/signin" className="btn-ghost">Sign In</Link>
           <span style={{ color: "rgba(0,0,0,0.15)", fontSize: 18 }}>|</span>
-          <Link href="/signin" className="btn-primary">Sign Up</Link>
+          <Link href="/signin?mode=signup" className="btn-primary">Sign Up</Link>
         </div>
       </nav>
 
@@ -117,7 +117,7 @@ export default function LandingPage() {
             </blockquote>
             <p className="lfb-sub">The market rewards the informed and punishes the impulsive. Every hour you spend learning is compounding interest on your future self.</p>
           </div>
-          <Link href="/signin" className="btn-big" style={{ flexShrink: 0, whiteSpace: "nowrap" }}>Enroll Now &rarr;</Link>
+          <Link href="/signin?mode=signup" className="btn-big" style={{ flexShrink: 0, whiteSpace: "nowrap" }}>Enroll Now &rarr;</Link>
         </div>
       </section>
 
@@ -213,7 +213,7 @@ export default function LandingPage() {
             <div style={{ fontFamily: "'Playfair Display', serif", fontSize: 42, marginBottom: 16 }}>&#10022;</div>
             <div style={{ fontFamily: "'Playfair Display', serif", fontSize: 20, fontWeight: 700, marginBottom: 10, color: "var(--ink)" }}>More coming soon</div>
             <div style={{ fontSize: 14, color: "#888", lineHeight: 1.6 }}>We&apos;re always building. Join the waitlist for early access to new offerings.</div>
-            <Link href="/signin" className="btn-primary" style={{ marginTop: 20 }}>Join Waitlist</Link>
+            <Link href="/signin?mode=signup" className="btn-primary" style={{ marginTop: 20 }}>Join Waitlist</Link>
           </div>
         </div>
       </section>
@@ -255,7 +255,7 @@ export default function LandingPage() {
           <div className="cta-title">Ready to take control<br />of your finances?</div>
           <div className="cta-sub">Start learning for free today. No credit card needed.</div>
         </div>
-        <Link href="/signin" className="btn-dark">Sign Up — It&apos;s Free &rarr;</Link>
+        <Link href="/signin?mode=signup" className="btn-dark">Sign Up — It&apos;s Free &rarr;</Link>
       </div>
 
       {/* FOOTER */}

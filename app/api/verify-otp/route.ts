@@ -13,6 +13,8 @@ export async function POST(req: Request) {
   if (!success) {
     return NextResponse.json({ error: "Invalid OTP" }, { status: 401 });
   }
+
+  await db.markUserVerified(email);
   
   const progress = await db.getLastCompletedChapter(user.id);
 
