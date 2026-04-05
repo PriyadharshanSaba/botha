@@ -8,6 +8,7 @@ import "../modules.css";
 import "../module-detail.css";
 import { useSearchParams, useRouter } from "next/navigation";
 import { useLanguage } from "../../context/LanguageContext";
+import { chaptersKn } from "./chapters-kn";
 
 const imgStyle: React.CSSProperties = {
   display: "block",
@@ -732,8 +733,16 @@ const chapters: { title: string; content: React.ReactNode }[] = [
     },
 ];
 
+// ============================================================
+//  BILINGUAL MERGE (English chapters + Kannada chapters)
+// ============================================================
+const bilingualChapters = chapters.map((ch, i) => ({
+  title: { en: ch.title as string, kn: chaptersKn[i]?.title ?? ch.title },
+  content: { en: ch.content as React.ReactNode, kn: chaptersKn[i]?.content ?? ch.content },
+}));
+
 export default function TaxationForInvestorsPage() {
-  const { t } = useLanguage();
+  const { t, lang } = useLanguage();
 
   // ============================================================
   // STATE & PARAMS
@@ -748,7 +757,7 @@ export default function TaxationForInvestorsPage() {
   const router = useRouter();
   const moduleId = "taxation-for-investors";
 
-  const current = chapters[chapterIndex];
+  const current = bilingualChapters[chapterIndex];
 
   useEffect(() => {
     async function loadProgress() {
@@ -877,8 +886,8 @@ export default function TaxationForInvestorsPage() {
       {/* === Active Chapter === */}
       <section className="chapters-list">
         <div className="chapter">
-          <h2>{current.title}</h2>
-          {current.content}
+          <h2>{current.title[lang]}</h2>
+          {current.content[lang]}
         </div>
       </section>
 

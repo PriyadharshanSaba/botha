@@ -332,7 +332,7 @@ export default function Budgeting101Page() {
             </p>
             <div className="pull-quote">When you have an emergency fund, you don&apos;t just survive uncertainty &mdash; you stay in control. It&apos;s your foundation for everything else in your financial journey.</div>
             <div className="chapter-note">
-              <strong>Note:</strong> We&apos;ve built a simple tool to help you choose the right debt fund for your emergency corpus. You&apos;ll also find a dedicated module on understanding mutual funds &mdash; so when you&apos;re ready to invest, you&apos;ll do it confidently and wisely.
+              <strong>Note:</strong>You can find a dedicated module on understanding mutual funds &mdash; so when you&apos;re ready to invest, you&apos;ll do it confidently and wisely.
             </div>
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src="/budgeting-101/image1.png" alt="Chapter 5 illustration" style={imgStyle} />

@@ -114,6 +114,18 @@ const modules = [
     },
     view_module_link: "/modules/taxation-for-investors",
   },
+  {
+    id: 10,
+    moduleId: "getting-started",
+    color: "#16A085",
+    title: { en: "Getting Started — Your First Investment Plan", kn: "ಪ್ರಾರಂಭಿಸಿ — ನಿಮ್ಮ ಮೊದಲ ಹೂಡಿಕೆ ಯೋಜನೆ" },
+    chaptersNum: 10,
+    description: {
+      en: "You've learned the theory — now put it into action. Open your first accounts, build a simple portfolio, create a monthly plan, and develop the habits that turn knowledge into real wealth.",
+      kn: "ನೀವು ಸಿದ್ಧಾಂತ ಕಲಿತಿದ್ದೀರಿ — ಈಗ ಅದನ್ನು ಕಾರ್ಯಗತ ಮಾಡಿ. ನಿಮ್ಮ ಮೊದಲ ಖಾತೆಗಳನ್ನು ತೆರೆಯಿರಿ, ಸರಳ ಪೋರ್ಟ್‌ಫೋಲಿಯೊ ನಿರ್ಮಿಸಿ, ಮಾಸಿಕ ಯೋಜನೆ ರಚಿಸಿ ಮತ್ತು ಜ್ಞಾನವನ್ನು ನಿಜವಾದ ಸಂಪತ್ತಾಗಿ ಪರಿವರ್ತಿಸುವ ಅಭ್ಯಾಸಗಳನ್ನು ಬೆಳೆಸಿಕೊಳ್ಳಿ.",
+    },
+    view_module_link: "/modules/getting-started",
+  },
 ];
 
 export default function ModulesPage() {

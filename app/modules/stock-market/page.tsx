@@ -1,557 +1,943 @@
 "use client";
 export const dynamic = "force-dynamic";
 
-import React, { useState } from "react";
-import { useEffect } from "react";
-
+import React, { useState, useEffect } from "react";
 import "../modules.css";
 import "../module-detail.css";
 import { useSearchParams, useRouter } from "next/navigation";
 import { useLanguage } from "../../context/LanguageContext";
 
+// ─────────────────────────────────────────────────────────────────────────────
+// Shared table styles (reusable across chapters)
+// ─────────────────────────────────────────────────────────────────────────────
+const tbl: React.CSSProperties = { width: "100%", borderCollapse: "collapse", margin: "16px 0", fontSize: "0.95em" };
+const th: React.CSSProperties = { background: "#c9a84c", color: "#fdfcf9", padding: "10px 12px", textAlign: "left" };
+const td: React.CSSProperties = { padding: "10px 12px", borderBottom: "1px solid rgba(0,0,0,0.08)" };
+const tdAlt: React.CSSProperties = { ...td, background: "rgba(201,168,76,0.06)" };
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Placeholder chapter components
+// Replace each with real bilingual content as chapters are written.
+// ─────────────────────────────────────────────────────────────────────────────
+function ChapterOne({ lang }: { lang: string }) {
+  if (lang === "kn") {
+    return (
+      <p className="text-sm text-gray-400 italic">[ ಅಧ್ಯಾಯ 1 — ಕನ್ನಡ ವಿಷಯ ಶೀಘ್ರದಲ್ಲೇ ]</p>
+    );
+  }
+
+  return (
+    <>
+      <p>
+        Imagine your favourite coffee brand, say, <strong>Tata Coffee</strong>, wants to open
+        500 new outlets across India. That kind of expansion needs money, to buy land, build
+        stores, hire staff, and market the brand. Instead of borrowing a huge amount from banks,
+        the company can raise money by offering <strong>ownership stakes</strong>, called{" "}
+        <strong>shares</strong>, to people like you and me.
+      </p>
+
+      <p>
+        When you buy a share, you&apos;re not just investing your money, you&apos;re becoming a{" "}
+        <em>co-owner</em> of that company. If the business does well, earns profits, and grows
+        in value, your share becomes more valuable too. You might even receive a{" "}
+        <strong>dividend</strong>, which is a part of the company&apos;s profits distributed to
+        shareholders.
+      </p>
+
+      <p>
+        That&apos;s the essence of the <strong>stock market</strong>, a large, organized
+        marketplace where companies raise funds and investors participate in their success.
+      </p>
+
+      <h3>Where All Listed Companies Live</h3>
+
+      <p>
+        Every company whose shares are available for the public to buy and sell is called a{" "}
+        <strong>listed company</strong>. To get listed, a company must go through a strict
+        approval process with{" "}
+        <strong>SEBI (Securities and Exchange Board of India)</strong> and the stock
+        exchanges — mainly <strong>NSE (National Stock Exchange)</strong> and{" "}
+        <strong>BSE (Bombay Stock Exchange)</strong>.
+      </p>
+
+      <p>When a company is &quot;listed,&quot; it means:</p>
+      <ul className="pl-6 list-disc space-y-1">
+        <li>
+          Its shares are available to be traded publicly on the exchange.
+        </li>
+        <li>
+          It must follow transparency and disclosure rules — sharing financial results,
+          management updates, and business plans regularly.
+        </li>
+        <li>
+          It becomes accountable to its shareholders — you, me, and millions of other
+          investors.
+        </li>
+      </ul>
+
+      <p>
+        Being listed is a badge of trust and credibility. It signals that a company is willing
+        to open its books to public scrutiny and share its journey with investors.
+      </p>
+
+      <p>
+        Today, <strong>thousands of companies</strong>, from household names like Reliance,
+        Infosys, and HDFC Bank to emerging startups like Nykaa and Zomato, are listed on
+        India&apos;s stock exchanges.
+      </p>
+
+      <h3>A Marketplace Built on Belief</h3>
+
+      <p>
+        Unlike a regular marketplace where you buy goods, in the stock market, you&apos;re
+        buying <strong>potential</strong>, the future of businesses you believe in. You
+        don&apos;t walk away with a product; you walk away with ownership.
+      </p>
+
+      <p>
+        And because these shares are <strong>traded daily</strong>, their prices move
+        constantly, driven by demand, supply, company performance, global events, and even
+        investor sentiment.
+      </p>
+
+      <p>
+        The stock market, in that sense, is a living, breathing reflection of the economy.
+        When companies thrive, jobs grow, innovation flourishes, the investors prosper. When
+        they struggle, the ripple is felt across the market.
+      </p>
+
+      <div className="ch-illustration">
+        <img
+          src="/stock-market/image5.png"
+          alt="A character standing in front of a stock exchange building"
+          className="mx-auto max-w-xs w-full"
+        />
+      </div>
+    </>
+  );
+}
+
+function ChapterTwo({ lang }: { lang: string }) {
+  if (lang === "kn") {
+    return (
+      <p className="text-sm text-gray-400 italic">[ ಅಧ್ಯಾಯ 2 — ಕನ್ನಡ ವಿಷಯ ಶೀಘ್ರದಲ್ಲೇ ]</p>
+    );
+  }
+
+  return (
+    <>
+      <p>
+        The stock market exists because ambition always needs fuel and that fuel is capital.
+        Before stock markets, only kings, banks, or wealthy merchants could fund businesses.
+      </p>
+
+      <p>
+        When the <strong>Dutch East India Company</strong> issued the first shares in the
+        1600s, it changed everything. Suddenly, ordinary citizens could invest in global trade.
+        That simple innovation gave rise to the global economy we know today.
+      </p>
+
+      <p>
+        In India, companies like Infosys, TCS, and Reliance have used the market to raise
+        funds and expand, creating jobs, innovation, and wealth in the process.
+      </p>
+
+      <p>
+        So, every trade isn&apos;t just a number on a screen, it&apos;s investment that drives
+        growth across the country.
+      </p>
+
+      <div className="ch-illustration">
+        <img
+          src="/stock-market/image2.png"
+          alt="A character holding a share certificate"
+          className="mx-auto max-w-xs w-full"
+        />
+      </div>
+    </>
+  );
+}
+
+function ChapterThree({ lang }: { lang: string }) {
+  if (lang === "kn") {
+    return (
+      <p className="text-sm text-gray-400 italic">[ ಅಧ್ಯಾಯ 3 — ಕನ್ನಡ ವಿಷಯ ಶೀಘ್ರದಲ್ಲೇ ]</p>
+    );
+  }
+
+  return (
+    <>
+      <p>
+        When you tap <strong>&apos;Buy&apos;</strong> on your trading app, it may look like
+        magic but behind that instant click lies an intricate web of institutions, technology,
+        and trust. Each player in this system has a unique role, and together, they make sure
+        that every trade, no matter how small, is executed safely, accurately, and fairly.
+      </p>
+
+      <p>Let&apos;s walk through the process and the people behind it</p>
+
+      {/* ── 1. Investors ── */}
+      <h3>1. Investors — The Heartbeat of the Market</h3>
+
+      <p>
+        Investors are the <em>life force</em> of the stock market. They can be:
+      </p>
+      <ul className="pl-6 list-disc space-y-1">
+        <li>
+          <strong>Retail Investors:</strong> Everyday people investing through apps like
+          Zerodha or Groww.
+        </li>
+        <li>
+          <strong>Institutional Investors:</strong> Big entities like mutual funds, insurance
+          companies, or pension funds.
+        </li>
+        <li>
+          <strong>Foreign Institutional Investors (FIIs):</strong> Global funds investing in
+          Indian markets, often influencing trends and liquidity.
+        </li>
+      </ul>
+
+      <p>
+        Every rupee invested fuels the market, and collectively, investors decide which
+        businesses is valuable and which is not.
+      </p>
+
+      {/* ── 2. Brokers ── */}
+      <h3>2. Brokers — The Bridge Between You and the Market</h3>
+
+      <p>
+        You can&apos;t directly trade on the stock exchange, you need a{" "}
+        <strong>registered broker</strong> to place your order. Platforms like{" "}
+        <strong>Zerodha, Upstox, Angel One, Groww</strong>, and{" "}
+        <strong>ICICI Direct</strong> act as intermediaries.
+      </p>
+
+      <p>
+        When you click <strong>&apos;Buy&apos;</strong>, your order is routed to your
+        broker&apos;s system → sent to the exchange in real time → matched with a
+        seller&apos;s order.
+      </p>
+
+      <p>Brokers also:</p>
+      <ul className="pl-6 list-disc space-y-1">
+        <li>
+          Maintain your <strong>trading account</strong> (for buying/selling activity).
+        </li>
+        <li>Provide analytics, charts, and reports.</li>
+        <li>
+          Ensure <strong>KYC and regulatory compliance</strong> under SEBI guidelines.
+        </li>
+      </ul>
+
+      <p>
+        In short, your broker is the access point to the market&apos;s entire ecosystem.
+      </p>
+
+      {/* ── 3. Stock Exchanges ── */}
+      <h3>3. Stock Exchanges — The Marketplace</h3>
+
+      <p>
+        The <strong>National Stock Exchange (NSE)</strong> and{" "}
+        <strong>Bombay Stock Exchange (BSE)</strong> are where trades actually happen. They
+        don&apos;t own the companies, they simply provide a platform for buying and selling
+        shares securely and transparently.
+      </p>
+
+      <p>Here&apos;s what happens on the exchange:</p>
+      <ul className="pl-6 list-disc space-y-1">
+        <li>
+          Your <strong>buy order</strong> is matched with someone&apos;s{" "}
+          <strong>sell order</strong> (based on price and time priority).
+        </li>
+        <li>Once matched, a trade confirmation is generated instantly.</li>
+      </ul>
+
+      <p>
+        Think of it as the market&apos;s <em>matchmaker</em>, connecting buyers and sellers
+        across India in milliseconds.
+      </p>
+
+      {/* ── 4. Clearing Corporations ── */}
+      <h3>4. Clearing Corporations — The Market&apos;s Guarantee</h3>
+
+      <p>
+        Once a trade is matched, it moves to the <strong>clearing stage</strong>, handled by{" "}
+        <strong>clearing corporations</strong> like{" "}
+        <strong>NCL (NSE Clearing Ltd.)</strong> or{" "}
+        <strong>Indian Clearing Corporation Ltd. (ICCL)</strong>.
+      </p>
+
+      <p>Their role is to:</p>
+      <ul className="pl-6 list-disc space-y-1">
+        <li>
+          Verify both parties, the buyer has enough money and the seller actually owns the
+          shares.
+        </li>
+        <li>
+          Temporarily &quot;lock&quot; the shares and funds until the trade is settled.
+        </li>
+        <li>Guarantee completion, even if one party defaults.</li>
+      </ul>
+
+      <p>
+        This ensures that no one loses money due to counterparty risk. It&apos;s the invisible
+        insurance system that makes investors trust the market.
+      </p>
+
+      {/* ── 5. Depositories ── */}
+      <h3>5. Depositories — The Digital Vaults</h3>
+
+      <p>
+        Gone are the days of paper share certificates. Today, all your holdings are stored
+        digitally with <strong>NSDL (National Securities Depository Ltd.)</strong> or{" "}
+        <strong>CDSL (Central Depository Services Ltd.)</strong>.
+      </p>
+
+      <p>Here&apos;s how it works:</p>
+      <ul className="pl-6 list-disc space-y-1">
+        <li>
+          When you buy shares, they&apos;re credited to your{" "}
+          <strong>Demat account</strong> (like a digital locker).
+        </li>
+        <li>When you sell, they&apos;re debited automatically.</li>
+        <li>
+          Your <strong>broker</strong> is linked to one of these depositories through a{" "}
+          <strong>Depository Participant (DP)</strong>, typically the same app you trade on.
+        </li>
+      </ul>
+
+      <p>
+        Your Demat account proves your ownership, it&apos;s as important as your bank account
+        in the world of investing.
+      </p>
+
+      {/* ── 6. SEBI ── */}
+      <h3>6. SEBI — The Watchdog of the Market</h3>
+
+      <p>
+        The <strong>Securities and Exchange Board of India (SEBI)</strong> is the regulator
+        that ensures markets run with fairness, transparency, and accountability.
+      </p>
+
+      <p>It:</p>
+      <ul className="pl-6 list-disc space-y-1">
+        <li>Sets the rules for brokers, companies, and investors.</li>
+        <li>Monitors insider trading and fraud.</li>
+        <li>Approves IPOs and corporate actions.</li>
+        <li>
+          Ensures timely disclosure of financial results by listed companies.
+        </li>
+      </ul>
+
+      <p>
+        SEBI&apos;s presence gives confidence to investors that the market operates on equal
+        footing for everyone, from a college student investing ₹500 to a global fund moving
+        crores.
+      </p>
+
+      {/* ── Putting It All Together ── */}
+      <h3>Putting It All Together — The Journey of a Trade</h3>
+
+      <p>
+        Let&apos;s say you decide to buy <strong>10 shares of Infosys</strong> at ₹1,500
+        each. Here&apos;s what happens, step by step:
+      </p>
+
+      <ul className="pl-6 list-decimal space-y-1">
+        <li>
+          <strong>You (the investor)</strong> place the order through{" "}
+          <strong>Groww (your broker)</strong>.
+        </li>
+        <li>
+          Groww forwards your order to the <strong>NSE (the exchange)</strong>.
+        </li>
+        <li>
+          The NSE&apos;s system finds a seller offering 10 shares at ₹1,500 — a match!
+        </li>
+        <li>
+          The trade is confirmed instantly and sent to the{" "}
+          <strong>clearing corporation (NCL)</strong>.
+        </li>
+        <li>
+          NCL checks:
+          <ul className="pl-6 list-disc space-y-1 mt-1">
+            <li>You have ₹15,000 in your trading account.</li>
+            <li>
+              The seller has 10 Infosys shares in their Demat account.
+            </li>
+          </ul>
+        </li>
+        <li>
+          Once verified, the clearing corporation transfers:
+          <ul className="pl-6 list-disc space-y-1 mt-1">
+            <li>₹15,000 to the seller&apos;s broker account.</li>
+            <li>
+              10 shares from the seller&apos;s Demat to your{" "}
+              <strong>Demat account</strong> (held with <strong>CDSL/NSDL</strong>).
+            </li>
+          </ul>
+        </li>
+        <li>
+          Within one business day (T+1), the shares appear in your holdings.
+        </li>
+      </ul>
+
+      <p>
+        Throughout this, <strong>SEBI</strong> oversees the process, ensuring no foul play,
+        delays, or manipulation.
+      </p>
+
+      <p>
+        In less than a second, your order travelled through half a dozen institutions,
+        seamlessly, securely, and silently.
+      </p>
+
+      <div className="ch-illustration">
+        <img
+          src="/stock-market/image3.png"
+          alt="Two characters exchanging shares and money through a broker"
+          className="mx-auto max-w-xs w-full"
+        />
+      </div>
+    </>
+  );
+}
+
+function ChapterFour({ lang }: { lang: string }) {
+  if (lang === "kn") {
+    return (
+      <p className="text-sm text-gray-400 italic">[ ಅಧ್ಯಾಯ 4 — ಕನ್ನಡ ವಿಷಯ ಶೀಘ್ರದಲ್ಲೇ ]</p>
+    );
+  }
+
+  return (
+    <>
+      <p>
+        An <strong>IPO (Initial Public Offering)</strong> is when a private company becomes
+        public, inviting people to invest for the first time. Think of companies like{" "}
+        <strong>Zomato, Nykaa, and LIC</strong>, their IPOs created buzz across India.
+      </p>
+
+      <p>
+        For investors, it&apos;s a chance to be part of a company&apos;s growth story early
+        on. For the company, it&apos;s access to funds to expand operations, repay debt, or
+        innovate.
+      </p>
+
+      <p>
+        An <strong>FPO (Follow-on Public Offering)</strong> happens when a listed company
+        issues more shares, like a &quot;second round&quot; of funding.
+      </p>
+
+      <div className="ch-illustration">
+        <img
+          src="/stock-market/image7.png"
+          alt="Two characters holding IPO and FPO signs with stacks of coins"
+          className="mx-auto max-w-xs w-full"
+        />
+      </div>
+    </>
+  );
+}
+
+function ChapterFive({ lang }: { lang: string }) {
+  if (lang === "kn") {
+    return (
+      <p className="text-sm text-gray-400 italic">[ ಅಧ್ಯಾಯ 5 — ಕನ್ನಡ ವಿಷಯ ಶೀಘ್ರದಲ್ಲೇ ]</p>
+    );
+  }
+
+  return (
+    <>
+      <p>
+        <strong><em>The heartbeat that tells you how healthy the market really is.</em></strong>
+      </p>
+
+      <p>
+        If the stock market were a cricket match, <strong>indices</strong> would be the{" "}
+        <strong>scoreboard</strong>. They don&apos;t tell you everything that&apos;s happening
+        in every over but they give you a quick sense of which way the game is going.
+      </p>
+
+      <p>
+        In the same way, a <strong>stock market index</strong> measures how a specific group of
+        companies is performing, helping investors understand the overall mood, trend, and
+        direction of the market.
+      </p>
+
+      {/* ── Understanding What an Index Really Is ── */}
+      <h3>Understanding What an Index Really Is</h3>
+
+      <p>
+        An <strong>index</strong> is simply a <strong>basket of selected companies</strong>{" "}
+        that represent the broader market or a particular sector. When you hear that the{" "}
+        <strong>Sensex</strong> or <strong>Nifty 50</strong> has moved up or down, it means the
+        prices of the companies in that basket have, on average, risen or fallen.
+      </p>
+
+      <p>Each index is built to represent a specific slice of the economy:</p>
+      <ul className="pl-6 list-disc space-y-1">
+        <li>
+          <strong>Nifty 50:</strong> 50 of the largest and most liquid companies listed on the
+          NSE.
+        </li>
+        <li>
+          <strong>Sensex:</strong> 30 leading companies listed on the BSE. Together, these two
+          are like the twin thermometers of India&apos;s financial climate.
+        </li>
+      </ul>
+
+      {/* ── A Closer Look at the Big Two ── */}
+      <h3>A Closer Look at the Big Two</h3>
+
+      <p><strong>Sensex (Sensitive Index)</strong></p>
+      <ul className="pl-6 list-disc space-y-1">
+        <li>Launched in 1986 by the Bombay Stock Exchange.</li>
+        <li>Tracks 30 of the biggest and most established companies in India.</li>
+        <li>
+          Includes firms like Reliance Industries, HDFC Bank, Infosys, TCS, and ICICI Bank.
+        </li>
+      </ul>
+      <p>
+        Because these companies come from different sectors — IT, banking, energy,
+        manufacturing, FMCG, the Sensex acts as a{" "}
+        <strong>mini snapshot of India&apos;s corporate health</strong>.
+      </p>
+
+      <p><strong>Nifty 50 (National Fifty)</strong></p>
+      <ul className="pl-6 list-disc space-y-1">
+        <li>Introduced by the National Stock Exchange in 1996.</li>
+        <li>Includes 50 large-cap companies across 13 sectors of the economy.</li>
+        <li>
+          Represents over <strong>60% of the total market capitalization</strong> of all
+          NSE-listed companies.
+        </li>
+      </ul>
+      <p>
+        When people say, &quot;The market is up today,&quot; they&apos;re usually referring to
+        the <strong>Nifty</strong>, it&apos;s the most followed barometer of Indian investor
+        sentiment.
+      </p>
+
+      {/* ── How Indices Reflect the Economy ── */}
+      <h3>How Indices Reflect the Economy</h3>
+
+      <p>
+        Each sector plays its own role in the index, IT reflects global demand for technology,
+        banks represent credit and growth, and consumer companies mirror spending power. When
+        the Nifty or Sensex rises, it signals optimism, companies are performing well, profits
+        are growing, and investors are confident.
+      </p>
+
+      <p>
+        When they fall, it suggests caution, maybe due to global slowdowns, inflation, policy
+        changes, or reduced spending.
+      </p>
+
+      <p>
+        In that sense, indices are <strong>economic mood boards</strong>, capturing everything
+        from government policy and global oil prices to consumer demand and foreign investment.
+      </p>
+
+      {/* ── Sectoral and Thematic Indices ── */}
+      <h3>Sectoral and Thematic Indices</h3>
+
+      <p>
+        Beyond the Nifty and Sensex, there are many{" "}
+        <strong>sectoral indices</strong> that track specific industries:
+      </p>
+      <ul className="pl-6 list-disc space-y-1">
+        <li><strong>Nifty Bank</strong> – Leading banking and financial companies.</li>
+        <li><strong>Nifty IT</strong> – Tech giants like Infosys, TCS, and Wipro.</li>
+        <li><strong>Nifty FMCG</strong> – Everyday brands like HUL, Nestl&eacute;, and Dabur.</li>
+        <li><strong>Nifty Pharma, Nifty Auto, Nifty Energy</strong>, and more.</li>
+      </ul>
+
+      <p>
+        These help investors focus on particular sectors they understand or believe in. For
+        example, someone optimistic about India&apos;s digital growth might invest in the{" "}
+        <strong>Nifty IT index</strong>, while a long-term believer in consumption might prefer{" "}
+        <strong>Nifty FMCG</strong>.
+      </p>
+
+      {/* ── How Indices Are Calculated ── */}
+      <h3>How Indices Are Calculated</h3>
+
+      <p>
+        Each company in an index doesn&apos;t carry equal weight. The impact of a
+        company&apos;s price change on the index depends on its{" "}
+        <strong>market capitalization</strong>, the total value of all its shares. So, a 1%
+        move in Reliance (a large-cap stock) can affect the index much more than a 1% move in
+        a smaller company.
+      </p>
+
+      <p>In short:</p>
+      <ul className="pl-6 list-disc space-y-1">
+        <li>Big companies move the index more, small ones just follow along.</li>
+      </ul>
+
+      {/* ── Why Indices Matter to You ── */}
+      <h3>Why Indices Matter to You</h3>
+
+      <p>
+        Indices are not just indicators, they&apos;re also{" "}
+        <strong>benchmarks and tools</strong>:
+      </p>
+      <ul className="pl-6 list-disc space-y-1">
+        <li>
+          <strong>Benchmarking Performance:</strong> Mutual funds and portfolio managers
+          compare their returns against indices like Nifty 50 to judge performance.
+        </li>
+        <li>
+          <strong>Index Funds &amp; ETFs:</strong> These allow you to invest directly in the
+          index itself, owning a slice of all 50 or 30 companies.
+        </li>
+        <li>
+          <strong>Market Sentiment:</strong> The direction of the index helps everyday
+          investors decide whether to be cautious, neutral, or optimistic.
+        </li>
+      </ul>
+
+      <p>
+        That&apos;s why every news anchor, trader, and long-term investor watches indices like
+        a doctor checks a patient&apos;s pulse, regularly, carefully, and with context.
+      </p>
+
+      <div className="ch-illustration">
+        <img
+          src="/stock-market/image6.png"
+          alt="A character standing next to a cricket-style scoreboard showing market indices"
+          className="mx-auto max-w-xs w-full"
+        />
+      </div>
+    </>
+  );
+}
+
+function ChapterSix({ lang }: { lang: string }) {
+  if (lang === "kn") {
+    return (
+      <p className="text-sm text-gray-400 italic">[ ಅಧ್ಯಾಯ 6 — ಕನ್ನಡ ವಿಷಯ ಶೀಘ್ರದಲ್ಲೇ ]</p>
+    );
+  }
+
+  return (
+    <>
+      <p>
+        When you first step into the world of investing, the jargon can feel overwhelming,
+        like a new language everyone else already speaks. But once you get familiar with a few
+        key terms, the market starts to make a lot more sense.
+      </p>
+
+      {/* ── The Everyday Terms You'll Hear ── */}
+      <h3>The Everyday Terms You&apos;ll Hear</h3>
+
+      <p>
+        <strong>Stock / Share:</strong> A <em>share</em> represents a single unit of ownership
+        in a company. If a company has issued 1 crore shares and you own 1,000 of them, you
+        literally own 0.001% of that company.
+      </p>
+
+      <p>
+        <strong>Equity:</strong> Another word for ownership, it means you&apos;re not lending
+        money to a company (like a bondholder), you actually own part of it.
+      </p>
+
+      <p>
+        <strong>Market Capitalization (Market Cap):</strong> The total market value of a
+        company.
+      </p>
+
+      <p>Market Cap = Share Price × Total Shares Outstanding</p>
+
+      <p>
+        Example: If Reliance&apos;s share price is ₹3,000 and it has 675 crore shares, its
+        market cap is around ₹20 lakh crore, making it one of India&apos;s largest companies.
+      </p>
+
+      <p>
+        <strong>Bull Market:</strong> When optimism runs high and prices keep climbing.
+        Investors expect growth, companies perform well, and markets move up, like a bull
+        charging ahead.
+      </p>
+
+      <p>
+        <strong>Bear Market:</strong> When fear or pessimism dominates and stock prices fall
+        for an extended period, like a bear swiping its paws downward.
+      </p>
+
+      <p>
+        <strong>Portfolio:</strong> Your personal collection of investments, stocks, mutual
+        funds, bonds, real estate, even gold. A well-diversified portfolio spreads risk across
+        assets.
+      </p>
+
+      <p>
+        <strong>Dividend:</strong> A company&apos;s way of sharing profits with shareholders.
+        Example: Infosys often rewards its investors with dividends, a thank-you for believing
+        in the company.
+      </p>
+
+      <div className="ch-illustration">
+        <img
+          src="/stock-market/image4.png"
+          alt="A character standing between a bull and a bear representing market trends"
+          className="mx-auto max-w-xs w-full"
+        />
+      </div>
+    </>
+  );
+}
+
+function ChapterSeven({ lang }: { lang: string }) {
+  if (lang === "kn") {
+    return (
+      <p className="text-sm text-gray-400 italic">[ ಅಧ್ಯಾಯ 7 — ಕನ್ನಡ ವಿಷಯ ಶೀಘ್ರದಲ್ಲೇ ]</p>
+    );
+  }
+
+  return (
+    <>
+      <p>
+        Owning a share doesn&apos;t just mean watching prices go up and down, companies often
+        take actions that directly impact your holdings. These are called{" "}
+        <strong>corporate actions</strong>, and they can change the number of shares you own,
+        their value, or your income.
+      </p>
+
+      <p>Here are the most common ones</p>
+
+      {/* ── 1. Bonus Issue ── */}
+      <h3>1. Bonus Issue</h3>
+      <p>
+        Free shares issued to existing shareholders, often in a fixed ratio. Example: If a
+        company announces a <strong>1:1 bonus</strong>, you get one additional share for every
+        share you already own. It&apos;s like getting an extra slice of cake without paying
+        more, your total holding increases, but the overall value stays the same.
+      </p>
+
+      {/* ── 2. Stock Split ── */}
+      <h3>2. Stock Split</h3>
+      <p>
+        When a company divides its existing shares into smaller units to make them more
+        affordable and increase liquidity. Example: A <strong>1:5 split</strong> means each
+        ₹100 share becomes 5 shares of ₹20 each. The total value doesn&apos;t change, but
+        smaller investors can now buy in more easily.
+      </p>
+
+      {/* ── 3. Dividend Payouts ── */}
+      <h3>3. Dividend Payouts</h3>
+      <p>
+        Companies distribute a portion of their profits to shareholders. Example: If TCS
+        announces a ₹24 dividend per share, and you own 100 shares, you&apos;ll receive
+        ₹2,400 directly in your bank account.
+      </p>
+
+      {/* ── 4. Rights Issue ── */}
+      <h3>4. Rights Issue</h3>
+      <p>
+        A company offers existing shareholders the chance to buy more shares, usually at a
+        discount, to raise additional funds. Example: A <strong>1:4 rights issue</strong>{" "}
+        means you can buy one extra share for every four you already own, often at a lower
+        price.
+      </p>
+
+      {/* ── 5. Buyback ── */}
+      <h3>5. Buyback</h3>
+      <p>
+        When a company repurchases its own shares from the market. This reduces the number of
+        shares in circulation, often boosting earnings per share (EPS) and, in turn, the stock
+        price. Example: Infosys and Wipro frequently announce buybacks as a way to reward
+        investors.
+      </p>
+
+      {/* ── 6. Merger or Demerger ── */}
+      <h3>6. Merger or Demerger</h3>
+      <ul className="pl-6 list-disc space-y-1">
+        <li>
+          <strong>Merger:</strong> Two companies combine to form a new entity (like HDFC and
+          HDFC Bank merging).
+        </li>
+        <li>
+          <strong>Demerger:</strong> A company splits a business unit into a separate entity
+          (like Reliance spinning off Jio Financial). These actions can reshape your portfolio,
+          as you may receive new shares in the merged or separated company.
+        </li>
+      </ul>
+    </>
+  );
+}
+
+function ChapterEight({ lang }: { lang: string }) {
+  if (lang === "kn") {
+    return (
+      <p className="text-sm text-gray-400 italic">[ ಅಧ್ಯಾಯ 8 — ಕನ್ನಡ ವಿಷಯ ಶೀಘ್ರದಲ್ಲೇ ]</p>
+    );
+  }
+
+  return (
+    <>
+      <p>You&apos;ve come a long way.</p>
+
+      <p>
+        From understanding what the stock market really is to learning how trades happen, who
+        makes them work, and what those confusing terms mean, you&apos;ve built the foundation
+        every investor needs.
+      </p>
+
+      <p>
+        The jargon that once felt like noise now makes sense. You know what it means when
+        someone says, &quot;Nifty&apos;s up, Reliance announced a buyback, and SEBI&apos;s
+        tightening regulations.&quot; That&apos;s real progress and it&apos;s the kind of
+        knowledge that gives you confidence to participate, not just observe.
+      </p>
+
+      <p>
+        You now understand that the market isn&apos;t some abstract casino, it&apos;s a living
+        ecosystem of businesses, investors, and systems working together. And when you invest,
+        you&apos;re putting your money behind ideas, people, and companies shaping the
+        economy&apos;s future.
+      </p>
+
+      <p>
+        As we move forward, things will get a bit more practical. The next phase is where we
+        start exploring{" "}
+        <strong>
+          how to read markets, analyze companies, and make smarter investment choices
+        </strong>
+        , all with a calm head and a clear goal.
+      </p>
+
+      <p>
+        So take a moment to appreciate getting this far. Most people never look beyond the
+        headlines. You just did.
+      </p>
+
+      <p>Let&apos;s move on, the real investing journey begins now.</p>
+
+      <div className="ch-illustration">
+        <img
+          src="/stock-market/image1.png"
+          alt="A character looking up at a staircase leading to a trophy, symbolizing the investing journey ahead"
+          className="mx-auto max-w-xs w-full"
+        />
+      </div>
+    </>
+  );
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Chapter definitions — bilingual titles + placeholder content components
+// Pattern: lang === 'kn' ? <KannadaText /> : <EnglishText />
+// ─────────────────────────────────────────────────────────────────────────────
+
+const chapters: {
+  title: { en: string; kn: string };
+  content: { en: React.ReactNode; kn: React.ReactNode };
+}[] = [
+  // ── Chapter 1 ──────────────────────────────────────────────────────────────
+  {
+    title: {
+      en: "Chapter 1: What Is the Stock Market?",
+      kn: "ಅಧ್ಯಾಯ 1: ಷೇರು ಮಾರುಕಟ್ಟೆ ಎಂದರೇನು?",
+    },
+    content: {
+      en: <ChapterOne lang="en" />,
+      kn: <ChapterOne lang="kn" />,
+    },
+  },
+
+  // ── Chapter 2 ──────────────────────────────────────────────────────────────
+  {
+    title: {
+      en: "Chapter 2: Why Does the Stock Market Exist?",
+      kn: "ಅಧ್ಯಾಯ 2: ಷೇರು ಮಾರುಕಟ್ಟೆ ಏಕೆ ಅಸ್ತಿತ್ವದಲ್ಲಿದೆ?",
+    },
+    content: {
+      en: <ChapterTwo lang="en" />,
+      kn: <ChapterTwo lang="kn" />,
+    },
+  },
+
+  // ── Chapter 3 ──────────────────────────────────────────────────────────────
+  {
+    title: {
+      en: "Chapter 3: The Key Players - Who Makes It All Work",
+      kn: "ಅಧ್ಯಾಯ 3: ಪ್ರಮುಖ ಆಟಗಾರರು - ಇದನ್ನು ಯಾರು ನಡೆಸುತ್ತಾರೆ?",
+    },
+    content: {
+      en: <ChapterThree lang="en" />,
+      kn: <ChapterThree lang="kn" />,
+    },
+  },
+
+  // ── Chapter 4 ──────────────────────────────────────────────────────────────
+  {
+    title: {
+      en: "Chapter 4: IPOs & FPOs - How Companies Raise Money",
+      kn: "ಅಧ್ಯಾಯ 4: IPO ಮತ್ತು FPO - ಕಂಪನಿಗಳು ಹಣ ಸಂಗ್ರಹಿಸುವ ವಿಧಾನ",
+    },
+    content: {
+      en: <ChapterFour lang="en" />,
+      kn: <ChapterFour lang="kn" />,
+    },
+  },
+
+  // ── Chapter 5 ──────────────────────────────────────────────────────────────
+  {
+    title: {
+      en: "Chapter 5: Indices - The Market's Pulse",
+      kn: "ಅಧ್ಯಾಯ 5: ಸೂಚ್ಯಂಕಗಳು - ಮಾರುಕಟ್ಟೆಯ ನಾಡಿಮಿಡಿತ",
+    },
+    content: {
+      en: <ChapterFive lang="en" />,
+      kn: <ChapterFive lang="kn" />,
+    },
+  },
+
+  // ── Chapter 6 ──────────────────────────────────────────────────────────────
+  {
+    title: {
+      en: "Chapter 6: Understanding the Basics - Key Jargon Simplified",
+      kn: "ಅಧ್ಯಾಯ 6: ಮೂಲಭೂತ ಪರಿಭಾಷೆ ಸರಳೀಕರಿಸಲಾಗಿದೆ",
+    },
+    content: {
+      en: <ChapterSix lang="en" />,
+      kn: <ChapterSix lang="kn" />,
+    },
+  },
+
+  // ── Chapter 7 ──────────────────────────────────────────────────────────────
+  {
+    title: {
+      en: "Chapter 7: Corporate Actions",
+      kn: "ಅಧ್ಯಾಯ 7: ಕಾರ್ಪೊರೇಟ್ ಕ್ರಮಗಳ ಬಗ್ಗೆ ಮಾತನಾಡೋಣ",
+    },
+    content: {
+      en: <ChapterSeven lang="en" />,
+      kn: <ChapterSeven lang="kn" />,
+    },
+  },
+
+  // ── Chapter 8 ──────────────────────────────────────────────────────────────
+  {
+    title: {
+      en: "Chapter 8: Wrapping Up - You Now Speak the Market's Language",
+      kn: "ಅಧ್ಯಾಯ 8: ನೀವು ಈಗ ಮಾರುಕಟ್ಟೆಯ ಭಾಷೆ ಮಾತನಾಡುತ್ತೀರಿ",
+    },
+    content: {
+      en: <ChapterEight lang="en" />,
+      kn: <ChapterEight lang="kn" />,
+    },
+  },
+];
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Page
+// ─────────────────────────────────────────────────────────────────────────────
+
 export default function StockMarketPage() {
-  const { t, lang } = useLanguage();
-  // ============================================================
-  // ALL CHAPTER CONTENT - BILINGUAL (English + Kannada)
-  // ============================================================
-  const chapters = [
-    {
-      title: {
-        en: "Chapter 1: What Is the Stock Market?",
-        kn: "ಅಧ್ಯಾಯ 1: ಷೇರು ಮಾರುಕಟ್ಟೆ ಎಂದರೇನು?",
-      },
-      content: {
-        en: (
-          <>
-            <p>
-              Imagine your favourite coffee brand - say, Tata Coffee - wants to open 500 new
-              outlets across India. That kind of expansion needs money - to buy land, build
-              stores, hire staff, and market the brand. Instead of borrowing a huge amount
-              from banks, the company can raise money by offering ownership stakes - called
-              shares - to people like you and me.
-            </p>
-
-            <p>
-              When you buy a share, you're not just investing your money - you're becoming a
-              co-owner of that company. If the business does well, your share becomes more
-              valuable too. You might even receive a dividend - a portion of the company's
-              profits.
-            </p>
-
-            <p>
-              This is the essence of the stock market - an organized marketplace where
-              companies raise funds and investors share in their success.
-            </p>
-
-            <h3>Where All Listed Companies Live</h3>
-            <p>
-              Listed companies are those whose shares are available for public trading. They
-              must follow SEBI's regulations and disclose their performance regularly.
-              Listing gives them credibility, transparency, and access to investors.
-            </p>
-
-            <p>
-              From giants like Reliance and Infosys to new-age startups like Nykaa and Zomato
-              - thousands of companies are listed on India's stock exchanges.
-            </p>
-
-            <h3>A Marketplace Built on Belief</h3>
-            <p>
-              The stock market isn't just about numbers - it's about belief in the future of
-              businesses. Prices move constantly due to demand, supply, and global or company
-              events. It's a living reflection of the economy.
-            </p>
-          </>
-        ),
-        kn: (
-          <>
-            <p>
-              ನಿಮ್ಮ ನೆಚ್ಚಿನ ಕಾಫಿ ಬ್ರ್ಯಾಂಡ್ - ಉದಾಹರಣೆಗೆ, ಟಾಟಾ ಕಾಫಿ - ಭಾರತಾದ್ಯಂತ 500 ಹೊಸ ಮಳಿಗೆಗಳನ್ನು ತೆರೆಯಲು ಬಯಸುತ್ತದೆ ಎಂದು ಕಲ್ಪಿಸಿಕೊಳ್ಳಿ. ಅಂತಹ ವಿಸ್ತರಣೆಗೆ ಹಣ ಬೇಕು - ಭೂಮಿ ಖರೀದಿಸಲು, ಅಂಗಡಿ ನಿರ್ಮಿಸಲು, ಸಿಬ್ಬಂದಿ ನೇಮಿಸಲು, ಮತ್ತು ಬ್ರ್ಯಾಂಡ್ ಪ್ರಚಾರ ಮಾಡಲು.
-            </p>
-            <p>
-              ಬ್ಯಾಂಕ್‌ಗಳಿಂದ ದೊಡ್ಡ ಮೊತ್ತ ಎರವಲು ಪಡೆಯುವ ಬದಲು, ಕಂಪನಿಯು ನಿಮ್ಮಂತಹ ಜನರಿಗೆ ಮಾಲೀಕತ್ವದ ಪಾಲು - ಅಂದರೆ ಷೇರುಗಳನ್ನು - ನೀಡಿ ಹಣ ಸಂಗ್ರಹಿಸಬಹುದು.
-            </p>
-            <p>
-              ನೀವು ಒಂದು ಷೇರು ಖರೀದಿಸಿದಾಗ, ನೀವು ಕೇವಲ ಹಣ ಹೂಡಿಕೆ ಮಾಡುತ್ತಿಲ್ಲ - ನೀವು ಆ ಕಂಪನಿಯ ಸಹ-ಮಾಲೀಕರಾಗುತ್ತಿದ್ದೀರಿ.
-            </p>
-            <p>
-              ವ್ಯವಹಾರ ಚೆನ್ನಾಗಿ ನಡೆದರೆ, ಲಾಭ ಗಳಿಸಿದರೆ, ಮತ್ತು ಮೌಲ್ಯ ಹೆಚ್ಚಿದರೆ, ನಿಮ್ಮ ಷೇರೂ ಹೆಚ್ಚು ಮೌಲ್ಯಯುತವಾಗುತ್ತದೆ. ನಿಮಗೆ ಡಿವಿಡೆಂಡ್ ಕೂಡ ಸಿಗಬಹುದು - ಕಂಪನಿಯ ಲಾಭದ ಒಂದು ಭಾಗ ಷೇರುದಾರರಿಗೆ ವಿತರಿಸಲಾಗುತ್ತದೆ.
-            </p>
-            <p>
-              ಅದೇ ಷೇರು ಮಾರುಕಟ್ಟೆಯ ಸಾರ - ಕಂಪನಿಗಳು ಹಣ ಸಂಗ್ರಹಿಸುವ ಮತ್ತು ಹೂಡಿಕೆದಾರರು ಅವರ ಯಶಸ್ಸಿನಲ್ಲಿ ಭಾಗವಹಿಸುವ ದೊಡ್ಡ, ಸಂಘಟಿತ ಮಾರುಕಟ್ಟೆ.
-            </p>
-            <h3>ಪಟ್ಟಿ ಕಂಪನಿಗಳ ನೆಲೆ</h3>
-            <p>
-              ಸಾರ್ವಜನಿಕರು ಖರೀದಿ-ಮಾರಾಟ ಮಾಡಬಹುದಾದ ಷೇರುಗಳನ್ನು ಹೊಂದಿರುವ ಕಂಪನಿಯನ್ನು ಪಟ್ಟಿ ಕಂಪನಿ ಎನ್ನುತ್ತಾರೆ.
-            </p>
-            <p>
-              ಪಟ್ಟಿಗೊಳ್ಳಲು, ಕಂಪನಿಯು SEBI (ಭಾರತೀಯ ಭದ್ರತೆಗಳು ಮತ್ತು ವಿನಿಮಯ ಮಂಡಳಿ) ಮತ್ತು ಷೇರು ವಿನಿಮಯಗಳು - ಮುಖ್ಯವಾಗಿ NSE ಮತ್ತು BSE - ಜೊತೆಗೆ ಕಠಿಣ ಅನುಮೋದನಾ ಪ್ರಕ್ರಿಯೆ ಮೂಲಕ ಹಾದುಹೋಗಬೇಕು.
-            </p>
-            <p>
-              ಪಟ್ಟಿಗೊಂಡ ನಂತರ, ಕಂಪನಿಯ ಷೇರುಗಳು ಸಾರ್ವಜನಿಕವಾಗಿ ವಹಿವಾಟು ಮಾಡಬಹುದು, ಪಾರದರ್ಶಕತೆ ನಿಯಮಗಳನ್ನು ಪಾಲಿಸಬೇಕು, ಮತ್ತು ಷೇರುದಾರರಿಗೆ ಉತ್ತರದಾಯಿಯಾಗಿರಬೇಕು.
-            </p>
-            <p>
-              ಪಟ್ಟಿಗೊಳ್ಳುವುದು ವಿಶ್ವಾಸ ಮತ್ತು ವಿಶ್ವಾಸಾರ್ಹತೆಯ ಗುರುತು. ರಿಲಯನ್ಸ್, ಇನ್ಫೋಸಿಸ್, HDFC ಬ್ಯಾಂಕ್‌ನಿಂದ ಹಿಡಿದು ನ್ಯಾಕಾ ಮತ್ತು ಜೊಮ್ಯಾಟೋವರೆಗೆ ಸಾವಿರಾರು ಕಂಪನಿಗಳು ಭಾರತದ ಷೇರು ವಿನಿಮಯಗಳಲ್ಲಿ ಪಟ್ಟಿಯಾಗಿವೆ.
-            </p>
-            <h3>ನಂಬಿಕೆಯ ಮೇಲೆ ನಿರ್ಮಿತ ಮಾರುಕಟ್ಟೆ</h3>
-            <p>
-              ಸಾಮಾನ್ಯ ಮಾರುಕಟ್ಟೆಯಲ್ಲಿ ನೀವು ವಸ್ತು ಖರೀದಿಸುತ್ತೀರಿ - ಷೇರು ಮಾರುಕಟ್ಟೆಯಲ್ಲಿ ನೀವು ಸಾಧ್ಯತೆಯನ್ನು ಖರೀದಿಸುತ್ತೀರಿ, ನೀವು ನಂಬುವ ವ್ಯವಹಾರಗಳ ಭವಿಷ್ಯವನ್ನು.
-            </p>
-            <p>
-              ಈ ಷೇರುಗಳು ಪ್ರತಿದಿನ ವಹಿವಾಟಾಗುವುದರಿಂದ, ಬೆಲೆಗಳು ನಿರಂತರ ಚಲಿಸುತ್ತವೆ - ಬೇಡಿಕೆ, ಪೂರೈಕೆ, ಕಂಪನಿ ಕಾರ್ಯಕ್ಷಮತೆ, ಜಾಗತಿಕ ಘಟನೆಗಳು, ಮತ್ತು ಹೂಡಿಕೆದಾರರ ಭಾವನೆಗಳಿಂದ ಚಾಲಿತ.
-            </p>
-            <p>
-              ಷೇರು ಮಾರುಕಟ್ಟೆ, ಆ ಅರ್ಥದಲ್ಲಿ, ಆರ್ಥಿಕತೆಯ ಜೀವಂತ, ಉಸಿರಾಡುವ ಪ್ರತಿಬಿಂಬ.
-            </p>
-          </>
-        ),
-      },
-    },
-
-    {
-      title: {
-        en: "Chapter 2: Why Does the Stock Market Exist?",
-        kn: "ಅಧ್ಯಾಯ 2: ಷೇರು ಮಾರುಕಟ್ಟೆ ಏಕೆ ಅಸ್ತಿತ್ವದಲ್ಲಿದೆ?",
-      },
-      content: {
-        en: (
-          <>
-            <p>
-              The stock market exists because ambition needs capital. Before markets, only
-              kings and banks could fund growth. When the Dutch East India Company issued the
-              first shares in the 1600s, it gave ordinary people the power to invest -
-              birthing the modern economy.
-            </p>
-
-            <p>
-              In India, companies like Infosys, TCS, and Reliance have used stock markets to
-              raise funds, expand, and innovate - creating jobs and wealth. Every trade
-              represents investment that fuels national growth.
-            </p>
-          </>
-        ),
-        kn: (
-          <>
-            <p>
-              ಷೇರು ಮಾರುಕಟ್ಟೆ ಅಸ್ತಿತ್ವದಲ್ಲಿದೆ ಏಕೆಂದರೆ ಮಹತ್ವಾಕಾಂಕ್ಷೆಗೆ ಯಾವಾಗಲೂ ಇಂಧನ ಬೇಕು - ಮತ್ತು ಆ ಇಂಧನವೇ ಬಂಡವಾಳ.
-            </p>
-            <p>
-              ಷೇರು ಮಾರುಕಟ್ಟೆಗಳ ಮೊದಲು, ಕೇವಲ ರಾಜರು, ಬ್ಯಾಂಕ್‌ಗಳು, ಅಥವಾ ಶ್ರೀಮಂತ ವ್ಯಾಪಾರಿಗಳು ಮಾತ್ರ ವ್ಯವಹಾರಗಳಿಗೆ ಹಣ ಒದಗಿಸಬಹುದಿತ್ತು. 1600ರ ದಶಕದಲ್ಲಿ ಡಚ್ ಈಸ್ಟ್ ಇಂಡಿಯಾ ಕಂಪನಿ ಮೊದಲ ಷೇರುಗಳನ್ನು ನೀಡಿದಾಗ, ಎಲ್ಲವೂ ಬದಲಾಯಿತು. ಇದ್ದಕ್ಕಿದ್ದಂತೆ ಸಾಮಾನ್ಯ ನಾಗರಿಕರೂ ಜಾಗತಿಕ ವ್ಯಾಪಾರದಲ್ಲಿ ಹೂಡಿಕೆ ಮಾಡಬಹುದಾಯಿತು.
-            </p>
-            <p>
-              ಭಾರತದಲ್ಲಿ, ಇನ್ಫೋಸಿಸ್, TCS, ಮತ್ತು ರಿಲಯನ್ಸ್‌ನಂತಹ ಕಂಪನಿಗಳು ಮಾರುಕಟ್ಟೆಯನ್ನು ಬಳಸಿ ಹಣ ಸಂಗ್ರಹಿಸಿ ವಿಸ್ತರಿಸಿಕೊಂಡಿವೆ - ಉದ್ಯೋಗ, ನಾವೀನ್ಯ, ಮತ್ತು ಸಂಪತ್ತನ್ನು ಸೃಷ್ಟಿಸಿವೆ.
-            </p>
-            <p>
-              ಪ್ರತಿ ವಹಿವಾಟು ಕೇವಲ ಪರದೆಯ ಮೇಲಿನ ಒಂದು ಸಂಖ್ಯೆಯಲ್ಲ - ಅದು ದೇಶಾದ್ಯಂತ ಬೆಳವಣಿಗೆಯನ್ನು ಚಾಲನೆ ಮಾಡುವ ಹೂಡಿಕೆ.
-            </p>
-          </>
-        ),
-      },
-    },
-
-    {
-      title: {
-        en: "Chapter 3: The Key Players - Who Makes It All Work",
-        kn: "ಅಧ್ಯಾಯ 3: ಪ್ರಮುಖ ಆಟಗಾರರು - ಇದನ್ನು ಯಾರು ನಡೆಸುತ್ತಾರೆ?",
-      },
-      content: {
-        en: (
-          <>
-            <p>
-              When you tap 'Buy' on your trading app, an intricate system springs into action
-              - powered by investors, brokers, exchanges, clearing corporations, depositories,
-              and SEBI.
-            </p>
-
-            <h3>1. Investors - The Heartbeat of the Market</h3>
-            <p>
-              Investors can be retail (everyday individuals), institutional (mutual funds,
-              insurance firms), or foreign (FIIs). Their collective decisions determine which
-              businesses thrive.
-            </p>
-
-            <h3>2. Brokers - The Bridge Between You and the Market</h3>
-            <p>
-              Brokers like Zerodha, Upstox, and Groww connect you to the exchange. They handle
-              order routing, compliance, and reports - acting as your gateway to trading.
-            </p>
-
-            <h3>3. Stock Exchanges - The Marketplace</h3>
-            <p>
-              The NSE and BSE match buyers and sellers, ensuring fast and fair trades. They're
-              the market's matchmakers, executing millions of transactions in seconds.
-            </p>
-
-            <h3>4. Clearing Corporations - The Market's Guarantee</h3>
-            <p>
-              Institutions like NCL and ICCL verify both sides of a trade, ensuring money and
-              shares are exchanged correctly. They guarantee smooth settlement and eliminate
-              counterparty risk.
-            </p>
-
-            <h3>5. Depositories - The Digital Vaults</h3>
-            <p>
-              Your shares are stored digitally with NSDL or CDSL - accessed through your
-              broker-linked Demat account. This replaces old paper certificates with secure
-              digital ownership.
-            </p>
-
-            <h3>6. SEBI - The Watchdog of the Market</h3>
-            <p>
-              SEBI ensures transparency and fairness. It regulates brokers, monitors insider
-              trading, approves IPOs, and ensures companies disclose results on time.
-            </p>
-
-            <h3>Putting It All Together - The Journey of a Trade</h3>
-            <p>
-              When you buy shares, your order passes through your broker, gets matched on the
-              exchange, verified by the clearing corporation, and credited to your Demat -
-              all under SEBI's oversight. In seconds, your investment journey begins.
-            </p>
-          </>
-        ),
-        kn: (
-          <>
-            <p>
-              ನೀವು ನಿಮ್ಮ ಟ್ರೇಡಿಂಗ್ ಅಪ್ಲಿಕೇಶನ್‌ನಲ್ಲಿ 'ಖರೀದಿ' ಟ್ಯಾಪ್ ಮಾಡಿದಾಗ, ಅದು ಮ್ಯಾಜಿಕ್‌ನಂತೆ ಕಾಣಬಹುದು - ಆದರೆ ಆ ತಕ್ಷಣದ ಕ್ಲಿಕ್ ಹಿಂದೆ ಸಂಸ್ಥೆಗಳು, ತಂತ್ರಜ್ಞಾನ, ಮತ್ತು ವಿಶ್ವಾಸದ ಸಂಕೀರ್ಣ ಜಾಲ ಇದೆ.
-            </p>
-            <h3>1. ಹೂಡಿಕೆದಾರರು - ಮಾರುಕಟ್ಟೆಯ ಹೃದಯಬಡಿತ</h3>
-            <p>
-              ಝೆರೋಧಾ ಅಥವಾ ಗ್ರೋ ಬಳಸುವ ಚಿಲ್ಲರೆ ಹೂಡಿಕೆದಾರರು, ಮ್ಯೂಚುವಲ್ ಫಂಡ್ ಮತ್ತು ವಿಮಾ ಕಂಪನಿಗಳಂತಹ ಸಾಂಸ್ಥಿಕ ಹೂಡಿಕೆದಾರರು, ಮತ್ತು ಭಾರತದ ಮಾರುಕಟ್ಟೆಗಳಲ್ಲಿ ಹೂಡಿಕೆ ಮಾಡುವ ವಿದೇಶಿ ಸಾಂಸ್ಥಿಕ ಹೂಡಿಕೆದಾರರು (FII) - ಎಲ್ಲರೂ ಮಾರುಕಟ್ಟೆಯ ಜೀವಶಕ್ತಿ.
-            </p>
-            <h3>2. ಬ್ರೋಕರ್‌ಗಳು - ನಿಮ್ಮ ಮತ್ತು ಮಾರುಕಟ್ಟೆಯ ನಡುವಿನ ಸೇತುವೆ</h3>
-            <p>
-              ನೀವು ನೇರವಾಗಿ ಷೇರು ವಿನಿಮಯದಲ್ಲಿ ವ್ಯಾಪಾರ ಮಾಡಲು ಸಾಧ್ಯವಿಲ್ಲ - ನಿಮಗೆ ನೋಂದಾಯಿತ ಬ್ರೋಕರ್ ಅಗತ್ಯ. ಝೆರೋಧಾ, ಅಪ್‌ಸ್ಟಾಕ್ಸ್, ಏಂಜಲ್ ಒನ್, ಗ್ರೋ, ಮತ್ತು ICICI ಡೈರೆಕ್ಟ್ ಮಧ್ಯವರ್ತಿಗಳಾಗಿ ಕಾರ್ಯನಿರ್ವಹಿಸುತ್ತಾರೆ.
-            </p>
-            <h3>3. ಷೇರು ವಿನಿಮಯಗಳು - ಮಾರುಕಟ್ಟೆ ಸ್ಥಳ</h3>
-            <p>
-              NSE (ನ್ಯಾಷನಲ್ ಸ್ಟಾಕ್ ಎಕ್ಸ್‌ಚೇಂಜ್) ಮತ್ತು BSE (ಬಾಂಬೆ ಸ್ಟಾಕ್ ಎಕ್ಸ್‌ಚೇಂಜ್) ಖರೀದಿದಾರರು ಮತ್ತು ಮಾರಾಟಗಾರರನ್ನು ಜೋಡಿಸುತ್ತವೆ. ಸೆಕೆಂಡುಗಳಲ್ಲಿ ಲಕ್ಷಾಂತರ ವ್ಯವಹಾರಗಳನ್ನು ನಡೆಸಲಾಗುತ್ತದೆ.
-            </p>
-            <h3>4. ಕ್ಲಿಯರಿಂಗ್ ಕಾರ್ಪೊರೇಶನ್‌ಗಳು - ಮಾರುಕಟ್ಟೆಯ ಖಾತರಿ</h3>
-            <p>
-              NSE ಕ್ಲಿಯರಿಂಗ್ ಮತ್ತು ICCL ನಂತಹ ಸಂಸ್ಥೆಗಳು ಖರೀದಿ ಮತ್ತು ಮಾರಾಟ ಎರಡೂ ಕಡೆ ಎಲ್ಲ ಸರಿಯಿದೆ ಎಂದು ಖಚಿತಪಡಿಸುತ್ತವೆ. ಅವರು ಮಧ್ಯ ಪ್ರವೇಶಿಸಿ ಎರಡೂ ಕಡೆ ಡೀಲ್ ಪ್ರಕ್ರಿಯೆಗೊಳ್ಳಲಾಗುವುದು ಎಂದು ಖಾತ್ರಿ ನೀಡುತ್ತಾರೆ.
-            </p>
-            <h3>5. ಡಿಪಾಸಿಟರಿಗಳು - ಡಿಜಿಟಲ್ ವಾಲ್ಟ್</h3>
-            <p>
-              ನಿಮ್ಮ ಷೇರುಗಳು NSDL ಅಥವಾ CDSL ಮೂಲಕ ಡಿಜಿಟಲ್ ರೂಪದಲ್ಲಿ ಸಂಗ್ರಹಿಸಲ್ಪಡುತ್ತವೆ - ನಿಮ್ಮ ಬ್ರೋಕರ್‌ಗೆ ಲಿಂಕ್ ಆದ ಡಿಮ್ಯಾಟ್ ಖಾತೆ ಮೂಲಕ ಪ್ರವೇಶಿಸಬಹುದು.
-            </p>
-            <h3>6. SEBI - ಮಾರುಕಟ್ಟೆಯ ರಕ್ಷಕ</h3>
-            <p>
-              SEBI (ಭಾರತೀಯ ಭದ್ರತೆಗಳು ಮತ್ತು ವಿನಿಮಯ ಮಂಡಳಿ) ಮಾರುಕಟ್ಟೆ ನ್ಯಾಯಯುತ, ಪಾರದರ್ಶಕ, ಮತ್ತು ಸ್ಥಿರವಾಗಿ ಇರುವಂತೆ ನೋಡಿಕೊಳ್ಳುತ್ತದೆ. ಇದು ಬ್ರೋಕರ್‌ಗಳನ್ನು ನಿಯಂತ್ರಿಸುತ್ತದೆ, ಒಳಗಿನ ವ್ಯಾಪಾರವನ್ನು ಮೇಲ್ವಿಚಾರಣೆ ಮಾಡುತ್ತದೆ, IPO ಗಳನ್ನು ಅನುಮೋದಿಸುತ್ತದೆ, ಮತ್ತು ಕಂಪನಿಗಳು ಫಲಿತಾಂಶಗಳನ್ನು ಸಮಯಕ್ಕೆ ಸರಿಯಾಗಿ ಬಹಿರಂಗಪಡಿಸುತ್ತವೆ ಎಂದು ಖಚಿತಪಡಿಸುತ್ತದೆ.
-            </p>
-            <h3>ಒಟ್ಟಾಗಿ - ವ್ಯಾಪಾರದ ಯಾತ್ರೆ</h3>
-            <p>
-              ನೀವು ಷೇರು ಖರೀದಿಸಿದಾಗ, ನಿಮ್ಮ ಆದೇಶ ನಿಮ್ಮ ಬ್ರೋಕರ್ ಮೂಲಕ ಹೋಗಿ, ವಿನಿಮಯದಲ್ಲಿ ಹೊಂದಾಣಿಕೆ ಆಗಿ, ಕ್ಲಿಯರಿಂಗ್ ಕಾರ್ಪೊರೇಶನ್ ಪರಿಶೀಲಿಸಿ, ನಿಮ್ಮ ಡಿಮ್ಯಾಟ್‌ಗೆ ಜಮಾ ಆಗುತ್ತದೆ - ಇವೆಲ್ಲ SEBI ನಿಗಾದಲ್ಲಿ. ಸೆಕೆಂಡುಗಳಲ್ಲಿ, ನಿಮ್ಮ ಹೂಡಿಕೆ ಪ್ರಯಾಣ ಆರಂಭವಾಗುತ್ತದೆ.
-            </p>
-          </>
-        ),
-      },
-    },
-
-    {
-      title: {
-        en: "Chapter 4: IPOs & FPOs - How Companies Raise Money",
-        kn: "ಅಧ್ಯಾಯ 4: IPO ಮತ್ತು FPO - ಕಂಪನಿಗಳು ಹಣ ಸಂಗ್ರಹಿಸುವ ವಿಧಾನ",
-      },
-      content: {
-        en: (
-          <>
-            <p>
-              An IPO (Initial Public Offering) is when a private company goes public, allowing
-              the public to invest. It helps the company expand, repay debt, or fund
-              innovation. An FPO (Follow-on Public Offering) happens when an already-listed
-              company issues more shares to raise additional capital.
-            </p>
-          </>
-        ),
-        kn: (
-          <>
-            <p>
-              IPO (ಆರಂಭಿಕ ಸಾರ್ವಜನಿಕ ಕೊಡುಗೆ) ಎಂದರೆ ಒಂದು ಖಾಸಗಿ ಕಂಪನಿ ಸಾರ್ವಜನಿಕವಾಗುವ ಸಂದರ್ಭ - ಮೊದಲ ಬಾರಿಗೆ ಜನರನ್ನು ಹೂಡಿಕೆ ಮಾಡಲು ಆಹ್ವಾನಿಸುವುದು.
-            </p>
-            <p>
-              ಜೊಮ್ಯಾಟೋ, ನ್ಯಾಕಾ, ಮತ್ತು LIC ನಂತಹ ಕಂಪನಿಗಳ IPO ಭಾರತಾದ್ಯಂತ ಸಂಚಲನ ಸೃಷ್ಟಿಸಿದವು. ಹೂಡಿಕೆದಾರರಿಗೆ, ಇದು ಕಂಪನಿಯ ಬೆಳವಣಿಗೆಯ ಕಥೆಯಲ್ಲಿ ಆರಂಭದಲ್ಲೇ ಭಾಗಿಯಾಗುವ ಅವಕಾಶ. ಕಂಪನಿಗೆ, ಇದು ಕಾರ್ಯ ವಿಸ್ತರಿಸಲು, ಸಾಲ ತೀರಿಸಲು, ಅಥವಾ ನಾವೀನ್ಯಕ್ಕಾಗಿ ಹಣ ಪಡೆಯುವ ದಾರಿ.
-            </p>
-            <p>
-              FPO (ಅನುಸರಣ ಸಾರ್ವಜನಿಕ ಕೊಡುಗೆ) ಪಟ್ಟಿ ಕಂಪನಿ ಮತ್ತಷ್ಟು ಷೇರುಗಳನ್ನು ನೀಡುವಾಗ ನಡೆಯುತ್ತದೆ - ಹಣ ಸಂಗ್ರಹದ "ಎರಡನೇ ಸುತ್ತಿನಂತೆ."
-            </p>
-            <p>
-              IPO ಎಂದರೆ ಕಂಪನಿ ಸಾರ್ವಜನಿಕರಿಗೆ ನೀಡುವ ಆಹ್ವಾನ: "ನಮ್ಮಲ್ಲಿ ನಂಬಿಕೆ ಇಡಿ. ನಮ್ಮ ಪ್ರಯಾಣದಲ್ಲಿ ಭಾಗಿಯಾಗಿ."
-            </p>
-          </>
-        ),
-      },
-    },
-
-    {
-      title: {
-        en: "Chapter 5: Indices - The Market's Pulse",
-        kn: "ಅಧ್ಯಾಯ 5: ಸೂಚ್ಯಂಕಗಳು - ಮಾರುಕಟ್ಟೆಯ ನಾಡಿಮಿಡಿತ",
-      },
-      content: {
-        en: (
-          <>
-            <p>
-              Indices measure how groups of companies perform - much like a scoreboard in a
-              cricket match. When indices like the Nifty 50 or Sensex rise, it reflects
-              optimism and growth. When they fall, it signals caution.
-            </p>
-
-            <h3>Understanding What an Index Is</h3>
-            <p>
-              An index is a basket of selected companies representing the broader market or a
-              sector. Sensex tracks 30 major companies; Nifty 50 tracks 50 top NSE-listed
-              firms.
-            </p>
-
-            <h3>Sectoral and Thematic Indices</h3>
-            <p>
-              Indices like Nifty Bank, Nifty IT, or Nifty FMCG let investors focus on
-              industries they believe in - banking, tech, or consumer goods.
-            </p>
-
-            <h3>Why Indices Matter</h3>
-            <p>
-              Indices serve as benchmarks for fund performance, help investors gauge market
-              sentiment, and even form the basis for index funds and ETFs.
-            </p>
-          </>
-        ),
-        kn: (
-          <>
-            <p>
-              ಷೇರು ಮಾರುಕಟ್ಟೆ ಕ್ರಿಕೆಟ್ ಪಂದ್ಯವಾಗಿದ್ದರೆ, ಸೂಚ್ಯಂಕಗಳು ಸ್ಕೋರ್‌ಬೋರ್ಡ್.
-            </p>
-            <p>
-              ಪ್ರತಿ ಓವರ್‌ನಲ್ಲಿ ಏನು ನಡೆಯುತ್ತಿದೆ ಎಂಬ ಎಲ್ಲ ವಿವರ ಅವು ಹೇಳದಿದ್ದರೂ - ಆಟ ಯಾವ ದಿಕ್ಕಿನಲ್ಲಿ ಸಾಗುತ್ತಿದೆ ಎಂಬ ತ್ವರಿತ ಅಂದಾಜು ಕೊಡುತ್ತವೆ.
-            </p>
-            <p>
-              ಅದೇ ರೀತಿ, ಷೇರು ಮಾರುಕಟ್ಟೆ ಸೂಚ್ಯಂಕ ನಿರ್ದಿಷ್ಟ ಕಂಪನಿ ಗುಂಪು ಹೇಗೆ ಕಾರ್ಯನಿರ್ವಹಿಸುತ್ತಿದೆ ಎಂಬುದನ್ನು ಅಳೆಯುತ್ತದೆ - ಮಾರುಕಟ್ಟೆಯ ಒಟ್ಟಾರೆ ಮನಸ್ಥಿತಿ, ಪ್ರವೃತ್ತಿ, ಮತ್ತು ದಿಕ್ಕನ್ನು ಅರ್ಥಮಾಡಿಕೊಳ್ಳಲು ಸಹಾಯ ಮಾಡುತ್ತದೆ.
-            </p>
-            <h3>ಸೂಚ್ಯಂಕ ನಿಜವಾಗಿ ಏನು?</h3>
-            <p>
-              ಸೂಚ್ಯಂಕ ಎಂದರೆ ಸರಳವಾಗಿ ಒಂದು ಆಯ್ದ ಕಂಪನಿಗಳ ಬುಟ್ಟಿ - ಅದು ವಿಶಾಲ ಮಾರುಕಟ್ಟೆ ಅಥವಾ ಒಂದು ನಿರ್ದಿಷ್ಟ ವಲಯವನ್ನು ಪ್ರತಿನಿಧಿಸುತ್ತದೆ.
-            </p>
-            <p>
-              ಸೆನ್ಸೆಕ್ಸ್ ಅಥವಾ ನಿಫ್ಟಿ 50 ಏರಿದೆ ಅಥವಾ ಇಳಿದಿದೆ ಎಂದು ಕೇಳಿದಾಗ, ಆ ಬುಟ್ಟಿಯಲ್ಲಿರುವ ಕಂಪನಿಗಳ ಬೆಲೆ ಸರಾಸರಿ ಏರಿದೆ ಅಥವಾ ಇಳಿದಿದೆ ಎಂದರ್ಥ.
-            </p>
-            <p>
-              ನಿಫ್ಟಿ 50 NSE ಯಲ್ಲಿ ಅತಿ ದೊಡ್ಡ 50 ಕಂಪನಿಗಳನ್ನು ಹೊಂದಿದೆ. ಸೆನ್ಸೆಕ್ಸ್ BSE ಯಲ್ಲಿ ಅತಿ ದೊಡ್ಡ 30 ಕಂಪನಿಗಳನ್ನು ಹೊಂದಿದೆ.
-            </p>
-            <h3>ಕ್ಷೇತ್ರ ಮತ್ತು ವಿಷಯಾಧಾರಿತ ಸೂಚ್ಯಂಕಗಳು</h3>
-            <p>
-              ನಿಫ್ಟಿ ಬ್ಯಾಂಕ್ (ಬ್ಯಾಂಕಿಂಗ್ ಷೇರುಗಳು), ನಿಫ್ಟಿ IT (ತಂತ್ರಜ್ಞಾನ ಕಂಪನಿಗಳು), ನಿಫ್ಟಿ FMCG (ಗ್ರಾಹಕ ಸರಕು), ಮತ್ತು ನಿಫ್ಟಿ ಫಾರ್ಮಾ (ಔಷಧ) ನಿರ್ದಿಷ್ಟ ಕ್ಷೇತ್ರ ಅಥವಾ ವಿಷಯದ ಮೇಲೆ ಕೇಂದ್ರೀಕರಿಸುತ್ತವೆ.
-            </p>
-            <h3>ಸೂಚ್ಯಂಕಗಳು ಏಕೆ ಮುಖ್ಯ?</h3>
-            <p>
-              ಅವು ಮಾರುಕಟ್ಟೆ ಭಾವನೆ ಅಳೆಯಲು ಸಹಾಯ ಮಾಡುತ್ತವೆ, ಮ್ಯೂಚುವಲ್ ಫಂಡ್ ಕಾರ್ಯಕ್ಷಮತೆಗೆ ಮಾನದಂಡವಾಗಿ ಕಾರ್ಯನಿರ್ವಹಿಸುತ್ತವೆ, ಮತ್ತು ಇಂಡೆಕ್ಸ್ ಫಂಡ್ ಮತ್ತು ETF ಗಳ ಆಧಾರವಾಗಿರುತ್ತವೆ.
-            </p>
-          </>
-        ),
-      },
-    },
-
-    {
-      title: {
-        en: "Chapter 6: Understanding the Basics - Key Jargon Simplified",
-        kn: "ಅಧ್ಯಾಯ 6: ಮೂಲಭೂತ ಪರಿಭಾಷೆ ಸರಳೀಕರಿಸಲಾಗಿದೆ",
-      },
-      content: {
-        en: (
-          <>
-            <ul>
-              <li><strong>Stock / Share:</strong> A unit of ownership in a company.</li>
-              <li><strong>Equity:</strong> Ownership stake - not a loan, but a share of the business.</li>
-              <li><strong>Market Capitalization:</strong> Total company value = Share price × Number of shares.</li>
-              <li><strong>Bull Market:</strong> A period of rising optimism and prices.</li>
-              <li><strong>Bear Market:</strong> A period of pessimism and falling prices.</li>
-              <li><strong>Portfolio:</strong> Your collection of investments - across stocks, funds, real estate, etc.</li>
-              <li><strong>Dividend:</strong> Profit shared by companies with their shareholders.</li>
-            </ul>
-          </>
-        ),
-        kn: (
-          <>
-            <p>
-              ಹೂಡಿಕೆ ಜಗತ್ತಿಗೆ ಮೊದಲ ಬಾರಿ ಕಾಲಿಡುವಾಗ, ಪರಿಭಾಷೆ ಅಭಿಭೂತಗೊಳಿಸಬಹುದು - ಎಲ್ಲರೂ ಈಗಾಗಲೇ ಮಾತನಾಡುವ ಹೊಸ ಭಾಷೆಯಂತೆ. ಆದರೆ ಕೆಲವು ಪ್ರಮುಖ ಪದಗಳನ್ನು ತಿಳಿದ ನಂತರ, ಮಾರುಕಟ್ಟೆ ಹೆಚ್ಚು ಅರ್ಥವಾಗಲು ಆರಂಭಿಸುತ್ತದೆ.
-            </p>
-            <h3>ಷೇರು / ಶೇರ್</h3>
-            <p>
-              ಒಂದು ಕಂಪನಿಯಲ್ಲಿ ಮಾಲೀಕತ್ವದ ಒಂದು ಘಟಕ. ಕಂಪನಿ 1 ಕೋಟಿ ಷೇರು ನೀಡಿದ್ದರೆ ಮತ್ತು ನೀವು 1,000 ಹೊಂದಿದ್ದರೆ, ನೀವು ಅಕ್ಷರಶಃ ಆ ಕಂಪನಿಯ 0.001% ಮಾಲೀಕರು.
-            </p>
-            <h3>ಈಕ್ವಿಟಿ</h3>
-            <p>
-              ಮಾಲೀಕತ್ವದ ಇನ್ನೊಂದು ಪದ. ನೀವು ಕಂಪನಿಗೆ ಹಣ ಸಾಲ ನೀಡುತ್ತಿಲ್ಲ - ನೀವು ಅದರ ಭಾಗ ಮಾಲೀಕರಾಗುತ್ತೀರಿ.
-            </p>
-            <h3>ಮಾರುಕಟ್ಟೆ ಬಂಡವಾಳೀಕರಣ</h3>
-            <p>
-              ಕಂಪನಿಯ ಒಟ್ಟು ಮಾರುಕಟ್ಟೆ ಮೌಲ್ಯ: ಷೇರು ಬೆಲೆ × ಒಟ್ಟು ಷೇರುಗಳ ಸಂಖ್ಯೆ. ರಿಲಯನ್ಸ್ ₹3,000 ಷೇರು ಬೆಲೆ ಮತ್ತು 675 ಕೋಟಿ ಷೇರು ಹೊಂದಿದ್ದರೆ, ಅದರ ಮಾರ್ಕೆಟ್ ಕ್ಯಾಪ್ ₹20 ಲಕ್ಷ ಕೋಟಿ ಮೀರುತ್ತದೆ.
-            </p>
-            <h3>ಬುಲ್ ಮಾರ್ಕೆಟ್</h3>
-            <p>
-              ಷೇರು ಬೆಲೆಗಳು ಸಾಮಾನ್ಯವಾಗಿ ಏರುತ್ತಿರುವ ಸಮಯ. ಆಶಾವಾದ ಮತ್ತು ಬಲವಾದ ಆರ್ಥಿಕ ಬೆಳವಣಿಗೆ ಇದ್ದಾಗ ಅದು ತೆರೆದುಕೊಳ್ಳುತ್ತದೆ.
-            </p>
-            <h3>ಬೇರ್ ಮಾರ್ಕೆಟ್</h3>
-            <p>
-              ಬೆಲೆಗಳು ಸಾಮಾನ್ಯವಾಗಿ ಇಳಿಯುತ್ತಿರುವ ಸಮಯ. ಹೂಡಿಕೆದಾರರು ಮಾರಾಟ ಮಾಡುತ್ತಾರೆ ಮತ್ತು ಭಾವನೆ ನಕಾರಾತ್ಮಕ.
-            </p>
-            <h3>ಪೋರ್ಟ್‌ಫೋಲಿಯೊ</h3>
-            <p>
-              ನೀವು ಹೊಂದಿರುವ ಎಲ್ಲ ಹೂಡಿಕೆಗಳ ಸಂಗ್ರಹ - ಷೇರುಗಳು, ಮ್ಯೂಚುವಲ್ ಫಂಡ್‌ಗಳು, ಬಾಂಡ್‌ಗಳು, ಚಿನ್ನ, ರಿಯಲ್ ಎಸ್ಟೇಟ್.
-            </p>
-            <h3>ಡಿವಿಡೆಂಡ್</h3>
-            <p>
-              ಕಂಪನಿ ಷೇರುದಾರರಿಗೆ ಲಾಭ ಹಂಚಿಕೊಂಡಾಗ. TCS ಸ್ಥಿರವಾಗಿ ₹72&ndash;80 ವಾರ್ಷಿಕ ಡಿವಿಡೆಂಡ್ ನೀಡಿದೆ.
-            </p>
-          </>
-        ),
-      },
-    },
-
-    {
-      title: {
-        en: "Chapter 7: Corporate Actions - When Companies Reshape Value",
-        kn: "ಅಧ್ಯಾಯ 7: ಕಾರ್ಪೊರೇಟ್ ಕ್ರಮಗಳ ಬಗ್ಗೆ ಮಾತನಾಡೋಣ",
-      },
-      content: {
-        en: (
-          <>
-            <p>
-              Owning a share doesn&apos;t just mean watching prices go up and down - companies
-              often take actions that directly impact your holdings. These are called corporate
-              actions.
-            </p>
-            <hr className="chapter-rule" />
-            <h3>Bonus Issue</h3>
-            <p>
-              Free shares issued to existing shareholders in a fixed ratio. A 1:1 bonus means
-              you get one additional share for every share you own. Your total holding
-              increases, but the overall value stays the same.
-            </p>
-            <hr className="chapter-rule" />
-            <h3>Stock Split</h3>
-            <p>
-              A company divides its shares into smaller units to make them more affordable.
-              A 1:5 split means each ₹100 share becomes 5 shares of ₹20 each. Total value
-              doesn&apos;t change, but smaller investors can buy in more easily.
-            </p>
-            <hr className="chapter-rule" />
-            <h3>Dividend Payouts</h3>
-            <p>
-              Companies distribute profits to shareholders. If TCS announces a ₹24 dividend
-              per share and you own 100 shares, you receive ₹2,400 directly in your bank
-              account.
-            </p>
-            <hr className="chapter-rule" />
-            <h3>Rights Issue</h3>
-            <p>
-              A company offers existing shareholders the chance to buy more shares at a
-              discount. A 1:4 rights issue means you can buy one extra share for every four
-              you already own.
-            </p>
-            <hr className="chapter-rule" />
-            <h3>Buyback</h3>
-            <p>
-              A company repurchases its own shares from the market, reducing shares in
-              circulation and often boosting earnings per share and stock price. Infosys and
-              Wipro frequently announce buybacks as a way to reward investors.
-            </p>
-            <hr className="chapter-rule" />
-            <h3>Merger or Demerger</h3>
-            <p>
-              <strong>Merger:</strong> Two companies combine into one entity (like HDFC and
-              HDFC Bank merging). <strong>Demerger:</strong> A company splits a business unit
-              into a separate entity (like Reliance spinning off Jio Financial). These can
-              reshape your portfolio as you may receive new shares.
-            </p>
-          </>
-        ),
-        kn: (
-          <>
-            <p>
-              ಷೇರು ಹೊಂದಿರುವುದು ಕೇವಲ ಬೆಲೆ ಏರಿಳಿತ ನೋಡುವುದಲ್ಲ - ಕಂಪನಿಗಳು ನಿಮ್ಮ ಹೋಲ್ಡಿಂಗ್‌ಗಳ ಮೇಲೆ ನೇರ ಪರಿಣಾಮ ಬೀರುವ ಕ್ರಮಗಳನ್ನು ಆಗಾಗ ತೆಗೆದುಕೊಳ್ಳುತ್ತವೆ. ಇವನ್ನು ಕಾರ್ಪೊರೇಟ್ ಕ್ರಮಗಳು ಎನ್ನುತ್ತಾರೆ.
-            </p>
-            <h3>ಬೋನಸ್ ಷೇರು</h3>
-            <p>
-              ಅಸ್ತಿತ್ವದಲ್ಲಿರುವ ಷೇರುದಾರರಿಗೆ ನಿರ್ದಿಷ್ಟ ಅನುಪಾತದಲ್ಲಿ ಉಚಿತ ಷೇರುಗಳನ್ನು ನೀಡಲಾಗುತ್ತದೆ. 1:1 ಬೋನಸ್ ಎಂದರೆ ನೀವು ಹೊಂದಿರುವ ಪ್ರತಿ ಷೇರಿಗೆ ಒಂದು ಹೆಚ್ಚುವರಿ ಷೇರು ಸಿಗುತ್ತದೆ. ಒಟ್ಟು ಹೋಲ್ಡಿಂಗ್ ಹೆಚ್ಚುತ್ತದೆ, ಆದರೆ ಒಟ್ಟು ಮೌಲ್ಯ ಅದೇ ಉಳಿಯುತ್ತದೆ.
-            </p>
-            <h3>ಸ್ಟಾಕ್ ಸ್ಪ್ಲಿಟ್</h3>
-            <p>
-              ಕಂಪನಿ ತನ್ನ ಷೇರುಗಳನ್ನು ಸಣ್ಣ ಘಟಕಗಳಾಗಿ ವಿಭಜಿಸಿ ಹೆಚ್ಚು ಕೈಗೆಟಕುವಂತೆ ಮಾಡುತ್ತದೆ. 1:5 ಸ್ಪ್ಲಿಟ್ ಎಂದರೆ ₹100 ರ ಒಂದು ಷೇರು ₹20 ರ 5 ಷೇರುಗಳಾಗುತ್ತದೆ. ಒಟ್ಟು ಮೌಲ್ಯ ಬದಲಾಗುವುದಿಲ್ಲ.
-            </p>
-            <h3>ಡಿವಿಡೆಂಡ್ ಪಾವತಿ</h3>
-            <p>
-              ಕಂಪನಿಗಳು ಲಾಭವನ್ನು ಷೇರುದಾರರಿಗೆ ವಿತರಿಸುತ್ತವೆ.
-            </p>
-            <h3>ರೈಟ್ಸ್ ಇಶ್ಯೂ</h3>
-            <p>
-              ಅಸ್ತಿತ್ವದಲ್ಲಿರುವ ಷೇರುದಾರರಿಗೆ ರಿಯಾಯಿತಿ ದರದಲ್ಲಿ ಹೆಚ್ಚಿನ ಷೇರುಗಳನ್ನು ಖರೀದಿಸುವ ಹಕ್ಕನ್ನು ನೀಡಲಾಗುತ್ತದೆ. ಇದು ಹಣ ಸಂಗ್ರಹಿಸುವ ಮತ್ತೊಂದು ವಿಧಾನ.
-            </p>
-            <h3>ಬೈಬ್ಯಾಕ್</h3>
-            <p>
-              ಕಂಪನಿ ಮಾರುಕಟ್ಟೆಯಿಂದ ತನ್ನ ಸ್ವಂತ ಷೇರುಗಳನ್ನು ಮರಳಿ ಖರೀದಿಸುತ್ತದೆ. ಇದು ಉಳಿದ ಷೇರುಗಳ ಮೌಲ್ಯ ಹೆಚ್ಚಿಸುತ್ತದೆ ಮತ್ತು ಕಂಪನಿ ತನ್ನ ಭವಿಷ್ಯದ ಬಗ್ಗೆ ವಿಶ್ವಾಸ ಹೊಂದಿದೆ ಎಂಬ ಸಂಕೇತ.
-            </p>
-            <h3>ವಿಲೀನ / ವಿಭಜನೆ</h3>
-            <p>
-              ಕಂಪನಿಗಳು ವಿಲೀನ ಆದಾಗ (ವಿಲೀನ), ಮಾಲೀಕತ್ವ ಮತ್ತು ಮೌಲ್ಯ ಬದಲಾಗುತ್ತದೆ. ಕಂಪನಿ ವಿಭಜನೆ ಆದಾಗ (ವಿಭಜನೆ), ಒಂದು ಅಥವಾ ಹೆಚ್ಚು ಹೊಸ ಕಂಪನಿಗಳು ಹುಟ್ಟಿಕೊಳ್ಳುತ್ತವೆ.
-            </p>
-          </>
-        ),
-      },
-    },
-
-    {
-      title: {
-        en: "Chapter 8: Wrapping Up - You Now Speak the Market's Language",
-        kn: "ಅಧ್ಯಾಯ 8: ನೀವು ಈಗ ಮಾರುಕಟ್ಟೆಯ ಭಾಷೆ ಮಾತನಾಡುತ್ತೀರಿ",
-      },
-      content: {
-        en: (
-          <>
-            <p>
-              You've come a long way - understanding what markets are, how trades happen,
-              and who makes it all work. You can now read financial headlines with
-              confidence.
-            </p>
-
-            <p>
-              The stock market isn't a casino - it's a living ecosystem of businesses,
-              investors, and systems shaping our economy. When you invest, you're
-              supporting progress and innovation.
-            </p>
-
-            <p>
-              The next step? Learning how to analyze companies, understand valuations, and
-              make smart, calm investment decisions. The real journey starts here.
-            </p>
-          </>
-        ),
-        kn: (
-          <>
-            <p>
-              ನೀವು ಬಹಳ ದೂರ ಬಂದಿದ್ದೀರಿ.
-            </p>
-            <p>
-              ಷೇರು ಮಾರುಕಟ್ಟೆ ಏನು ಎಂಬುದರಿಂದ ಹಿಡಿದು, ವ್ಯಾಪಾರಗಳು ಹೇಗೆ ನಡೆಯುತ್ತವೆ, ಯಾರು ಅವನ್ನು ನಿರ್ವಹಿಸುತ್ತಾರೆ, ಮತ್ತು ಆ ಗೊಂದಲ ಮೂಡಿಸುವ ಪದಗಳ ಅರ್ಥ ಏನು - ನೀವು ಪ್ರತಿ ಹೂಡಿಕೆದಾರರಿಗೆ ಅಗತ್ಯವಾದ ಅಡಿಪಾಯ ನಿರ್ಮಿಸಿದ್ದೀರಿ.
-            </p>
-            <p>
-              ಒಮ್ಮೆ ಗೊಂದಲ ಮೂಡಿಸುತ್ತಿದ್ದ ಪರಿಭಾಷೆ ಈಗ ಅರ್ಥವಾಗುತ್ತದೆ. "ನಿಫ್ಟಿ ಏರಿದೆ, ರಿಲಯನ್ಸ್ ಬೈಬ್ಯಾಕ್ ಪ್ರಕಟಿಸಿದೆ, SEBI ನಿಯಮಗಳನ್ನು ಬಿಗಿಗೊಳಿಸುತ್ತಿದೆ" ಎಂದು ಯಾರಾದರೂ ಹೇಳಿದಾಗ ಅದರ ಅರ್ಥ ನಿಮಗೆ ತಿಳಿಯುತ್ತದೆ.
-            </p>
-            <p>
-              ಮಾರುಕಟ್ಟೆ ಯಾವುದೋ ಅಮೂರ್ತ ಜೂಜಿನ ತಾಣವಲ್ಲ - ಅದು ವ್ಯವಹಾರಗಳು, ಹೂಡಿಕೆದಾರರು, ಮತ್ತು ವ್ಯವಸ್ಥೆಗಳ ಜೀವಂತ ಪರಿಸರ ವ್ಯವಸ್ಥೆ. ನೀವು ಹೂಡಿಕೆ ಮಾಡಿದಾಗ, ಆರ್ಥಿಕತೆಯ ಭವಿಷ್ಯ ರೂಪಿಸುತ್ತಿರುವ ಕಲ್ಪನೆಗಳು, ಜನರು, ಮತ್ತು ಕಂಪನಿಗಳ ಹಿಂದೆ ನಿಮ್ಮ ಹಣ ಇಡುತ್ತೀರಿ.
-            </p>
-            <p>
-              ಮುಂದಿನ ಹಂತ ಹೆಚ್ಚು ಪ್ರಾಯೋಗಿಕವಾಗಿರುತ್ತದೆ - ಕಂಪನಿಗಳನ್ನು ಹೇಗೆ ವಿಶ್ಲೇಷಿಸುವುದು, ಮೌಲ್ಯಮಾಪನ ಅರ್ಥಮಾಡಿಕೊಳ್ಳುವುದು, ಮತ್ತು ಶಾಂತ ಮನಸ್ಸಿನಿಂದ ಸ್ಮಾರ್ಟ್ ಹೂಡಿಕೆ ನಿರ್ಧಾರಗಳನ್ನು ತೆಗೆದುಕೊಳ್ಳುವುದು ಹೇಗೆ. ನಿಜವಾದ ಪ್ರಯಾಣ ಇಲ್ಲಿಂದ ಆರಂಭವಾಗುತ್ತದೆ.
-            </p>
-          </>
-        ),
-      },
-    },
-  ];
-
-  // ============================================================
-  // STATE & PARAMS
-  // ============================================================
+  const { lang, t } = useLanguage();
   const [isLoading, setIsLoading] = useState(true);
 
   const searchParams = useSearchParams();
@@ -559,6 +945,23 @@ export default function StockMarketPage() {
 
   const [chapterIndex, setChapterIndex] = useState(0);
   const [isComplete, setIsComplete] = useState(false);
+
+  const shouldScroll = React.useRef(false);
+
+  useEffect(() => {
+    if (shouldScroll.current) {
+      const h2 = document.querySelector(".chapter h2");
+      if (h2) {
+        h2.scrollIntoView({ behavior: "instant", block: "start" });
+        window.scrollBy(0, -20);
+      }
+      shouldScroll.current = false;
+    }
+  }, [chapterIndex, isComplete]);
+
+  function scrollToChapter() {
+    shouldScroll.current = true;
+  }
   const router = useRouter();
   const moduleId = "stock-market";
 
@@ -566,27 +969,21 @@ export default function StockMarketPage() {
 
   useEffect(() => {
     async function loadProgress() {
-      const chapter = chapterFromURL;
-
-      // URL override wins
-      if (chapter) {
-        setChapterIndex(Number(chapter));
+      if (chapterFromURL) {
+        setChapterIndex(Number(chapterFromURL));
         setIsLoading(false);
         return;
       }
 
-      // Load from DB
       const res = await fetch("/api/modules", { cache: "no-store" });
       if (res.ok) {
         const data = await res.json();
-        console.log("progress row:", data);
-
         if (data.moduleId === moduleId) {
           setChapterIndex(data.chapterNumber ?? 0);
         }
       }
 
-      setIsLoading(false); // done loading regardless
+      setIsLoading(false);
     }
 
     loadProgress();
@@ -596,13 +993,11 @@ export default function StockMarketPage() {
     await fetch("/api/modules", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        moduleId,
-        chapterNumber,
-      }),
+      body: JSON.stringify({ moduleId, chapterNumber }),
     });
   }
 
+  // ── Complete screen ───────────────────────────────────────────────────────
   if (isComplete) {
     return (
       <main className="container module-detail-container">
@@ -620,7 +1015,7 @@ export default function StockMarketPage() {
               <button
                 key={i}
                 className="chapter-dot done"
-                onClick={() => { setIsComplete(false); setChapterIndex(i); saveProgress(i); }}
+                onClick={() => { setIsComplete(false); setChapterIndex(i); saveProgress(i); scrollToChapter(); }}
               >
                 {i + 1}
               </button>
@@ -628,23 +1023,26 @@ export default function StockMarketPage() {
           </div>
         </div>
         <div className="complete-body">
-        <div className="complete-inner">
-          <div className="complete-icon">🎓</div>
-          <div className="complete-title">
-            Module 3<br /><em>Complete.</em>
+          <div className="complete-inner">
+            <div className="complete-icon">🎓</div>
+            <div className="complete-title">
+              Module 3<br /><em>Complete.</em>
+            </div>
+            <p className="complete-sub">
+              {lang === "kn"
+                ? "ನೀವು ಷೇರು ಮಾರುಕಟ್ಟೆ 101 ಪೂರ್ಣಗೊಳಿಸಿದ್ದೀರಿ — ಎಲ್ಲ 8 ಅಧ್ಯಾಯಗಳು. ಮಾರುಕಟ್ಟೆ ಹೇಗೆ ಕೆಲಸ ಮಾಡುತ್ತದೆ, ಯಾರು ಆಟಗಾರರು, ಮತ್ತು ಪ್ರತಿ ಹೂಡಿಕೆದಾರರಿಗೆ ಅಗತ್ಯವಾದ ಭಾಷೆ ನಿಮಗೆ ಈಗ ತಿಳಿದಿದೆ."
+                : "You've finished Stock Market 101 \u2014 all 8 chapters. You now understand how the market works, who the players are, and the language every investor speaks."}
+            </p>
+            <button className="complete-btn" onClick={() => router.push("/modules")}>
+              ← Back to All Modules
+            </button>
           </div>
-          <p className="complete-sub">
-            You&apos;ve finished Stock Market 101 &mdash; all 8 chapters. You now understand how the market works, who the players are, and the language every investor speaks.
-          </p>
-          <button className="complete-btn" onClick={() => router.push("/modules")}>
-            ← Back to All Modules
-          </button>
         </div>
-      </div>
       </main>
     );
   }
 
+  // ── Loading screen ────────────────────────────────────────────────────────
   if (isLoading) {
     return (
       <main className="module-loading-container">
@@ -654,6 +1052,7 @@ export default function StockMarketPage() {
     );
   }
 
+  // ── Main render ─────────────────────────────────────────────────────────
   return (
     <main className="container module-detail-container">
 
@@ -676,8 +1075,12 @@ export default function StockMarketPage() {
             return (
               <button
                 key={dotIdx}
-                className={["chapter-dot", chapterIndex > dotIdx ? "done" : "", chapterIndex === dotIdx ? "active" : ""].filter(Boolean).join(" ")}
-                onClick={() => { setChapterIndex(dotIdx); saveProgress(dotIdx); }}
+                className={[
+                  "chapter-dot",
+                  chapterIndex > dotIdx ? "done" : "",
+                  chapterIndex === dotIdx ? "active" : "",
+                ].filter(Boolean).join(" ")}
+                onClick={() => { setChapterIndex(dotIdx); saveProgress(dotIdx); scrollToChapter(); }}
               >
                 {dotIdx + 1}
               </button>
@@ -698,22 +1101,24 @@ export default function StockMarketPage() {
       <div className="chapter-nav">
         <button
           className="nav-btn prev"
-          onClick={async () => {
+          onClick={() => {
             setChapterIndex((i) => {
               const newIndex = Math.max(0, i - 1);
               saveProgress(newIndex);
               return newIndex;
             });
+            scrollToChapter();
           }}
           disabled={chapterIndex === 0}
         >
           ← {t("previous")}
         </button>
 
-          <span className="nav-chapter-info">
-            {`${chapterIndex + 1} / ${chapters.length}`}
-          </span>
-          <span className="nav-divider" />
+        <span className="nav-chapter-info">
+          {`${chapterIndex + 1} / ${chapters.length}`}
+        </span>
+        <span className="nav-divider" />
+
         <button
           className="nav-btn next"
           onClick={async () => {
@@ -726,13 +1131,13 @@ export default function StockMarketPage() {
                 saveProgress(newIndex);
                 return newIndex;
               });
+              scrollToChapter();
             }
           }}
         >
           {chapterIndex === chapters.length - 1 ? "Finish ✓" : `${t("next")} →`}
         </button>
       </div>
-
     </main>
   );
 }

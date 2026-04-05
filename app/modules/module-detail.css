@@ -70,6 +70,14 @@
   margin-top: 16px;
 }
 
+.caption {
+  font-size: 13px;
+  color: #999;
+  margin-top: 6px;
+  margin-bottom: 16px;
+  font-style: italic;
+}
+
 .chapter p,
 .chapter ul {
   color: #444;
@@ -273,6 +281,17 @@ blockquote {
   font-weight: 600;
 }
 
+/* ── Image Caption ── */
+.img-caption {
+  text-align: center;
+  font-size: 13px;
+  color: #999;
+  margin-top: -18px;
+  margin-bottom: 28px;
+  font-weight: 300;
+  line-height: 1.5;
+}
+
 /* ── Chapter Rule ── */
 .chapter-rule {
   height: 1px;
@@ -287,7 +306,6 @@ blockquote {
   color: #444;
   line-height: 1.85;
   font-weight: 300;
-  margin-bottom: 22px;
   text-align: justify;
 }
 .chapter p:last-child { margin-bottom: 0; }
