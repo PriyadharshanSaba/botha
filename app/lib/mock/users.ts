@@ -7,6 +7,7 @@ export const mockUsers: UserWithOTP[] = [
     lastName: "S",
     email: "priyadharshan.97@gmail.com",
     otp: "123456",
+    verified: true,
   },
   {
     id: "u2",
@@ -14,6 +15,7 @@ export const mockUsers: UserWithOTP[] = [
     lastName: "HD",
     email: "amogh036@gmail.com",
     otp: "123456",
+    verified: true,
   },
   {
     id: "u3",
@@ -21,6 +23,7 @@ export const mockUsers: UserWithOTP[] = [
     lastName: "Musk",
     email: "1@1",
     otp: "000000",
+    verified: true,
   },
 ];
 

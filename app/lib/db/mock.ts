@@ -10,6 +10,7 @@ export const MockDB: DBDriver = {
       id: crypto.randomUUID(),
       ...data,
       otp: "000000",
+      verified: false,
     };
     users.push(user);
     return user;
@@ -56,5 +57,17 @@ export const MockDB: DBDriver = {
   async getAllProgress(userId) {
     console.log("Mock getAllProgress for:", userId);
     return {};
-  }
+  },
+
+  async checkRateLimit(_email) {
+    return { allowed: true, attemptsLeft: 2 };
+  },
+
+  async recordOtpAttempt(_email) {
+    // no-op
+  },
+
+  async markUserVerified(_email) {
+    // no-op
+  },
 };
