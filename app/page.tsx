@@ -3,10 +3,14 @@
 import "./landing.css";
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
+import TermsModal from "@/app/components/TermsModal";
+import PrivacyModal from "@/app/components/PrivacyModal";
 
 export default function LandingPage() {
   const revealRefs = useRef<HTMLElement[]>([]);
+  const [showTerms, setShowTerms] = useState(false);
+  const [showPrivacy, setShowPrivacy] = useState(false);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -290,8 +294,8 @@ export default function LandingPage() {
           <div className="footer-col">
             <h5>Legal</h5>
             <ul>
-              <li><a href="#">Privacy Policy</a></li>
-              <li><a href="#">Terms of Use</a></li>
+              <li><a href="#" onClick={(e) => { e.preventDefault(); setShowPrivacy(true); }}>Privacy Policy</a></li>
+              <li><a href="#" onClick={(e) => { e.preventDefault(); setShowTerms(true); }}>Terms of Use</a></li>
               <li><a href="#">Disclaimer</a></li>
             </ul>
           </div>
@@ -301,6 +305,12 @@ export default function LandingPage() {
           <a href="#">Back to top &uarr;</a>
         </div>
       </footer>
+      {showTerms && (
+        <TermsModal viewOnly onClose={() => setShowTerms(false)} />
+      )}
+      {showPrivacy && (
+        <PrivacyModal onClose={() => setShowPrivacy(false)} />
+      )}
     </div>
   );
 }

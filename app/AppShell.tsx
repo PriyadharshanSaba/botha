@@ -2,6 +2,7 @@
 
 import { usePathname } from "next/navigation";
 import Header from "./components/Header";
+import AppFooter from "./components/AppFooter";
 import { LanguageProvider } from "./context/LanguageContext";
 
 export default function AppShell({ children }: { children: React.ReactNode }) {
@@ -14,6 +15,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
     <LanguageProvider>
       {showHeader && <Header />}
       {children}
+      {showHeader && <AppFooter />}
     </LanguageProvider>
   );
 }
