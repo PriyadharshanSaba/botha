@@ -1,6 +1,6 @@
 import { db } from "@/app/lib/db";
 import { NextResponse } from "next/server";
-import { generateOTP } from "@/app/lib/utils/otp";
+import { generateOTP, isTestEmail } from "@/app/lib/utils/otp";
 import { sendOtpEmail } from "@/app/lib/email/send";
 
 
@@ -35,7 +35,7 @@ export async function POST(req: Request) {
   const user = existing ?? await db.createUser({ firstName, lastName, email });
   console.log("[signup] user ready:", { id: user.id, reused: !!existing });
 
-  const otp = generateOTP();
+  const otp = generateOTP(email);
   const expiry = Date.now() + 5 * 60 * 1000; // 5 mins
 
   await db.saveOTP(email, otp, expiry);
@@ -43,12 +43,14 @@ export async function POST(req: Request) {
 
   await db.recordOtpAttempt(email);
 
-  try {
-    await sendOtpEmail(email, otp, firstName);
-    console.log("[signup] email sent to:", email);
-  } catch (err) {
-    console.error("[signup] email send failed:", err);
-    return NextResponse.json({ error: "Failed to send OTP email" }, { status: 500 });
+  if (!isTestEmail(email)) {
+    try {
+      await sendOtpEmail(email, otp, firstName);
+      console.log("[signup] email sent to:", email);
+    } catch (err) {
+      console.error("[signup] email send failed:", err);
+      return NextResponse.json({ error: "Failed to send OTP email" }, { status: 500 });
+    }
   }
 
   return NextResponse.json({ success: true, userId: user.id, attemptsLeft: attemptsLeft - 1 });
