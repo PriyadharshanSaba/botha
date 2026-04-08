@@ -52,13 +52,13 @@ export async function POST(req: NextRequest) {
     key_secret: process.env.RAZORPAY_KEY_SECRET,
   });
 
-  let order: Awaited<ReturnType<typeof razorpay.orders.create>>;
+  let order: { id: string };
   try {
     order = await razorpay.orders.create({
       amount,
       currency: "INR",
       notes: { planId, userId },
-    });
+    }) as { id: string };
   } catch (err) {
     console.error("[orders/create] Razorpay error:", err);
     return NextResponse.json({ error: "Payment gateway error" }, { status: 502 });
