@@ -1,9 +1,21 @@
+export type BillingInfo = {
+  phone: string;
+  addressLine1: string;
+  addressLine2?: string;
+  city: string;
+  state: string;
+  pincode: string;
+  gstin?: string;   // optional — business buyers
+  pan?: string;     // optional
+};
+
 export type User = {
   id: string;
   firstName: string;
   lastName: string;
   email: string;
   verified: boolean;
+  billingInfo?: BillingInfo | null;
 };
 
 export type UserWithOTP = User & {
@@ -19,6 +31,27 @@ export type CreateUserInput = {
   firstName: string;
   lastName: string;
   email: string;
+};
+
+export type Subscription = {
+  id: string;
+  userId: string;
+  planId: string;
+  status: string;
+  razorpayOrderId: string | null;
+  razorpayPaymentId: string | null;
+  amountPaise: number;
+  gstPaise: number;
+  createdAt: Date;
+  activatedAt: Date | null;
+};
+
+export type CreateSubscriptionInput = {
+  userId: string;
+  planId: string;
+  razorpayOrderId: string;
+  amountPaise: number;
+  gstPaise: number;
 };
 
 export type CookieConsent = {
@@ -42,6 +75,7 @@ export type SaveConsentInput = {
 
 export interface DBDriver {
   createUser(data: CreateUserInput): Promise<User>;
+  getUserById(id: string): Promise<User | null>;
   getUserByEmail(email: string): Promise<User | null>;
   saveOTP(email: string, otp: string, expiry: number): Promise<void>;
   verifyOTP(email: string, otp: string): Promise<boolean>;
@@ -55,4 +89,10 @@ export interface DBDriver {
   saveConsent(input: SaveConsentInput): Promise<CookieConsent>;
   getConsent(userId: string, policyVersion: string): Promise<CookieConsent | null>;
   withdrawConsent(userId: string, policyVersion: string): Promise<void>;
+  saveBillingInfo(userId: string, info: BillingInfo): Promise<void>;
+  createSubscription(input: CreateSubscriptionInput): Promise<Subscription>;
+  activateSubscription(razorpayOrderId: string, razorpayPaymentId: string): Promise<void>;
+  getUserSubscription(userId: string): Promise<Subscription | null>;
+  getSubscriptionByOrderId(razorpayOrderId: string): Promise<Subscription | null>;
+  getSubscriptionCount(planId: string): Promise<number>;
 }

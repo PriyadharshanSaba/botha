@@ -201,7 +201,7 @@ export default function AboutPage() {
             <div className="about-partner-card-top">
               <div className="about-partner-num">01</div>
               <div className="about-partner-avatar">A</div>
-              <div className="about-partner-name">Partner - Finance</div>
+              <div className="about-partner-name">CA Amogha H.D  - Finance</div>
               <div className="about-partner-title">Chartered Accountant &middot; Co-Founder</div>
             </div>
             <div className="about-partner-card-body">
@@ -218,9 +218,9 @@ export default function AboutPage() {
           <div className="about-partner-card about-reveal" ref={addRevealRef} style={{ transitionDelay: "0.15s" }}>
             <div className="about-partner-card-top">
               <div className="about-partner-num">02</div>
-              <div className="about-partner-avatar" style={{ background: "var(--slate)" }}>T</div>
-              <div className="about-partner-name">Partner - Technology</div>
-              <div className="about-partner-title">Senior Developer &middot; Co-Founder</div>
+              <div className="about-partner-avatar" style={{ background: "var(--slate)" }}>PD</div>
+              <div className="about-partner-name">Priyadharshan S - Technology</div>
+              <div className="about-partner-title">Engineer &middot; Co-Founder</div>
             </div>
             <div className="about-partner-card-body">
               <p className="about-partner-bio">

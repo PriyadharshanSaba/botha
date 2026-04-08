@@ -1,4 +1,4 @@
-import { pgTable, text, timestamp, integer, primaryKey, serial, boolean, unique } from "drizzle-orm/pg-core";
+import { pgTable, text, timestamp, integer, primaryKey, serial, boolean, unique, jsonb } from "drizzle-orm/pg-core";
 
 export const users = pgTable("users", {
   id: text("id").primaryKey(),
@@ -9,12 +9,26 @@ export const users = pgTable("users", {
   otp: text("otp"),
   otpExpiry: timestamp("otp_expiry"),
   verified: boolean("verified").default(false).notNull(),
+  billingInfo: jsonb("billing_info"),
 });
 
 export const otpAttempts = pgTable("otp_attempts", {
   id: serial("id").primaryKey(),
   email: text("email").notNull(),
   attemptedAt: timestamp("attempted_at").defaultNow().notNull(),
+});
+
+export const subscriptions = pgTable("subscriptions", {
+  id: text("id").primaryKey(),
+  userId: text("user_id").notNull().references(() => users.id, { onDelete: "cascade" }),
+  planId: text("plan_id").notNull(),                   // 'founding' | 'early_access' | 'regular'
+  status: text("status").notNull().default("pending"),  // 'pending' | 'active'
+  razorpayOrderId: text("razorpay_order_id").unique(),
+  razorpayPaymentId: text("razorpay_payment_id"),
+  amountPaise: integer("amount_paise").notNull(),       // total incl. GST
+  gstPaise: integer("gst_paise").notNull(),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  activatedAt: timestamp("activated_at"),
 });
 
 export const cookieConsents = pgTable(

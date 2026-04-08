@@ -1,6 +1,6 @@
-import { DBDriver, CreateUserInput, User, SaveConsentInput, CookieConsent } from "./types";
+import { DBDriver, CreateUserInput, User, SaveConsentInput, CookieConsent, Subscription, CreateSubscriptionInput, BillingInfo } from "./types";
 import { db } from "./connection";
-import { users, userProgress, otpAttempts, cookieConsents } from "./schema";
+import { users, userProgress, otpAttempts, cookieConsents, subscriptions } from "./schema";
 import { eq, and, gte, count } from "drizzle-orm";
 import crypto from "crypto";
 
@@ -21,6 +21,14 @@ export const PostgresDB: DBDriver = {
     });
 
     return { id, ...data, verified: false };
+  },
+
+  /* --------------------------------
+     GET USER BY ID
+  ----------------------------------*/
+  async getUserById(id: string) {
+    const result = await db.select().from(users).where(eq(users.id, id)).limit(1);
+    return result[0] || null;
   },
 
   /* --------------------------------
@@ -181,6 +189,79 @@ export const PostgresDB: DBDriver = {
       .where(eq(userProgress.userId, userId));
 
     return Object.fromEntries(rows.map((r) => [r.moduleId, r.chapterNumber]));
+  },
+
+  /* --------------------------------
+     BILLING INFO: Save to user record
+  ----------------------------------*/
+  async saveBillingInfo(userId: string, info: BillingInfo): Promise<void> {
+    await db
+      .update(users)
+      .set({ billingInfo: info })
+      .where(eq(users.id, userId));
+  },
+
+  /* --------------------------------
+     SUBSCRIPTION: Create (pending)
+  ----------------------------------*/
+  async createSubscription(input: CreateSubscriptionInput): Promise<Subscription> {
+    const id = crypto.randomUUID();
+    await db.insert(subscriptions).values({
+      id,
+      userId: input.userId,
+      planId: input.planId,
+      status: "pending",
+      razorpayOrderId: input.razorpayOrderId,
+      amountPaise: input.amountPaise,
+      gstPaise: input.gstPaise,
+      createdAt: new Date(),
+    });
+    return (await db.select().from(subscriptions).where(eq(subscriptions.id, id)).limit(1))[0] as Subscription;
+  },
+
+  /* --------------------------------
+     SUBSCRIPTION: Activate on payment
+  ----------------------------------*/
+  async activateSubscription(razorpayOrderId: string, razorpayPaymentId: string): Promise<void> {
+    await db
+      .update(subscriptions)
+      .set({ status: "active", razorpayPaymentId, activatedAt: new Date() })
+      .where(eq(subscriptions.razorpayOrderId, razorpayOrderId));
+  },
+
+  /* --------------------------------
+     SUBSCRIPTION: Get active for user
+  ----------------------------------*/
+  async getUserSubscription(userId: string): Promise<Subscription | null> {
+    const res = await db
+      .select()
+      .from(subscriptions)
+      .where(and(eq(subscriptions.userId, userId), eq(subscriptions.status, "active")))
+      .limit(1);
+    return (res[0] as Subscription) ?? null;
+  },
+
+  /* --------------------------------
+     SUBSCRIPTION: Get by Razorpay order ID
+  ----------------------------------*/
+  async getSubscriptionByOrderId(razorpayOrderId: string): Promise<Subscription | null> {
+    const res = await db
+      .select()
+      .from(subscriptions)
+      .where(eq(subscriptions.razorpayOrderId, razorpayOrderId))
+      .limit(1);
+    return (res[0] as Subscription) ?? null;
+  },
+
+  /* --------------------------------
+     SUBSCRIPTION: Count active seats for a plan
+  ----------------------------------*/
+  async getSubscriptionCount(planId: string): Promise<number> {
+    const res = await db
+      .select({ total: count() })
+      .from(subscriptions)
+      .where(and(eq(subscriptions.planId, planId), eq(subscriptions.status, "active")));
+    return res[0]?.total ?? 0;
   },
 
   /* --------------------------------
