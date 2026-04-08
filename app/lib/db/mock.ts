@@ -1,4 +1,4 @@
-import { DBDriver, UserWithOTP, CreateUserInput } from "./types";
+import { DBDriver, UserWithOTP, CreateUserInput, CookieConsent, SaveConsentInput } from "./types";
 import { mockUsers } from "../mock/users";
 import crypto from "crypto";
 
@@ -68,6 +68,26 @@ export const MockDB: DBDriver = {
   },
 
   async markUserVerified(_email) {
+    // no-op
+  },
+
+  async saveConsent(input: SaveConsentInput): Promise<CookieConsent> {
+    return {
+      id: "mock-id",
+      userId: input.userId,
+      analytics: input.analytics,
+      marketing: input.marketing,
+      policyVersion: input.policyVersion,
+      consentedAt: new Date(),
+      withdrawnAt: null,
+    };
+  },
+
+  async getConsent(_userId: string, _policyVersion: string): Promise<CookieConsent | null> {
+    return null; // always prompts in mock
+  },
+
+  async withdrawConsent(_userId: string, _policyVersion: string): Promise<void> {
     // no-op
   },
 };

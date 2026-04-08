@@ -21,6 +21,25 @@ export type CreateUserInput = {
   email: string;
 };
 
+export type CookieConsent = {
+  id: string;
+  userId: string;
+  analytics: boolean;
+  marketing: boolean;
+  consentedAt: Date;
+  policyVersion: string;
+  withdrawnAt: Date | null;
+};
+
+export type SaveConsentInput = {
+  userId: string;
+  analytics: boolean;
+  marketing: boolean;
+  policyVersion: string;
+  ipAddress?: string;
+  userAgent?: string;
+};
+
 export interface DBDriver {
   createUser(data: CreateUserInput): Promise<User>;
   getUserByEmail(email: string): Promise<User | null>;
@@ -33,4 +52,7 @@ export interface DBDriver {
   hasCompletedChapter(userId: string, moduleId: string, chapterNumber: number): Promise<boolean>;
   getLastCompletedChapter(userId: string): Promise<{moduleId: string | null; chapterNumber: number;}>;
   getAllProgress(userId: string): Promise<Record<string, number>>;
+  saveConsent(input: SaveConsentInput): Promise<CookieConsent>;
+  getConsent(userId: string, policyVersion: string): Promise<CookieConsent | null>;
+  withdrawConsent(userId: string, policyVersion: string): Promise<void>;
 }

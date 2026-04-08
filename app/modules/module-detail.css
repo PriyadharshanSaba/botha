@@ -282,7 +282,8 @@ blockquote {
 }
 
 /* ── Image Caption ── */
-.img-caption {
+.img-caption,
+.chapter p.img-caption {
   text-align: center;
   font-size: 13px;
   color: #999;

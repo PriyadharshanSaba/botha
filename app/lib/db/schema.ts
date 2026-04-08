@@ -1,4 +1,4 @@
-import { pgTable, text, timestamp, integer, primaryKey, serial, boolean } from "drizzle-orm/pg-core";
+import { pgTable, text, timestamp, integer, primaryKey, serial, boolean, unique } from "drizzle-orm/pg-core";
 
 export const users = pgTable("users", {
   id: text("id").primaryKey(),
@@ -16,6 +16,28 @@ export const otpAttempts = pgTable("otp_attempts", {
   email: text("email").notNull(),
   attemptedAt: timestamp("attempted_at").defaultNow().notNull(),
 });
+
+export const cookieConsents = pgTable(
+  "cookie_consents",
+  {
+    id: text("id").primaryKey(),
+    userId: text("user_id")
+      .notNull()
+      .references(() => users.id, { onDelete: "cascade" }),
+
+    analytics: boolean("analytics").notNull().default(false),
+    marketing: boolean("marketing").notNull().default(false),
+
+    consentedAt: timestamp("consented_at").defaultNow().notNull(),
+    policyVersion: text("policy_version").notNull(),
+    ipAddress: text("ip_address"),
+    userAgent: text("user_agent"),
+    withdrawnAt: timestamp("withdrawn_at"),
+  },
+  (table) => ({
+    unq: unique().on(table.userId, table.policyVersion), // one record per user per policy version
+  })
+);
 
 export const userProgress = pgTable(
   "user_progress",

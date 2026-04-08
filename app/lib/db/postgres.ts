@@ -1,6 +1,6 @@
-import { DBDriver, CreateUserInput, User } from "./types";
+import { DBDriver, CreateUserInput, User, SaveConsentInput, CookieConsent } from "./types";
 import { db } from "./connection";
-import { users, userProgress, otpAttempts } from "./schema";
+import { users, userProgress, otpAttempts, cookieConsents } from "./schema";
 import { eq, and, gte, count } from "drizzle-orm";
 import crypto from "crypto";
 
@@ -181,6 +181,83 @@ export const PostgresDB: DBDriver = {
       .where(eq(userProgress.userId, userId));
 
     return Object.fromEntries(rows.map((r) => [r.moduleId, r.chapterNumber]));
-  }
+  },
+
+  /* --------------------------------
+     CONSENT: Save (upsert by version)
+  ----------------------------------*/
+  async saveConsent(input: SaveConsentInput): Promise<CookieConsent> {
+    const id = crypto.randomUUID();
+
+    await db
+      .insert(cookieConsents)
+      .values({
+        id,
+        userId: input.userId,
+        analytics: input.analytics,
+        marketing: input.marketing,
+        policyVersion: input.policyVersion,
+        ipAddress: input.ipAddress ?? null,
+        userAgent: input.userAgent ?? null,
+        consentedAt: new Date(),
+      })
+      .onConflictDoUpdate({
+        target: [cookieConsents.userId, cookieConsents.policyVersion],
+        set: {
+          analytics: input.analytics,
+          marketing: input.marketing,
+          consentedAt: new Date(),
+          ipAddress: input.ipAddress ?? null,
+          userAgent: input.userAgent ?? null,
+          withdrawnAt: null, // re-consenting clears any prior withdrawal
+        },
+      });
+
+    const row = await db
+      .select()
+      .from(cookieConsents)
+      .where(
+        and(
+          eq(cookieConsents.userId, input.userId),
+          eq(cookieConsents.policyVersion, input.policyVersion)
+        )
+      )
+      .limit(1);
+
+    return row[0] as CookieConsent;
+  },
+
+  /* --------------------------------
+     CONSENT: Get by user + version
+  ----------------------------------*/
+  async getConsent(userId: string, policyVersion: string): Promise<CookieConsent | null> {
+    const res = await db
+      .select()
+      .from(cookieConsents)
+      .where(
+        and(
+          eq(cookieConsents.userId, userId),
+          eq(cookieConsents.policyVersion, policyVersion)
+        )
+      )
+      .limit(1);
+
+    return (res[0] as CookieConsent) ?? null;
+  },
+
+  /* --------------------------------
+     CONSENT: Withdraw
+  ----------------------------------*/
+  async withdrawConsent(userId: string, policyVersion: string): Promise<void> {
+    await db
+      .update(cookieConsents)
+      .set({ withdrawnAt: new Date() })
+      .where(
+        and(
+          eq(cookieConsents.userId, userId),
+          eq(cookieConsents.policyVersion, policyVersion)
+        )
+      );
+  },
 };
 

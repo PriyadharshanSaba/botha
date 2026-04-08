@@ -101,7 +101,7 @@ export default function TechnicalAnalysisPage() {
     },
 
     {
-      title: "Chapter 2: Charts &mdash; The Foundation of Price Analysis",
+      title: "Chapter 2: Charts — The Foundation of Price Analysis",
       content: (
         <>
             <p>What exactly is a chart?</p>
@@ -183,7 +183,7 @@ export default function TechnicalAnalysisPage() {
     },
 
     {
-      title: "Chapter 3: Market Structure &amp; Trend Theory",
+      title: "Chapter 3: Market Structure & Trend Theory",
       content: (
         <>
             <p>(The Foundation of All Technical Analysis)</p>
@@ -370,7 +370,7 @@ export default function TechnicalAnalysisPage() {
     },
 
     {
-      title: "Chapter 4: Candlestick Charts &mdash; Deep Dive",
+      title: "Chapter 4: Candlestick Charts — Deep Dive",
       content: (
         <>
             <p>Like we learnt in Chapter 2, Candlesticks are not just visual tools on a chart. They are compressed stories of what happened during a specific time-period, whether that period is a day, a week, or even a month.</p>
@@ -387,7 +387,7 @@ export default function TechnicalAnalysisPage() {
             <p>A long lower wick suggests buyers stepped in aggressively.</p>
             <img src="/technical-analysis/image95.png" alt="" style={imgStyle} />
             <img src="/technical-analysis/image97.png" alt="" style={imgStyle} />
-            <p>(These snippets are extracted from the Reliance chart for reference)</p>
+            <p className="img-caption">(These snippets are extracted from the Reliance chart for reference)</p>
             <p>When you combine candlesticks with trend structure, price starts to make logical sense instead of looking random.</p>
             <hr className="chapter-rule" />
             <h3>1 The Body &mdash; Measuring Conviction</h3>
@@ -476,10 +476,10 @@ export default function TechnicalAnalysisPage() {
             </ul>
             <p>Behaviorally, a hammer tells this story: sellers pushed the price down significantly during the session, but buyers stepped in aggressively and drove it back up before the close. The market rejected lower prices.</p>
             <img src="/technical-analysis/image3.png" alt="" style={imgStyle} />
-            <p>(A snippet from ITC Chart)</p>
+            <p className="img-caption">(A Snippet from ITC Chart)</p>
             <p>When this appears after a pullback or near support, it can indicate potential buyer strength. It suggests that selling pressure may be exhausting and demand is returning. However, confirmation from the next candle is important.</p>
             <img src="/technical-analysis/image2.png" alt="" style={imgStyle} />
-            <p>(A snippet from ITC Chart to show how it may appear)</p>
+            <p className="img-caption">(A Snippet from ITC Chart to show how it may appear)</p>
             <hr className="chapter-rule" />
             <h3>Shooting Star</h3>
             <p>A shooting star has:</p>
@@ -491,10 +491,10 @@ export default function TechnicalAnalysisPage() {
             </ul>
             <p>This candle tells the opposite story. Buyers pushed the price higher during the session, but sellers entered strongly and forced price back down before the close. Higher prices were rejected.</p>
             <img src="/technical-analysis/image28.png" alt="" style={imgStyle} />
-            <p>(A snippet from HDFC Bank Chart)</p>
+            <p className="img-caption">(A Snippet from HDFC Bank Chart)</p>
             <p>When this appears near resistance or after a strong rally, it can indicate potential supply entering the market. It may signal a pause, pullback or short-term exhaustion.</p>
             <img src="/technical-analysis/image10.png" alt="" style={imgStyle} />
-            <p>(A snippet from HDFC Bank Chart to show how it may appear)</p>
+            <p className="img-caption">(A Snippet from HDFC Bank Chart to show how it may appear)</p>
             <hr className="chapter-rule" />
             <h3>Doji</h3>
             <p>A doji has:</p>
@@ -505,7 +505,7 @@ export default function TechnicalAnalysisPage() {
             </ul>
             <p>A doji reflects indecision. Neither buyers nor sellers gained clear control during that period. The market explored higher and/or lower prices but ultimately closed near where it began.</p>
             <img src="/technical-analysis/image6.png" alt="" style={imgStyle} />
-            <p>(A snippet from Reliance Chart)</p>
+            <p className="img-caption">(A Snippet from Reliance Chart)</p>
             <p>After a strong rally, a doji may indicate momentum slowing. After a sharp decline, it may signal stabilization. On its own, it does not confirm reversal, it simply signals balance or hesitation.</p>
             <hr className="chapter-rule" />
             <h3>Marubozu</h3>
@@ -527,7 +527,7 @@ export default function TechnicalAnalysisPage() {
             </ul>
             <p>There is minimal rejection. Sellers had very little control during the period.</p>
             <img src="/technical-analysis/image11.png" alt="" style={imgStyle} />
-            <p>(A snippet from Reliance Chart on a 5m time frame)</p>
+            <p className="img-caption">(A Snippet from Reliance Chart on a 5m time frame)</p>
             <p>This often appears:</p>
             <ul>
               <li>During strong breakouts</li>
@@ -545,7 +545,7 @@ export default function TechnicalAnalysisPage() {
             </ul>
             <p>There is very little buying support during that session.</p>
             <img src="/technical-analysis/image15.png" alt="" style={imgStyle} />
-            <p>(A snippet from Reliance Chart on a 5m time frame)</p>
+            <p className="img-caption">(A Snippet from Reliance Chart on a 5m time frame)</p>
             <p>This often appears:</p>
             <ul>
               <li>During breakdowns</li>
@@ -623,7 +623,7 @@ export default function TechnicalAnalysisPage() {
             </ul>
             <p>The key point is not just size, it&apos;s dominance. The second candle does not merely recover losses; it overwhelms the previous session entirely.</p>
             <img src="/technical-analysis/image7.png" alt="" style={imgStyle} />
-            <p>(Bullish Engulfing Pattern)</p>
+            <p className="img-caption">(Bullish Engulfing Pattern)</p>
             <hr className="chapter-rule" />
             <h3>What It Means</h3>
             <p>On Day 1, sellers are in control. Price closes lower, reflecting weakness or continuation of a pullback.</p>
@@ -631,7 +631,7 @@ export default function TechnicalAnalysisPage() {
             <p>This represents a clear shift in momentum.</p>
             <p>It signals that demand has not only returned, it has taken control decisively.</p>
             <img src="/technical-analysis/image36.png" alt="" style={imgStyle} />
-            <p>(A snippet of bullish engulfing pattern from Reliance Chart)</p>
+            <p className="img-caption">(A Snippet of bullish engulfing pattern from Reliance Chart)</p>
             <hr className="chapter-rule" />
             <h3>Where It Matters Most</h3>
             <p>A bullish engulfing pattern is most meaningful when it appears:</p>
@@ -657,7 +657,7 @@ export default function TechnicalAnalysisPage() {
             </ul>
             <p>The importance lies in the shift of dominance. The second candle does not just decline slightly, it fully overrides the previous session&apos;s gains.</p>
             <img src="/technical-analysis/image29.png" alt="" style={imgStyle} />
-            <p>(Bearish Engulfing Pattern)</p>
+            <p className="img-caption">(Bearish Engulfing Pattern)</p>
             <hr className="chapter-rule" />
             <h3>What It Means</h3>
             <p>On Day 1, buyers appear to be in control. Price closes higher, suggesting continuation of strength.</p>
@@ -665,7 +665,7 @@ export default function TechnicalAnalysisPage() {
             <p>This signals a sharp shift in momentum.</p>
             <p>It suggests that supply has emerged decisively and buyers are losing short-term control.</p>
             <img src="/technical-analysis/image13.png" alt="" style={imgStyle} />
-            <p>(A snippet of bearish engulfing pattern from Reliance Chart)</p>
+            <p className="img-caption">(A Snippet of bearish engulfing pattern from Reliance Chart)</p>
             <hr className="chapter-rule" />
             <h3>Where It Matters Most</h3>
             <p>A bearish engulfing pattern carries more weight when it appears:</p>
@@ -696,7 +696,7 @@ export default function TechnicalAnalysisPage() {
             </ul>
             <p>This is a three-candle transition pattern. It does not rely on a single signal, it shows change unfolding step by step.</p>
             <img src="/technical-analysis/image4.png" alt="" style={imgStyle} />
-            <p>(Morning Star Pattern)</p>
+            <p className="img-caption">(Morning Star Pattern)</p>
             <hr className="chapter-rule" />
             <h3>What It Means</h3>
             <p>The pattern tells a clear story:</p>
@@ -708,7 +708,7 @@ export default function TechnicalAnalysisPage() {
             <p>This reflects a gradual shift from supply to demand.</p>
             <p>Unlike a single hammer (which shows rejection within one session), the Morning Star builds confirmation across multiple sessions. It shows that selling pressure weakened first and then buyers took control decisively.</p>
             <img src="/technical-analysis/image22.png" alt="" style={imgStyle} />
-            <p>(A snippet of morning star pattern from Reliance Chart)</p>
+            <p className="img-caption">(A Snippet of morning star pattern from Reliance Chart)</p>
             <hr className="chapter-rule" />
             <h3>Where It Matters Most</h3>
             <p>Morning Star patterns are most meaningful when they appear:</p>
@@ -732,7 +732,7 @@ export default function TechnicalAnalysisPage() {
             </ul>
             <p>Like the Morning Star, this is a three-candle transition pattern but in the opposite direction. It shows strength first, then hesitation and finally reversal pressure.</p>
             <img src="/technical-analysis/image20.png" alt="" style={imgStyle} />
-            <p>(Evening Star Pattern)</p>
+            <p className="img-caption">(Evening Star Pattern)</p>
             <hr className="chapter-rule" />
             <h3>What It Means</h3>
             <p>The pattern unfolds in stages:</p>
@@ -744,7 +744,7 @@ export default function TechnicalAnalysisPage() {
             <p>This sequence reflects exhaustion near highs. Buying momentum weakens, uncertainty appears and sellers begin taking control.</p>
             <p>Unlike a single shooting star, the Evening Star builds confirmation across sessions. It shows that the shift from demand to supply is not just momentary, it is developing.</p>
             <img src="/technical-analysis/image8.png" alt="" style={imgStyle} />
-            <p>(A snippet of evening star pattern from Reliance Chart)</p>
+            <p className="img-caption">(A Snippet of evening star pattern from Reliance Chart)</p>
             <hr className="chapter-rule" />
             <h3>Where It Matters Most</h3>
             <p>Evening Star patterns are most meaningful when they appear:</p>
@@ -895,7 +895,7 @@ export default function TechnicalAnalysisPage() {
             </ul>
             <p>That reaction validates the level.</p>
             <img src="/technical-analysis/image12.png" alt="" style={imgStyle} />
-            <p>(A snippet from Nifty 50 chart showing the support zone on 1D time frame, the zone can be narrower &ndash; leaving it wider for easier understanding)</p>
+            <p className="img-caption">(A Snippet from Nifty 50 chart showing the support zone on 1D time frame, the zone can be narrower &ndash; leaving it wider for easier understanding)</p>
             <hr className="chapter-rule" />
             <h3>Investor Perspective</h3>
             <p>Buying near support improves structure and risk control because it replaces emotion with logic.</p>
@@ -930,7 +930,7 @@ export default function TechnicalAnalysisPage() {
             </ul>
             <p>That reaction confirms the level.</p>
             <img src="/technical-analysis/image1.png" alt="" style={imgStyle} />
-            <p>(A snippet from Nifty 50 chart showing the resistance zone on 1D time frame, the zone can be narrower &ndash; leaving it wider for easier understanding)</p>
+            <p className="img-caption">(A Snippet from Nifty 50 chart showing the resistance zone on 1D time frame, the zone can be narrower &ndash; leaving it wider for easier understanding)</p>
             <hr className="chapter-rule" />
             <h3>Investor Perspective</h3>
             <p>Buying aggressively near resistance increases risk because the odds begin to shift against you.</p>
@@ -973,7 +973,7 @@ export default function TechnicalAnalysisPage() {
             <p>Old resistance becomes new support. Old support becomes new resistance.</p>
             <p>This happens because of shifting psychology and positioning.</p>
             <img src="/technical-analysis/image5.png" alt="" style={imgStyle} />
-            <p>(A snippet from CDSL chart showing the resistance zone on 1D time frame turn to support and then again back to resistance, the zone can be narrower &ndash; leaving it wider for easier understanding)</p>
+            <p className="img-caption">(A Snippet from CDSL chart showing the resistance zone on 1D time frame turn to support and then again back to resistance, the zone can be narrower &ndash; leaving it wider for easier understanding)</p>
             <hr className="chapter-rule" />
             <h3>How It Works</h3>
             <p>Imagine a stock repeatedly struggles near &#8377;1,200. Every time price approaches that level, selling pressure increases and rallies fail. That area becomes established resistance.</p>
@@ -1042,7 +1042,7 @@ export default function TechnicalAnalysisPage() {
             <p>The key word is <strong>acceptance</strong>. Price must not only move above resistance, it must sustain above it.</p>
             <p>When buyers are confident, they push price beyond the level and defend it. That confirms strength.</p>
             <img src="/technical-analysis/image19.png" alt="" style={imgStyle} />
-            <p>(A snippet from CDSL chart showing a breakout above resistance zone, the zone can be narrower &ndash; leaving it wider for easier understanding)</p>
+            <p className="img-caption">(A Snippet from CDSL chart showing a breakout above resistance zone, the zone can be narrower &ndash; leaving it wider for easier understanding)</p>
             <hr className="chapter-rule" />
             <h3>What a Fake Breakout Often Looks Like</h3>
             <p>A false breakout usually shows warning signs:</p>
@@ -1060,7 +1060,7 @@ export default function TechnicalAnalysisPage() {
               <li>Momentum is already stretched</li>
             </ul>
             <img src="/technical-analysis/image9.png" alt="" style={imgStyle} />
-            <p>(A snippet from Axis Bank chart showing a fake breakdown below resistance zone)</p>
+            <p className="img-caption">(A Snippet from Axis Bank chart showing a fake breakdown below resistance zone)</p>
             <hr className="chapter-rule" />
             <h3>Investor Discipline</h3>
             <p>For investors, patience is critical.</p>
@@ -1154,7 +1154,7 @@ export default function TechnicalAnalysisPage() {
             <p>On a daily chart, each volume bar reflects the total number of shares exchanged during that trading day.</p>
             <p>On a weekly chart, each bar represents the combined trading activity for the entire week.</p>
             <img src="/technical-analysis/image27.png" alt="" style={imgStyle} />
-            <p>(A snippet from Axis Bank chart, the bars at the bottom of the chart are the volumes for the day)</p>
+            <p className="img-caption">(A Snippet from Axis Bank chart, the bars at the bottom of the chart are the volumes for the day)</p>
             <p>In simple terms, volume shows how many participants were involved in that move.</p>
             <p>Higher volume generally means:</p>
             <ul>
@@ -1177,10 +1177,10 @@ export default function TechnicalAnalysisPage() {
             <p>But not all moves are equal. Two stocks may both rise 5% in a day, yet the meaning behind those moves can be completely different.</p>
             <p>A 5% rally on low volume may simply reflect short-term buying, limited liquidity or temporary enthusiasm. There may not be enough participation to sustain the move. Such rallies often fade because they lack broad conviction.</p>
             <img src="/technical-analysis/image42.png" alt="" style={imgStyle} />
-            <p>(A snippet from Axis Bank Chart, you can see there was a green candle on Fri 10 Nov &apos;23, similar to earlier sessions but the volume was low and rally faded in the next few sessions)</p>
+            <p className="img-caption">(A Snippet from Axis Bank Chart, you can see there was a green candle on Fri 10 Nov &apos;23, similar to earlier sessions but the volume was low and rally faded in the next few sessions)</p>
             <p>In contrast, a 5% rally on very high volume suggests aggressive accumulation. It indicates that significant capital, often institutional money, is entering the stock. When large players participate, moves tend to carry more durability.</p>
             <img src="/technical-analysis/image35.png" alt="" style={imgStyle} />
-            <p>(A snippet from Axis Bank Chart, you can see there was a green candle on Thu 25 Apr &apos;24, similar to earlier sessions but the volume was significantly high and rally sustained in the next few sessions)</p>
+            <p className="img-caption">(A Snippet from Axis Bank Chart, you can see there was a green candle on Thu 25 Apr &apos;24, similar to earlier sessions but the volume was significantly high and rally sustained in the next few sessions)</p>
             <p>Volume helps answer critical questions:</p>
             <ul>
               <li>Are institutions participating or is this retail-driven noise?</li>
@@ -1208,7 +1208,7 @@ export default function TechnicalAnalysisPage() {
               <li>Willingness to transact at higher prices</li>
             </ul>
             <img src="/technical-analysis/image25.png" alt="" style={imgStyle} />
-            <p>(A snippet from SBI chart, showing a breakout with good volume and how the rally sustained after a breakout)</p>
+            <p className="img-caption">(A Snippet from SBI chart, showing a breakout with good volume and how the rally sustained after a breakout)</p>
             <p>A low-volume breakout suggests:</p>
             <ul>
               <li>Limited conviction</li>
@@ -1216,7 +1216,7 @@ export default function TechnicalAnalysisPage() {
               <li>Higher probability of reversal</li>
             </ul>
             <img src="/technical-analysis/image50.png" alt="" style={imgStyle} />
-            <p>(A snippet from Tata Power chart, showing a breakout with good volume but wasn&apos;t as high as earlier sell volumes and is showing signs of exhaustion near breakout, therefore the rally didn&apos;t sustain after the breakout)</p>
+            <p className="img-caption">(A Snippet from Tata Power chart, showing a breakout with good volume but wasn&apos;t as high as earlier sell volumes and is showing signs of exhaustion near breakout, therefore the rally didn&apos;t sustain after the breakout)</p>
             <p>For investors, instead of reacting to the first breakout candle, wait for:</p>
             <ul>
               <li>A strong close above resistance</li>
@@ -1235,7 +1235,7 @@ export default function TechnicalAnalysisPage() {
             <p>This pattern reflects structural strength.</p>
             <p>When price pulls back on lower volume, it suggests that selling pressure is limited. Fewer participants are aggressively exiting. The correction is often a pause, not a shift in control. When the uptrend resumes and volume expands again, it shows buyers stepping back in with conviction. That expansion confirms that demand remains dominant. This combination &mdash; lighter volume on declines, heavier volume on advances &mdash; is characteristic of strong trends.</p>
             <img src="/technical-analysis/image32.png" alt="" style={imgStyle} />
-            <p>(A snippet from Tata Power chart, showing pullbacks happening at lower volumes)</p>
+            <p className="img-caption">(A Snippet from Tata Power chart, showing pullbacks happening at lower volumes)</p>
             <p>However, if a pullback occurs on heavy volume, caution is required.</p>
             <p>High-volume declines can signal:</p>
             <ul>
@@ -1245,7 +1245,7 @@ export default function TechnicalAnalysisPage() {
             </ul>
             <p>In such cases, what appears to be a normal correction may actually be emerging supply.</p>
             <img src="/technical-analysis/image31.png" alt="" style={imgStyle} />
-            <p>(A snippet from Tata Power chart, showing pullbacks happening at higher volumes, therefore it is safer to exercise caution and analyze further)</p>
+            <p className="img-caption">(A Snippet from Tata Power chart, showing pullbacks happening at higher volumes, therefore it is safer to exercise caution and analyze further)</p>
             <p>For investors, volume during pullbacks helps distinguish between:</p>
             <ul>
               <li>A healthy pause</li>
@@ -1287,7 +1287,7 @@ export default function TechnicalAnalysisPage() {
             <p>To the casual observer, the stock may look &quot;boring.&quot; But rising participation within a tight range can indicate that demand is absorbing supply.</p>
             <p>Eventually, once enough shares are accumulated, price breaks out &mdash; often with a strong volume expansion. The breakout is not random. It is the result of prior positioning.</p>
             <img src="/technical-analysis/image30.png" alt="" style={imgStyle} />
-            <p>(A snippet from ITC Chart, you can see that the price is within a range but there has been multiple volume spikes without the price moving significantly)</p>
+            <p className="img-caption">(A Snippet from ITC Chart, you can see that the price is within a range but there has been multiple volume spikes without the price moving significantly)</p>
             <hr className="chapter-rule" />
             <h3>Distribution Phase</h3>
             <p>Distribution is the opposite process.</p>
@@ -1299,7 +1299,7 @@ export default function TechnicalAnalysisPage() {
               <li>Upside attempts lack follow-through</li>
             </ul>
             <img src="/technical-analysis/image45.png" alt="" style={imgStyle} />
-            <p>(A snippet from ITC Chart, you can see that there has been multiple volume spikes on down days)</p>
+            <p className="img-caption">(A Snippet from ITC Chart, you can see that there has been multiple volume spikes on down days)</p>
             <p>Here, institutions gradually reduce exposure. Instead of selling all at once, which would crash price, they distribute shares into strength while retail optimism remains high.</p>
             <p>Price may appear stable for a while. But underneath, supply is building.</p>
             <p>When support eventually breaks, the move can accelerate because strong hands are no longer defending.</p>
@@ -1379,7 +1379,7 @@ export default function TechnicalAnalysisPage() {
             <p><strong>Important Note</strong> &ndash; You do not need to calculate these, these are all in-built on the charting platforms, you just need to select and apply them.</p>
             <p>Each day, a new closing price is added to the calculation and the oldest one drops out. Because the data set keeps updating, the average &quot;moves&quot; forward over time &mdash; hence the name moving average.</p>
             <img src="/technical-analysis/image60.png" alt="" style={imgStyle} />
-            <p>(A snippet from Wipro Chart, blue line is the 20 day simple moving average(SMA) and purple line is the 200 day SMA, longer SMAs are smoother than the shorter SMAs)</p>
+            <p className="img-caption">(A Snippet from Wipro Chart, blue line is the 20 day simple moving average(SMA) and purple line is the 200 day SMA, longer SMAs are smoother than the shorter SMAs)</p>
             <p>The primary purpose of a moving average is to smooth price fluctuations. Markets rarely move in straight lines. There are daily spikes, pullbacks, noise and volatility. Moving averages reduce that noise and help reveal the underlying trend.</p>
             <p>Instead of reacting to every candle, you see a cleaner visual representation of direction:</p>
             <ul>
@@ -1402,7 +1402,7 @@ export default function TechnicalAnalysisPage() {
               <li>The trend is structurally healthy</li>
             </ul>
             <img src="/technical-analysis/image34.png" alt="" style={imgStyle} />
-            <p>(A snippet from WIPRO chart, when price is consistently trading <strong>above a rising moving average</strong>)</p>
+            <p className="img-caption">(A Snippet from WIPRO chart, when price is consistently trading <strong>above a rising moving average</strong>)</p>
             <p>When price is trading below a falling moving average, it suggests:</p>
             <ul>
               <li>Supply is dominating</li>
@@ -1410,10 +1410,10 @@ export default function TechnicalAnalysisPage() {
               <li>The broader structure is weak</li>
             </ul>
             <img src="/technical-analysis/image14.png" alt="" style={imgStyle} />
-            <p>(A snippet from WIPRO chart, when price is consistently trading <strong>below a falling moving average</strong>)</p>
+            <p className="img-caption">(A Snippet from WIPRO chart, when price is consistently trading <strong>below a falling moving average</strong>)</p>
             <p>If the moving average is flat and price keeps crossing above and below it, the stock may be consolidating &mdash; lacking clear direction.</p>
             <img src="/technical-analysis/image17.png" alt="" style={imgStyle} />
-            <p>(A snippet from WIPRO chart, when price keeps crossing above and below it)</p>
+            <p className="img-caption">(A Snippet from WIPRO chart, when price keeps crossing above and below it)</p>
             <p>Moving averages bring discipline to trend analysis. They prevent you from overreacting to short-term volatility.</p>
             <p>Instead of asking, &quot;What happened today?&quot; You begin asking, &quot;What is the broader direction?&quot;</p>
             <p>And in investing, direction matters far more than daily noise.</p>
@@ -1430,13 +1430,13 @@ export default function TechnicalAnalysisPage() {
             <p>Each one serves a different purpose.</p>
             <p>The 20-day MA reacts quickly to price changes. It helps identify short-term momentum and minor pullbacks within a trend.</p>
             <img src="/technical-analysis/image38.png" alt="" style={imgStyle} />
-            <p>(A snippet from WIPRO chart, showing 20 day SMA)</p>
+            <p className="img-caption">(A Snippet from WIPRO chart, showing 20 day SMA)</p>
             <p>The 50-day MA is widely used to assess medium-term structure. Many institutional traders monitor it. In healthy uptrends, price often pulls back toward the 50 DMA and resumes higher.</p>
             <img src="/technical-analysis/image21.png" alt="" style={imgStyle} />
-            <p>(A snippet from WIPRO chart, showing 50 day SMA for the same period as above)</p>
+            <p className="img-caption">(A Snippet from WIPRO chart, showing 50 day SMA for the same period as above)</p>
             <p>The 200-day MA (200 DMA) is the most important for long-term investors. It reflects the broader capital flow over roughly one year of trading sessions.</p>
             <img src="/technical-analysis/image26.png" alt="" style={imgStyle} />
-            <p>(A snippet from WIPRO chart, showing 200 day SMA for the same period as above)</p>
+            <p className="img-caption">(A Snippet from WIPRO chart, showing 200 day SMA for the same period as above)</p>
             <p>In Indian markets, the 200 DMA is widely tracked by both institutions and retail participants. Because so many market participants watch it, it often becomes self-reinforcing.</p>
             <p>When price trades above a rising 200 DMA:</p>
             <ul>
@@ -1473,7 +1473,7 @@ export default function TechnicalAnalysisPage() {
             </ul>
             <p>This behavior signals trend strength.</p>
             <img src="/technical-analysis/image24.png" alt="" style={imgStyle} />
-            <p>(A snippet from Asian Paints Charts showing 50 Day SMA acting as a support/floor)</p>
+            <p className="img-caption">(A Snippet from Asian Paints Charts showing 50 Day SMA acting as a support/floor)</p>
             <p>Now consider a downtrend.</p>
             <p>In weak structures, moving averages often act as dynamic resistance.</p>
             <ul>
@@ -1484,7 +1484,7 @@ export default function TechnicalAnalysisPage() {
             </ul>
             <p>Here, the moving average becomes a moving ceiling. It represents the average price where sellers remain dominant.</p>
             <img src="/technical-analysis/image23.png" alt="" style={imgStyle} />
-            <p>(A snippet from Asian Paints Charts showing 200 Day SMA acting as a resistance/ceiling in 2026)</p>
+            <p className="img-caption">(A Snippet from Asian Paints Charts showing 200 Day SMA acting as a resistance/ceiling in 2026)</p>
             <p>For investors, this concept is extremely practical.</p>
             <p>It helps you:</p>
             <ul>
@@ -1508,10 +1508,10 @@ export default function TechnicalAnalysisPage() {
             <p>A common example:</p>
             <p>When the 50 DMA crosses above the 200 DMA, it is called a <strong>Golden Cross</strong>. This is often viewed as a long-term bullish confirmation.</p>
             <img src="/technical-analysis/image33.png" alt="" style={imgStyle} />
-            <p>(A snippet from Coal India Chart, showing 50 DMA(blue line) cross above the 200 DMA(purple line) i.e. Golden Cross &ndash; shorter SMA cuts the longer SMA from bottom)</p>
+            <p className="img-caption">(A Snippet from Coal India Chart, showing 50 DMA(blue line) cross above the 200 DMA(purple line) i.e. Golden Cross &ndash; shorter SMA cuts the longer SMA from bottom)</p>
             <p>When the 50 DMA crosses below the 200 DMA, it is sometimes referred to as a <strong>Death Cross</strong>, signaling potential long-term weakness.</p>
             <img src="/technical-analysis/image41.png" alt="" style={imgStyle} />
-            <p>(A snippet from Asian Paints Chart, showing 50 DMA(blue line) cross below the 200 DMA(purple line) i.e. Death Cross &ndash; shorter SMA cuts the longer SMA from top)</p>
+            <p className="img-caption">(A Snippet from Asian Paints Chart, showing 50 DMA(blue line) cross below the 200 DMA(purple line) i.e. Death Cross &ndash; shorter SMA cuts the longer SMA from top)</p>
             <p>However, investors must understand one important limitation:</p>
             <p><strong>Moving average crossovers are lagging indicators.</strong></p>
             <p>They do not predict the start of a trend. They confirm it after it has already begun.</p>
@@ -1618,7 +1618,7 @@ export default function TechnicalAnalysisPage() {
     },
 
     {
-      title: "Chapter 9: RSI  -  Understanding Momentum &amp; Overbought/Oversold Conditions",
+      title: "Chapter 9: RSI  -  Understanding Momentum & Overbought/Oversold Conditions",
       content: (
         <>
             <p>If trend tells you where price is moving, RSI tells you how strong that movement is.</p>
@@ -1640,7 +1640,7 @@ export default function TechnicalAnalysisPage() {
             <p>An RSI reading above 70 does not mean price must fall immediately. It simply suggests that buying momentum has been strong and may be stretched. Similarly, an RSI below 30 indicates strong selling momentum but not necessarily an immediate reversal.</p>
             <p>This is why RSI must always be interpreted within the context of trend.</p>
             <img src="/technical-analysis/image18.png" alt="" style={imgStyle} />
-            <p>(A snippet from Coal India chart, the graph below the candlestick chart is the RSI and top dotted line is to mark 70 and lower dotted line is to mark 30)</p>
+            <p className="img-caption">(A Snippet from Coal India chart, the graph below the candlestick chart is the RSI and top dotted line is to mark 70 and lower dotted line is to mark 30)</p>
             <p>In strong uptrends, RSI can remain above 60&ndash;70 for extended periods because sustained buying pressure keeps momentum elevated.</p>
             <p>In strong downtrends, RSI can remain below 40&ndash;30 for long stretches due to persistent selling pressure.</p>
             <p>RSI is not a buy/sell switch. It does not predict exact turning points.</p>
@@ -1746,7 +1746,7 @@ export default function TechnicalAnalysisPage() {
             </ul>
             <p>However, divergence alone does not mean immediate reversal. It is an early warning, not a trigger. Confirmation through structure or bullish price behavior is essential.</p>
             <img src="/technical-analysis/image16.png" alt="" style={imgStyle} />
-            <p>(A snippet from HAL Chart, you don&apos;t need to identify it manually, the RSI Divergence indicator already marks it for you. At the first blue vertical line, price forms an initial swing low (around 3,790 &ndash; shown by blue arrow). At the second blue vertical line, price makes a lower low (shown by the red arrow), but RSI makes a higher low (shown by the green bullish divergence marking). This tells us that although sellers pushed price lower, their momentum weakened, signaling exhaustion. The divergence acted as an early warning, and once price held support and structure shifted, a strong bullish move followed.)</p>
+            <p className="img-caption">(A Snippet from HAL Chart, you don&apos;t need to identify it manually, the RSI Divergence indicator already marks it for you. At the first blue vertical line, price forms an initial swing low (around 3,790 &ndash; shown by blue arrow). At the second blue vertical line, price makes a lower low (shown by the red arrow), but RSI makes a higher low (shown by the green bullish divergence marking). This tells us that although sellers pushed price lower, their momentum weakened, signaling exhaustion. The divergence acted as an early warning, and once price held support and structure shifted, a strong bullish move followed.)</p>
             <hr className="chapter-rule" />
             <h3>Bearish Divergence</h3>
             <p>Bearish divergence occurs when:</p>
@@ -1765,7 +1765,7 @@ export default function TechnicalAnalysisPage() {
             </ul>
             <p>Again, divergence does not guarantee reversal but it signals possible exhaustion.</p>
             <img src="/technical-analysis/image53.png" alt="" style={imgStyle} />
-            <p>(A snippet from ITC Chart, you don&apos;t need to identify it manually, the RSI Divergence indicator already marks it for you. At the first blue vertical line, price forms an initial swing high (around 447 &ndash; shown by blue arrow). At the second blue vertical line, price makes a higher high (shown by the red arrow), but RSI makes a lower high (shown by the green bearish divergence marking). This tells us that although buyers pushed price higher, their momentum weakened, signaling exhaustion. The divergence acted as an early warning, and structure shifted, a strong bearish move followed.)</p>
+            <p className="img-caption">(A Snippet from ITC Chart, you don&apos;t need to identify it manually, the RSI Divergence indicator already marks it for you. At the first blue vertical line, price forms an initial swing high (around 447 &ndash; shown by blue arrow). At the second blue vertical line, price makes a higher high (shown by the red arrow), but RSI makes a lower high (shown by the green bearish divergence marking). This tells us that although buyers pushed price higher, their momentum weakened, signaling exhaustion. The divergence acted as an early warning, and structure shifted, a strong bearish move followed.)</p>
             <hr className="chapter-rule" />
             <h3>Why Divergence Matters</h3>
             <p>Momentum often shifts before price does.</p>
@@ -1868,7 +1868,7 @@ export default function TechnicalAnalysisPage() {
     },
 
     {
-      title: "Chapter 10: Bollinger Bands  -  Understanding Volatility &amp; Expansion Phases",
+      title: "Chapter 10: Bollinger Bands  -  Understanding Volatility & Expansion Phases",
       content: (
         <>
             <p>Markets do not move at a constant speed.</p>
@@ -1889,7 +1889,7 @@ export default function TechnicalAnalysisPage() {
             </ul>
             <p>The middle band represents the average price. The upper and lower bands represent statistical boundaries around that average.</p>
             <img src="/technical-analysis/image54.png" alt="" style={imgStyle} />
-            <p>(A snippet from Swiggy Chart, middle line is the 20 day moving average, upper and lower bands represent statistical boundaries around that average)</p>
+            <p className="img-caption">(A Snippet from Swiggy Chart, middle line is the 20 day moving average, upper and lower bands represent statistical boundaries around that average)</p>
             <hr className="chapter-rule" />
             <h3>What Is Volatility?</h3>
             <p>Volatility refers to how much and how quickly price fluctuates.</p>
@@ -1943,7 +1943,7 @@ export default function TechnicalAnalysisPage() {
             <p>They help you understand not just where price is, but how aggressively it is moving relative to its recent behavior.</p>
             <p>When the bands widen, volatility is increasing. Price is moving away from its recent average with greater force. This usually happens during breakouts, strong trends, or sharp news-driven moves.</p>
             <img src="/technical-analysis/image56.png" alt="" style={imgStyle} />
-            <p>(A snippet from Exide Chart, you can see that the bands tightened between July &ndash; August and widened between August to mid-October)</p>
+            <p className="img-caption">(A Snippet from Exide Chart, you can see that the bands tightened between July &ndash; August and widened between August to mid-October)</p>
             <p>When the bands tighten, volatility is decreasing. Price is consolidating, ranges are shrinking, and momentum is cooling. These quieter phases often precede larger moves because markets rarely stay compressed for long.</p>
             <p>Markets naturally alternate between:</p>
             <ul>
@@ -1974,7 +1974,7 @@ export default function TechnicalAnalysisPage() {
             <p>Low volatility environments tend to transition into high volatility environments. The longer the compression, the more meaningful the eventual expansion can become.</p>
             <p>The squeeze signals that the market is building pressure. What it does not tell you is which direction that pressure will resolve.</p>
             <img src="/technical-analysis/image58.png" alt="" style={imgStyle} />
-            <p>(A snippet from INDIGO Chart, showing squeeze till September 2021, followed by a breakout)</p>
+            <p className="img-caption">(A Snippet from INDIGO Chart, showing squeeze till September 2021, followed by a breakout)</p>
             <p>A squeeze can resolve:</p>
             <ul>
               <li>Into an upside breakout</li>
@@ -2002,10 +2002,10 @@ export default function TechnicalAnalysisPage() {
             <p>In strong uptrends, price can &quot;walk the upper band&quot; for extended periods. This happens when buying pressure remains persistent and momentum is strong. The upper band expands along with price and repeated touches signal strength, not exhaustion.</p>
             <p>Selling every upper-band touch in a trending market can mean exiting early from powerful moves.</p>
             <img src="/technical-analysis/image68.png" alt="" style={imgStyle} />
-            <p>(A snippet from Nestle Chart, where the stock was walking the upper band for a few days)</p>
+            <p className="img-caption">(A Snippet from Nestle Chart, where the stock was walking the upper band for a few days)</p>
             <p>Similarly, in strong downtrends, price can ride the lower band repeatedly. This reflects sustained selling pressure. Attempting to buy every lower-band touch in a weak structure can lead to repeated losses.</p>
             <img src="/technical-analysis/image89.png" alt="" style={imgStyle} />
-            <p>(A snippet from Nestle Chart, where the stock was riding the lower band for a few days)</p>
+            <p className="img-caption">(A Snippet from Nestle Chart, where the stock was riding the lower band for a few days)</p>
             <p>Band interaction must always be interpreted within trend context.</p>
             <p>Ask:</p>
             <ul>
@@ -2062,7 +2062,7 @@ export default function TechnicalAnalysisPage() {
             </ul>
             <p>Mean reversion works best when volatility is stable and structure is horizontal.</p>
             <img src="/technical-analysis/image65.png" alt="" style={imgStyle} />
-            <p>(A snippet showing mean reversion, price tends to oscillate between the upper and lower bands)</p>
+            <p className="img-caption">(A Snippet showing mean reversion, price tends to oscillate between the upper and lower bands)</p>
             <hr className="chapter-rule" />
             <h3>Trend Continuation (Strong Trends)</h3>
             <p>In trending markets, behavior changes completely.</p>
@@ -2076,12 +2076,12 @@ export default function TechnicalAnalysisPage() {
             <p>The upper band acts as a pathway.</p>
             <p>The middle band often becomes dynamic support.</p>
             <img src="/technical-analysis/image57.png" alt="" style={imgStyle} />
-            <p>(A snippet from the ITC Chart, where the upper band acts as a pathway and the middle band is acting as a support)</p>
+            <p className="img-caption">(A Snippet from the ITC Chart, where the upper band acts as a pathway and the middle band is acting as a support)</p>
             <p>In strong downtrends:</p>
             <p>The lower band becomes the dominant boundary.</p>
             <p>The middle band may act as resistance.</p>
             <img src="/technical-analysis/image46.png" alt="" style={imgStyle} />
-            <p>(A snippet from the ITC Chart, where the lower band is the dominant boundary and middle band is acting as resistance)</p>
+            <p className="img-caption">(A Snippet from the ITC Chart, where the lower band is the dominant boundary and middle band is acting as resistance)</p>
             <hr className="chapter-rule" />
             <h3>Why This Distinction Matters</h3>
             <p>If you apply mean-reversion logic during a strong trend, you will constantly fight momentum.</p>
@@ -2129,7 +2129,7 @@ export default function TechnicalAnalysisPage() {
       ),
     },
     {
-      title: "Chapter 11: MACD  -  Measuring Momentum Acceleration &amp; Shift",
+      title: "Chapter 11: MACD  -  Measuring Momentum Acceleration & Shift",
       content: (
         <>
             <p>If RSI measures momentum strength, MACD measures momentum acceleration and change.</p>
@@ -2148,7 +2148,7 @@ export default function TechnicalAnalysisPage() {
             <p>Rather than focusing on the moving averages themselves (which we&apos;ve already studied conceptually), focus on what this relationship tells you:</p>
             <p>MACD shows whether short-term momentum is strengthening or weakening relative to the broader price movement.</p>
             <img src="/technical-analysis/image59.png" alt="" style={imgStyle} />
-            <p>(A snippet from the ITC Chart, MACD is the graph below the candlestick chart, orange line is the signal line, blue line is the MACD line, the red and green bars are the histograms)</p>
+            <p className="img-caption">(A Snippet from the ITC Chart, MACD is the graph below the candlestick chart, orange line is the signal line, blue line is the MACD line, the red and green bars are the histograms)</p>
             <hr className="chapter-rule" />
             <h3>What Is an EMA?</h3>
             <p>Earlier, we discussed Simple Moving Averages (SMA), which give equal weight to all periods in the calculation.</p>
@@ -2189,7 +2189,7 @@ export default function TechnicalAnalysisPage() {
               <li>Buyers are becoming more aggressive</li>
             </ul>
             <img src="/technical-analysis/image51.png" alt="" style={imgStyle} />
-            <p>(A snippet from the ITC Chart, showing histogram expanding upwards and where it was shrinking i.e. smaller green bars)</p>
+            <p className="img-caption">(A Snippet from the ITC Chart, showing histogram expanding upwards and where it was shrinking i.e. smaller green bars)</p>
             <p>When the histogram begins to shrink:</p>
             <ul>
               <li>Momentum is still positive</li>
@@ -2202,7 +2202,7 @@ export default function TechnicalAnalysisPage() {
               <li>Selling pressure is gaining traction</li>
             </ul>
             <img src="/technical-analysis/image40.png" alt="" style={imgStyle} />
-            <p>(A snippet from the ITC Chart, showing histogram expanding downwards i.e. red bars)</p>
+            <p className="img-caption">(A Snippet from the ITC Chart, showing histogram expanding downwards i.e. red bars)</p>
             <p>Notice the nuance:</p>
             <p>Shrinking histogram does not mean reversal. It means deceleration.</p>
             <p>MACD highlights transitions in force.</p>
@@ -2232,7 +2232,7 @@ export default function TechnicalAnalysisPage() {
               <li>Alongside strengthening price structure</li>
             </ul>
             <img src="/technical-analysis/image44.png" alt="" style={imgStyle} />
-            <p>(A snippet from ITC Chart, showing a bullish crossover)</p>
+            <p className="img-caption">(A Snippet from ITC Chart, showing a bullish crossover)</p>
             <hr className="chapter-rule" />
             <h3>Bearish Crossover</h3>
             <ul>
@@ -2247,13 +2247,13 @@ export default function TechnicalAnalysisPage() {
               <li>Alongside weakening structure</li>
             </ul>
             <img src="/technical-analysis/image48.png" alt="" style={imgStyle} />
-            <p>(A snippet from PVR Chart, showing a bearish crossover)</p>
+            <p className="img-caption">(A Snippet from PVR Chart, showing a bearish crossover)</p>
             <hr className="chapter-rule" />
             <h3>Important Context</h3>
             <p>Not all crossovers are meaningful.</p>
             <p>In sideways or choppy markets, MACD lines may cross repeatedly without producing sustained moves. This is because momentum is fluctuating without directional conviction.</p>
             <img src="/technical-analysis/image43.png" alt="" style={imgStyle} />
-            <p>(A snippet from PVR Chart, showing repeated crossovers)</p>
+            <p className="img-caption">(A Snippet from PVR Chart, showing repeated crossovers)</p>
             <p>That&apos;s why crossovers must be read in context.</p>
             <p>A crossover aligned with:</p>
             <ul>
@@ -2274,7 +2274,7 @@ export default function TechnicalAnalysisPage() {
             </ul>
             <p>This gives you directional context.</p>
             <img src="/technical-analysis/image47.png" alt="" style={imgStyle} />
-            <p>(A snippet from PVR Chart, the blue arrow points at the 0 line)</p>
+            <p className="img-caption">(A Snippet from PVR Chart, the blue arrow points at the 0 line)</p>
             <p>A bullish crossover that occurs above the zero line suggests that upward momentum is strengthening within an already positive environment. That alignment tends to produce more sustained moves.</p>
             <p>A bullish crossover that occurs below the zero line may simply represent a short-term bounce within a broader weak structure.</p>
             <p>Similarly:</p>
@@ -2305,7 +2305,7 @@ export default function TechnicalAnalysisPage() {
     },
 
     {
-      title: "Chapter 12: Breakouts &amp; Pullback Strategies  -  Structured Entry Models for Investors",
+      title: "Chapter 12: Breakouts & Pullback Strategies  -  Structured Entry Models for Investors",
       content: (
         <>
             <p>Technical analysis becomes powerful only when it translates into action.</p>
@@ -2801,7 +2801,7 @@ export default function TechnicalAnalysisPage() {
             <p>Watching them too closely often creates unnecessary anxiety.</p>
             <p>A fundamentally strong stock may appear &quot;weak&quot; on a 15-minute chart even while continuing a healthy weekly uptrend.</p>
             <img src="/technical-analysis/image62.png" alt="" style={imgStyle} />
-            <p>(A snippet of Titan Chart, on a 5minutes timeframe)</p>
+            <p className="img-caption">(A Snippet of Titan Chart, on a 5minutes timeframe)</p>
             <hr className="chapter-rule" />
             <h3>3 The Alignment Principle</h3>
             <p>The most powerful setups occur when multiple timeframes align.</p>
@@ -3254,7 +3254,7 @@ export default function TechnicalAnalysisPage() {
     },
 
     {
-      title: "Chapter 18: Combining Fundamentals &amp; Technicals  -  A Practical Investment Framework",
+      title: "Chapter 18: Combining Fundamentals & Technicals  -  A Practical Investment Framework",
       content: (
         <>
             <p>Throughout this module, we explored how technical analysis helps investors understand market behavior. But technical analysis works best when it complements, not replaces, fundamental analysis.</p>
@@ -3365,7 +3365,7 @@ export default function TechnicalAnalysisPage() {
     },
 
     {
-      title: "Chapter 19: The Investor&apos;s Mindset  -  What Actually Builds Wealth",
+      title: "Chapter 19: The Investor's Mindset  -  What Actually Builds Wealth",
       content: (
         <>
             <p>After studying charts, indicators and market structure, it is easy to believe that investing success comes from analytical skill alone.</p>
