@@ -1,4 +1,5 @@
 import { pgTable, text, timestamp, integer, primaryKey, serial, boolean, unique, jsonb } from "drizzle-orm/pg-core";
+import type { BillingInfo } from "./types";
 
 export const users = pgTable("users", {
   id: text("id").primaryKey(),
@@ -9,7 +10,7 @@ export const users = pgTable("users", {
   otp: text("otp"),
   otpExpiry: timestamp("otp_expiry"),
   verified: boolean("verified").default(false).notNull(),
-  billingInfo: jsonb("billing_info"),
+  billingInfo: jsonb("billing_info").$type<BillingInfo | null>(),
 });
 
 export const otpAttempts = pgTable("otp_attempts", {
