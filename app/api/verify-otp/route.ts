@@ -1,5 +1,6 @@
 import { db } from "@/app/lib/db";
 import { NextResponse } from "next/server";
+import { CURRENT_POLICY_VERSION } from "@/app/lib/consentVersion";
 
 export async function POST(req: Request) {
   const { email, otp } = await req.json();
@@ -15,10 +16,15 @@ export async function POST(req: Request) {
   }
 
   await db.markUserVerified(email);
-  
-  const progress = await db.getLastCompletedChapter(user.id);
 
-  const response = NextResponse.json({ success: true, progress });
+  const [progress, consent] = await Promise.all([
+    db.getLastCompletedChapter(user.id),
+    db.getConsent(user.id, CURRENT_POLICY_VERSION),
+  ]);
+
+  const needsConsent = !consent || !!consent.withdrawnAt;
+
+  const response = NextResponse.json({ success: true, progress, needsConsent });
 
   response.cookies.set({
     name: "uid",

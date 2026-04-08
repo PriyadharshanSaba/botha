@@ -37,6 +37,10 @@ function SignInContent() {
   const [termsAccepted, setTermsAccepted] = useState(false);
   const [showTerms, setShowTerms] = useState(false);
 
+  // --- Consent (re-ask after login if missing) ---
+  const [showConsent, setShowConsent] = useState(false);
+  const [consentRedirect, setConsentRedirect] = useState<string>("/modules");
+
   /* --------------------------------
     LOGIN: Send OTP
   ----------------------------------*/
@@ -105,7 +109,8 @@ function SignInContent() {
 
     if (!res.ok) return setError("Invalid OTP.");
 
-    router.push("/modules");
+    // New users go to plan selection; they have no subscription yet
+    router.push("/plans");
   }
 
   async function handleVerifyLogin(e: any) {
@@ -128,12 +133,16 @@ function SignInContent() {
 
     const data = await res.json();
 
-    if (data.progress?.moduleId) {
-      router.push(`/modules/${data.progress.moduleId}?chapter=${data.progress.chapterNumber}`);
-    } else {
-      router.push("/modules");
-    }
+    const dest = data.progress?.moduleId
+      ? `/modules/${data.progress.moduleId}?chapter=${data.progress.chapterNumber}`
+      : "/modules";
 
+    if (data.needsConsent) {
+      setConsentRedirect(dest);
+      setShowConsent(true);
+    } else {
+      router.push(dest);
+    }
   }
 
 
@@ -319,6 +328,49 @@ function SignInContent() {
           onAccept={() => { setTermsAccepted(true); setShowTerms(false); }}
           onClose={() => setShowTerms(false)}
         />
+      )}
+
+      {showConsent && (
+        <div className="terms-overlay">
+          <div className="terms-modal" style={{ maxWidth: 440 }}>
+            <div className="terms-header">
+              <div>
+                <h2 className="terms-title">Cookie & Data Consent</h2>
+                <p className="terms-subtitle">We need your consent to continue</p>
+              </div>
+            </div>
+            <div className="terms-body" style={{ padding: "20px 24px" }}>
+              <label style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 12 }}>
+                <input type="checkbox" id="consent-analytics" defaultChecked />
+                <span>Allow analytics cookies to help us improve the platform</span>
+              </label>
+              <label style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                <input type="checkbox" id="consent-marketing" />
+                <span>Allow marketing communications</span>
+              </label>
+            </div>
+            <div className="terms-footer">
+              <div className="terms-footer-actions">
+                <button
+                  className="terms-btn-accept"
+                  onClick={async () => {
+                    const analytics = (document.getElementById("consent-analytics") as HTMLInputElement).checked;
+                    const marketing = (document.getElementById("consent-marketing") as HTMLInputElement).checked;
+                    await fetch("/api/consent", {
+                      method: "POST",
+                      headers: { "Content-Type": "application/json" },
+                      body: JSON.stringify({ analytics, marketing }),
+                    });
+                    setShowConsent(false);
+                    router.push(consentRedirect);
+                  }}
+                >
+                  Accept & Continue
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
       )}
     </div>
   );

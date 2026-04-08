@@ -1,0 +1,195 @@
+/* ── Billing confirmation page ── */
+.billing-page {
+  min-height: 100vh;
+  background: linear-gradient(180deg, var(--white) 0%, var(--cream) 100%);
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 60px 20px 80px;
+}
+
+.billing-shell {
+  width: 100%;
+  max-width: 560px;
+}
+
+/* Success header */
+.billing-success-badge {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 24px;
+}
+
+.billing-check-circle {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #E1F5EE;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  flex-shrink: 0;
+}
+
+.billing-success-text h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--ink);
+  margin-bottom: 2px;
+}
+
+.billing-success-text p {
+  font-size: 13px;
+  color: #64748b;
+}
+
+/* Receipt card */
+.billing-receipt {
+  background: #fff;
+  border: 1px solid #e8e4da;
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 4px 24px rgba(13, 13, 13, 0.06);
+  margin-bottom: 20px;
+}
+
+.billing-receipt-header {
+  padding: 20px 24px 16px;
+  border-bottom: 1px solid #f0ede6;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.billing-brand {
+  font-family: 'Playfair Display', serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.billing-invoice-label {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #94a3b8;
+}
+
+/* Meta rows */
+.billing-meta {
+  padding: 16px 24px;
+  border-bottom: 1px solid #f0ede6;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px 24px;
+}
+
+.billing-meta-item label {
+  display: block;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #94a3b8;
+  margin-bottom: 3px;
+}
+
+.billing-meta-item span {
+  font-size: 13px;
+  color: var(--ink);
+  font-weight: 500;
+  word-break: break-all;
+}
+
+/* Line items */
+.billing-items {
+  padding: 16px 24px;
+  border-bottom: 1px solid #f0ede6;
+}
+
+.billing-item-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 13px;
+  padding: 5px 0;
+  color: #475569;
+}
+
+.billing-item-row.total {
+  padding-top: 12px;
+  margin-top: 8px;
+  border-top: 1px solid #f0ede6;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+/* Footer note */
+.billing-receipt-footer {
+  padding: 12px 24px;
+  background: #fdfcf9;
+}
+
+.billing-receipt-footer p {
+  font-size: 11px;
+  color: #94a3b8;
+  line-height: 1.5;
+}
+
+/* CTA */
+.billing-cta {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.billing-btn-primary {
+  display: block;
+  width: 100%;
+  padding: 13px;
+  background: var(--ink);
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  transition: background 0.2s;
+}
+
+.billing-btn-primary:hover {
+  background: var(--slate);
+}
+
+.billing-support {
+  text-align: center;
+  font-size: 12px;
+  color: #94a3b8;
+}
+
+.billing-support a {
+  color: var(--gold);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+/* Loading / error states */
+.billing-loading {
+  text-align: center;
+  padding: 80px 20px;
+  color: #94a3b8;
+  font-size: 14px;
+}
+
+@media (max-width: 480px) {
+  .billing-meta {
+    grid-template-columns: 1fr;
+  }
+}
