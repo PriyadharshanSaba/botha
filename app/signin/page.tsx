@@ -1,9 +1,18 @@
 "use client";
 
-import { useState } from "react";
+import { useState, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
+import TermsModal from "@/app/components/TermsModal";
 
 export default function Page() {
+  return (
+    <Suspense>
+      <SignInContent />
+    </Suspense>
+  );
+}
+
+function SignInContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
 
@@ -23,6 +32,10 @@ export default function Page() {
   // --- Misc ---
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+
+  // --- Terms ---
+  const [termsAccepted, setTermsAccepted] = useState(false);
+  const [showTerms, setShowTerms] = useState(false);
 
   /* --------------------------------
     LOGIN: Send OTP
@@ -215,9 +228,24 @@ export default function Page() {
                 required
               />
 
+              <div className="terms-check-row">
+                <input
+                  type="checkbox"
+                  id="terms-checkbox"
+                  checked={termsAccepted}
+                  onChange={(e) => setTermsAccepted(e.target.checked)}
+                />
+                <label className="terms-check-label" htmlFor="terms-checkbox">
+                  I agree to the{" "}
+                  <button type="button" onClick={() => setShowTerms(true)}>
+                    Terms of Use
+                  </button>
+                </label>
+              </div>
+
               {error && <div className="error">{error}</div>}
 
-              <button className="btn" disabled={loading}>
+              <button className="btn" disabled={loading || !termsAccepted}>
                 {loading ? "Creating..." : "Sign Up"}
               </button>
             </form>
@@ -285,6 +313,13 @@ export default function Page() {
 
         </div>
       </main>
+
+      {showTerms && (
+        <TermsModal
+          onAccept={() => { setTermsAccepted(true); setShowTerms(false); }}
+          onClose={() => setShowTerms(false)}
+        />
+      )}
     </div>
   );
 }
