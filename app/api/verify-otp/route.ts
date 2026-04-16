@@ -1,8 +1,9 @@
 import { db } from "@/app/lib/db";
 import { NextResponse } from "next/server";
+import type { NextRequest } from "next/server";
 import { CURRENT_POLICY_VERSION } from "@/app/lib/consentVersion";
 
-export async function POST(req: Request) {
+export async function POST(req: NextRequest) {
   const { email, otp } = await req.json();
 
   const user = await db.getUserByEmail(email);
@@ -35,6 +36,36 @@ export async function POST(req: Request) {
     path: "/",
     maxAge: 60 * 60 * 24 * 7, // 7 days
   });
+
+  // Migrate anonymous consent cookie → DB, then clear it
+  const anonCookie = req.cookies.get("bodha_anon_consent")?.value;
+  if (anonCookie) {
+    try {
+      const anon = JSON.parse(anonCookie);
+      if (anon.policyVersion === CURRENT_POLICY_VERSION) {
+        const ipAddress = req.headers.get("x-forwarded-for")?.split(",")[0].trim()
+          ?? req.headers.get("x-real-ip")
+          ?? undefined;
+        const userAgent = req.headers.get("user-agent") ?? undefined;
+        await db.saveConsent({
+          userId: user.id,
+          analytics: Boolean(anon.analytics),
+          marketing: Boolean(anon.marketing),
+          policyVersion: CURRENT_POLICY_VERSION,
+          ipAddress,
+          userAgent,
+        });
+      }
+    } catch {
+      // malformed cookie — ignore, user will be prompted after login
+    }
+    response.cookies.set({
+      name: "bodha_anon_consent",
+      value: "",
+      maxAge: 0,
+      path: "/",
+    });
+  }
 
   return response;
 }

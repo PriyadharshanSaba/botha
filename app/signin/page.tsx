@@ -57,7 +57,10 @@ function SignInContent() {
 
     setLoading(false);
 
-    if (!res.ok) return setError("Email not found.");
+    if (!res.ok) {
+      const data = await res.json().catch(() => ({}));
+      return setError(data.error || "Email not found.");
+    }
 
     // Switch to login OTP screen
     setMode("login-otp");

@@ -66,10 +66,9 @@ export default function TermsModal({ onAccept, onClose, viewOnly = false }: Term
           <section className="ts">
             <div className="ts-num">06</div>
             <h3>Payment & No Refund Policy</h3>
-            <p>Course price is ₹999 + 18% GST (approx. ₹1,178.82 total). A GST-compliant invoice will be issued to your registered email.</p>
-            <div className="ts-callout warning">
-              <strong>All Sales Are Final —</strong> All course purchases are non-refundable under any circumstances, including change of mind, failure to use the course within the access period, dissatisfaction with content, or technical difficulties on your device.
-            </div>
+            <p>Course pricing is displayed at the time of purchase and is exclusive of applicable GST. A GST-compliant invoice will be issued to your registered email address upon successful payment.
+All Sales Are Final — All course purchases are non-refundable under any circumstances, including change of mind, failure to use the course within the access period, dissatisfaction with content, or technical difficulties on your device.
+By completing your purchase, you acknowledge and agree that no refunds, transfers, or credits will be issued under any circumstances. We strongly encourage you to review the course details, curriculum, and inclusions carefully before purchasing.</p>
           </section>
 
           <section className="ts">

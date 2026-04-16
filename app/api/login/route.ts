@@ -7,6 +7,7 @@ export async function POST(req: Request) {
   const { email } = await req.json();
 
   const user = await db.getUserByEmail(email);
+  console.log("[login] user lookup:", { email, found: !!user, verified: user?.verified });
   if (!user || !user.verified) {
     return NextResponse.json({ error: "User not found" }, { status: 404 });
   }
@@ -28,7 +29,6 @@ export async function POST(req: Request) {
 
   const otp = generateOTP(email);
   const expiry = Date.now() + 5 * 60 * 1000;
-
   await db.saveOTP(email, otp, expiry);
   if (!testUser) {
     await sendOtpEmail(email, otp, user.firstName);
