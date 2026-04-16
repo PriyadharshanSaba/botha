@@ -1,0 +1,934 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Terms of Use – Bodha Ventures LLP</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --bg: #0f0f0e;
+      --surface: #161614;
+      --border: #2a2a26;
+      --accent: #c8a96e;
+      --accent-dim: rgba(200, 169, 110, 0.12);
+      --text-primary: #f0ede6;
+      --text-secondary: #9a9589;
+      --text-muted: #5c5a54;
+      --red-dot: #e05c4b;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text-primary);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      line-height: 1.75;
+      font-size: 15px;
+      min-height: 100vh;
+    }
+
+    /* ── Header ── */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(15, 15, 14, 0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 18px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--accent);
+      letter-spacing: 0.02em;
+    }
+
+    .header-badge {
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      border: 1px solid var(--border);
+      padding: 5px 12px;
+      border-radius: 40px;
+    }
+
+    /* ── Hero ── */
+    .hero {
+      padding: 80px 40px 60px;
+      max-width: 820px;
+      margin: 0 auto;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .hero-eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 28px;
+    }
+
+    .hero-eyebrow .dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+      animation: pulse 2.4s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(0.7); }
+    }
+
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.2rem, 5vw, 3.4rem);
+      font-weight: 700;
+      line-height: 1.12;
+      color: var(--text-primary);
+      margin-bottom: 24px;
+      letter-spacing: -0.01em;
+    }
+
+    h1 em {
+      font-style: italic;
+      color: var(--accent);
+    }
+
+    .hero-meta {
+      display: flex;
+      gap: 32px;
+      flex-wrap: wrap;
+    }
+
+    .meta-item {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      letter-spacing: 0.04em;
+    }
+
+    .meta-item strong {
+      display: block;
+      color: var(--text-secondary);
+      font-weight: 500;
+      margin-bottom: 2px;
+    }
+
+    /* ── Layout ── */
+    .layout {
+      display: grid;
+      grid-template-columns: 220px 1fr;
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 0 40px 80px;
+      gap: 60px;
+      align-items: start;
+    }
+
+    /* ── Sidebar ── */
+    .sidebar {
+      position: sticky;
+      top: 80px;
+      padding-top: 52px;
+    }
+
+    .sidebar-label {
+      font-size: 0.65rem;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+    }
+
+    .toc {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .toc a {
+      display: block;
+      padding: 7px 12px;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      text-decoration: none;
+      border-left: 2px solid transparent;
+      transition: all 0.2s ease;
+      line-height: 1.4;
+    }
+
+    .toc a:hover {
+      color: var(--accent);
+      border-left-color: var(--accent);
+      background: var(--accent-dim);
+    }
+
+    /* ── Content ── */
+    .content { padding-top: 48px; }
+
+    .section {
+      margin-bottom: 64px;
+      animation: fadeUp 0.5s ease both;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .section:nth-child(1)  { animation-delay: 0.05s; }
+    .section:nth-child(2)  { animation-delay: 0.10s; }
+    .section:nth-child(3)  { animation-delay: 0.15s; }
+    .section:nth-child(4)  { animation-delay: 0.20s; }
+    .section:nth-child(5)  { animation-delay: 0.25s; }
+    .section:nth-child(6)  { animation-delay: 0.30s; }
+
+    .section-header {
+      display: flex;
+      align-items: baseline;
+      gap: 16px;
+      margin-bottom: 24px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .section-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 0.75rem;
+      color: var(--accent);
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.35rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      letter-spacing: -0.01em;
+    }
+
+    h3 {
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin: 28px 0 12px;
+    }
+
+    p {
+      color: var(--text-secondary);
+      margin-bottom: 14px;
+      font-size: 0.93rem;
+    }
+
+    p:last-child { margin-bottom: 0; }
+
+    ul, ol {
+      padding-left: 0;
+      list-style: none;
+      margin-bottom: 14px;
+    }
+
+    li {
+      color: var(--text-secondary);
+      font-size: 0.93rem;
+      padding: 6px 0 6px 20px;
+      position: relative;
+      border-bottom: 1px solid rgba(42,42,38,0.5);
+    }
+
+    li:last-child { border-bottom: none; }
+
+    li::before {
+      content: '—';
+      position: absolute;
+      left: 0;
+      color: var(--text-muted);
+      font-size: 0.8rem;
+    }
+
+    /* ── Callout boxes ── */
+    .callout {
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--accent);
+      background: var(--accent-dim);
+      padding: 18px 22px;
+      margin: 22px 0;
+      border-radius: 0 6px 6px 0;
+    }
+
+    .callout.warning {
+      border-left-color: var(--red-dot);
+      background: rgba(224, 92, 75, 0.07);
+    }
+
+    .callout p {
+      margin: 0;
+      font-size: 0.88rem;
+      color: var(--text-secondary);
+    }
+
+    .callout-icon {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 8px;
+      display: block;
+    }
+
+    .callout.warning .callout-icon { color: var(--red-dot); }
+
+    /* ── Data table ── */
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 16px 0;
+      font-size: 0.88rem;
+    }
+
+    .data-table th {
+      text-align: left;
+      font-size: 0.68rem;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      padding: 10px 14px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .data-table td {
+      padding: 12px 14px;
+      color: var(--text-secondary);
+      border-bottom: 1px solid rgba(42,42,38,0.5);
+      vertical-align: top;
+    }
+
+    .data-table tr:last-child td { border-bottom: none; }
+    .data-table tr:hover td { background: rgba(200, 169, 110, 0.04); }
+
+    /* ── Highlight block ── */
+    .highlight-block {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 28px 32px;
+      margin: 20px 0;
+    }
+
+    .highlight-block p {
+      font-size: 0.9rem;
+      line-height: 1.8;
+    }
+
+    /* ── Contact block ── */
+    .contact-block {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 32px;
+      margin-top: 20px;
+    }
+
+    .contact-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      padding: 14px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .contact-row:last-child { border-bottom: none; padding-bottom: 0; }
+
+    .contact-label {
+      font-size: 0.68rem;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      min-width: 100px;
+      padding-top: 2px;
+    }
+
+    .contact-value {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+    }
+
+    .contact-value a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    .contact-value a:hover { text-decoration: underline; }
+
+    /* ── Prohibited list ── */
+    .prohibited-list li::before {
+      content: '✕';
+      color: var(--red-dot);
+      font-size: 0.7rem;
+      top: 9px;
+    }
+
+    /* ── Footer ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 32px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .footer-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 0.95rem;
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 24px;
+    }
+
+    .footer-links a {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover { color: var(--accent); }
+
+    .footer-note {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 720px) {
+      header { padding: 16px 20px; }
+      .hero { padding: 48px 20px 40px; }
+      .layout { grid-template-columns: 1fr; padding: 0 20px 60px; gap: 0; }
+      .sidebar { display: none; }
+      footer { padding: 24px 20px; flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Header -->
+<header>
+  <div class="logo">Bodha Ventures</div>
+  <span class="header-badge">Terms of Use</span>
+</header>
+
+<!-- Hero -->
+<div class="hero">
+  <div class="hero-eyebrow">
+    <span class="dot"></span>
+    Legal Document · Governed by Indian Law
+  </div>
+  <h1>The Rules That <em>Protect</em> Both of Us</h1>
+  <div class="hero-meta">
+    <div class="meta-item">
+      <strong>Effective Date</strong>
+      01 April 2026
+    </div>
+    <div class="meta-item">
+      <strong>Last Updated</strong>
+      01 April 2026
+    </div>
+    <div class="meta-item">
+      <strong>Jurisdiction</strong>
+      Bengaluru, Karnataka, India
+    </div>
+    <div class="meta-item">
+      <strong>Governed By</strong>
+      Bodha Ventures LLP
+    </div>
+  </div>
+</div>
+
+<!-- Layout -->
+<div class="layout">
+
+  <!-- Sidebar ToC -->
+  <aside class="sidebar">
+    <div class="sidebar-label">Contents</div>
+    <ul class="toc">
+      <li><a href="#s1">1. Acceptance of Terms</a></li>
+      <li><a href="#s2">2. About Bodha Ventures</a></li>
+      <li><a href="#s3">3. Eligibility</a></li>
+      <li><a href="#s4">4. User Accounts</a></li>
+      <li><a href="#s5">5. Courses & Access</a></li>
+      <li><a href="#s6">6. Payment & No Refund Policy</a></li>
+      <li><a href="#s7">7. Acceptable Use</a></li>
+      <li><a href="#s8">8. Intellectual Property</a></li>
+      <li><a href="#s9">9. Calculators & Free Tools</a></li>
+      <li><a href="#s10">10. Blogs & Educational Content</a></li>
+      <li><a href="#s11">11. Educational Disclaimer</a></li>
+      <li><a href="#s12">12. Limitation of Liability</a></li>
+      <li><a href="#s13">13. Indemnification</a></li>
+      <li><a href="#s14">14. Termination</a></li>
+      <li><a href="#s15">15. Force Majeure</a></li>
+      <li><a href="#s16">16. Modifications to Terms</a></li>
+      <li><a href="#s17">17. Governing Law & Disputes</a></li>
+      <li><a href="#s18">18. Severability</a></li>
+      <li><a href="#s19">19. Entire Agreement</a></li>
+      <li><a href="#s20">20. Contact Us</a></li>
+    </ul>
+  </aside>
+
+  <!-- Content -->
+  <main class="content">
+
+    <!-- 1. Acceptance -->
+    <section class="section" id="s1">
+      <div class="section-header">
+        <span class="section-num">01</span>
+        <h2>Acceptance of Terms</h2>
+      </div>
+      <p>These Terms of Use ("Terms") constitute a legally binding agreement between you ("you", "your", "user") and Bodha Ventures LLP ("Bodha", "we", "our", "us"), governing your access to and use of our website, platform, courses, tools, and all associated content.</p>
+      <div class="callout warning">
+        <span class="callout-icon">Binding Agreement</span>
+        <p>By accessing our website, creating an account, purchasing a course, or using any of our tools or content, you confirm that you have read, understood, and agree to be bound by these Terms in their entirety. If you do not agree, you must immediately discontinue use of our platform.</p>
+      </div>
+      <p>These Terms should be read in conjunction with our <a href="bodha-privacy-policy.html" style="color: var(--accent);">Privacy Policy</a>, which is incorporated herein by reference and forms part of this agreement.</p>
+    </section>
+
+    <!-- 2. About -->
+    <section class="section" id="s2">
+      <div class="section-header">
+        <span class="section-num">02</span>
+        <h2>About Bodha Ventures</h2>
+      </div>
+      <p>Bodha Ventures LLP is a financial education and services company registered in India and headquartered in Bengaluru, Karnataka. We operate a digital platform offering:</p>
+      <ul>
+        <li>Personal Finance Courses — structured educational programmes available for one-year access upon purchase</li>
+        <li>Financial Calculators and Tools — free, web-based tools for indicative financial calculations</li>
+        <li>Blogs and Educational Content — articles and resources for general financial literacy</li>
+      </ul>
+      <p>These Terms apply exclusively to the above services. Our Virtual CFO (vCFO) advisory services are governed by separate engagement agreements and are not subject to these Terms.</p>
+    </section>
+
+    <!-- 3. Eligibility -->
+    <section class="section" id="s3">
+      <div class="section-header">
+        <span class="section-num">03</span>
+        <h2>Eligibility</h2>
+      </div>
+      <p>To use our platform and services, you must:</p>
+      <ul>
+        <li>Be at least 18 years of age</li>
+        <li>Be legally capable of entering into a binding contract under Indian law</li>
+        <li>Not be barred from receiving services under any applicable law</li>
+        <li>Provide accurate, current, and complete information during registration</li>
+      </ul>
+      <div class="callout warning">
+        <span class="callout-icon">Minors Strictly Prohibited</span>
+        <p>Our platform is not intended for individuals under 18 years of age. If you are under 18, you are not permitted to register, purchase, or use any of our services. Bodha Ventures LLP reserves the right to terminate any account found to belong to a minor without notice or refund.</p>
+      </div>
+    </section>
+
+    <!-- 4. User Accounts -->
+    <section class="section" id="s4">
+      <div class="section-header">
+        <span class="section-num">04</span>
+        <h2>User Accounts</h2>
+      </div>
+      <p>Access to our Personal Finance Courses requires you to create a user account. By registering, you agree to the following:</p>
+
+      <h3>A. Account Accuracy</h3>
+      <p>You must provide truthful, accurate, and complete information at the time of registration and keep your account details up to date at all times. Providing false or misleading information is grounds for immediate account termination.</p>
+
+      <h3>B. Account Security</h3>
+      <p>You are solely and entirely responsible for maintaining the confidentiality of your login credentials, including your email address and password. Any activity that occurs under your account — whether or not authorised by you — is your responsibility. You must notify us immediately at <a href="mailto:bodhaventures@gmail.com" style="color: var(--accent);">bodhaventures@gmail.com</a> if you suspect any unauthorised access to your account.</p>
+
+      <h3>C. One Account Per User</h3>
+      <p>Each account is registered to, and may only be used by, a single individual. The creation of multiple accounts by the same person is prohibited without prior written consent from Bodha Ventures LLP.</p>
+
+      <h3>D. Non-Transferability</h3>
+      <p>Your account and any course access associated with it are strictly personal and non-transferable. You may not sell, assign, sublicense, gift, or otherwise transfer your account or access rights to any third party under any circumstances.</p>
+
+      <div class="callout warning">
+        <span class="callout-icon">Strictly One Device / One User</span>
+        <p>Course access is permitted on one device per account and for one individual only. Sharing your login credentials, allowing others to access your account, or facilitating concurrent or shared access — whether within the same household or otherwise — is a material breach of these Terms and will result in immediate account suspension or termination without refund.</p>
+      </div>
+    </section>
+
+    <!-- 5. Courses & Access -->
+    <section class="section" id="s5">
+      <div class="section-header">
+        <span class="section-num">05</span>
+        <h2>Courses & Access</h2>
+      </div>
+
+      <h3>A. Nature of Access</h3>
+      <p>Upon successful payment, you are granted a limited, non-exclusive, non-transferable, revocable licence to access and view the course content for personal, non-commercial educational purposes only. This licence does not constitute a sale of any content or intellectual property.</p>
+
+      <h3>B. Access Period</h3>
+      <p>Course access is granted for a period of one (1) year from the date of purchase. Upon expiry of this period, access will be automatically revoked. Bodha Ventures LLP is under no obligation to extend access beyond this period, and no refund or compensation will be provided for unused access time.</p>
+
+      <div class="callout">
+        <span class="callout-icon">Access Period</span>
+        <p>Your one-year access window begins on the date of successful payment confirmation, not the date of first login. You are encouraged to begin your course promptly to make full use of your access period.</p>
+      </div>
+
+      <h3>C. Viewing Only — No Downloads</h3>
+      <p>All course content — including videos, slides, PDFs, written materials, and any associated resources — is made available for online viewing only. You are strictly prohibited from downloading, screen-recording, capturing, printing, or reproducing any course content in any form, by any means, for any purpose. Violation of this restriction constitutes infringement of Bodha Ventures LLP's intellectual property rights and may result in legal action.</p>
+
+      <h3>D. Platform Availability</h3>
+      <p>We endeavour to maintain platform availability at all times but do not guarantee uninterrupted access. Scheduled maintenance, technical issues, or circumstances beyond our control may temporarily affect access. Such interruptions do not entitle you to a refund, extension of access, or any other compensation.</p>
+
+      <h3>E. Content Updates</h3>
+      <p>Bodha Ventures LLP reserves the right to update, modify, supplement, or remove course content at any time without notice. We are not obligated to notify you of content changes made during your access period.</p>
+
+      <h3>F. Technical Requirements</h3>
+      <p>Access to course content requires a compatible device and a stable internet connection. You are solely responsible for ensuring that your device, browser, and internet connection meet the minimum requirements necessary to access the platform. Bodha Ventures LLP does not warrant that the platform will function on all devices, operating systems, or browsers. The following minimum requirements are recommended:</p>
+      <ul>
+        <li>A modern web browser (Google Chrome, Mozilla Firefox, Safari, or Microsoft Edge — latest two versions)</li>
+        <li>A stable broadband internet connection of at least 5 Mbps for video streaming</li>
+        <li>JavaScript enabled in your browser settings</li>
+        <li>A screen resolution of at least 1024 × 768 pixels</li>
+      </ul>
+      <p>Bodha Ventures LLP shall not be liable for any inability to access or use course content arising from your device's failure to meet these requirements, and such inability shall not entitle you to a refund or extension of your access period.</p>
+    </section>
+
+    <!-- 6. Payment & No Refund -->
+    <section class="section" id="s6">
+      <div class="section-header">
+        <span class="section-num">06</span>
+        <h2>Payment & No Refund Policy</h2>
+      </div>
+
+      <h3>A. Pricing & GST</h3>
+      <p>The current price for a one-year Personal Finance Course is ₹999 (Indian Rupees Nine Hundred and Ninety-Nine), exclusive of all applicable taxes. Goods and Services Tax (GST) at the rate of 18% is applicable on all course purchases, amounting to ₹179.82, bringing the total payable to approximately ₹1,178.82. The exact tax amount will be calculated and displayed at checkout prior to payment confirmation.</p>
+      <p>Upon successful payment, a GST-compliant tax invoice will be issued to you at the email address associated with your account. If you require a Business-to-Business (B2B) invoice with your company's GSTIN reflected, you must provide your valid GSTIN at the time of purchase. Bodha Ventures LLP will not be able to amend invoices retrospectively to include GSTIN details not provided at checkout.</p>
+      <p>Bodha Ventures LLP reserves the right to change pricing at any time. Price changes will not affect purchases already completed.</p>
+
+      <h3>B. Payment Processing</h3>
+      <p>All payments are processed through third-party payment gateways. By making a payment, you also agree to the terms and privacy policy of the relevant payment processor. Bodha Ventures LLP does not store your payment card details.</p>
+
+      <h3>C. No Refund Policy</h3>
+      <div class="callout warning">
+        <span class="callout-icon">All Sales Are Final</span>
+        <p>All course purchases are final and non-refundable. By completing your purchase, you expressly acknowledge and agree that you are not entitled to a refund under any circumstances, including but not limited to: change of mind, failure to use the course within the access period, dissatisfaction with content, technical difficulties on your device, or accidental purchase.</p>
+      </div>
+      <p>We strongly encourage you to review all available course information, including previews and descriptions, before making a purchase. If you have questions about course content prior to purchase, please contact us at <a href="mailto:bodhaventures@gmail.com" style="color: var(--accent);">bodhaventures@gmail.com</a>.</p>
+
+      <h3>D. Failed or Disputed Transactions</h3>
+      <p>In the event of a payment failure, duplicate charge, or an erroneous transaction attributable solely to a technical error on our part, please contact us within 7 days of the transaction date. We will investigate and resolve confirmed errors in good faith. Chargebacks initiated without first contacting us will be contested.</p>
+
+      <h3>E. Taxes</h3>
+      <p>You are responsible for any taxes, levies, or duties applicable to your purchase under the laws of your jurisdiction, beyond what is already included in the listed price.</p>
+    </section>
+
+    <!-- 7. Acceptable Use -->
+    <section class="section" id="s7">
+      <div class="section-header">
+        <span class="section-num">07</span>
+        <h2>Acceptable Use</h2>
+      </div>
+      <p>By using our platform, you agree to use it solely for lawful, personal, and non-commercial purposes. The following conduct is strictly prohibited:</p>
+
+      <ul class="prohibited-list">
+        <li>Sharing, reselling, sublicensing, or redistributing any course content or platform access to any third party</li>
+        <li>Downloading, screen-recording, copying, scraping, or reproducing any content from the platform by any method</li>
+        <li>Using automated tools, bots, crawlers, or scripts to access, extract, or interact with platform content</li>
+        <li>Attempting to reverse-engineer, decompile, or tamper with any part of the platform or its underlying technology</li>
+        <li>Uploading, posting, or transmitting any content that is unlawful, harmful, defamatory, obscene, or otherwise objectionable</li>
+        <li>Impersonating any person or entity, or misrepresenting your affiliation with any person or organisation</li>
+        <li>Using the platform or its content for any commercial purpose, including training AI models, without express written consent</li>
+        <li>Attempting to gain unauthorised access to any part of the platform, other users' accounts, or our systems</li>
+        <li>Engaging in any conduct that disrupts, damages, or interferes with the operation of the platform</li>
+        <li>Using content from blogs, tools, or courses to provide financial advice or services to third parties</li>
+      </ul>
+
+      <p>Bodha Ventures LLP reserves the right to determine, in its sole discretion, what constitutes a violation of these acceptable use standards. A violation may result in immediate suspension or termination of your account without notice or refund.</p>
+    </section>
+
+    <!-- 8. Intellectual Property -->
+    <section class="section" id="s8">
+      <div class="section-header">
+        <span class="section-num">08</span>
+        <h2>Intellectual Property</h2>
+      </div>
+
+      <h3>A. Ownership</h3>
+      <p>All content on the Bodha Ventures LLP platform — including but not limited to course videos, written materials, slides, calculator logic, blog articles, graphics, logos, trademarks, and the overall structure and design of the platform — is the exclusive intellectual property of Bodha Ventures LLP or its licensors, and is protected under the Copyright Act, 1957, the Trade Marks Act, 1999, and other applicable Indian and international intellectual property laws.</p>
+
+      <h3>B. Limited Licence</h3>
+      <p>Your purchase grants you a limited, personal, non-exclusive, non-transferable, revocable licence to view course content for your own private educational use during your one-year access period. This licence expressly excludes any right to copy, reproduce, distribute, publicly display, adapt, or create derivative works from any content on the platform.</p>
+
+      <h3>C. No Implied Rights</h3>
+      <p>Nothing in these Terms shall be construed as transferring any intellectual property rights to you. All rights not expressly granted herein are reserved by Bodha Ventures LLP.</p>
+
+      <h3>D. Infringement</h3>
+      <p>Unauthorised use, reproduction, or distribution of our content constitutes a serious infringement of our intellectual property rights. Bodha Ventures LLP reserves the right to pursue all available legal remedies, including injunctive relief and claims for damages, against any person or entity found to be infringing our rights.</p>
+
+      <div class="callout warning">
+        <span class="callout-icon">AI Training Prohibited</span>
+        <p>The use of any content from this platform — including courses, blogs, calculator logic, or any other materials — for the purpose of training, fine-tuning, or developing artificial intelligence or machine learning models is strictly prohibited without prior written authorisation from Bodha Ventures LLP.</p>
+      </div>
+    </section>
+
+    <!-- 9. Calculators & Tools -->
+    <section class="section" id="s9">
+      <div class="section-header">
+        <span class="section-num">09</span>
+        <h2>Financial Calculators & Tools</h2>
+      </div>
+      <p>Our financial calculators and tools are provided free of charge as a convenience to users. By using any calculator or tool on our platform, you acknowledge and agree to the following:</p>
+      <ul>
+        <li>All outputs are indicative estimates only, generated based on the inputs you provide</li>
+        <li>Results are not personalised financial advice and do not account for your individual financial circumstances, risk profile, tax situation, or investment objectives</li>
+        <li>Calculators may contain assumptions, simplifications, or rounding that affect accuracy</li>
+        <li>Bodha Ventures LLP does not warrant the accuracy, completeness, or fitness for purpose of any calculator output</li>
+        <li>You assume full responsibility for any decision made in reliance on calculator outputs</li>
+      </ul>
+      <div class="callout">
+        <span class="callout-icon">Use Responsibly</span>
+        <p>Calculator results should be used as a starting point for your thinking, not as the basis for any financial, investment, tax, or legal decision. Always consult a qualified professional before acting on any financial information.</p>
+      </div>
+    </section>
+
+    <!-- 10. Blogs -->
+    <section class="section" id="s10">
+      <div class="section-header">
+        <span class="section-num">10</span>
+        <h2>Blogs & Educational Content</h2>
+      </div>
+      <p>All blog articles and educational content published on the Bodha Ventures LLP platform are provided for general informational and educational purposes only. The following conditions apply:</p>
+      <ul>
+        <li>Blog content reflects the views and understanding of the author at the time of writing and may not be updated to reflect subsequent developments in law, regulation, tax rules, market conditions, or financial products</li>
+        <li>Content is general in nature and is not tailored to the financial situation, needs, or objectives of any individual reader</li>
+        <li>References to specific financial products, instruments, tax limits, investment thresholds, or regulatory requirements are illustrative only, based on information available at the time of writing, and may have changed — readers must independently verify the current accuracy of any such references before relying on them</li>
+        <li>Bodha Ventures LLP does not warrant that blog content is accurate, complete, or current at the time of reading and expressly disclaims any obligation to update or correct content after publication</li>
+        <li>You may not reproduce, republish, or redistribute blog content without prior written permission from Bodha Ventures LLP</li>
+      </ul>
+      <div class="callout warning">
+        <span class="callout-icon">Content Currency Warning</span>
+        <p>Financial regulations, tax slabs, investment limits, and market conditions change frequently. Any figures, rules, or thresholds referenced in our blog content are accurate only as of the date of publication. Bodha Ventures LLP accepts no liability for decisions made on the basis of content that has become outdated since publication. Always verify current rules with a qualified professional or official government source before acting.</p>
+      </div>
+    </section>
+
+    <!-- 11. Educational Disclaimer -->
+    <section class="section" id="s11">
+      <div class="section-header">
+        <span class="section-num">11</span>
+        <h2>Educational Disclaimer</h2>
+      </div>
+      <div class="callout warning">
+        <span class="callout-icon">Not Financial Advice</span>
+        <p>Nothing on this platform — including courses, calculators, blogs, or any other content — constitutes financial advice, investment advice, tax advice, legal advice, or any form of regulated professional consultation. All content is provided strictly for educational and informational purposes.</p>
+      </div>
+      <p><strong>Bodha Ventures LLP expressly disclaims all liability</strong> for any financial loss, investment loss, tax liability, business loss, or any other direct or indirect outcome arising from your reliance on, or use of, any content, tool output, course material, or information available on this platform.</p>
+      <p>You acknowledge that:</p>
+      <ul>
+        <li>No advisory or fiduciary relationship is created between you and Bodha Ventures LLP by your use of this platform</li>
+        <li>Any financial decision you make based on content accessed through this platform is made entirely at your own risk and on your own judgment</li>
+        <li>Past performance references or illustrative returns mentioned in any content are not indicative of future results</li>
+        <li>You are strongly encouraged to consult a SEBI-registered investment adviser, chartered accountant, or other qualified professional before making any significant financial decision</li>
+      </ul>
+    </section>
+
+    <!-- 12. Limitation of Liability -->
+    <section class="section" id="s12">
+      <div class="section-header">
+        <span class="section-num">12</span>
+        <h2>Limitation of Liability</h2>
+      </div>
+      <p>To the maximum extent permitted by applicable Indian law, Bodha Ventures LLP's liability to you is limited as follows:</p>
+
+      <h3>A. Paid Courses</h3>
+      <p>Our total cumulative liability to you for all claims of any nature arising out of or in connection with your purchase and use of a Personal Finance Course shall not exceed ₹999 (Indian Rupees Nine Hundred and Ninety-Nine) — being the amount paid for that course. This ceiling applies across all claims combined, regardless of the number, nature, or frequency of claims raised.</p>
+
+      <h3>B. Free Services</h3>
+      <p>For users accessing free services — including financial calculators, blog content, or any other no-charge features — our total cumulative liability for all claims of any nature shall not exceed ₹500 (Indian Rupees Five Hundred). This is in addition to the protections afforded by Section 11 (Educational Disclaimer), which independently extinguishes the basis for most claims arising from reliance on free content.</p>
+
+      <h3>C. No Liability for Indirect Loss</h3>
+      <p>In no event shall Bodha Ventures LLP be liable for any indirect, incidental, consequential, special, or punitive damages — including loss of profits, loss of savings, investment losses, loss of data, loss of goodwill, or business interruption — even if we have been advised of the possibility of such damages.</p>
+
+      <h3>D. Third-Party Failures</h3>
+      <p>We are not liable for any loss or damage arising from the acts, omissions, or security failures of third-party service providers, including payment gateways, hosting providers, or any other vendors, provided we have taken reasonable steps in their selection.</p>
+
+      <h3>E. Time Bar on Claims</h3>
+      <p>Any claim against Bodha Ventures LLP arising out of or in connection with these Terms or your use of the platform must be raised in writing within 90 (ninety) days of the date on which you became aware, or reasonably ought to have become aware, of the event giving rise to the claim. Claims raised after this period are expressly time-barred and shall not be entertained.</p>
+
+      <div class="callout">
+        <span class="callout-icon">Statutory Carve-Out</span>
+        <p>Nothing in this section limits or excludes liability that cannot be lawfully excluded under Indian law, including liability for wilful misconduct or gross negligence directly attributable to Bodha Ventures LLP.</p>
+      </div>
+    </section>
+
+    <!-- 13. Indemnification -->
+    <section class="section" id="s13">
+      <div class="section-header">
+        <span class="section-num">13</span>
+        <h2>Indemnification</h2>
+      </div>
+      <p>You agree to indemnify, defend, and hold harmless Bodha Ventures LLP, its partners, employees, contractors, and agents from and against any and all claims, damages, losses, liabilities, costs, and expenses (including reasonable legal fees) arising out of or in connection with:</p>
+      <ul>
+        <li>Your use or misuse of the platform or any of its content</li>
+        <li>Your violation of these Terms or any applicable law or regulation</li>
+        <li>Your infringement of any intellectual property or other rights of any third party</li>
+        <li>Any financial decision made in reliance on content from the platform</li>
+        <li>Any content you submit, post, or transmit through the platform</li>
+        <li>Unauthorised sharing of your account credentials or access with third parties</li>
+      </ul>
+      <p>Bodha Ventures LLP reserves the right to assume exclusive control of the defence of any matter subject to indemnification by you, at your cost. You agree to cooperate fully with our defence of such claims.</p>
+    </section>
+
+    <!-- 14. Termination -->
+    <section class="section" id="s14">
+      <div class="section-header">
+        <span class="section-num">14</span>
+        <h2>Termination</h2>
+      </div>
+
+      <h3>A. Termination by Bodha Ventures LLP</h3>
+      <p>We reserve the right to suspend or permanently terminate your account and access to the platform, with immediate effect and without prior notice, if you:</p>
+      <ul>
+        <li>Breach any provision of these Terms</li>
+        <li>Share account credentials or access with any third party</li>
+        <li>Attempt to download, reproduce, or redistribute any platform content</li>
+        <li>Engage in any conduct that we reasonably determine to be harmful, fraudulent, or abusive</li>
+        <li>Provide false information during registration</li>
+      </ul>
+      <p>Termination for breach does not entitle you to any refund of amounts paid.</p>
+
+      <h3>B. Termination by You</h3>
+      <p>You may close your account at any time by contacting us at <a href="mailto:bodhaventures@gmail.com" style="color: var(--accent);">bodhaventures@gmail.com</a>. Voluntary closure of your account does not entitle you to a refund for any unused portion of your course access period.</p>
+
+      <h3>C. Effect of Termination</h3>
+      <p>Upon termination, your licence to access course content is immediately revoked. Provisions of these Terms that by their nature should survive termination — including intellectual property rights, disclaimer of warranties, limitation of liability, indemnification, and governing law — shall continue to apply.</p>
+    </section>
+
+    <!-- 15. Force Majeure -->
+    <section class="section" id="s15">
+      <div class="section-header">
+        <span class="section-num">15</span>
+        <h2>Force Majeure</h2>
+      </div>
+      <p>Bodha Ventures LLP shall not be held liable for any failure or delay in performing its obligations under these Terms where such failure or delay arises from causes beyond our reasonable control, including but not limited to:</p>
+      <ul>
+        <li>Acts of God, natural disasters, floods, earthquakes, or other extreme weather events</li>
+        <li>Cyberattacks, distributed denial-of-service (DDoS) attacks, ransomware, or other malicious acts by third parties</li>
+        <li>Failure or disruption of third-party hosting, cloud infrastructure, or internet service providers</li>
+        <li>Power outages or telecommunications failures not attributable to Bodha Ventures LLP</li>
+        <li>Government orders, regulatory actions, lockdowns, or changes in applicable law</li>
+        <li>Pandemics, epidemics, or public health emergencies declared by a competent authority</li>
+        <li>War, civil unrest, terrorism, or other events beyond our reasonable control</li>
+      </ul>
+      <p>In the event of a force majeure event, our obligations under these Terms shall be suspended for the duration of the event. We will make reasonable efforts to notify you of the situation and to restore platform access as promptly as practicable. A force majeure event does not entitle you to a refund, extension of access, or any other compensation, except where required by applicable Indian law.</p>
+      <div class="callout">
+        <span class="callout-icon">Extended Outages</span>
+        <p>If a force majeure event causes platform unavailability for a continuous period exceeding 30 days, Bodha Ventures LLP will, in its sole discretion, consider reasonable remedial measures on a case-by-case basis. This does not constitute a binding obligation to provide refunds or extensions.</p>
+      </div>
+    </section>
+
+    <!-- 16. Modifications -->
+    <section class="section" id="s16">
+      <div class="section-header">
+        <span class="section-num">16</span>
+        <h2>Modifications to Terms</h2>
+      </div>
+      <p>Bodha Ventures LLP reserves the right to revise these Terms at any time. When we make material changes, we will:</p>
+      <ul>
+        <li>Update the "Last Updated" date at the top of this page</li>
+        <li>Notify registered users via email for significant changes</li>
+        <li>Where changes materially affect your rights, provide a reasonable notice period before the changes take effect</li>
+      </ul>
+      <p>Your continued use of the platform following the posting of revised Terms constitutes your acceptance of those changes. If you do not agree to the revised Terms, you must discontinue use of the platform.</p>
+    </section>
+
+    <!-- 17. Governing Law -->
+    <section class="section" id="s17">
+      <div class="section-header">
+        <span class="section-num">17</span>
+        <h2>Governing Law & Disputes</h2>
+      </div>
+
+      <h3>A. Governing Law</h3>
+      <p>These Terms shall be governed by and construed in accordance with the laws of India, without regard to its conflict of law principles. Relevant statutes include the Indian Contract Act, 1872; the Information Technology Act, 2000; the Consumer Protection Act, 2019; and the Copyright Act, 1957.</p>
+
+      <h3>B. Exclusive Jurisdiction</h3>
+      <div class="callout">
+        <span class="callout-icon">Jurisdiction</span>
+        <p>Any dispute, claim, or controversy arising out of or relating to these Terms, or your use of the platform, shall be subject to the exclusive jurisdiction of the courts located in Bengaluru, Karnataka, India. By accepting these Terms, you irrevocably submit to the personal jurisdiction of such courts and waive any objection to proceedings in such courts on grounds of inconvenient forum.</p>
+      </div>
+
+      <h3>C. Dispute Resolution — Good Faith First</h3>
+      <p>Before initiating any legal proceedings, you agree to first contact Bodha Ventures LLP at <a href="mailto:bodhaventures@gmail.com" style="color: var(--accent);">bodhaventures@gmail.com</a> and provide a written description of your dispute. Both parties agree to attempt good-faith resolution within 30 days of such notice before resorting to formal legal action.</p>
+
+      <h3>D. Consumer Rights</h3>
+      <p>Nothing in this section limits or affects your statutory rights as a consumer under the Consumer Protection Act, 2019, or any other applicable Indian consumer protection legislation.</p>
+    </section>
+
+    <!-- 18. Severability -->
+    <section class="section" id="s18">
+      <div class="section-header">
+        <span class="section-num">18</span>
+        <h2>Severability</h2>
+      </div>
+      <p>If any provision of these Terms is found to be invalid, unlawful, or unenforceable by a court of competent jurisdiction, that provision shall be modified to the minimum extent necessary to make it enforceable, or severed from these Terms if modification is not possible. The remaining provisions shall continue in full force and effect and shall not be affected by the invalidity or unenforceability of any single provision.</p>
+    </section>
+
+    <!-- 19. Entire Agreement -->
+    <section class="section" id="s19">
+      <div class="section-header">
+        <span class="section-num">19</span>
+        <h2>Entire Agreement</h2>
+      </div>
+      <p>These Terms, together with the <a href="bodha-privacy-policy.html" style="color: var(--accent);">Privacy Policy</a>, constitute the entire agreement between you and Bodha Ventures LLP with respect to your use of the platform and supersede all prior agreements, understandings, representations, and communications — whether oral or written — relating to the same subject matter.</p>
+      <p>No waiver by Bodha Ventures LLP of any breach of these Terms shall be considered a waiver of any subsequent breach. Our failure to enforce any right or provision of these Terms shall not constitute a waiver of such right or provision.</p>
+    </section>
+
+    <!-- 20. Contact -->
+    <section class="section" id="s20">
+      <div class="section-header">
+        <span class="section-num">20</span>
+        <h2>Contact Us</h2>
+      </div>
+      <p>For any questions, concerns, or notices regarding these Terms of Use, please contact us:</p>
+      <div class="contact-block">
+        <div class="contact-row">
+          <span class="contact-label">Company</span>
+          <span class="contact-value">Bodha Ventures LLP</span>
+        </div>
+        <div class="contact-row">
+          <span class="contact-label">Email</span>
+          <span class="contact-value"><a href="mailto:bodhaventures@gmail.com">bodhaventures@gmail.com</a></span>
+        </div>
+        <div class="contact-row">
+          <span class="contact-label">Grievance Officer</span>
+          <span class="contact-value">S Priyadharshan</span>
+        </div>
+   

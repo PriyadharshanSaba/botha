@@ -445,6 +445,54 @@ export default function ToolsPage() {
               </div>
             </div>
           ))}
+
+          {/* ── Download card: Mutual Fund Comparing Tool ── */}
+          <a
+            className="ft-tool-card ft-reveal"
+            ref={addRevealRef}
+            style={{ transitionDelay: `${0.05 * (tools.length + 1)}s`, textDecoration: "none", color: "inherit" }}
+            href="/Mutual Fund Comparing tool.xlsx"
+            download="Mutual Fund Comparing tool.xlsx"
+          >
+            <div className="ft-tool-top">
+              <div className="ft-tool-num">08 --</div>
+              <div className="ft-tool-icon">📥</div>
+            </div>
+            <div className="ft-tool-name">Mutual Fund Comparing Tool</div>
+            <div className="ft-tool-desc">Compare mutual funds side-by-side using this ready-to-use Excel sheet. Analyse returns, expense ratios, and more.</div>
+            <div className="ft-tool-tags">
+              <span className="ft-tool-tag">Excel</span>
+              <span className="ft-tool-free-tag">Free</span>
+            </div>
+            <div className="ft-tool-action">
+              <button className="ft-tool-open-btn" style={{ pointerEvents: "none" }}>Download &darr;</button>
+              <div className="ft-tool-arrow">&darr;</div>
+            </div>
+          </a>
+
+          {/* ── Download card: Indian Stock Valuation Dashboard ── */}
+          <a
+            className="ft-tool-card ft-reveal"
+            ref={addRevealRef}
+            style={{ transitionDelay: `${0.05 * (tools.length + 2)}s`, textDecoration: "none", color: "inherit" }}
+            href="/Indian Stock Valuation Dashboard.xlsx"
+            download="Indian Stock Valuation Dashboard.xlsx"
+          >
+            <div className="ft-tool-top">
+              <div className="ft-tool-num">09 --</div>
+              <div className="ft-tool-icon">📥</div>
+            </div>
+            <div className="ft-tool-name">Indian Stock Valuation Dashboard</div>
+            <div className="ft-tool-desc">Evaluate Indian stocks with key valuation metrics — PE, PB, and more — in one structured Excel dashboard.</div>
+            <div className="ft-tool-tags">
+              <span className="ft-tool-tag">Excel</span>
+              <span className="ft-tool-free-tag">Free</span>
+            </div>
+            <div className="ft-tool-action">
+              <button className="ft-tool-open-btn" style={{ pointerEvents: "none" }}>Download &darr;</button>
+              <div className="ft-tool-arrow">&darr;</div>
+            </div>
+          </a>
         </div>
       </section>
 

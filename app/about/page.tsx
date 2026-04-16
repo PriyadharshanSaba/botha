@@ -206,7 +206,7 @@ export default function AboutPage() {
             </div>
             <div className="about-partner-card-body">
               <p className="about-partner-bio">
-                Our finance partner is a <strong>Chartered Accountant, CFA Level 3 candidate</strong> and <strong>former Deloitte Manager</strong> who has spent years working alongside some of the most experienced financial minds in the industry - Senior Partners, CFOs and other C-suite executives across Financial Services, Consumer and Life Sciences. That proximity to excellence shapes everything: how we think, how we work and the standard we hold ourselves to.
+                Our finance partner is a <strong>Chartered Accountant, CFA Level 3 cleared</strong> and <strong>former Deloitte Manager</strong> who has spent years working alongside some of the most experienced financial minds in the industry - Senior Partners, CFOs and other C-suite executives across Financial Services, Consumer and Life Sciences. That proximity to excellence shapes everything: how we think, how we work and the standard we hold ourselves to.
               </p>
               <p className="about-partner-bio" style={{ marginTop: -10 }}>
                 It&apos;s a rare kind of formation, not just technical training, but years of watching how the best in the business approach complexity, make decisions under pressure and lead with clarity. That perspective now sits at the centre of Bodha and it&apos;s what every client benefits from.
