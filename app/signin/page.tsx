@@ -53,7 +53,10 @@ function SignInContent() {
 
     setLoading(false);
 
-    if (!res.ok) return setError("Email not found.");
+    if (!res.ok) {
+      const data = await res.json().catch(() => ({}));
+      return setError(data.error || "Email not found.");
+    }
 
     // Switch to login OTP screen
     setMode("login-otp");
@@ -105,7 +108,8 @@ function SignInContent() {
 
     if (!res.ok) return setError("Invalid OTP.");
 
-    router.push("/modules");
+    // New users go to plan selection; they have no subscription yet
+    router.push("/plans");
   }
 
   async function handleVerifyLogin(e: any) {
