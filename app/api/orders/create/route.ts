@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
-import Razorpay from "razorpay";
+import Razorpay, { Orders } from "razorpay";
 import { db } from "@/app/lib/db";
 import { PLANS, totalPaise, gstPaise } from "@/app/lib/plans";
 import { isTestEmail } from "@/app/lib/utils/otp";
@@ -52,7 +52,7 @@ export async function POST(req: NextRequest) {
     key_secret: process.env.RAZORPAY_KEY_SECRET,
   });
 
-  let order: Awaited<ReturnType<typeof razorpay.orders.create>>;
+  let order: Orders.RazorpayOrder;
   try {
     order = await razorpay.orders.create({
       amount,
