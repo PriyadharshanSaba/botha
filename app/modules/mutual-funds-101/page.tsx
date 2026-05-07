@@ -157,6 +157,14 @@ const chapters: {
           <p>ನೀವು ಬುಟ್ಟಿಯಲ್ಲಿ ಹೂಡಿಕೆ ಮಾಡುತ್ತೀರಿ → ಉಳಿದದ್ದನ್ನು ಫಂಡ್ ವ್ಯವಸ್ಥಾಪಕರು ನೋಡಿಕೊಳ್ಳುತ್ತಾರೆ.</p>
           <p>ಒಂದು ಮ್ಯೂಚುಯಲ್ ಫಂಡ್ ಘಟಕವನ್ನು ಖರೀದಿಸುವ ಮೂಲಕ ಯಾಂತ್ರಿಕವಾಗಿ, ಆ ಬುಟ್ಟಿಯ ಒಳಗಿರುವ ಎಲ್ಲದರಲ್ಲೂ ನಿಮ್ಮ ಒಂದು ಚಿಕ್ಕ ಪಾಲನ್ನು ಹೊಂದುತಿರಿ.</p>
 
+          <div className="ch-illustration">
+            <img
+              src="/mutual-funds-101/image1.png"
+              alt="A basket labelled Mutual Fund containing shares, bonds, and other assets"
+              className="mx-auto max-w-xs w-full"
+            />
+          </div>
+
           <h3>ಇದು ನಿಮಗೆ ಏಕೆ ಮುಖ್ಯ?</h3>
           <p>
             ಹಲವು ಆರಂಭಿಕ ಹೂಡಿಕೆದಾರರಿಗೆ ಷೇರು ಮಾರುಕಟ್ಟೆ ಎಂದರೆ ದಿಕ್ಕೆ ತೋಚದಂತಹ ಅನುಭವ. ತಪ್ಪು ಷೇರು ಆರಿಸಿದರೆ ಏನಾಗುವುದೋ, ಹಣ ಕಳೆದುಕೊಂಡರೆ ಏನು ಮಾಡುವುದು, ಅಥವಾ ತಮಗೆ ಸಾಕಷ್ಟು ತಿಳಿವಳಿಕೆ ಇಲ್ಲ ಎಂಬ ಭಯ ಅವರನ್ನು ಕಾಡುತ್ತಿರುತ್ತದೆ.
@@ -251,6 +259,14 @@ const chapters: {
           <p>SIP ಮೂಲಕ ಕೇವಲ ₹೧೦೦ ಸಾಕು.</p>
           <p><strong>✔ ಉತ್ತಮ ಶಿಸ್ತು</strong></p>
           <p>SIP ನಿಮ್ಮ ಹೂಡಿಕೆಯ ಅಭ್ಯಾಸವನ್ನು ಸ್ವಯಂಚಾಲಿತವಾಗಿ ಮಾಡುತ್ತದೆ — ಇದು ಸಂಪತ್ತು ನಿರ್ಮಾಣದ ಅತ್ಯಂತ ಶಕ್ತಿಶಾಲಿ ಚಾಲಕಗಳಲ್ಲಿ ಒಂದು.</p>
+
+          <div className="ch-illustration">
+            <img
+              src="/mutual-funds-101/image3.png"
+              alt="An investor shaking hands with a professional fund manager"
+              className="mx-auto max-w-xs w-full"
+            />
+          </div>
         </>
       ),
     },
@@ -549,6 +565,14 @@ const chapters: {
           </ul>
           <p>ಇವುಗಳಲ್ಲಿ ಪ್ರತಿಯೊಂದನ್ನೂ ಸ್ಪಷ್ಟವಾಗಿ ಅರ್ಥಮಾಡಿಕೊಳ್ಳೋಣ.</p>
 
+          <div className="ch-illustration">
+            <img
+              src="/mutual-funds-101/image5.png"
+              alt="Four vehicles representing mutual fund types: sports car (Equity), bus (Debt), SUV (Hybrid), train (Index)"
+              className="mx-auto max-w-sm w-full"
+            />
+          </div>
+
           <h3>೧. ಇಕ್ವಿಟಿ ಫಂಡ್‌ಗಳು — ದೀರ್ಘಕಾಲೀಕ ಬೆಳವಣಿಗೆಗಾಗಿ</h3>
           <p>
             ಈ ಫಂಡ್‌ಗಳು ಮುಖ್ಯವಾಗಿ ಷೇರುಗಳಲ್ಲಿ ಹೂಡಿಕೆ ಮಾಡುತ್ತವೆ. ಷೇರುಗಳ ಬೆಲೆ ಏರಿಳಿತಕ್ಕೆ ಒಳಗಾಗುವ ಕಾರಣ, ಇಕ್ವಿಟಿ ಫಂಡ್‌ಗಳು ಅಲ್ಪಾವಧಿಯಲ್ಲಿ ಮೇಲೆ-ಕೆಳಗೆ ಚಲಿಸಬಹುದು. ಆದಾಗ್ಯೂ, ಐತಿಹಾಸಿಕ ದಾಖಲೆಗಳ ಪ್ರಕಾರ, ದೀರ್ಘಕಾಲದಲ್ಲಿ ಅತ್ಯಧಿಕ ಸಂಪತ್ತು ನಿರ್ಮಿಸುತ್ತವೆ.
@@ -734,6 +758,14 @@ const chapters: {
           <p>
             ಪ್ರತಿಯೊಬ್ಬ ವ್ಯಕ್ತಿಗೂ, ಪ್ರತಿ ಕನಸಿಗೂ, ಪ್ರತಿ ಅವಧಿಗೂ, ಮತ್ತು ಪ್ರತಿ ಅನುಭವದ ಮಟ್ಟಕ್ಕೂ ತಕ್ಕ ಒಂದು ಮ್ಯೂಚುಯಲ್ ಫಂಡ್ ಇದ್ದೇ ಇದೆ.
           </p>
+
+          <div className="ch-illustration">
+            <img
+              src="/mutual-funds-101/image2.png"
+              alt="Different people at different life stages — student, young professional, middle-aged, retiree — each with their own financial goal"
+              className="mx-auto max-w-sm w-full"
+            />
+          </div>
         </>
       ),
     },
@@ -1060,6 +1092,14 @@ const chapters: {
             <li>ಬೆಳವಣಿಗೆಯನ್ನು ಸ್ವಯಂಚಾಲಿತಗೊಳಿಸುತ್ತದೆ.</li>
           </ul>
           <p>ಆದ್ದರಿಂದಲೇ ಎಲ್ಲರೂ SIP ಬಗ್ಗೆ ಮಾತನಾಡುತ್ತಾರೆ — ಏಕೆಂದರೆ <strong>SIP ಕೆಲಸ ಮಾಡುತ್ತದೆ.</strong></p>
+
+          <div className="ch-illustration">
+            <img
+              src="/mutual-funds-101/image6.png"
+              alt="A person dropping a coin into a SIP pot, with a rising stack of coins showing wealth growing over time"
+              className="mx-auto max-w-xs w-full"
+            />
+          </div>
         </>
       ),
     },
@@ -1132,6 +1172,14 @@ const chapters: {
           <p>
             ಮುಂದಿನ ಅಧ್ಯಾಯದಲ್ಲಿ, ಮ್ಯೂಚುಯಲ್ ಫಂಡ್‌ಗಳನ್ನು ಅರ್ಥಮಾಡಿಕೊಳ್ಳುವುದರಿಂದ ಮುಂದೆ ಸಾಗಿ — ಒಂದು ಫಂಡ್ ಆರಿಸುವ ಮುನ್ನ ಯಾವ ಅಂಶಗಳನ್ನು ಗಮನಿಸಬೇಕು ಎಂಬುದನ್ನು ಕಲಿಯುತ್ತೇವೆ. ಸ್ಪಷ್ಟತೆ ಮತ್ತು ಆತ್ಮವಿಶ್ವಾಸದಿಂದ ಸರಿಯಾದ ಫಂಡ್ ಆರಿಸಲು ನೆರವಾಗುವ ಪ್ರಮುಖ ಅಂಶಗಳು, ಸಂಖ್ಯೆಗಳು ಮತ್ತು ಸೋಸುವ ಮಾನದಂಡಗಳನ್ನು ಅಲ್ಲಿ ವಿವರಿಸಲಾಗುವುದು.
           </p>
+
+          <div className="ch-illustration">
+            <img
+              src="/mutual-funds-101/image4.png"
+              alt="A person looking at rows of mutual fund options — Fund A, Fund B, Fund C — ready to choose"
+              className="mx-auto max-w-sm w-full"
+            />
+          </div>
         </>
       ),
     },
