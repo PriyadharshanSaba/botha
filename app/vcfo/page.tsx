@@ -179,7 +179,7 @@ export default function VcfoPage() {
             <div className="vcfo-hc">
               <div className="vcfo-hc-icon">&#128202;</div>
               <div><div className="vcfo-hc-title">Monthly MIS Report</div><div className="vcfo-hc-sub">Delivered by 5th of every month</div></div>
-              <div className="vcfo-hc-val">&nearr;</div>
+              <div className="vcfo-hc-val">↗</div>
             </div>
             <div className="vcfo-hc">
               <div className="vcfo-hc-icon">&#127974;</div>

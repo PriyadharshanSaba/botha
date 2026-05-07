@@ -2,6 +2,8 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import crypto from "crypto";
 import { db } from "@/app/lib/db";
+import { getPlan, type PlanId } from "@/app/lib/plans";
+import { sendInvoiceEmail } from "@/app/lib/email/send";
 
 export async function POST(req: NextRequest) {
   const userId = req.cookies.get("uid")?.value;
@@ -34,6 +36,25 @@ export async function POST(req: NextRequest) {
 
   // Activate subscription
   await db.activateSubscription(razorpay_order_id, razorpay_payment_id);
+
+  // Fire invoice email — non-blocking, failure doesn't affect payment response
+  db.getUserById(userId).then((user) => {
+    if (!user) return;
+    const plan = getPlan(sub.planId as PlanId);
+    return sendInvoiceEmail(user.email, {
+      firstName: user.firstName,
+      lastName: user.lastName,
+      email: user.email,
+      planName: plan.name,
+      orderId: razorpay_order_id,
+      paymentId: razorpay_payment_id,
+      baseRs: (sub.amountPaise - sub.gstPaise) / 100,
+      gstRs: sub.gstPaise / 100,
+      gstRate: 18,
+      totalRs: sub.amountPaise / 100,
+      activatedAt: new Date().toISOString(),
+    });
+  }).catch((e) => console.error("[invoice] send failed:", e));
 
   const response = NextResponse.json({ success: true, orderId: razorpay_order_id });
 

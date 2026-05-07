@@ -274,7 +274,7 @@ export default function LandingPage() {
             <div className="service-name">{isKn ? "ಪರ್ಸನಲ್ ಫೈನಾನ್ಸ್ ಪ್ರೋಗ್ರಾಂ" : "Personal Finance Program"}</div>
             <div className="service-desc">{isKn ? "ನಮ್ಮ ಮೂಲಾಧಾರ ಕಾರ್ಯಕ್ರಮ. ಬಜೆಟ್ ರಚನೆ, ಹೂಡಿಕೆ, ತೆರಿಗೆ ಯೋಜನೆ ಮತ್ತು ಬಹು ತಲೆಮಾರಿನ ಸಂಪತ್ತು ನಿರ್ಮಾಣವನ್ನು ಒಳಗೊಂಡ ಮಾಡ್ಯೂಲ್‌ಗಳು." : "Our cornerstone program. Modules covering budgeting, investing, tax planning and building multi-generational wealth."}</div>
             <div className="service-tag">{isKn ? "ಅತ್ಯಂತ ಜನಪ್ರಿಯ" : "Most Popular"}</div>
-            <div className="service-arrow">&nearr;</div>
+            <div className="service-arrow">↗</div>
           </div>
           <div className="service-card reveal" ref={addRevealRef} style={{ transitionDelay: "0.1s" }}>
             <div className="service-num">02</div>
@@ -282,7 +282,7 @@ export default function LandingPage() {
             <div className="service-name">{isKn ? "ವರ್ಚುವಲ್ CFO" : "Virtual CFO"}</div>
             <div className="service-desc">{isKn ? "ಸಂಸ್ಥಾಪಕರು ಮತ್ತು ವ್ಯವಹಾರಗಳಿಗಾಗಿ ಅಗತ್ಯಾನುಸಾರ CFO ತಜ್ಞತೆ. ನಗದು ಹರಿವು, ಆರ್ಥಿಕ ಕಾರ್ಯತಂತ್ರ, MIS ವರದಿಗಳು ಮತ್ತು ಬೋರ್ಡ್ ಮಟ್ಟದ ನಿರ್ಧಾರಗಳು." : "On-demand CFO expertise for founders and businesses. Cash flow, financial strategy, MIS Reports and board-level decisions."}</div>
             <div className="service-tag">{isKn ? "ಸಂಸ್ಥಾಪಕರಿಗೆ" : "For Founders"}</div>
-            <div className="service-arrow">&nearr;</div>
+            <div className="service-arrow">↗</div>
           </div>
           <div className="service-card reveal" ref={addRevealRef} style={{ transitionDelay: "0.2s" }}>
             <div className="service-num">03</div>
@@ -290,7 +290,7 @@ export default function LandingPage() {
             <div className="service-name">{isKn ? "ವೆಂಚರ್ ಕ್ಯಾಪಿಟಲ್" : "Venture Capital"}</div>
             <div className="service-desc">{isKn ? "ಆರಂಭಿಕ ಹಂತದ ಹೂಡಿಕೆ ಅವಕಾಶಗಳು ಮತ್ತು ಕ್ಯುರೇಟೆಡ್ ಡೀಲ್ ಫ್ಲೋ — ಭಾರತದ ಮುಂದಿನ ದೊಡ್ಡ ಕಥೆಯನ್ನು ಬೆಂಬಲಿಸುತ್ತಾ." : "Early-stage funding opportunities and curated deal flow, backing India's next big story."}</div>
             <div className="service-tag">{isKn ? "ಸ್ಟಾರ್ಟಪ್ ಫೋಕಸ್" : "Startup Focus"}</div>
-            <div className="service-arrow">&nearr;</div>
+            <div className="service-arrow">↗</div>
           </div>
           <div className="service-card reveal" ref={addRevealRef} style={{ transitionDelay: "0.3s" }}>
             <div className="service-num">04</div>
@@ -298,7 +298,7 @@ export default function LandingPage() {
             <div className="service-name">{isKn ? "ಹಣಕಾಸು ಸಾಧನಗಳು" : "Finance Tools"}</div>
             <div className="service-desc">{isKn ? "ಕ್ಯಾಲ್ಕುಲೇಟರ್‌ಗಳು, ಟ್ರ್ಯಾಕರ್‌ಗಳು ಮತ್ತು ಪ್ಲ್ಯಾನರ್‌ಗಳು — SIP ಆಪ್ಟಿಮೈಜರ್, ತೆರಿಗೆ ಅಂದಾಜು, ನೆಟ್ ವರ್ತ್ ಟ್ರ್ಯಾಕರ್, ನಿವೃತ್ತಿ ಯೋಜಕ ಮತ್ತು ಇನ್ನೂ ಹೆಚ್ಚು." : "Calculators, trackers and planners — SIP optimizer, tax estimator, net worth tracker, retirement planner and more."}</div>
             <div className="service-tag">{isKn ? "ಪ್ರೋಗ್ರಾಂನ ಭಾಗ" : "Part of the program"}</div>
-            <div className="service-arrow">&nearr;</div>
+            <div className="service-arrow">↗</div>
           </div>
           <div className="service-card reveal" ref={addRevealRef} style={{ transitionDelay: "0.4s" }}>
             <div className="service-num">05</div>
@@ -306,7 +306,7 @@ export default function LandingPage() {
             <div className="service-name">{isKn ? "ಬ್ಲಾಗ್‌ಗಳು ಮತ್ತು ಒಳನೋಟಗಳು" : "Blog & Insights"}</div>
             <div className="service-desc">{isKn ? "ಮಾರುಕಟ್ಟೆ, ವೈಯಕ್ತಿಕ ಹಣಕಾಸು, ನೀತಿ ಮತ್ತು ವ್ಯವಹಾರದ ಕುರಿತು ಸಾಪ್ತಾಹಿಕ ಆಳವಾದ ವಿಶ್ಲೇಷಣೆ — ಪಠ್ಯಪುಸ್ತಕಗಳಿಗಾಗಿ ಅಲ್ಲ, ಮನುಷ್ಯರಿಗಾಗಿ ಬರೆಯಲಾಗಿದೆ." : "Weekly deep dives on markets, personal finance, policy and business — written for humans, not textbooks."}</div>
             <div className="service-tag">{isKn ? "ಸಾಪ್ತಾಹಿಕ" : "Weekly Content"}</div>
-            <div className="service-arrow">&nearr;</div>
+            <div className="service-arrow">↗</div>
           </div>
           <div className="service-card reveal" ref={addRevealRef} style={{ transitionDelay: "0.5s", background: "var(--cream)", borderColor: "transparent", display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", textAlign: "center" as const }}>
             <div style={{ fontFamily: "'Playfair Display', serif", fontSize: 42, marginBottom: 16 }}>&#10022;</div>

@@ -3,6 +3,7 @@
 import { useState, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import TermsModal from "@/app/components/TermsModal";
+import CookieBanner from "@/app/components/CookieBanner";
 
 export default function Page() {
   return (
@@ -334,46 +335,13 @@ function SignInContent() {
       )}
 
       {showConsent && (
-        <div className="terms-overlay">
-          <div className="terms-modal" style={{ maxWidth: 440 }}>
-            <div className="terms-header">
-              <div>
-                <h2 className="terms-title">Cookie & Data Consent</h2>
-                <p className="terms-subtitle">We need your consent to continue</p>
-              </div>
-            </div>
-            <div className="terms-body" style={{ padding: "20px 24px" }}>
-              <label style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 12 }}>
-                <input type="checkbox" id="consent-analytics" defaultChecked />
-                <span>Allow analytics cookies to help us improve the platform</span>
-              </label>
-              <label style={{ display: "flex", alignItems: "center", gap: 8 }}>
-                <input type="checkbox" id="consent-marketing" />
-                <span>Allow marketing communications</span>
-              </label>
-            </div>
-            <div className="terms-footer">
-              <div className="terms-footer-actions">
-                <button
-                  className="terms-btn-accept"
-                  onClick={async () => {
-                    const analytics = (document.getElementById("consent-analytics") as HTMLInputElement).checked;
-                    const marketing = (document.getElementById("consent-marketing") as HTMLInputElement).checked;
-                    await fetch("/api/consent", {
-                      method: "POST",
-                      headers: { "Content-Type": "application/json" },
-                      body: JSON.stringify({ analytics, marketing }),
-                    });
-                    setShowConsent(false);
-                    router.push(consentRedirect);
-                  }}
-                >
-                  Accept & Continue
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
+        <CookieBanner
+          isLoggedIn={true}
+          onSave={() => {
+            setShowConsent(false);
+            router.push(consentRedirect);
+          }}
+        />
       )}
     </div>
   );
