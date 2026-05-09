@@ -28,6 +28,7 @@ export const subscriptions = pgTable("subscriptions", {
   razorpayPaymentId: text("razorpay_payment_id"),
   amountPaise: integer("amount_paise").notNull(),       // total incl. GST
   gstPaise: integer("gst_paise").notNull(),
+  invoiceNumber: text("invoice_number"),
   createdAt: timestamp("created_at").defaultNow().notNull(),
   activatedAt: timestamp("activated_at"),
 });

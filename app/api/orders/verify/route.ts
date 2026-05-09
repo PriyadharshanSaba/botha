@@ -34,8 +34,8 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "Order not found" }, { status: 404 });
   }
 
-  // Activate subscription
-  await db.activateSubscription(razorpay_order_id, razorpay_payment_id);
+  // Activate subscription — returns sequential invoice number
+  const invoiceNumber = await db.activateSubscription(razorpay_order_id, razorpay_payment_id);
 
   // Fire invoice email — non-blocking, failure doesn't affect payment response
   db.getUserById(userId).then((user) => {
@@ -53,6 +53,7 @@ export async function POST(req: NextRequest) {
       gstRate: 18,
       totalRs: sub.amountPaise / 100,
       activatedAt: new Date().toISOString(),
+      invoiceNumber,
     });
   }).catch((e) => console.error("[invoice] send failed:", e));
 

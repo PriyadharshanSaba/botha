@@ -221,12 +221,32 @@ export const PostgresDB: DBDriver = {
 
   /* --------------------------------
      SUBSCRIPTION: Activate on payment
+     Generates sequential invoice number: YYYYMMDD00001
   ----------------------------------*/
-  async activateSubscription(razorpayOrderId: string, razorpayPaymentId: string): Promise<void> {
-    await db
-      .update(subscriptions)
-      .set({ status: "active", razorpayPaymentId, activatedAt: new Date() })
-      .where(eq(subscriptions.razorpayOrderId, razorpayOrderId));
+  async activateSubscription(razorpayOrderId: string, razorpayPaymentId: string): Promise<string> {
+    const now = new Date();
+    const datePrefix = now.getFullYear().toString()
+      + String(now.getMonth() + 1).padStart(2, "0")
+      + String(now.getDate()).padStart(2, "0");
+
+    // Atomically count existing invoices for today and assign next sequence
+    const result = await db.execute(sql`
+      UPDATE subscriptions
+      SET status = 'active',
+          razorpay_payment_id = ${razorpayPaymentId},
+          activated_at = ${now},
+          invoice_number = ${datePrefix} || LPAD(
+            (
+              SELECT COALESCE(COUNT(*), 0) + 1
+              FROM subscriptions
+              WHERE invoice_number LIKE ${datePrefix + "%"}
+            )::text, 5, '0'
+          )
+      WHERE razorpay_order_id = ${razorpayOrderId}
+      RETURNING invoice_number
+    `);
+
+    return (result.rows[0] as { invoice_number: string }).invoice_number;
   },
 
   /* --------------------------------

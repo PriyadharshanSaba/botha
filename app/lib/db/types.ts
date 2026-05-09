@@ -42,6 +42,7 @@ export type Subscription = {
   razorpayPaymentId: string | null;
   amountPaise: number;
   gstPaise: number;
+  invoiceNumber: string | null;
   createdAt: Date;
   activatedAt: Date | null;
 };
@@ -91,7 +92,7 @@ export interface DBDriver {
   withdrawConsent(userId: string, policyVersion: string): Promise<void>;
   saveBillingInfo(userId: string, info: BillingInfo): Promise<void>;
   createSubscription(input: CreateSubscriptionInput): Promise<Subscription>;
-  activateSubscription(razorpayOrderId: string, razorpayPaymentId: string): Promise<void>;
+  activateSubscription(razorpayOrderId: string, razorpayPaymentId: string): Promise<string>;
   getUserSubscription(userId: string): Promise<Subscription | null>;
   getSubscriptionByOrderId(razorpayOrderId: string): Promise<Subscription | null>;
   getSubscriptionCount(planId: string): Promise<number>;

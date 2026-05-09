@@ -36,7 +36,7 @@ export async function POST(req: NextRequest) {
       amountPaise: 0,
       gstPaise: 0,
     });
-    await db.activateSubscription(orderId, "bypass");
+    const invoiceNumber = await db.activateSubscription(orderId, "bypass");
 
     // Fire invoice email for new bypass activations — non-blocking
     sendInvoiceEmail(user.email, {
@@ -51,6 +51,7 @@ export async function POST(req: NextRequest) {
       gstRate: 18,
       totalRs: 0,
       activatedAt: new Date().toISOString(),
+      invoiceNumber,
     }).catch((e) => console.error("[invoice] bypass send failed:", e));
   }
 

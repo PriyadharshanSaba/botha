@@ -13,6 +13,7 @@ type BillingData = {
   planName: string;
   status: string;
   activatedAt: string;
+  invoiceNumber: string | null;
   breakdown: { baseRs: number; gstRs: number; gstRate: number; totalRs: number };
 };
 
@@ -102,14 +103,7 @@ function BillingContent() {
       })
     : "—";
 
-  // Fiscal year + invoice number
-  const d = data.activatedAt ? new Date(data.activatedAt) : new Date();
-  const fyStart = d.getMonth() >= 3 ? d.getFullYear() : d.getFullYear() - 1;
-  const fiscalYear = `${fyStart}-${String(fyStart + 1).slice(2)}`;
-  const shortId = data.orderId?.startsWith("order_")
-    ? data.orderId.replace("order_", "").slice(0, 8).toUpperCase()
-    : (data.orderId?.split("_").slice(-1)[0] ?? "").slice(0, 8).toUpperCase();
-  const invoiceNum = `INV/${fiscalYear}/${shortId}`;
+  const invoiceNum = data.invoiceNumber ?? "—";
 
   const shortOrderId  = data.orderId?.replace("order_", "") ?? "—";
   const shortPaymentId = data.paymentId && data.paymentId !== "bypass"

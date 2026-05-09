@@ -8,6 +8,8 @@ import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useLanguage } from "../context/LanguageContext";
+import TermsModal from "../components/TermsModal";
+import PrivacyModal from "../components/PrivacyModal";
 
 /* ── helpers ── */
 function fmt(n: number) {
@@ -32,6 +34,8 @@ export default function ToolsPage() {
   const accountRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
   const { lang, setLang, t } = useLanguage();
+  const [showTerms, setShowTerms] = useState(false);
+  const [showPrivacy, setShowPrivacy] = useState(false);
 
   /* ── active modal ── */
   const [activeModal, setActiveModal] = useState<string | null>(null);
@@ -1083,8 +1087,8 @@ export default function ToolsPage() {
           <div className="footer-col">
             <h5>Legal</h5>
             <ul>
-              <li><a href="#">Privacy Policy</a></li>
-              <li><a href="#">Terms of Use</a></li>
+              <li><a href="#" onClick={(e) => { e.preventDefault(); setShowPrivacy(true); }}>Privacy Policy</a></li>
+              <li><a href="#" onClick={(e) => { e.preventDefault(); setShowTerms(true); }}>Terms of Use</a></li>
               <li><a href="#">Disclaimer</a></li>
             </ul>
           </div>
@@ -1094,6 +1098,9 @@ export default function ToolsPage() {
           <a href="#">Back to top &uarr;</a>
         </div>
       </footer>
+
+      {showTerms && <TermsModal viewOnly onClose={() => setShowTerms(false)} />}
+      {showPrivacy && <PrivacyModal onClose={() => setShowPrivacy(false)} />}
     </div>
   );
 }
