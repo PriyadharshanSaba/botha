@@ -409,6 +409,14 @@ export default function ToolsPage() {
         </div>
       </div>
 
+      {/* ── DISCLAIMER ── */}
+      <div className="ft-disclaimer">
+        <span className="ft-disclaimer-icon">&#9432;</span>
+        <p>
+          <strong>Disclaimer:</strong> The tools provided on this page are intended solely for educational and informational purposes. Results are based on simplified assumptions and may not reflect your actual financial situation. Please perform your own independent calculations and, if in doubt, consult a qualified financial professional before making any financial decisions.
+        </p>
+      </div>
+
       {/* ── TOOLS SECTION ── */}
       <section className="ft-tools-section">
         <div className="ft-tools-grid">
