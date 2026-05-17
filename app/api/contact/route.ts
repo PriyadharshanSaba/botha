@@ -115,7 +115,7 @@ export async function POST(req: NextRequest) {
   const { error } = await resend.emails.send({
     from: "Bodha Ventures <info@bodhaventures.in>",
     to: "info@bodhaventures.in",
-    reply_to: body.email,
+    replyTo: body.email,
     subject,
     html,
   });
