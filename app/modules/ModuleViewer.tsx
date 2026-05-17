@@ -1,0 +1,208 @@
+"use client";
+
+import React, { useState, useEffect } from "react";
+import { useSearchParams, useRouter } from "next/navigation";
+import { useLanguage } from "@/app/context/LanguageContext";
+
+type Props = {
+  moduleId: string;
+  moduleNumber: number;
+  moduleName: string;
+  completionMessage: string;
+  children: React.ReactNode;
+};
+
+export default function ModuleViewer({
+  moduleId,
+  moduleNumber,
+  moduleName,
+  completionMessage,
+  children,
+}: Props) {
+  const { t, lang } = useLanguage();
+  const searchParams = useSearchParams();
+  const router = useRouter();
+
+  const chapterElements = React.Children.toArray(children);
+  const totalChapters = chapterElements.length;
+
+  const [chapterIndex, setChapterIndex] = useState(0);
+  const [isComplete, setIsComplete] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const chapter = searchParams.get("chapter");
+    if (chapter) {
+      setChapterIndex(Number(chapter));
+      setIsLoading(false);
+      return;
+    }
+
+    fetch("/api/modules", { cache: "no-store" })
+      .then((r) => (r.ok ? r.json() : {}))
+      .then((data: { moduleId?: string; chapterNumber?: number }) => {
+        if (data.moduleId === moduleId) {
+          setChapterIndex(data.chapterNumber ?? 0);
+        }
+      })
+      .finally(() => setIsLoading(false));
+  }, []);
+
+  async function saveProgress(chapterNumber: number) {
+    await fetch("/api/modules", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ moduleId, chapterNumber }),
+    });
+  }
+
+  if (isLoading) {
+    return (
+      <main className="module-loading-container">
+        <div className="spinner"></div>
+        <p className="loading-text">{t("loadingProgress")}</p>
+      </main>
+    );
+  }
+
+  if (isComplete) {
+    return (
+      <main className="container module-detail-container">
+        <div className="module-progress-header">
+          <div className="progress-wrap">
+            <div className="progress-bar">
+              <div className="progress-fill" style={{ width: "100%" }} />
+            </div>
+            <span className="progress-label">
+              {totalChapters} of {totalChapters} {t("chapters")}
+            </span>
+          </div>
+          <div className="chapter-dots">
+            {chapterElements.map((_, i) => (
+              <button
+                key={i}
+                className="chapter-dot done"
+                onClick={() => {
+                  setIsComplete(false);
+                  setChapterIndex(i);
+                  saveProgress(i);
+                }}
+              >
+                {i + 1}
+              </button>
+            ))}
+          </div>
+        </div>
+        <div className="complete-body">
+          <div className="complete-inner">
+            <div className="complete-icon">&#127891;</div>
+            <div className="complete-title">
+              Module {moduleNumber}
+              <br />
+              <em>Complete.</em>
+            </div>
+            <p className="complete-sub">{completionMessage}</p>
+            <button
+              className="complete-btn"
+              onClick={() => router.push("/modules")}
+            >
+              &larr; Back to All Modules
+            </button>
+          </div>
+        </div>
+      </main>
+    );
+  }
+
+  return (
+    <main className="container module-detail-container">
+      {/* === Chapter Progress Header === */}
+      <div className="module-progress-header">
+        <div className="progress-wrap">
+          <div className="progress-bar">
+            <div
+              className="progress-fill"
+              style={{
+                width: `${Math.round((chapterIndex / (totalChapters - 1)) * 100)}%`,
+              }}
+            />
+          </div>
+          <span className="progress-label">
+            {chapterIndex + 1} of {totalChapters} {t("chapters")}
+          </span>
+        </div>
+        <div className="chapter-dots">
+          {chapterElements.map((_, i) => (
+            <button
+              key={i}
+              className={[
+                "chapter-dot",
+                chapterIndex > i ? "done" : "",
+                chapterIndex === i ? "active" : "",
+              ]
+                .filter(Boolean)
+                .join(" ")}
+              onClick={() => {
+                setChapterIndex(i);
+                saveProgress(i);
+              }}
+            >
+              {i + 1}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {/* === Active Chapter === */}
+      <section className="chapters-list">
+        <div className="chapter" data-active-lang={lang}>
+          {chapterElements[chapterIndex]}
+        </div>
+      </section>
+
+      {/* === Floating Navigation Buttons === */}
+      <div className="chapter-nav">
+        <button
+          className="nav-btn prev"
+          onClick={() => {
+            setChapterIndex((i) => {
+              const newIndex = Math.max(0, i - 1);
+              saveProgress(newIndex);
+              return newIndex;
+            });
+            window.scrollTo({ top: 0, behavior: "instant" });
+          }}
+          disabled={chapterIndex === 0}
+        >
+          &larr; {t("previous")}
+        </button>
+
+        <span className="nav-chapter-info">
+          {chapterIndex + 1} / {totalChapters}
+        </span>
+        <span className="nav-divider" />
+
+        <button
+          className="nav-btn next"
+          onClick={async () => {
+            if (chapterIndex === totalChapters - 1) {
+              await saveProgress(chapterIndex);
+              setIsComplete(true);
+            } else {
+              setChapterIndex((i) => {
+                const newIndex = Math.min(totalChapters - 1, i + 1);
+                saveProgress(newIndex);
+                return newIndex;
+              });
+            }
+            window.scrollTo({ top: 0, behavior: "instant" });
+          }}
+        >
+          {chapterIndex === totalChapters - 1
+            ? "Finish \u2713"
+            : `${t("next")} \u2192`}
+        </button>
+      </div>
+    </main>
+  );
+}

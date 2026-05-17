@@ -1,7 +1,12 @@
 .container {
-  max-width: 900px;
+  max-width: 1100px;
   margin: 40px auto;
   padding: 0 20px;
+}
+
+.chapter > div,
+.chapter [data-lang] {
+  width: 100%;
 }
 
 .module-topbar {
@@ -596,3 +601,7 @@ blockquote {
     line-height: 1.6;
   }
 }
+
+/* === Language toggle for bilingual content === */
+[data-active-lang="en"] [data-lang="kn"] { display: none; }
+[data-active-lang="kn"] [data-lang="en"] { display: none; }

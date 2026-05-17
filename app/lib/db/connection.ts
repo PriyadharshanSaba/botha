@@ -6,7 +6,7 @@ const connectionString = process.env.DATABASE_URL!;
 const pool = new Pool({
   connectionString,
   ssl: {
-    rejectUnauthorized: false,
+    rejectUnauthorized: true,
   },
   connectionTimeoutMillis: 5000,  // avoid long hangs
   idleTimeoutMillis: 5000,

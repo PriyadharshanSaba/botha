@@ -1,5 +1,14 @@
 import { Resend } from "resend";
 
+function escapeHtml(str: string): string {
+  return str
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+}
+
 type InvoiceData = {
   firstName: string;
   lastName: string;
@@ -111,8 +120,8 @@ export async function sendInvoiceEmail(to: string, data: InvoiceData) {
       </td>
       <td width="50%" valign="top" style="padding-left:20px;border-left:1px solid ${MIST};">
         <div style="font-size:10px;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:${GOLD};margin-bottom:10px;">Bill To</div>
-        <div style="font-size:14px;font-weight:500;color:${INK};margin-bottom:4px;">${data.firstName} ${data.lastName}</div>
-        <div style="font-size:12px;color:${SLATE};line-height:1.7;">${data.email}</div>
+        <div style="font-size:14px;font-weight:500;color:${INK};margin-bottom:4px;">${escapeHtml(data.firstName)} ${escapeHtml(data.lastName)}</div>
+        <div style="font-size:12px;color:${SLATE};line-height:1.7;">${escapeHtml(data.email)}</div>
       </td>
     </tr></table>
   </td></tr>
@@ -155,7 +164,7 @@ export async function sendInvoiceEmail(to: string, data: InvoiceData) {
       </tr></thead>
       <tbody><tr>
         <td style="padding:13px 8px 13px 0;font-size:12px;color:${SLATE};vertical-align:top;border-bottom:1px solid ${MIST};">
-          <div style="font-weight:500;color:${INK};margin-bottom:3px;">${data.planName} &mdash; Bodha Personal Finance Program</div>
+          <div style="font-weight:500;color:${INK};margin-bottom:3px;">${escapeHtml(data.planName)} &mdash; Bodha Personal Finance Program</div>
           <div style="font-size:11px;color:${MUTED};line-height:1.5;">Written course &mdash; English + Kannada. Lifetime access.<br/>All tools included. WhatsApp community &amp; doubt support for 1 year.</div>
           <div style="display:inline-block;margin-top:5px;font-size:9px;background:${GOLD_BG};color:${GOLD};padding:2px 7px;border-radius:3px;font-weight:500;">SAC: 999293</div>
         </td>
@@ -244,7 +253,7 @@ export async function sendInvoiceEmail(to: string, data: InvoiceData) {
   const { error } = await resend.emails.send({
     from: "Bodha Ventures <info@bodhaventures.in>",
     to,
-    subject: `Tax Invoice — ${data.planName} | Bodha Ventures LLP`,
+    subject: `Tax Invoice — ${escapeHtml(data.planName)} | Bodha Ventures LLP`,
     html,
   });
 
@@ -259,7 +268,7 @@ export async function sendOtpEmail(to: string, otp: string, firstName: string) {
     subject: "Your verification code",
     html: `
       <div style="font-family: sans-serif; max-width: 480px; margin: 0 auto; padding: 32px;">
-        <h2 style="margin: 0 0 8px;">Hi ${firstName},</h2>
+        <h2 style="margin: 0 0 8px;">Hi ${escapeHtml(firstName)},</h2>
         <p style="color: #555; margin: 0 0 24px;">Use the code below to verify your identity. It expires in 5 minutes.</p>
         <div style="background: #f4f4f4; border-radius: 8px; padding: 24px; text-align: center;">
           <span style="font-size: 36px; font-weight: bold; letter-spacing: 12px;">${otp}</span>

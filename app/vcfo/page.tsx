@@ -16,7 +16,9 @@ export default function VcfoPage() {
   const [accountOpen, setAccountOpen] = useState(false);
   const accountRef = useRef<HTMLDivElement>(null);
   const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
   const [checkedChallenges, setCheckedChallenges] = useState<string[]>([]);
+  const formRef = useRef<HTMLFormElement>(null);
   const router = useRouter();
   const { lang, setLang, t } = useLanguage();
   const [showTerms, setShowTerms] = useState(false);
@@ -66,9 +68,35 @@ export default function VcfoPage() {
     );
   }
 
-  function handleSubmit() {
-    setSubmitted(true);
-    document.getElementById("vcfo-request")?.scrollIntoView({ behavior: "smooth", block: "center" });
+  async function handleSubmit() {
+    if (!formRef.current) return;
+    const fd = new FormData(formRef.current);
+    setSubmitting(true);
+    try {
+      await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          type: "vcfo",
+          name: fd.get("name") ?? "",
+          designation: fd.get("designation") ?? "",
+          email: fd.get("email") ?? "",
+          phone: fd.get("phone") ?? "",
+          company: fd.get("company") ?? "",
+          industry: fd.get("industry") ?? "",
+          stage: fd.get("stage") ?? "",
+          revenue: fd.get("revenue") ?? "",
+          challenges: checkedChallenges.join(", "),
+          service: fd.get("service") ?? "",
+          timeline: fd.get("timeline") ?? "",
+          notes: fd.get("notes") ?? "",
+        }),
+      });
+    } finally {
+      setSubmitting(false);
+      setSubmitted(true);
+      document.getElementById("vcfo-request")?.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
   }
 
   const services = [
@@ -339,26 +367,26 @@ export default function VcfoPage() {
 
           <div className="vcfo-form-card vcfo-reveal" ref={addRevealRef} style={{ transitionDelay: "0.15s" }}>
             {!submitted ? (
-              <>
+              <form ref={formRef} onSubmit={(e) => { e.preventDefault(); handleSubmit(); }}>
                 <h3>Request a Virtual CFO</h3>
                 <p className="vcfo-form-desc">Takes 3 minutes. We&apos;ll reach out within 24 hours.</p>
 
                 <div className="vcfo-field-row">
-                  <div className="vcfo-field"><label>Your Name</label><input type="text" placeholder="Arjun Mehta" /></div>
-                  <div className="vcfo-field"><label>Designation</label><input type="text" placeholder="Founder / CFO / Director" /></div>
+                  <div className="vcfo-field"><label>Your Name</label><input type="text" name="name" placeholder="Arjun Mehta" /></div>
+                  <div className="vcfo-field"><label>Designation</label><input type="text" name="designation" placeholder="Founder / CFO / Director" /></div>
                 </div>
                 <div className="vcfo-field-row">
-                  <div className="vcfo-field"><label>Email Address</label><input type="email" placeholder="arjun@yourcompany.com" /></div>
-                  <div className="vcfo-field"><label>Phone Number</label><input type="tel" placeholder="+91 98765 43210" /></div>
+                  <div className="vcfo-field"><label>Email Address</label><input type="email" name="email" placeholder="arjun@yourcompany.com" /></div>
+                  <div className="vcfo-field"><label>Phone Number</label><input type="tel" name="phone" placeholder="+91 98765 43210" /></div>
                 </div>
 
                 <div className="vcfo-form-divider" />
 
                 <div className="vcfo-field-row">
-                  <div className="vcfo-field"><label>Company Name</label><input type="text" placeholder="YourCo Pvt. Ltd." /></div>
+                  <div className="vcfo-field"><label>Company Name</label><input type="text" name="company" placeholder="YourCo Pvt. Ltd." /></div>
                   <div className="vcfo-field">
                     <label>Industry</label>
-                    <select defaultValue="">
+                    <select name="industry" defaultValue="">
                       <option value="" disabled>Select industry</option>
                       <option>SaaS / Software</option>
                       <option>D2C / E-commerce</option>
@@ -374,7 +402,7 @@ export default function VcfoPage() {
                 <div className="vcfo-field-row">
                   <div className="vcfo-field">
                     <label>Company Stage</label>
-                    <select defaultValue="">
+                    <select name="stage" defaultValue="">
                       <option value="" disabled>Select stage</option>
                       <option>Pre-revenue / Idea</option>
                       <option>Early Stage (0&ndash;1 Cr ARR)</option>
@@ -385,7 +413,7 @@ export default function VcfoPage() {
                   </div>
                   <div className="vcfo-field">
                     <label>Current Monthly Revenue</label>
-                    <select defaultValue="">
+                    <select name="revenue" defaultValue="">
                       <option value="" disabled>Select range</option>
                       <option>Pre-revenue</option>
                       <option>Under &#8377;10L/month</option>
@@ -412,7 +440,7 @@ export default function VcfoPage() {
 
                 <div className="vcfo-field">
                   <label>Primary Service of Interest</label>
-                  <select defaultValue="">
+                  <select name="service" defaultValue="">
                     <option value="" disabled>What do you need most right now?</option>
                     <option>MIS &amp; Financial Reporting</option>
                     <option>Cash Flow Management</option>
@@ -427,7 +455,7 @@ export default function VcfoPage() {
 
                 <div className="vcfo-field">
                   <label>When do you need to get started?</label>
-                  <select defaultValue="">
+                  <select name="timeline" defaultValue="">
                     <option value="" disabled>Select timeline</option>
                     <option>Immediately (this week)</option>
                     <option>Within the month</option>
@@ -438,14 +466,14 @@ export default function VcfoPage() {
 
                 <div className="vcfo-field">
                   <label>Anything else we should know? <span style={{ textTransform: "none", letterSpacing: 0, color: "#bbb", fontSize: 11 }}>(optional)</span></label>
-                  <textarea rows={3} placeholder="Tell us about your current finance setup, any specific goals, or what prompted you to look for a Virtual CFO&hellip;" />
+                  <textarea name="notes" rows={3} placeholder="Tell us about your current finance setup, any specific goals, or what prompted you to look for a Virtual CFO&hellip;" />
                 </div>
 
-                <button className="vcfo-submit-btn" onClick={handleSubmit}>Request My Discovery Call &rarr;</button>
+                <button type="submit" className="vcfo-submit-btn" disabled={submitting}>{submitting ? "Sending…" : "Request My Discovery Call →"}</button>
                 <p style={{ marginTop: 12, fontSize: 11, color: "#bbb", textAlign: "center", lineHeight: 1.6 }}>
                   By submitting, you agree to our Privacy Policy. We&apos;ll never share your details or spam you.
                 </p>
-              </>
+              </form>
             ) : (
               <div className="vcfo-success-state show">
                 <div className="vcfo-success-icon">&#9989;</div>

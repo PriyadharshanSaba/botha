@@ -54,7 +54,7 @@ export const PostgresDB: DBDriver = {
         otp,
         otpExpiry: new Date(expiry),
       })
-      .where(eq(users.email, email));
+      .where(sql`lower(${users.email}) = lower(${email})`);
   },
 
   /* --------------------------------
@@ -64,7 +64,7 @@ export const PostgresDB: DBDriver = {
     await db
       .update(users)
       .set({ verified: true })
-      .where(eq(users.email, email));
+      .where(sql`lower(${users.email}) = lower(${email})`);
   },
 
   /* --------------------------------
@@ -100,22 +100,35 @@ export const PostgresDB: DBDriver = {
     const result = await db
       .select()
       .from(users)
-      .where(eq(users.email, email))
+      .where(sql`lower(${users.email}) = lower(${email})`)
       .limit(1);
 
     const user = result[0];
-    if (!user) return false;
-    if (user.otp !== otp) return false;
+    if (!user || !user.otp || !user.otpExpiry) return false;
 
-    if (!user.otpExpiry || Date.now() > new Date(user.otpExpiry).getTime()) {
+    // Expired — clear and reject
+    if (Date.now() > new Date(user.otpExpiry).getTime()) {
+      await db
+        .update(users)
+        .set({ otp: null, otpExpiry: null })
+        .where(eq(users.id, user.id));
       return false;
     }
 
-    // Clear OTP after success
+    // Wrong OTP — clear to prevent brute-force (user must request a new one)
+    if (user.otp !== otp) {
+      await db
+        .update(users)
+        .set({ otp: null, otpExpiry: null })
+        .where(eq(users.id, user.id));
+      return false;
+    }
+
+    // Success — clear OTP (single-use)
     await db
       .update(users)
       .set({ otp: null, otpExpiry: null })
-      .where(eq(users.email, email));
+      .where(eq(users.id, user.id));
 
     return true;
   },
@@ -229,7 +242,7 @@ export const PostgresDB: DBDriver = {
       + String(now.getMonth() + 1).padStart(2, "0")
       + String(now.getDate()).padStart(2, "0");
 
-    // Atomically count existing invoices for today and assign next sequence
+    // Only activate pending subscriptions (idempotency + race condition guard)
     const result = await db.execute(sql`
       UPDATE subscriptions
       SET status = 'active',
@@ -243,8 +256,16 @@ export const PostgresDB: DBDriver = {
             )::text, 5, '0'
           )
       WHERE razorpay_order_id = ${razorpayOrderId}
+        AND status = 'pending'
       RETURNING invoice_number
     `);
+
+    // Already activated (replay or race) — return existing invoice number
+    if (!result.rows[0]) {
+      const existing = await db.select().from(subscriptions)
+        .where(eq(subscriptions.razorpayOrderId, razorpayOrderId)).limit(1);
+      return (existing[0] as { invoiceNumber: string }).invoiceNumber;
+    }
 
     return (result.rows[0] as { invoice_number: string }).invoice_number;
   },
@@ -280,7 +301,10 @@ export const PostgresDB: DBDriver = {
     const res = await db
       .select({ total: count() })
       .from(subscriptions)
-      .where(and(eq(subscriptions.planId, planId), eq(subscriptions.status, "active")));
+      .where(and(
+        eq(subscriptions.planId, planId),
+        sql`${subscriptions.status} IN ('active', 'pending')`
+      ));
     return res[0]?.total ?? 0;
   },
 

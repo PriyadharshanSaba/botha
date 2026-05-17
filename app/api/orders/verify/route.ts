@@ -34,6 +34,21 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "Order not found" }, { status: 404 });
   }
 
+  // Idempotent: if already active, return success without re-processing
+  if (sub.status === "active") {
+    const response = NextResponse.json({ success: true, orderId: razorpay_order_id, alreadyActive: true });
+    response.cookies.set({
+      name: "subscribed",
+      value: "1",
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "lax",
+      path: "/",
+      maxAge: 60 * 60 * 24 * 365 * 10,
+    });
+    return response;
+  }
+
   // Activate subscription — returns sequential invoice number
   const invoiceNumber = await db.activateSubscription(razorpay_order_id, razorpay_payment_id);
 
