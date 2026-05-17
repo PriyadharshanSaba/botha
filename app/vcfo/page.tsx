@@ -169,7 +169,7 @@ export default function VcfoPage() {
         ) : (
           <>
             <ul className="nav-links">
-              <li><Link href="/#course">Courses</Link></li>
+              <li><Link href="/modules">Courses</Link></li>
               <li><Link href="/vcfo" style={{ color: "var(--gold)" }}>Virtual CFO</Link></li>
               <li><Link href="/venture">Venture Capital</Link></li>
               <li><Link href="/tools">Tools</Link></li>
@@ -510,7 +510,7 @@ export default function VcfoPage() {
             <h5>Services</h5>
             <ul>
               <li><Link href="/vcfo">Virtual CFO</Link></li>
-              <li><Link href="/#course">Finance Course</Link></li>
+              <li><Link href="/modules">Finance Course</Link></li>
               <li><Link href="/venture">Venture Capital</Link></li>
               <li><Link href="/tools">Finance Tools</Link></li>
               <li><Link href="/#services">Blog</Link></li>

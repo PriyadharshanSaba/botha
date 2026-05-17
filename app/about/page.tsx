@@ -110,7 +110,7 @@ export default function AboutPage() {
         ) : (
           <>
             <ul className="nav-links">
-              <li><Link href="/#course">Courses</Link></li>
+              <li><Link href="/modules">Courses</Link></li>
               <li><Link href="/vcfo">Virtual CFO</Link></li>
               <li><Link href="/venture">Venture Capital</Link></li>
               <li><Link href="/tools">Tools</Link></li>
@@ -204,7 +204,10 @@ export default function AboutPage() {
           <div className="about-partner-card about-reveal" ref={addRevealRef} style={{ transitionDelay: "0.05s" }}>
             <div className="about-partner-card-top">
               <div className="about-partner-num">01</div>
-              <div className="about-partner-avatar">A</div>
+              <div className="about-partner-avatar">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src="/AHD.jpeg" alt="CA Amogha H.D" style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
+              </div>
               <div className="about-partner-name">CA Amogha H.D  - Finance</div>
               <div className="about-partner-title">Chartered Accountant &middot; Co-Founder</div>
             </div>
@@ -222,13 +225,16 @@ export default function AboutPage() {
           <div className="about-partner-card about-reveal" ref={addRevealRef} style={{ transitionDelay: "0.15s" }}>
             <div className="about-partner-card-top">
               <div className="about-partner-num">02</div>
-              <div className="about-partner-avatar" style={{ background: "var(--slate)" }}>PD</div>
+              <div className="about-partner-avatar" style={{ background: "var(--slate)" }}>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src="/PD.jpeg" alt="Priyadharshan S" style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
+              </div>
               <div className="about-partner-name">Priyadharshan S - Technology</div>
               <div className="about-partner-title">Engineer &middot; Co-Founder</div>
             </div>
             <div className="about-partner-card-body">
               <p className="about-partner-bio">
-                A <strong>senior developer with a career spent inside early-stage startups</strong> - not as a contractor, but as a core team member working directly alongside founders through the chaos, pivots, and milestones that define the early years of a company. This is someone who has seen from the inside what it takes to build something from nothing.
+                Alongside Bodha’s finance expertise sits a strong focus on systems thinking, execution and building structured learning experiences that simplify complexity. With experience working across technology-driven and fast-moving environments, the approach has always been grounded in clarity, practical decision-making and long-term thinking. That balance between financial depth and operational thinking shapes how Bodha is being built — not just as an education platform, but as a place where people can develop real understanding, confidence and better judgment around money.
               </p>
               <p className="about-partner-bio" style={{ marginTop: -10 }}>
                 Having been on the <strong>founder&apos;s side of the table</strong>, this partner brings something rare to Bodha: a genuine, lived understanding of what entrepreneurs need - not just on the technical side, but in terms of support, clarity, and someone who truly gets the journey. That empathy informs how we engage with founders across our Virtual CFO service, our venture investing, and every conversation we have with a business that&apos;s trying to grow.
@@ -318,7 +324,7 @@ export default function AboutPage() {
           <div className="footer-col">
             <h5>Services</h5>
             <ul>
-              <li><Link href="/#course">Finance Course</Link></li>
+              <li><Link href="/modules">Finance Course</Link></li>
               <li><Link href="/vcfo">Virtual CFO</Link></li>
               <li><Link href="/venture">Venture Capital</Link></li>
               <li><Link href="/tools">Finance Tools</Link></li>

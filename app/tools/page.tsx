@@ -368,7 +368,7 @@ export default function ToolsPage() {
         ) : (
           <>
             <ul className="nav-links">
-              <li><Link href="/#course">Courses</Link></li>
+              <li><Link href="/modules">Courses</Link></li>
               <li><Link href="/vcfo">Virtual CFO</Link></li>
               <li><Link href="/venture">Venture Capital</Link></li>
               <li><Link href="/tools" style={{ color: "var(--gold)" }}>Tools</Link></li>
@@ -1048,7 +1048,7 @@ export default function ToolsPage() {
             <p style={{ fontSize: 14, color: "#888", lineHeight: 1.7, maxWidth: 360, margin: "0 auto" }}>
               The Net Worth Tracker is included with the <strong style={{ color: "var(--ink)" }}>Personal Finance Course</strong>. Log your net worth every month, visualise progress with charts, and track your financial trajectory over time.
             </p>
-            <Link href="/#course" style={{ display: "inline-block", marginTop: 24, fontSize: 14, fontWeight: 600, color: "var(--gold)", textDecoration: "none" }}>
+            <Link href="/modules" style={{ display: "inline-block", marginTop: 24, fontSize: 14, fontWeight: 600, color: "var(--gold)", textDecoration: "none" }}>
               Explore the Course &rarr;
             </Link>
           </div>
@@ -1070,7 +1070,7 @@ export default function ToolsPage() {
           <div className="footer-col">
             <h5>Services</h5>
             <ul>
-              <li><Link href="/#course">Finance Course</Link></li>
+              <li><Link href="/modules">Finance Course</Link></li>
               <li><Link href="/vcfo">Virtual CFO</Link></li>
               <li><Link href="/venture">Venture Capital</Link></li>
               <li><Link href="/tools">Finance Tools</Link></li>
