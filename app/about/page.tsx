@@ -7,6 +7,8 @@ import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useLanguage } from "../context/LanguageContext";
+import TermsModal from "../components/TermsModal";
+import PrivacyModal from "../components/PrivacyModal";
 
 export default function AboutPage() {
   const revealRefs = useRef<HTMLElement[]>([]);
@@ -15,6 +17,8 @@ export default function AboutPage() {
   const accountRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
   const { lang, setLang, t } = useLanguage();
+  const [showTerms, setShowTerms] = useState(false);
+  const [showPrivacy, setShowPrivacy] = useState(false);
 
   useEffect(() => {
     fetch("/api/me").then((r) => r.json()).then((d) => setLoggedIn(d.loggedIn));
@@ -206,7 +210,7 @@ export default function AboutPage() {
             </div>
             <div className="about-partner-card-body">
               <p className="about-partner-bio">
-                Our finance partner is a <strong>Chartered Accountant, CFA Level 3 candidate</strong> and <strong>former Deloitte Manager</strong> who has spent years working alongside some of the most experienced financial minds in the industry - Senior Partners, CFOs and other C-suite executives across Financial Services, Consumer and Life Sciences. That proximity to excellence shapes everything: how we think, how we work and the standard we hold ourselves to.
+                Our finance partner is a <strong>Chartered Accountant, CFA Level 3 cleared</strong> and <strong>former Deloitte Manager</strong> who has spent years working alongside some of the most experienced financial minds in the industry - Senior Partners, CFOs and other C-suite executives across Financial Services, Consumer and Life Sciences. That proximity to excellence shapes everything: how we think, how we work and the standard we hold ourselves to.
               </p>
               <p className="about-partner-bio" style={{ marginTop: -10 }}>
                 It&apos;s a rare kind of formation, not just technical training, but years of watching how the best in the business approach complexity, make decisions under pressure and lead with clarity. That perspective now sits at the centre of Bodha and it&apos;s what every client benefits from.
@@ -331,8 +335,8 @@ export default function AboutPage() {
           <div className="footer-col">
             <h5>Legal</h5>
             <ul>
-              <li><a href="#">Privacy Policy</a></li>
-              <li><a href="#">Terms of Use</a></li>
+              <li><a href="#" onClick={(e) => { e.preventDefault(); setShowPrivacy(true); }}>Privacy Policy</a></li>
+              <li><a href="#" onClick={(e) => { e.preventDefault(); setShowTerms(true); }}>Terms of Use</a></li>
               <li><a href="#">Disclaimer</a></li>
             </ul>
           </div>
@@ -342,6 +346,9 @@ export default function AboutPage() {
           <a href="#">Back to top &uarr;</a>
         </div>
       </footer>
+
+      {showTerms && <TermsModal viewOnly onClose={() => setShowTerms(false)} />}
+      {showPrivacy && <PrivacyModal onClose={() => setShowPrivacy(false)} />}
     </div>
   );
 }

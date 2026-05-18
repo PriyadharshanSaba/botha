@@ -12,25 +12,27 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "User not found" }, { status: 404 });
   }
 
-  if (!isTestEmail(email)) {
-    const { allowed, attemptsLeft } = await db.checkRateLimit(email);
-    if (!allowed) {
+  const testUser = isTestEmail(email);
+  let attemptsLeft: number | undefined;
+
+  if (!testUser) {
+    const rateLimit = await db.checkRateLimit(email);
+    if (!rateLimit.allowed) {
       return NextResponse.json(
         { error: "Too many attempts. Try again tomorrow." },
         { status: 429 }
       );
     }
-    const otp = generateOTP(email);
-    const expiry = Date.now() + 5 * 60 * 1000;
-    await db.saveOTP(email, otp, expiry);
     await db.recordOtpAttempt(email);
-    await sendOtpEmail(email, otp, user.firstName);
-    return NextResponse.json({ success: true, attemptsLeft: attemptsLeft - 1 });
+    attemptsLeft = rateLimit.attemptsLeft - 1;
   }
 
   const otp = generateOTP(email);
   const expiry = Date.now() + 5 * 60 * 1000;
   await db.saveOTP(email, otp, expiry);
+  if (!testUser) {
+    await sendOtpEmail(email, otp, user.firstName);
+  }
 
-  return NextResponse.json({ success: true });
+  return NextResponse.json({ success: true, attemptsLeft });
 }

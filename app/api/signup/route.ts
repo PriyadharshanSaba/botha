@@ -21,15 +21,20 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "User already exists" }, { status: 409 });
   }
 
-  if (!isTestEmail(email)) {
-    const { allowed, attemptsLeft } = await db.checkRateLimit(email);
-    console.log("[signup] rate limit:", { allowed, attemptsLeft });
-    if (!allowed) {
+  const testUser = isTestEmail(email);
+  let attemptsLeft: number | undefined;
+
+  if (!testUser) {
+    const rateLimit = await db.checkRateLimit(email);
+    console.log("[signup] rate limit:", rateLimit);
+
+    if (!rateLimit.allowed) {
       return NextResponse.json(
         { error: "Too many attempts. Try again tomorrow." },
         { status: 429 }
       );
     }
+    attemptsLeft = rateLimit.attemptsLeft - 1;
   }
 
   // Reuse unverified account or create new
@@ -42,7 +47,7 @@ export async function POST(req: Request) {
   await db.saveOTP(email, otp, expiry);
   console.log("[signup] OTP saved");
 
-  if (!isTestEmail(email)) {
+  if (!testUser) {
     await db.recordOtpAttempt(email);
     try {
       await sendOtpEmail(email, otp, firstName);
@@ -53,5 +58,5 @@ export async function POST(req: Request) {
     }
   }
 
-  return NextResponse.json({ success: true, userId: user.id });
+  return NextResponse.json({ success: true, userId: user.id, attemptsLeft });
 }

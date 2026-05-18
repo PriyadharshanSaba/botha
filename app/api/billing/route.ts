@@ -34,6 +34,7 @@ export async function GET(req: NextRequest) {
     planName: plan.name,
     status: sub.status,
     activatedAt: sub.activatedAt,
+    invoiceNumber: sub.invoiceNumber,
     breakdown: { baseRs, gstRs, gstRate: 18, totalRs },
   });
 }

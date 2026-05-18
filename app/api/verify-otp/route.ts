@@ -18,9 +18,14 @@ export async function POST(req: NextRequest) {
 
   await db.markUserVerified(email);
 
-  const progress = await db.getLastCompletedChapter(user.id);
+  const [progress, consent] = await Promise.all([
+    db.getLastCompletedChapter(user.id),
+    db.getConsent(user.id, CURRENT_POLICY_VERSION),
+  ]);
 
-  const response = NextResponse.json({ success: true, progress });
+  const needsConsent = !consent || !!consent.withdrawnAt;
+
+  const response = NextResponse.json({ success: true, progress, needsConsent });
 
   response.cookies.set({
     name: "uid",

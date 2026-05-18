@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
-import Razorpay, { Orders } from "razorpay";
+import Razorpay from "razorpay";
+import type { Orders } from "razorpay/dist/types/orders";
 import { db } from "@/app/lib/db";
 import { PLANS, totalPaise, gstPaise } from "@/app/lib/plans";
 import { isTestEmail } from "@/app/lib/utils/otp";

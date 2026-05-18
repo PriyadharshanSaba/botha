@@ -42,6 +42,7 @@ export type Subscription = {
   razorpayPaymentId: string | null;
   amountPaise: number;
   gstPaise: number;
+  invoiceNumber: string | null;
   createdAt: Date;
   activatedAt: Date | null;
 };
@@ -84,14 +85,14 @@ export interface DBDriver {
   markUserVerified(email: string): Promise<void>;
   markChapterViewed(userId: string, moduleId: string, chapterNumber: number): Promise<void>;
   hasCompletedChapter(userId: string, moduleId: string, chapterNumber: number): Promise<boolean>;
-  getLastCompletedChapter(userId: string): Promise<{moduleId: string | null; chapterNumber: number;}>;
+  getLastCompletedChapter(userId: string): Promise<{ moduleId: string | null; chapterNumber: number }>;
   getAllProgress(userId: string): Promise<Record<string, number>>;
   saveConsent(input: SaveConsentInput): Promise<CookieConsent>;
   getConsent(userId: string, policyVersion: string): Promise<CookieConsent | null>;
   withdrawConsent(userId: string, policyVersion: string): Promise<void>;
   saveBillingInfo(userId: string, info: BillingInfo): Promise<void>;
   createSubscription(input: CreateSubscriptionInput): Promise<Subscription>;
-  activateSubscription(razorpayOrderId: string, razorpayPaymentId: string): Promise<void>;
+  activateSubscription(razorpayOrderId: string, razorpayPaymentId: string): Promise<string>;
   getUserSubscription(userId: string): Promise<Subscription | null>;
   getSubscriptionByOrderId(razorpayOrderId: string): Promise<Subscription | null>;
   getSubscriptionCount(planId: string): Promise<number>;

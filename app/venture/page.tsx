@@ -8,6 +8,8 @@ import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useLanguage } from "../context/LanguageContext";
+import TermsModal from "../components/TermsModal";
+import PrivacyModal from "../components/PrivacyModal";
 
 export default function VenturePage() {
   const revealRefs = useRef<HTMLElement[]>([]);
@@ -17,6 +19,8 @@ export default function VenturePage() {
   const [submitted, setSubmitted] = useState(false);
   const router = useRouter();
   const { lang, setLang, t } = useLanguage();
+  const [showTerms, setShowTerms] = useState(false);
+  const [showPrivacy, setShowPrivacy] = useState(false);
 
   useEffect(() => {
     fetch("/api/me").then((r) => r.json()).then((d) => setLoggedIn(d.loggedIn));
@@ -409,8 +413,8 @@ export default function VenturePage() {
           <div className="footer-col">
             <h5>Legal</h5>
             <ul>
-              <li><a href="#">Privacy Policy</a></li>
-              <li><a href="#">Terms of Use</a></li>
+              <li><a href="#" onClick={(e) => { e.preventDefault(); setShowPrivacy(true); }}>Privacy Policy</a></li>
+              <li><a href="#" onClick={(e) => { e.preventDefault(); setShowTerms(true); }}>Terms of Use</a></li>
               <li><a href="#">Disclaimer</a></li>
             </ul>
           </div>
@@ -420,6 +424,9 @@ export default function VenturePage() {
           <a href="#">Back to top &uarr;</a>
         </div>
       </footer>
+
+      {showTerms && <TermsModal viewOnly onClose={() => setShowTerms(false)} />}
+      {showPrivacy && <PrivacyModal onClose={() => setShowPrivacy(false)} />}
     </div>
   );
 }

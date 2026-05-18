@@ -3,6 +3,7 @@ import type { NextRequest } from "next/server";
 import { db } from "@/app/lib/db";
 import { isTestEmail } from "@/app/lib/utils/otp";
 import { PLANS, type PlanId } from "@/app/lib/plans";
+import { sendInvoiceEmail } from "@/app/lib/email/send";
 
 export async function POST(req: NextRequest) {
   const userId = req.cookies.get("uid")?.value;
@@ -35,7 +36,23 @@ export async function POST(req: NextRequest) {
       amountPaise: 0,
       gstPaise: 0,
     });
-    await db.activateSubscription(orderId, "bypass");
+    const invoiceNumber = await db.activateSubscription(orderId, "bypass");
+
+    // Fire invoice email for new bypass activations — non-blocking
+    sendInvoiceEmail(user.email, {
+      firstName: user.firstName,
+      lastName: user.lastName,
+      email: user.email,
+      planName: plan.name,
+      orderId,
+      paymentId: "bypass",
+      baseRs: 0,
+      gstRs: 0,
+      gstRate: 18,
+      totalRs: 0,
+      activatedAt: new Date().toISOString(),
+      invoiceNumber,
+    }).catch((e) => console.error("[invoice] bypass send failed:", e));
   }
 
   const response = NextResponse.json({ success: true, orderId });

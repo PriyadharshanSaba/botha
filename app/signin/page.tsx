@@ -3,6 +3,7 @@
 import { useState, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import TermsModal from "@/app/components/TermsModal";
+import CookieBanner from "@/app/components/CookieBanner";
 
 export default function Page() {
   return (
@@ -36,6 +37,10 @@ function SignInContent() {
   // --- Terms ---
   const [termsAccepted, setTermsAccepted] = useState(false);
   const [showTerms, setShowTerms] = useState(false);
+
+  // --- Consent (re-ask after login if missing) ---
+  const [showConsent, setShowConsent] = useState(false);
+  const [consentRedirect, setConsentRedirect] = useState<string>("/modules");
 
   /* --------------------------------
     LOGIN: Send OTP
@@ -132,12 +137,16 @@ function SignInContent() {
 
     const data = await res.json();
 
-    if (data.progress?.moduleId) {
-      router.push(`/modules/${data.progress.moduleId}?chapter=${data.progress.chapterNumber}`);
-    } else {
-      router.push("/modules");
-    }
+    const dest = data.progress?.moduleId
+      ? `/modules/${data.progress.moduleId}?chapter=${data.progress.chapterNumber}`
+      : "/modules";
 
+    if (data.needsConsent) {
+      setConsentRedirect(dest);
+      setShowConsent(true);
+    } else {
+      router.push(dest);
+    }
   }
 
 
@@ -322,6 +331,16 @@ function SignInContent() {
         <TermsModal
           onAccept={() => { setTermsAccepted(true); setShowTerms(false); }}
           onClose={() => setShowTerms(false)}
+        />
+      )}
+
+      {showConsent && (
+        <CookieBanner
+          isLoggedIn={true}
+          onSave={() => {
+            setShowConsent(false);
+            router.push(consentRedirect);
+          }}
         />
       )}
     </div>
