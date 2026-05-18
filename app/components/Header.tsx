@@ -34,16 +34,8 @@ export default function Header() {
   return (
     <header className="header">
       <Link href="/" className="header-logo">
-        <div className="header-logo-mark">
-          <Image
-            src="/logo.svg"
-            alt="Bodha"
-            width={24}
-            height={24}
-            style={{ position: "relative", zIndex: 1 }}
-          />
-        </div>
-        <span className="header-logo-text">Bodha</span>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src="/logo-2.jpeg" alt="Bodha" style={{ height: "64px", width: "auto", display: "block" }} />
       </Link>
 
       {/* Desktop navigation */}

@@ -135,10 +135,8 @@ export default function VcfoPage() {
       {/* NAV */}
       <nav className="landing-nav">
         <Link href="/" className="logo">
-          <div className="logo-mark">
-            <Image src="/logo.svg" alt="Bodha" width={24} height={24} style={{ position: "relative", zIndex: 1 }} />
-          </div>
-          <div className="logo-text">Bodha</div>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/logo-2.jpeg" alt="Bodha" style={{ height: "70px", width: "auto", display: "block" }} />
         </Link>
         {loggedIn ? (
           <div className="about-nav-right">
@@ -173,7 +171,7 @@ export default function VcfoPage() {
               <li><Link href="/vcfo" style={{ color: "var(--gold)" }}>Virtual CFO</Link></li>
               <li><Link href="/venture">Venture Capital</Link></li>
               <li><Link href="/tools">Tools</Link></li>
-              <li><Link href="/#services">Insights</Link></li>
+              <li><Link href="/#services">Blogs</Link></li>
               <li><Link href="/about">About Us</Link></li>
             </ul>
             <div className="nav-cta">
@@ -499,10 +497,8 @@ export default function VcfoPage() {
         <div className="footer-top">
           <div className="footer-brand">
             <Link href="/" className="logo" style={{ textDecoration: "none" }}>
-              <div className="logo-mark">
-                <Image src="/logo.svg" alt="Bodha" width={20} height={20} style={{ position: "relative", zIndex: 1 }} />
-              </div>
-              <div className="logo-text" style={{ color: "#fff" }}>Bodha</div>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src="/logo-2.jpeg" alt="Bodha" style={{ height: "70px", width: "auto", display: "block" }} />
             </Link>
             <p>Empowering founders and businesses with the financial clarity they need to grow with confidence.</p>
           </div>

@@ -67,17 +67,15 @@ export default function LandingPage() {
       {/* NAV */}
       <nav className="landing-nav">
         <Link href="/" className="logo">
-          <div className="logo-mark">
-            <Image src="/logo.svg" alt="Bodha" width={24} height={24} style={{ position: "relative", zIndex: 1 }} />
-          </div>
-          <div className="logo-text">Bodha</div>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/logo-2.jpeg" alt="Bodha" style={{ height: "70px", width: "auto", display: "block" }} />
         </Link>
         <ul className="nav-links">
           <li><a href="#course">{isKn ? "ಕೋರ್ಸ್‌ಗಳು" : "Courses"}</a></li>
           <li><Link href="/vcfo">{isKn ? "ವರ್ಚುವಲ್ CFO" : "Virtual CFO"}</Link></li>
           <li><Link href="/venture">{isKn ? "ವೆಂಚರ್ ಕ್ಯಾಪಿಟಲ್" : "Venture Capital"}</Link></li>
           <li><Link href="/tools">{isKn ? "ಉಪಕರಣಗಳು" : "Tools"}</Link></li>
-          <li><a href="#services">{isKn ? "ಒಳನೋಟಗಳು" : "Insights"}</a></li>
+          <li><a href="#services">{isKn ? "ಬ್ಲಾಗ್‌ಗಳು" : "Blogs"}</a></li>
           <li><Link href="/about">{isKn ? "ನಮ್ಮ ಬಗ್ಗೆ" : "About Us"}</Link></li>
         </ul>
         <div className="nav-cta">
@@ -362,10 +360,8 @@ export default function LandingPage() {
         <div className="footer-top">
           <div className="footer-brand">
             <Link href="/" className="logo" style={{ textDecoration: "none" }}>
-              <div className="logo-mark">
-                <Image src="/logo.svg" alt="Bodha" width={20} height={20} style={{ position: "relative", zIndex: 1 }} />
-              </div>
-              <div className="logo-text" style={{ color: "#fff" }}>Bodha</div>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src="/logo-2.jpeg" alt="Bodha" style={{ height: "70px", width: "auto", display: "block" }} />
             </Link>
             <p>{isKn ? "ವ್ಯಕ್ತಿಗಳು ಮತ್ತು ವ್ಯವಹಾರಗಳನ್ನು ಆರ್ಥಿಕ ತಜ್ಞತೆಯಿಂದ ಸಶಕ್ತಗೊಳಿಸುತ್ತಾ." : "Empowering individuals and businesses with financial expertise."}</p>
           </div>
