@@ -77,7 +77,7 @@ export default function AboutPage() {
             <Link href="/vcfo" className="about-nav-link">{t("virtualCfo")}</Link>
             <Link href="/venture" className="about-nav-link">{t("ventureCapital")}</Link>
             <Link href="/tools" className="about-nav-link">{t("tools")}</Link>
-            <Link href="#" className="about-nav-link">{t("insights")}</Link>
+            <Link href="/blogs" className="about-nav-link">{t("insights")}</Link>
             <Link href="/about" className="about-nav-link" style={{ color: "var(--gold)" }}>{t("aboutUs")}</Link>
             <div className="about-account-wrapper" ref={accountRef}>
               <button className="about-account-btn" onClick={() => setAccountOpen(!accountOpen)}>
@@ -112,7 +112,7 @@ export default function AboutPage() {
               <li><Link href="/vcfo">Virtual CFO</Link></li>
               <li><Link href="/venture">Venture Capital</Link></li>
               <li><Link href="/tools">Tools</Link></li>
-              <li><Link href="/#services">Blogs</Link></li>
+              <li><Link href="/blogs">Blogs</Link></li>
               <li><Link href="/about" style={{ color: "var(--gold)" }}>About Us</Link></li>
             </ul>
             <div className="nav-cta">

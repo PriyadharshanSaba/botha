@@ -75,7 +75,7 @@ export default function LandingPage() {
           <li><Link href="/vcfo">{isKn ? "ವರ್ಚುವಲ್ CFO" : "Virtual CFO"}</Link></li>
           <li><Link href="/venture">{isKn ? "ವೆಂಚರ್ ಕ್ಯಾಪಿಟಲ್" : "Venture Capital"}</Link></li>
           <li><Link href="/tools">{isKn ? "ಉಪಕರಣಗಳು" : "Tools"}</Link></li>
-          <li><a href="#services">{isKn ? "ಬ್ಲಾಗ್‌ಗಳು" : "Blogs"}</a></li>
+          <li><Link href="/blogs">{isKn ? "ಬ್ಲಾಗ್‌ಗಳು" : "Blogs"}</Link></li>
           <li><Link href="/about">{isKn ? "ನಮ್ಮ ಬಗ್ಗೆ" : "About Us"}</Link></li>
         </ul>
         <div className="nav-cta">

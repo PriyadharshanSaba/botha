@@ -44,7 +44,7 @@ export default function Header() {
         <Link href="/vcfo" className="nav-link">{t("virtualCfo")}</Link>
         <Link href="/venture" className="nav-link">{t("ventureCapital")}</Link>
         <Link href="/tools" className="nav-link">{t("tools")}</Link>
-        <Link href="#" className="nav-link">{t("insights")}</Link>
+        <Link href="/blogs" className="nav-link">{t("insights")}</Link>
         <Link href="/about" className="nav-link">{t("aboutUs")}</Link>
 
         <div className="account-wrapper" ref={accountRef}>
@@ -113,7 +113,7 @@ export default function Header() {
           <Link href="/tools" className="mobile-link" onClick={() => setOpen(false)}>
             {t("tools")}
           </Link>
-          <Link href="#" className="mobile-link" onClick={() => setOpen(false)}>
+          <Link href="/blogs" className="mobile-link" onClick={() => setOpen(false)}>
             {t("insights")}
           </Link>
           <Link href="/about" className="mobile-link" onClick={() => setOpen(false)}>
