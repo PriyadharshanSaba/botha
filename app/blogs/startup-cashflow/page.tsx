@@ -459,7 +459,6 @@ export default function CashflowArticlePage() {
             <ul>
               <li><a href="#" onClick={(e) => { e.preventDefault(); setShowPrivacy(true); }}>Privacy Policy</a></li>
               <li><a href="#" onClick={(e) => { e.preventDefault(); setShowTerms(true); }}>Terms of Use</a></li>
-              <li><a href="#">Disclaimer</a></li>
             </ul>
           </div>
         </div>

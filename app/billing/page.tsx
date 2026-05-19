@@ -14,7 +14,7 @@ type BillingData = {
   status: string;
   activatedAt: string;
   invoiceNumber: string | null;
-  breakdown: { baseRs: number; gstRs: number; gstRate: number; totalRs: number };
+  breakdown: { totalRs: number };
 };
 
 function rupeesToWords(amount: number): string {
@@ -90,10 +90,7 @@ function BillingContent() {
   }
 
   const { breakdown } = data;
-  const cgstRs   = breakdown.gstRs / 2;
-  const sgstRs   = breakdown.gstRs / 2;
-  const roundOff = Math.round((breakdown.totalRs - breakdown.baseRs - breakdown.gstRs) * 100) / 100;
-  const words    = rupeesToWords(Math.round(breakdown.totalRs));
+  const words = rupeesToWords(Math.round(breakdown.totalRs));
 
   const fmt = (n: number) => "₹" + n.toLocaleString("en-IN", { minimumFractionDigits: 2 });
 
@@ -133,7 +130,7 @@ function BillingContent() {
               <div className="brand-tag">LLP &nbsp;·&nbsp; Personal Finance &amp; Virtual CFO</div>
             </div>
             <div className="inv-title-block">
-              <div className="inv-title">Tax Invoice</div>
+              <div className="inv-title">Invoice</div>
               <div className="inv-num">{invoiceNum}</div>
             </div>
           </div>
@@ -177,18 +174,6 @@ function BillingContent() {
               <div className="meta-label">Invoice Date</div>
               <div className="meta-value">{activatedDate}</div>
             </div>
-            <div>
-              <div className="meta-label">Place of Supply</div>
-              <div className="meta-value">Karnataka (29)</div>
-            </div>
-            <div>
-              <div className="meta-label">Supply Type</div>
-              <div className="meta-value">Intra-state</div>
-            </div>
-            <div>
-              <div className="meta-label">Rev. Charge</div>
-              <div className="meta-value" style={{ color: "#2d7a3a" }}>No</div>
-            </div>
           </div>
 
           {/* Line items */}
@@ -196,11 +181,9 @@ function BillingContent() {
             <table className="items-table">
               <thead>
                 <tr>
-                  <th style={{ width: "44%" }}>Description of Goods / Services</th>
-                  <th>HSN/SAC</th>
+                  <th style={{ width: "60%" }}>Description</th>
                   <th>Qty</th>
-                  <th>Rate (₹)</th>
-                  <th>Taxable Value (₹)</th>
+                  <th>Amount (₹)</th>
                 </tr>
               </thead>
               <tbody>
@@ -211,12 +194,9 @@ function BillingContent() {
                       Written course — English + Kannada. Lifetime access.<br />
                       All tools included. WhatsApp community &amp; doubt support for 1 year.
                     </div>
-                    <span className="item-hsn">SAC: 999293</span>
                   </td>
-                  <td>999293</td>
                   <td>1</td>
-                  <td>{fmt(breakdown.baseRs)}</td>
-                  <td>{fmt(breakdown.baseRs)}</td>
+                  <td>{fmt(breakdown.totalRs)}</td>
                 </tr>
               </tbody>
             </table>
@@ -224,28 +204,7 @@ function BillingContent() {
 
           {/* Totals */}
           <div className="totals-wrap">
-            <div>
-              <div className="tax-title">GST Breakup</div>
-              <table className="tax-table">
-                <tbody>
-                  <tr><td>Taxable Value</td><td>{fmt(breakdown.baseRs)}</td></tr>
-                  <tr><td>CGST @ 9%</td><td>{fmt(cgstRs)}</td></tr>
-                  <tr><td>SGST @ 9%</td><td>{fmt(sgstRs)}</td></tr>
-                  <tr><td>Total GST</td><td>{fmt(breakdown.gstRs)}</td></tr>
-                </tbody>
-              </table>
-              <div className="tax-note">
-                * CGST + SGST applicable for intra-state supply.<br />
-                * Tax payable on <strong>forward charge</strong> basis.
-              </div>
-            </div>
             <div className="amounts">
-              <div className="amount-row"><span>Subtotal</span><span>{fmt(breakdown.baseRs)}</span></div>
-              <div className="amount-row"><span>CGST (9%)</span><span>{fmt(cgstRs)}</span></div>
-              <div className="amount-row"><span>SGST (9%)</span><span>{fmt(sgstRs)}</span></div>
-              {roundOff !== 0 && (
-                <div className="amount-row"><span>Round Off</span><span>{fmt(roundOff)}</span></div>
-              )}
               <div className="amount-row total">
                 <span>Total Amount</span>
                 <span>{fmt(breakdown.totalRs)}</span>
@@ -277,9 +236,6 @@ function BillingContent() {
             <div className="declaration-title">Declaration</div>
             <div className="declaration-text">
               We declare that this invoice shows the actual price of the goods / services described and that all particulars are true and correct. This is a computer-generated invoice. All sales are final — course purchases are non-refundable.
-            </div>
-            <div className="reverse-charge-box">
-              <strong>Reverse Charge: <span style={{ color: "#2d7a3a" }}>Not Applicable</span></strong> — GST is payable by Bodha Ventures LLP under the forward charge mechanism per Section 9(3) &amp; 9(4) of CGST Act, 2017.
             </div>
           </div>
 

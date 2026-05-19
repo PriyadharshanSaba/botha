@@ -23,8 +23,6 @@ export async function GET(req: NextRequest) {
 
   const plan = getPlan(sub.planId as PlanId);
 
-  const baseRs  = (sub.amountPaise - sub.gstPaise) / 100;
-  const gstRs   = sub.gstPaise / 100;
   const totalRs = sub.amountPaise / 100;
 
   return NextResponse.json({
@@ -36,6 +34,6 @@ export async function GET(req: NextRequest) {
     status: sub.status,
     activatedAt: sub.activatedAt,
     invoiceNumber: sub.invoiceNumber,
-    breakdown: { baseRs, gstRs, gstRate: 18, totalRs },
+    breakdown: { totalRs },
   });
 }

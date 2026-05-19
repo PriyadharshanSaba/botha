@@ -16,9 +16,6 @@ type InvoiceData = {
   planName: string;
   orderId: string;
   paymentId: string;
-  baseRs: number;
-  gstRs: number;
-  gstRate: number;
   totalRs: number;
   activatedAt: string;
   invoiceNumber: string;
@@ -65,9 +62,6 @@ export async function sendInvoiceEmail(to: string, data: InvoiceData) {
     : data.orderId.split("_").slice(-1)[0];
   const shortPaymentId = data.paymentId === "bypass" ? null : data.paymentId.replace("pay_", "");
 
-  const cgstRs = data.gstRs / 2;
-  const sgstRs = data.gstRs / 2;
-  const roundOff = Math.round((data.totalRs - data.baseRs - data.gstRs) * 100) / 100;
   const words = rupeesToWords(Math.round(data.totalRs));
 
   const fmt = (n: number) => "&#8377;" + n.toLocaleString("en-IN", { minimumFractionDigits: 2 });
@@ -100,7 +94,7 @@ export async function sendInvoiceEmail(to: string, data: InvoiceData) {
         <div style="font-size:10px;color:${GOLD_L};letter-spacing:0.12em;text-transform:uppercase;font-weight:500;">LLP &nbsp;&middot;&nbsp; Personal Finance &amp; Virtual CFO</div>
       </td>
       <td align="right" valign="top">
-        <div style="font-family:Georgia,'Times New Roman',serif;font-size:19px;color:${WHITE};margin-bottom:6px;">Tax Invoice</div>
+        <div style="font-family:Georgia,'Times New Roman',serif;font-size:19px;color:${WHITE};margin-bottom:6px;">Invoice</div>
         <div style="font-size:12px;color:${GOLD_L};font-weight:500;letter-spacing:0.05em;">${invoiceNum}</div>
       </td>
     </tr></table>
@@ -137,18 +131,6 @@ export async function sendInvoiceEmail(to: string, data: InvoiceData) {
         <div style="font-size:9px;font-weight:500;text-transform:uppercase;letter-spacing:0.1em;color:${MUTED};margin-bottom:4px;">Invoice Date</div>
         <div style="font-size:11px;font-weight:500;color:${INK};">${date}</div>
       </td>
-      <td style="padding-right:6px;">
-        <div style="font-size:9px;font-weight:500;text-transform:uppercase;letter-spacing:0.1em;color:${MUTED};margin-bottom:4px;">Place of Supply</div>
-        <div style="font-size:11px;font-weight:500;color:${INK};">Karnataka (29)</div>
-      </td>
-      <td style="padding-right:6px;">
-        <div style="font-size:9px;font-weight:500;text-transform:uppercase;letter-spacing:0.1em;color:${MUTED};margin-bottom:4px;">Supply Type</div>
-        <div style="font-size:11px;font-weight:500;color:${INK};">Intra-state</div>
-      </td>
-      <td>
-        <div style="font-size:9px;font-weight:500;text-transform:uppercase;letter-spacing:0.1em;color:${MUTED};margin-bottom:4px;">Rev. Charge</div>
-        <div style="font-size:11px;font-weight:500;color:${GREEN};">No</div>
-      </td>
     </tr></table>
   </td></tr>
 
@@ -156,51 +138,26 @@ export async function sendInvoiceEmail(to: string, data: InvoiceData) {
   <tr><td style="padding:0 32px;">
     <table width="100%" cellpadding="0" cellspacing="0" border="0" style="margin:18px 0;">
       <thead><tr style="border-bottom:2px solid ${GOLD};">
-        <th style="font-size:9px;font-weight:500;text-transform:uppercase;letter-spacing:0.1em;color:${GOLD};padding:0 8px 10px 0;text-align:left;width:44%;">Description of Goods / Services</th>
-        <th style="font-size:9px;font-weight:500;text-transform:uppercase;letter-spacing:0.1em;color:${GOLD};padding:0 8px 10px;text-align:right;">HSN/SAC</th>
+        <th style="font-size:9px;font-weight:500;text-transform:uppercase;letter-spacing:0.1em;color:${GOLD};padding:0 8px 10px 0;text-align:left;width:60%;">Description</th>
         <th style="font-size:9px;font-weight:500;text-transform:uppercase;letter-spacing:0.1em;color:${GOLD};padding:0 8px 10px;text-align:right;">Qty</th>
-        <th style="font-size:9px;font-weight:500;text-transform:uppercase;letter-spacing:0.1em;color:${GOLD};padding:0 8px 10px;text-align:right;">Rate</th>
-        <th style="font-size:9px;font-weight:500;text-transform:uppercase;letter-spacing:0.1em;color:${GOLD};padding:0 0 10px 8px;text-align:right;">Taxable Value</th>
+        <th style="font-size:9px;font-weight:500;text-transform:uppercase;letter-spacing:0.1em;color:${GOLD};padding:0 0 10px 8px;text-align:right;">Amount</th>
       </tr></thead>
       <tbody><tr>
         <td style="padding:13px 8px 13px 0;font-size:12px;color:${SLATE};vertical-align:top;border-bottom:1px solid ${MIST};">
           <div style="font-weight:500;color:${INK};margin-bottom:3px;">${escapeHtml(data.planName)} &mdash; Bodha Personal Finance Program</div>
           <div style="font-size:11px;color:${MUTED};line-height:1.5;">Written course &mdash; English + Kannada. Lifetime access.<br/>All tools included. WhatsApp community &amp; doubt support for 1 year.</div>
-          <div style="display:inline-block;margin-top:5px;font-size:9px;background:${GOLD_BG};color:${GOLD};padding:2px 7px;border-radius:3px;font-weight:500;">SAC: 999293</div>
         </td>
-        <td style="padding:13px 8px;text-align:right;font-size:12px;color:${SLATE};vertical-align:top;border-bottom:1px solid ${MIST};">999293</td>
         <td style="padding:13px 8px;text-align:right;font-size:12px;color:${SLATE};vertical-align:top;border-bottom:1px solid ${MIST};">1</td>
-        <td style="padding:13px 8px;text-align:right;font-size:12px;color:${SLATE};vertical-align:top;border-bottom:1px solid ${MIST};">${fmt(data.baseRs)}</td>
-        <td style="padding:13px 0 13px 8px;text-align:right;font-size:12px;color:${SLATE};vertical-align:top;border-bottom:1px solid ${MIST};">${fmt(data.baseRs)}</td>
+        <td style="padding:13px 0 13px 8px;text-align:right;font-size:12px;color:${SLATE};vertical-align:top;border-bottom:1px solid ${MIST};">${fmt(data.totalRs)}</td>
       </tr></tbody>
     </table>
   </td></tr>
 
   <!-- ── TOTALS ── -->
   <tr><td style="padding:16px 32px 20px;border-top:1px solid ${MIST};">
-    <table width="100%" cellpadding="0" cellspacing="0" border="0"><tr>
-      <!-- GST Breakup -->
-      <td width="50%" valign="top" style="padding-right:20px;">
-        <div style="font-size:9px;font-weight:500;text-transform:uppercase;letter-spacing:0.1em;color:${MUTED};margin-bottom:10px;">GST Breakup</div>
-        <table width="100%" cellpadding="0" cellspacing="0" border="0">
-          <tr><td style="font-size:12px;color:${SLATE};padding:4px 0;border-bottom:1px solid ${MIST};">Taxable Value</td><td align="right" style="font-size:12px;color:${SLATE};padding:4px 0;border-bottom:1px solid ${MIST};">${fmt(data.baseRs)}</td></tr>
-          <tr><td style="font-size:12px;color:${SLATE};padding:4px 0;border-bottom:1px solid ${MIST};">CGST @ 9%</td><td align="right" style="font-size:12px;color:${SLATE};padding:4px 0;border-bottom:1px solid ${MIST};">${fmt(cgstRs)}</td></tr>
-          <tr><td style="font-size:12px;color:${SLATE};padding:4px 0;border-bottom:1px solid ${MIST};">SGST @ 9%</td><td align="right" style="font-size:12px;color:${SLATE};padding:4px 0;border-bottom:1px solid ${MIST};">${fmt(sgstRs)}</td></tr>
-          <tr><td style="font-size:12px;font-weight:500;color:${INK};padding:4px 0;">Total GST</td><td align="right" style="font-size:12px;font-weight:500;color:${INK};padding:4px 0;">${fmt(data.gstRs)}</td></tr>
-        </table>
-        <div style="font-size:10px;color:${MUTED};margin-top:10px;line-height:1.6;">* CGST + SGST for intra-state supply.<br/>* Tax payable on <strong>forward charge</strong> basis.</div>
-      </td>
-      <!-- Amount Rows -->
-      <td width="50%" valign="top" style="padding-left:20px;border-left:1px solid ${MIST};">
-        <table width="100%" cellpadding="0" cellspacing="0" border="0">
-          <tr><td style="font-size:12px;color:${SLATE};padding:4px 0;border-bottom:1px solid ${MIST};">Subtotal</td><td align="right" style="font-size:12px;color:${SLATE};padding:4px 0;border-bottom:1px solid ${MIST};">${fmt(data.baseRs)}</td></tr>
-          <tr><td style="font-size:12px;color:${SLATE};padding:4px 0;border-bottom:1px solid ${MIST};">CGST (9%)</td><td align="right" style="font-size:12px;color:${SLATE};padding:4px 0;border-bottom:1px solid ${MIST};">${fmt(cgstRs)}</td></tr>
-          <tr><td style="font-size:12px;color:${SLATE};padding:4px 0;border-bottom:1px solid ${MIST};">SGST (9%)</td><td align="right" style="font-size:12px;color:${SLATE};padding:4px 0;border-bottom:1px solid ${MIST};">${fmt(sgstRs)}</td></tr>
-          ${roundOff !== 0 ? `<tr><td style="font-size:12px;color:${SLATE};padding:4px 0;border-bottom:1px solid ${MIST};">Round Off</td><td align="right" style="font-size:12px;color:${SLATE};padding:4px 0;border-bottom:1px solid ${MIST};">${fmt(roundOff)}</td></tr>` : ""}
-          <tr><td style="font-size:15px;font-weight:500;color:${INK};padding:10px 0 4px;border-top:1px solid ${MIST};">Total Amount</td><td align="right" style="font-size:15px;font-weight:500;color:${INK};padding:10px 0 4px;border-top:1px solid ${MIST};">${fmt(data.totalRs)}</td></tr>
-        </table>
-      </td>
-    </tr></table>
+    <table width="100%" cellpadding="0" cellspacing="0" border="0">
+      <tr><td style="font-size:15px;font-weight:500;color:${INK};padding:8px 0;">Total Amount</td><td align="right" style="font-size:15px;font-weight:500;color:${INK};padding:8px 0;">${fmt(data.totalRs)}</td></tr>
+    </table>
   </td></tr>
 
   <!-- ── AMOUNT IN WORDS ── -->
@@ -225,9 +182,6 @@ export async function sendInvoiceEmail(to: string, data: InvoiceData) {
   <tr><td style="padding:16px 32px;border-top:1px solid ${MIST};">
     <div style="font-size:9px;font-weight:500;text-transform:uppercase;letter-spacing:0.1em;color:${MUTED};margin-bottom:8px;">Declaration</div>
     <div style="font-size:11px;color:${SLATE};line-height:1.7;">We declare that this invoice shows the actual price of the goods / services described and that all particulars are true and correct. This is a computer-generated invoice. All sales are final &mdash; course purchases are non-refundable.</div>
-    <div style="margin-top:10px;background:#f0faf3;border-left:3px solid ${GREEN};padding:9px 13px;border-radius:4px;font-size:11px;color:#0d1f1a;line-height:1.6;">
-      <strong>Reverse Charge: <span style="color:${GREEN};">Not Applicable</span></strong> &mdash; GST is payable by Bodha Ventures LLP under forward charge mechanism per Section 9(3) &amp; 9(4) of CGST Act, 2017.
-    </div>
   </td></tr>
 
   <!-- ── CTA ── -->
@@ -253,7 +207,7 @@ export async function sendInvoiceEmail(to: string, data: InvoiceData) {
   const { error } = await resend.emails.send({
     from: "Bodha Ventures <info@bodhaventures.in>",
     to,
-    subject: `Tax Invoice — ${escapeHtml(data.planName)} | Bodha Ventures LLP`,
+    subject: `Invoice — ${escapeHtml(data.planName)} | Bodha Ventures LLP`,
     html,
   });
 

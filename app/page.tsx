@@ -387,7 +387,6 @@ export default function LandingPage() {
             <ul>
               <li><a href="#" onClick={(e) => { e.preventDefault(); setShowPrivacy(true); }}>{isKn ? "ಗೌಪ್ಯತಾ ನೀತಿ" : "Privacy Policy"}</a></li>
               <li><a href="#" onClick={(e) => { e.preventDefault(); setShowTerms(true); }}>{isKn ? "ಬಳಕೆಯ ನಿಯಮಗಳು" : "Terms of Use"}</a></li>
-              <li><a href="#">{isKn ? "ಹಕ್ಕುತ್ಯಾಗ" : "Disclaimer"}</a></li>
             </ul>
           </div>
         </div>

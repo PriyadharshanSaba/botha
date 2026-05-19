@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Script from "next/script";
-import { PLANS, type Plan } from "@/app/lib/plans";
+import { PLANS, type Plan, effectivePrice } from "@/app/lib/plans";
 import type { BillingInfo } from "@/app/lib/db/types";
 import "./plans.css";
 
@@ -79,24 +79,7 @@ export default function PlansPage() {
       return;
     }
 
-    // Test user → bypass payment, go straight to billing confirmation
-    if (isTestUser) {
-      const res = await fetch("/api/orders/bypass", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ planId: selectedPlan.id }),
-      });
-      if (res.ok) {
-        const { orderId } = await res.json();
-        router.push(`/billing?ref=${orderId}`);
-      } else {
-        alert("Bypass failed.");
-        setSubmitting(false);
-      }
-      return;
-    }
-
-    // Real user → create Razorpay order
+    // Create Razorpay order (test users get ₹10 price server-side)
     const orderRes = await fetch("/api/orders/create", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -104,21 +87,6 @@ export default function PlansPage() {
     });
     if (!orderRes.ok) {
       const err = await orderRes.json().catch(() => ({}));
-      // Server detected test user even though client didn't — run bypass
-      if (err.error === "test_user") {
-        const res = await fetch("/api/orders/bypass", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ planId: selectedPlan.id }),
-        });
-        if (res.ok) {
-          const { orderId } = await res.json();
-          router.push(`/billing?ref=${orderId}`);
-        } else {
-          setSubmitting(false);
-        }
-        return;
-      }
       alert(err.error || "Could not start checkout. Please try again.");
       setSubmitting(false);
       return;
@@ -211,9 +179,8 @@ export default function PlansPage() {
                     <p className="plan-tagline">{plan.tagline}</p>
 
                     <div className="plan-price-row">
-                      <span className="plan-price">₹{plan.basePriceRs.toLocaleString("en-IN")}</span>
-                      <span className="plan-price-gst">+ GST</span>
-                      {plan.originalPriceRs && <span className="plan-price-orig">₹{plan.originalPriceRs.toLocaleString("en-IN")}</span>}
+                      <span className="plan-price">₹{effectivePrice(plan, isTestUser).toLocaleString("en-IN")}</span>
+                      {!isTestUser && plan.originalPriceRs && <span className="plan-price-orig">₹{plan.originalPriceRs.toLocaleString("en-IN")}</span>}
                     </div>
                     <p className="plan-seat-range">{plan.seatRange}</p>
 
@@ -246,9 +213,9 @@ export default function PlansPage() {
                       <button
                         className={`plan-btn ${plan.featured ? "primary" : ""}`}
                         onClick={() => handleSelectPlan(plan)}
-                        disabled={!scriptReady && !isTestUser}
+                        disabled={!scriptReady}
                       >
-                        Enroll at ₹{plan.basePriceRs.toLocaleString("en-IN")}
+                        Enroll at ₹{effectivePrice(plan, isTestUser).toLocaleString("en-IN")}
                       </button>
                     )}
                   </div>
@@ -278,8 +245,7 @@ export default function PlansPage() {
                 <span className="bf-plan-name">{selectedPlan.name}</span>
               </div>
               <div className="bf-plan-price">
-                ₹{selectedPlan.basePriceRs.toLocaleString("en-IN")}
-                <span className="bf-plan-gst"> + 18% GST = ₹{Math.round(selectedPlan.basePriceRs * 1.18).toLocaleString("en-IN")} total</span>
+                ₹{effectivePrice(selectedPlan, isTestUser).toLocaleString("en-IN")}
               </div>
             </div>
 
@@ -309,8 +275,7 @@ export default function PlansPage() {
 
               {field("PIN code", "pincode", { placeholder: "560001" })}
 
-              <div className="bf-section-label" style={{ marginTop: 24 }}>GST details <span className="bf-optional">(optional — for business purchase)</span></div>
-              {field("GSTIN", "gstin", { placeholder: "22AAAAA0000A1Z5", optional: true })}
+              <div className="bf-section-label" style={{ marginTop: 24 }}>Tax details <span className="bf-optional">(optional — for business purchase)</span></div>
               {field("PAN", "pan", { placeholder: "ABCDE1234F", optional: true })}
 
               <button
@@ -319,16 +284,12 @@ export default function PlansPage() {
                 style={{ marginTop: 28, height: 48, fontSize: 15 }}
                 disabled={submitting}
               >
-                {submitting
-                  ? "Please wait…"
-                  : isTestUser
-                  ? "Activate access →"
-                  : "Continue to payment →"}
+                {submitting ? "Please wait…" : "Continue to payment →"}
               </button>
 
               {isTestUser && (
                 <p style={{ textAlign: "center", fontSize: 12, color: "#92400e", marginTop: 10 }}>
-                  🧪 Test account — payment will be skipped
+                  🧪 Test account — ₹10 test payment
                 </p>
               )}
             </form>

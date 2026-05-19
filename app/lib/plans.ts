@@ -1,6 +1,7 @@
-export const GST_RATE = 0.18;
+// GST_RATE removed — not GST-registered. Re-add when incorporated.
+// GST_RATE = 0.18 (CGST 9% + SGST 9%)
 
-export type PlanId = "founding" | "early_access" | "regular";
+export type PlanId = "founding" | "early_access" | "regular"; // early_access hidden — restore when ready
 
 export type Plan = {
   id: PlanId;
@@ -9,6 +10,7 @@ export type Plan = {
   badgeStyle: "founding" | "popular" | "standard";
   tagline: string;
   basePriceRs: number;       // ex-GST in ₹
+  testPriceRs?: number;      // override price for test emails only
   originalPriceRs?: number;  // strikethrough
   seatRange: string;
   maxSeats: number | null;   // null = unlimited
@@ -16,6 +18,13 @@ export type Plan = {
   waitlist: boolean;
   features: { text: string; highlight?: boolean }[];
 };
+
+// ── HIDDEN PLAN (early_access) ────────────────────────────────────────────
+// To restore: move the object below back into PLANS array and set waitlist: false
+// early_access: ₹2,999 ex-GST · seats 101–500 · "Most popular" badge
+// features: Full course EN+KN, all tools, WhatsApp 1yr, 72hr support 1yr,
+//   lifetime access, 2 live doubt sessions (6mo) + extra at ₹999+GST
+// ─────────────────────────────────────────────────────────────────────────
 
 export const PLANS: Plan[] = [
   {
@@ -25,6 +34,7 @@ export const PLANS: Plan[] = [
     badgeStyle: "founding",
     tagline: "Introductory price. Reserved for our first 100 believers.",
     basePriceRs: 999,
+    testPriceRs: 10,
     originalPriceRs: 4999,
     seatRange: "Seats 1 – 100",
     maxSeats: 100,
@@ -37,27 +47,6 @@ export const PLANS: Plan[] = [
       { text: "72-hour email doubt support for 1 year" },
       { text: "Lifetime access + future updates" },
       { text: "All future programs free of cost", highlight: true },
-    ],
-  },
-  {
-    id: "early_access",
-    name: "Early access",
-    badge: "Most popular",
-    badgeStyle: "popular",
-    tagline: "For the next 400 students. Price rises to ₹4,999 after 500 seats.",
-    basePriceRs: 2999,
-    originalPriceRs: 4999,
-    seatRange: "Seats 101 – 500",
-    maxSeats: 500,
-    featured: true,
-    waitlist: false,
-    features: [
-      { text: "Full course — English + Kannada" },
-      { text: "All tools included" },
-      { text: "WhatsApp community access for 1 year" },
-      { text: "72-hour email doubt support for 1 year" },
-      { text: "Lifetime access + future updates" },
-      { text: "2 live doubt sessions (6 months) + extra slots at ₹999 + GST", highlight: true },
     ],
   },
   {
@@ -86,11 +75,12 @@ export function getPlan(id: PlanId): Plan {
   return PLANS.find((p) => p.id === id)!;
 }
 
-/** Total amount in paise (base + 18% GST), rounded to nearest rupee */
-export function totalPaise(basePriceRs: number): number {
-  return Math.round(basePriceRs * (1 + GST_RATE)) * 100;
+/** Returns the effective ex-GST price for a user (test override if applicable) */
+export function effectivePrice(plan: Plan, isTest: boolean): number {
+  return isTest && plan.testPriceRs !== undefined ? plan.testPriceRs : plan.basePriceRs;
 }
 
-export function gstPaise(basePriceRs: number): number {
-  return Math.round(basePriceRs * GST_RATE) * 100;
+/** Total amount in paise. No GST — not yet GST-registered. */
+export function totalPaise(basePriceRs: number): number {
+  return Math.round(basePriceRs) * 100;
 }
