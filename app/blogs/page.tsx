@@ -18,6 +18,22 @@ const posts = [
     date: "April 21, 2026",
     readTime: "8 min read",
   },
+  {
+    slug: "dpiit-startup-recognition",
+    kicker: "Startups · Policy · Tax",
+    title: "Your Startup Could Be Saving Lakhs in Taxes. Most Founders Don't Know It.",
+    deck: "DPIIT Startup Recognition is free, takes under a week, and unlocks benefits worth crores over the life of your company. Everything you need to know — updated for the February 2026 notification.",
+    date: "April 28, 2026",
+    readTime: "7 min read",
+  },
+  {
+    slug: "startup-cashflow",
+    kicker: "Startups · Finance · Operations",
+    title: "Most Startups Don't Run Out of Ideas. They Run Out of Cash.",
+    deck: "Cashflow is the single most important number in your business, and the one most founders understand last. What it is, why it kills companies, and how to manage it at every stage.",
+    date: "May 5, 2026",
+    readTime: "9 min read",
+  },
 ];
 
 export default function BlogsPage() {
