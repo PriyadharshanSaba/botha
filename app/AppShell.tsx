@@ -13,7 +13,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   // middleware already handles protection!
-  const showHeader = pathname !== "/" && pathname !== "/signin" && pathname !== "/about" && pathname !== "/vcfo" && pathname !== "/venture" && pathname !== "/tools";
+  const showHeader = pathname !== "/signin";
 
   useEffect(() => {
     fetch("/api/me")

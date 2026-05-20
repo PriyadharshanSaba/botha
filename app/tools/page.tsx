@@ -3,10 +3,8 @@
 import "./tools.css";
 import "../landing.css";
 import "../about/about.css";
-import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
-import { useRouter } from "next/navigation";
 import { useLanguage } from "../context/LanguageContext";
 import TermsModal from "../components/TermsModal";
 import PrivacyModal from "../components/PrivacyModal";
@@ -35,11 +33,7 @@ const tools = [
 
 export default function ToolsPage() {
   const revealRefs = useRef<HTMLElement[]>([]);
-  const [loggedIn, setLoggedIn] = useState(false);
   const [subscribed, setSubscribed] = useState(false);
-  const [accountOpen, setAccountOpen] = useState(false);
-  const accountRef = useRef<HTMLDivElement>(null);
-  const router = useRouter();
   const { lang, setLang, t } = useLanguage();
   const [showTerms, setShowTerms] = useState(false);
   const [showPrivacy, setShowPrivacy] = useState(false);
@@ -60,25 +54,9 @@ export default function ToolsPage() {
   /* ── auth check ── */
   useEffect(() => {
     fetch("/api/me").then((r) => r.json()).then((d) => {
-      setLoggedIn(d.loggedIn);
       setSubscribed(d.subscribed ?? false);
     });
   }, []);
-
-  useEffect(() => {
-    function handleClick(e: MouseEvent) {
-      if (accountRef.current && !accountRef.current.contains(e.target as Node)) setAccountOpen(false);
-    }
-    document.addEventListener("mousedown", handleClick);
-    return () => document.removeEventListener("mousedown", handleClick);
-  }, []);
-
-  async function handleLogout() {
-    await fetch("/api/logout", { method: "POST" });
-    setLoggedIn(false);
-    router.push("/");
-    router.refresh();
-  }
 
   /* ── reveal animation ── */
   useEffect(() => {
@@ -457,57 +435,6 @@ export default function ToolsPage() {
      ═══════════════════════════════════════════ */
   return (
     <div className="ft-page">
-      {/* ── NAV ── */}
-      <nav className="landing-nav">
-        <Link href="/" className="logo">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/logo.PNG" alt="Bodha" style={{ height: "70px", width: "auto", display: "block" }} />
-        </Link>
-        {loggedIn ? (
-          <div className="about-nav-right">
-            <Link href="/modules" className="about-nav-link">{t("courses")}</Link>
-            <Link href="/vcfo" className="about-nav-link">{t("virtualCfo")}</Link>
-            <Link href="/venture" className="about-nav-link">{t("ventureCapital")}</Link>
-            <Link href="/tools" className="about-nav-link" style={{ color: "var(--gold)" }}>{t("tools")}</Link>
-            <Link href="/blogs" className="about-nav-link">{t("insights")}</Link>
-            <Link href="/about" className="about-nav-link">{t("aboutUs")}</Link>
-            <div className="about-account-wrapper" ref={accountRef}>
-              <button className="about-account-btn" onClick={() => setAccountOpen(!accountOpen)}>
-                {t("account")}
-                <span className={`about-account-arrow ${accountOpen ? "open" : ""}`}>&#9662;</span>
-              </button>
-              {accountOpen && (
-                <div className="about-account-dropdown">
-                  <button className="about-dropdown-item" onClick={() => { setLang(lang === "en" ? "kn" : "en"); setAccountOpen(false); }}>
-                    {lang === "en" ? "\u0C95\u0CA8\u0CCD\u0CA8\u0CA1" : "English"}
-                  </button>
-                  <Link href="#" className="about-dropdown-item" onClick={() => setAccountOpen(false)}>{t("settings")}</Link>
-                  <button className="about-dropdown-item about-dropdown-logout" onClick={() => { setAccountOpen(false); handleLogout(); }}>
-                    {t("logout")}
-                  </button>
-                </div>
-              )}
-            </div>
-          </div>
-        ) : (
-          <>
-            <ul className="nav-links">
-              <li><Link href="/modules">Courses</Link></li>
-              <li><Link href="/vcfo">Virtual CFO</Link></li>
-              <li><Link href="/venture">Venture Capital</Link></li>
-              <li><Link href="/tools" style={{ color: "var(--gold)" }}>Tools</Link></li>
-              <li><Link href="/blogs">Blogs</Link></li>
-              <li><Link href="/about">About Us</Link></li>
-            </ul>
-            <div className="nav-cta">
-              <Link href="/signin" className="btn-ghost">Sign In</Link>
-              <span style={{ color: "rgba(0,0,0,0.15)", fontSize: 18 }}>|</span>
-              <Link href="/signin" className="btn-primary">Sign Up</Link>
-            </div>
-          </>
-        )}
-      </nav>
-
       {/* ── PAGE HEADER ── */}
       <div className="ft-page-header">
         <div className="ft-page-header-inner">

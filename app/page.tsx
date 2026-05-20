@@ -64,35 +64,6 @@ export default function LandingPage() {
 
   return (
     <div className="landing">
-      {/* NAV */}
-      <nav className="landing-nav">
-        <Link href="/" className="logo">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/logo.PNG" alt="Bodha" style={{ height: "70px", width: "auto", display: "block" }} />
-        </Link>
-        <ul className="nav-links">
-          <li><a href="#course">{isKn ? "ಕೋರ್ಸ್‌ಗಳು" : "Courses"}</a></li>
-          <li><Link href="/vcfo">{isKn ? "ವರ್ಚುವಲ್ CFO" : "Virtual CFO"}</Link></li>
-          <li><Link href="/venture">{isKn ? "ವೆಂಚರ್ ಕ್ಯಾಪಿಟಲ್" : "Venture Capital"}</Link></li>
-          <li><Link href="/tools">{isKn ? "ಉಪಕರಣಗಳು" : "Tools"}</Link></li>
-          <li><Link href="/blogs">{isKn ? "ಬ್ಲಾಗ್‌ಗಳು" : "Blogs"}</Link></li>
-          <li><Link href="/about">{isKn ? "ನಮ್ಮ ಬಗ್ಗೆ" : "About Us"}</Link></li>
-        </ul>
-        <div className="nav-cta">
-          <button
-            onClick={() => setLang(isKn ? "en" : "kn")}
-            className="btn-ghost"
-            style={{ fontFamily: isKn ? "inherit" : "'Noto Sans Kannada', sans-serif" }}
-          >
-            {isKn ? "English" : "ಕನ್ನಡ"}
-          </button>
-          <span style={{ color: "rgba(0,0,0,0.15)", fontSize: 18 }}>|</span>
-          <Link href="/signin" className="btn-ghost">{isKn ? "ಸೈನ್ ಇನ್" : "Sign In"}</Link>
-          <span style={{ color: "rgba(0,0,0,0.15)", fontSize: 18 }}>|</span>
-          <Link href="/signin?mode=signup" className="btn-primary">{isKn ? "ಸೈನ್ ಅಪ್" : "Sign Up"}</Link>
-        </div>
-      </nav>
-
       {/* FINANCE PROGRAM SECTION */}
       <section className="course-section" id="course">
         <div className="course-top reveal" ref={addRevealRef}>
