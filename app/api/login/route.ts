@@ -13,9 +13,8 @@ export async function POST(req: Request) {
 
   const user = await db.getUserByEmail(email);
 
-  // Always return success to prevent account enumeration
   if (!user || !user.verified) {
-    return NextResponse.json({ success: true });
+    return NextResponse.json({ error: "not_registered" }, { status: 404 });
   }
 
   const testUser = isTestEmail(email);

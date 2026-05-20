@@ -33,6 +33,7 @@ function SignInContent() {
   // --- Misc ---
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [notRegistered, setNotRegistered] = useState(false);
 
   // --- Terms ---
   const [termsAccepted, setTermsAccepted] = useState(false);
@@ -48,6 +49,7 @@ function SignInContent() {
   async function handleLogin(e: any) {
     e.preventDefault();
     setError("");
+    setNotRegistered(false);
     setLoading(true);
 
     const res = await fetch("/api/login", {
@@ -60,10 +62,14 @@ function SignInContent() {
 
     if (!res.ok) {
       const data = await res.json().catch(() => ({}));
-      return setError(data.error || "Email not found.");
+      if (data.error === "not_registered") {
+        setNotRegistered(true);
+      } else {
+        setError(data.error || "Something went wrong.");
+      }
+      return;
     }
 
-    // Switch to login OTP screen
     setMode("login-otp");
   }
 
@@ -179,11 +185,22 @@ function SignInContent() {
                 type="email"
                 placeholder="you@example.com"
                 value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                onChange={(e) => { setEmail(e.target.value); setNotRegistered(false); }}
                 required
               />
 
               {error && <div className="error">{error}</div>}
+              {notRegistered && (
+                <div className="error">
+                  This email isn&apos;t registered.{" "}
+                  <span
+                    style={{ fontWeight: 600, cursor: "pointer", textDecoration: "underline" }}
+                    onClick={() => { setMode("signup"); setNotRegistered(false); setError(""); }}
+                  >
+                    Sign up here
+                  </span>
+                </div>
+              )}
 
               <button className="btn" disabled={loading}>
                 {loading ? "Sending..." : "Send OTP"}
@@ -193,15 +210,8 @@ function SignInContent() {
               <p className="hint" style={{ textAlign: "center", marginTop: "10px" }}>
                 New here?{" "}
                 <span
-                  style={{
-                    fontWeight: 600,
-                    color: "#0f172a",
-                    cursor: "pointer",
-                  }}
-                  onClick={() => {
-                    setMode("signup");
-                    setError("");
-                  }}
+                  style={{ fontWeight: 600, color: "#0f172a", cursor: "pointer" }}
+                  onClick={() => { setMode("signup"); setError(""); setNotRegistered(false); }}
                 >
                   Sign Up
                 </span>

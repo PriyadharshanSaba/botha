@@ -294,12 +294,12 @@ export default function LandingPage() {
         </div>
         <div className="testimonials-grid">
           {[
-            { text: "Bodha completely rewired how I think about money. I cleared my debt in 14 months and now have a real investment strategy. Life-changing.", name: "Priya Sharma", role: "Product Manager, Bengaluru", initial: "P", delay: "0.05s" },
-            { text: "The Virtual CFO service saved my startup during a rough funding round. Board-level clarity and execution speed we couldn't afford in-house.", name: "Rohan Kulkarni", role: "Co-Founder, TechNest", initial: "R", delay: "0.15s" },
-            { text: "We disbanded our in-house finance team six months in. Their bookkeeping services, GST filings and MIS reports gave us everything we needed — faster, cleaner, and at a fraction of the cost.", name: "Neha Iyer", role: "Founder, Mumbai", initial: "N", delay: "0.25s" },
-            { text: "Their VC network helped us get our first term sheet within 3 months. The warm intros and pitch coaching made all the difference.", name: "Siddharth Rao", role: "Founder, GreenStack", initial: "S", delay: "0.1s" },
-            { text: "The SIP optimizer tool helped me reallocate more efficiently. I used to guess — now I have a proper system. Genuinely brilliant.", name: "Aisha Mohammed", role: "Software Engineer, Hyderabad", initial: "A", delay: "0.2s" },
-            { text: "From zero financial literacy to confidently managing my portfolio. Bodha gave me the education my MBA never did.", name: "Vikram Nair", role: "Senior Consultant, Delhi", initial: "V", delay: "0.3s" },
+            { text: "Bodha completely rewired how I think about money. I cleared my debt in 14 months and now have a real investment strategy.", name: "Siddharth S Menon", role: "Software Professional", initial: "S", delay: "0.05s" },
+            { text: "The Virtual CFO service saved my startup during a rough funding round. Board-level clarity and execution speed we couldn't afford in-house.", name: "Abhilash Rajan", role: "Proprietor, SR Enterprises", initial: "A", delay: "0.15s" },
+            { text: "We disbanded our in-house finance team six months in. Their bookkeeping services, GST filings and MIS reports gave us everything we needed — faster, cleaner, and at a fraction of the cost.", name: "Sachin S John", role: "CEO, Toodex Technology Pvt. Ltd.", initial: "S", delay: "0.25s" },
+            // { text: "Their VC network helped us get our first term sheet within 3 months. The warm intros and pitch coaching made all the difference.", name: "Siddharth Rao", role: "Founder, GreenStack", initial: "S", delay: "0.1s" },
+            // { text: "The SIP optimizer tool helped me reallocate more efficiently. I used to guess — now I have a proper system. Genuinely brilliant.", name: "Aisha Mohammed", role: "Software Engineer, Hyderabad", initial: "A", delay: "0.2s" },
+            // { text: "From zero financial literacy to confidently managing my portfolio. Bodha gave me the education my MBA never did.", name: "Vikram Nair", role: "Senior Consultant, Delhi", initial: "V", delay: "0.3s" },
           ].map((t, i) => (
             <div key={i} className="tcard reveal" ref={addRevealRef} style={{ transitionDelay: t.delay }}>
               <div className="tcard-quote">&ldquo;</div>

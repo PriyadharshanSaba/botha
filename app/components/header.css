@@ -3,7 +3,7 @@
 ================================ */
 .header {
   width: 100%;
-  height: 100px;
+  height: 80px;
   padding: 0 5vw;
   display: flex;
   justify-content: space-between;
@@ -140,6 +140,60 @@
   border-top: 1px solid #f1f1f1;
 }
 
+/* Signed-out nav links */
+.nav-links {
+  display: flex;
+  gap: 32px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.nav-links a {
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--slate, #2a2d35);
+  letter-spacing: 0.3px;
+  transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--gold, #c9a84c); }
+
+.nav-cta {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.btn-ghost {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--ink, #0d0d0d);
+  background: none;
+  border: none;
+  cursor: pointer;
+  letter-spacing: 0.3px;
+  transition: color 0.2s;
+  text-decoration: none;
+}
+.btn-ghost:hover { color: var(--gold, #c9a84c); }
+
+.btn-primary {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--ink, #0d0d0d);
+  background: var(--gold, #c9a84c);
+  border: none;
+  cursor: pointer;
+  padding: 10px 22px;
+  border-radius: 6px;
+  letter-spacing: 0.4px;
+  transition: background 0.2s, transform 0.15s;
+  text-decoration: none;
+  display: inline-block;
+}
+.btn-primary:hover { background: #b8932f; transform: translateY(-1px); }
+
 /* Hide hamburger on desktop */
 .hamburger {
   display: none;
@@ -152,11 +206,13 @@
 @media (max-width: 768px) {
 
   .header {
-    height: 80px;
+    height: 64px;
     padding: 0 16px;
   }
 
-  .desktop-nav {
+  .desktop-nav,
+  .nav-links,
+  .nav-cta {
     display: none;
   }
 

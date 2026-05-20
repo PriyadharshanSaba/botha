@@ -234,7 +234,7 @@ export async function sendOtpEmail(to: string, otp: string, firstName: string) {
 
   if (error) {
     console.error("[Resend] Failed to send OTP email:", error);
-  } else {
-    console.log("[Resend] Email sent:", data?.id);
+    throw new Error(error.message ?? "Resend error");
   }
+  console.log("[Resend] OTP email sent:", data?.id);
 }
