@@ -6,6 +6,9 @@ import AppShell from "./AppShell";
 export const metadata = {
   title: "Bodha",
   description: "Bodha — finance education",
+  icons: {
+    icon: "/logo-favicon.png",
+  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
