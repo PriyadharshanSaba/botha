@@ -23,7 +23,7 @@ export type Plan = {
 // To restore: move the object below back into PLANS array and set waitlist: false
 // early_access: ₹2,999 ex-GST · seats 101–500 · "Most popular" badge
 // features: Full course EN+KN, all tools, WhatsApp 1yr, 72hr support 1yr,
-//   lifetime access, 2 live doubt sessions (6mo) + extra at ₹999+GST
+//   lifetime access, 6 livedoubt sessions (6mo) + extra at ₹999+GST
 // ─────────────────────────────────────────────────────────────────────────
 
 export const PLANS: Plan[] = [
@@ -44,7 +44,7 @@ export const PLANS: Plan[] = [
       { text: "Full course — English + Kannada" },
       { text: "All tools included" },
       { text: "WhatsApp community access for 1 year" },
-      { text: "72-hour email doubt support for 1 year" },
+      { text: "24-hour email doubt support for 1 year" },
       { text: "Lifetime access + future updates" },
       { text: "All future programs free of cost", highlight: true },
     ],
@@ -64,7 +64,7 @@ export const PLANS: Plan[] = [
       { text: "Full course — English + Kannada" },
       { text: "All tools included" },
       { text: "WhatsApp community access for 1 year" },
-      { text: "72-hour email doubt support for 1 year" },
+      { text: "24-hour email doubt support for 1 year" },
       { text: "Lifetime access + future updates" },
       { text: "3 live doubt sessions (6 months) + extra slots at ₹999 + GST", highlight: true },
     ],

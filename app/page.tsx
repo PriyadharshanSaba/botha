@@ -68,7 +68,7 @@ export default function LandingPage() {
       <nav className="landing-nav">
         <Link href="/" className="logo">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/logo-2.jpeg" alt="Bodha" style={{ height: "70px", width: "auto", display: "block" }} />
+          <img src="/logo.PNG" alt="Bodha" style={{ height: "70px", width: "auto", display: "block" }} />
         </Link>
         <ul className="nav-links">
           <li><a href="#course">{isKn ? "ಕೋರ್ಸ್‌ಗಳು" : "Courses"}</a></li>
@@ -361,7 +361,7 @@ export default function LandingPage() {
           <div className="footer-brand">
             <Link href="/" className="logo" style={{ textDecoration: "none" }}>
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/logo-2.jpeg" alt="Bodha" style={{ height: "70px", width: "auto", display: "block" }} />
+              <img src="/logo.PNG" alt="Bodha" style={{ height: "70px", width: "auto", display: "block" }} />
             </Link>
             <p>{isKn ? "ವ್ಯಕ್ತಿಗಳು ಮತ್ತು ವ್ಯವಹಾರಗಳನ್ನು ಆರ್ಥಿಕ ತಜ್ಞತೆಯಿಂದ ಸಶಕ್ತಗೊಳಿಸುತ್ತಾ." : "Empowering individuals and businesses with financial expertise."}</p>
           </div>

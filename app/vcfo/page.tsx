@@ -136,7 +136,7 @@ export default function VcfoPage() {
       <nav className="landing-nav">
         <Link href="/" className="logo">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/logo-2.jpeg" alt="Bodha" style={{ height: "70px", width: "auto", display: "block" }} />
+          <img src="/logo.PNG" alt="Bodha" style={{ height: "70px", width: "auto", display: "block" }} />
         </Link>
         {loggedIn ? (
           <div className="about-nav-right">
@@ -498,7 +498,7 @@ export default function VcfoPage() {
           <div className="footer-brand">
             <Link href="/" className="logo" style={{ textDecoration: "none" }}>
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/logo-2.jpeg" alt="Bodha" style={{ height: "70px", width: "auto", display: "block" }} />
+              <img src="/logo.PNG" alt="Bodha" style={{ height: "70px", width: "auto", display: "block" }} />
             </Link>
             <p>Empowering founders and businesses with the financial clarity they need to grow with confidence.</p>
           </div>

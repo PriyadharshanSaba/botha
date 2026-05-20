@@ -35,7 +35,7 @@ export default function Header() {
     <header className="header">
       <Link href="/" className="header-logo">
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src="/logo-2.jpeg" alt="Bodha" style={{ height: "64px", width: "auto", display: "block" }} />
+        <img src="/logo.PNG" alt="Bodha" style={{ height: "64px", width: "auto", display: "block" }} />
       </Link>
 
       {/* Desktop navigation */}

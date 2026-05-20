@@ -43,7 +43,7 @@ export default function RupeeArticlePage() {
       <nav className="landing-nav">
         <Link href="/" className="logo">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/logo-2.jpeg" alt="Bodha" style={{ height: "70px", width: "auto", display: "block" }} />
+          <img src="/logo.PNG" alt="Bodha" style={{ height: "70px", width: "auto", display: "block" }} />
         </Link>
         {loggedIn ? (
           <div className="about-nav-right">
@@ -364,7 +364,7 @@ export default function RupeeArticlePage() {
           <div className="footer-brand">
             <Link href="/" className="logo" style={{ textDecoration: "none" }}>
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/logo-2.jpeg" alt="Bodha" style={{ height: "70px", width: "auto", display: "block" }} />
+              <img src="/logo.PNG" alt="Bodha" style={{ height: "70px", width: "auto", display: "block" }} />
             </Link>
             <p>Empowering individuals with the financial literacy they need to build lasting wealth.</p>
           </div>

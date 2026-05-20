@@ -4,7 +4,7 @@ import { users, userProgress, otpAttempts, cookieConsents, subscriptions } from 
 import { eq, and, gte, count, sql } from "drizzle-orm";
 import crypto from "crypto";
 
-const DAILY_OTP_LIMIT = 2;
+const DAILY_OTP_LIMIT = 5;
 
 export const PostgresDB: DBDriver = {
   /* --------------------------------
@@ -71,8 +71,11 @@ export const PostgresDB: DBDriver = {
      RATE LIMIT: Check
   ----------------------------------*/
   async checkRateLimit(email: string) {
-    const startOfDay = new Date();
-    startOfDay.setUTCHours(0, 0, 0, 0);
+    // IST = UTC+5:30; find start of current IST day expressed in UTC
+    const IST_OFFSET_MS = 5.5 * 60 * 60 * 1000;
+    const nowIST = new Date(Date.now() + IST_OFFSET_MS);
+    const startOfISTDay = new Date(Date.UTC(nowIST.getUTCFullYear(), nowIST.getUTCMonth(), nowIST.getUTCDate()));
+    const startOfDay = new Date(startOfISTDay.getTime() - IST_OFFSET_MS);
 
     const result = await db
       .select({ total: count() })
