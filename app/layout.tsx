@@ -10,8 +10,8 @@ export const metadata = {
     icon: "/logo-favicon.png",
   },
   openGraph: {
-    title: "The Personal Finance Program — Bodha",
-    description: "This course is not for people who want to gamble with their money. If you're looking for hot tips, overnight returns or the next \"100x stock\" — this isn't your place. Our program is built for people who want to build real, lasting wealth — patiently, intelligently and on solid foundations.",
+    title: "Bodha — The Personal Finance Program by Bodha Ventures",
+    description: "Not for people chasing hot tips or 100x stocks. Built for those who want real, lasting wealth — patiently and intelligently.",
     url: "https://bodhaventures.in",
     siteName: "Bodha",
     images: [
@@ -27,8 +27,8 @@ export const metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "The Personal Finance Program — Bodha",
-    description: "This course is not for people who want to gamble with their money. Our program is built for people who want to build real, lasting wealth — patiently, intelligently and on solid foundations.",
+    title: "Bodha — The Personal Finance Program by Bodha Ventures",
+    description: "Not for people chasing hot tips or 100x stocks. Built for those who want real, lasting wealth — patiently and intelligently.",
     images: ["https://bodhaventures.in/preview-image.png"],
   },
 };

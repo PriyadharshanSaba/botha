@@ -87,7 +87,7 @@ export default function LandingPage() {
               </>
             ) : (
               <>
-                <h3>This course is <span className="strikeout">not</span> for people who want to gamble with their money.</h3>
+                <h3>This course is not for people who want to gamble with their money.</h3>
                 <p>If you&apos;re looking for hot tips, overnight returns or the next &quot;100x stock&quot; — this isn&apos;t your place. Our program is built for people who want to build real, lasting wealth — patiently, intelligently and on solid foundations.</p>
               </>
             )}
