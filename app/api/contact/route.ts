@@ -65,11 +65,19 @@ export async function POST(req: NextRequest) {
       row("Traction", body.traction),
       row("Pitch Deck / Website", body.deck),
     ].join("");
+  } else if (type === "general") {
+    subject = `General Enquiry — ${body.name}`;
+    tableRows = [
+      row("Name", body.name),
+      row("Email", body.email),
+      row("Phone", body.phone),
+      row("Message", body.message),
+    ].join("");
   } else {
     return NextResponse.json({ error: "Invalid type" }, { status: 400 });
   }
 
-  const typeLabel = type === "vcfo" ? "Virtual CFO Request" : "Pitch Submission";
+  const typeLabel = type === "vcfo" ? "Virtual CFO Request" : type === "venture" ? "Pitch Submission" : "General Enquiry";
 
   const html = `<!DOCTYPE html>
 <html lang="en">

@@ -13,6 +13,25 @@ export default function AboutPage() {
   const { lang, setLang, t } = useLanguage();
   const [showTerms, setShowTerms] = useState(false);
   const [showPrivacy, setShowPrivacy] = useState(false);
+  const [showContact, setShowContact] = useState(false);
+  const [contactForm, setContactForm] = useState({ name: "", email: "", phone: "", message: "" });
+  const [contactSubmitting, setContactSubmitting] = useState(false);
+  const [contactDone, setContactDone] = useState(false);
+
+  async function handleContactSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    setContactSubmitting(true);
+    try {
+      await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ type: "general", ...contactForm }),
+      });
+      setContactDone(true);
+    } finally {
+      setContactSubmitting(false);
+    }
+  }
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -218,7 +237,7 @@ export default function AboutPage() {
           </div>
           <div className="about-cta-sub">Education, advisory, and a firm that shows up. Let&apos;s talk.</div>
         </div>
-        <Link href="/signin" className="btn-dark">Get in Touch &rarr;</Link>
+        <button className="btn-dark" onClick={() => { setShowContact(true); setContactDone(false); }}>Get in Touch &rarr;</button>
       </div>
 
       {/* FOOTER */}
@@ -264,6 +283,41 @@ export default function AboutPage() {
 
       {showTerms && <TermsModal viewOnly onClose={() => setShowTerms(false)} />}
       {showPrivacy && <PrivacyModal onClose={() => setShowPrivacy(false)} />}
+
+      {showContact && (
+        <div style={{ position: "fixed", inset: 0, background: "rgba(0,0,0,0.55)", zIndex: 2000, display: "flex", alignItems: "center", justifyContent: "center", padding: "20px" }}
+          onClick={(e) => { if (e.target === e.currentTarget) setShowContact(false); }}>
+          <div style={{ background: "#fdfcf9", borderRadius: 12, padding: "40px 36px", width: "100%", maxWidth: 480, position: "relative" }}>
+            <button onClick={() => setShowContact(false)} style={{ position: "absolute", top: 16, right: 18, background: "none", border: "none", fontSize: 22, cursor: "pointer", color: "#999", lineHeight: 1 }}>&times;</button>
+            {contactDone ? (
+              <div style={{ textAlign: "center", padding: "24px 0" }}>
+                <div style={{ fontSize: 36, marginBottom: 16 }}>&#10003;</div>
+                <div style={{ fontFamily: "'Playfair Display', serif", fontSize: 22, fontWeight: 700, marginBottom: 10 }}>Message received.</div>
+                <p style={{ color: "#666", fontSize: 14, lineHeight: 1.7 }}>We&apos;ll be in touch shortly. Thank you for reaching out.</p>
+              </div>
+            ) : (
+              <form onSubmit={handleContactSubmit}>
+                <div style={{ fontFamily: "'Playfair Display', serif", fontSize: 22, fontWeight: 700, marginBottom: 6 }}>Get in Touch</div>
+                <p style={{ color: "#666", fontSize: 13, marginBottom: 24, lineHeight: 1.6 }}>Tell us a little about yourself and how we can help.</p>
+                <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
+                  <input required placeholder="Full name" value={contactForm.name} onChange={e => setContactForm(f => ({ ...f, name: e.target.value }))}
+                    style={{ padding: "11px 14px", border: "1px solid #ddd", borderRadius: 7, fontSize: 14, fontFamily: "inherit", outline: "none" }} />
+                  <input required type="email" placeholder="Email address" value={contactForm.email} onChange={e => setContactForm(f => ({ ...f, email: e.target.value }))}
+                    style={{ padding: "11px 14px", border: "1px solid #ddd", borderRadius: 7, fontSize: 14, fontFamily: "inherit", outline: "none" }} />
+                  <input placeholder="Phone (optional)" value={contactForm.phone} onChange={e => setContactForm(f => ({ ...f, phone: e.target.value }))}
+                    style={{ padding: "11px 14px", border: "1px solid #ddd", borderRadius: 7, fontSize: 14, fontFamily: "inherit", outline: "none" }} />
+                  <textarea required placeholder="How can we help you?" rows={4} value={contactForm.message} onChange={e => setContactForm(f => ({ ...f, message: e.target.value }))}
+                    style={{ padding: "11px 14px", border: "1px solid #ddd", borderRadius: 7, fontSize: 14, fontFamily: "inherit", outline: "none", resize: "vertical" }} />
+                </div>
+                <button type="submit" disabled={contactSubmitting}
+                  style={{ marginTop: 20, width: "100%", padding: "13px", background: "#0d0d0d", color: "#fff", border: "none", borderRadius: 7, fontSize: 14, fontWeight: 600, cursor: "pointer", letterSpacing: "0.3px" }}>
+                  {contactSubmitting ? "Sending..." : "Send Message"}
+                </button>
+              </form>
+            )}
+          </div>
+        </div>
+      )}
     </div>
   );
 }
