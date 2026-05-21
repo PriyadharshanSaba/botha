@@ -13,7 +13,18 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   // middleware already handles protection!
-  const showHeader = pathname !== "/" && pathname !== "/signin" && pathname !== "/about" && pathname !== "/vcfo" && pathname !== "/venture" && pathname !== "/tools";
+  const showHeader = pathname !== "/signin";
+
+  // These pages have their own inline footer
+  const hasOwnFooter =
+    pathname === "/" ||
+    pathname === "/about" ||
+    pathname === "/vcfo" ||
+    pathname === "/venture" ||
+    pathname === "/tools" ||
+    pathname === "/blogs" ||
+    pathname.startsWith("/blogs/");
+  const showAppFooter = showHeader && !hasOwnFooter;
 
   useEffect(() => {
     fetch("/api/me")
@@ -42,7 +53,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
     <LanguageProvider>
       {showHeader && <Header />}
       {children}
-      {showHeader && <AppFooter />}
+      {showAppFooter && <AppFooter />}
       {showBanner && (
         <CookieBanner
           isLoggedIn={isLoggedIn}

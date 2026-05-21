@@ -2,6 +2,22 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
 export function proxy(request: NextRequest) {
+  // CSRF: reject cross-origin mutations
+  if (request.method !== "GET" && request.method !== "HEAD") {
+    const origin = request.headers.get("origin");
+    const host = request.headers.get("host");
+    if (origin && host) {
+      try {
+        const originHost = new URL(origin).host;
+        if (originHost !== host) {
+          return NextResponse.json({ error: "Forbidden" }, { status: 403 });
+        }
+      } catch {
+        return NextResponse.json({ error: "Forbidden" }, { status: 403 });
+      }
+    }
+  }
+
   const uid = request.cookies.get("uid")?.value;
   const subscribed = request.cookies.get("subscribed")?.value;
   const loggedIn = Boolean(uid);
@@ -9,10 +25,10 @@ export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
   const publicPaths = ["/", "/signin", "/about", "/vcfo", "/venture", "/tools", "/plans"];
-  const authRedirectPaths = ["/", "/signin"];
+  const authRedirectPaths = ["/signin"];
 
   // Logged-out → only allow public paths
-  if (!loggedIn && !publicPaths.includes(pathname)) {
+  if (!loggedIn && !publicPaths.includes(pathname) && !pathname.startsWith("/blogs")) {
     const url = request.nextUrl.clone();
     url.pathname = "/signin";
     return NextResponse.redirect(url);
@@ -51,6 +67,6 @@ export function proxy(request: NextRequest) {
 
 export const config = {
   matcher: [
-    "/((?!api|_next|static|favicon.ico).*)"
+    "/((?!api|_next|static|favicon\\.ico)(?!.*\\.[a-zA-Z0-9]{1,5}$).*)"
   ],
 };

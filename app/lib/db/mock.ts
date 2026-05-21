@@ -47,15 +47,12 @@ export const MockDB: DBDriver = {
 
   async hasCompletedChapter(userId, moduleId, chapterNumber) {
     console.log("Mock hasCompletedChapter:", { userId, moduleId, chapterNumber });
-    return false; // fake response
+    return false;
   },
 
   async getLastCompletedChapter(userId) {
     console.log("Mock getLastCompletedChapter for:", userId);
-    return {
-      moduleId: null,
-      chapterNumber: 0,
-    };
+    return { moduleId: null, chapterNumber: 0 };
   },
 
   async getAllProgress(userId) {
@@ -78,9 +75,9 @@ export const MockDB: DBDriver = {
   async saveBillingInfo(_userId: string, _info: BillingInfo): Promise<void> {},
 
   async createSubscription(input: CreateSubscriptionInput): Promise<Subscription> {
-    return { id: "mock-sub", userId: input.userId, planId: input.planId, status: "pending", razorpayOrderId: input.razorpayOrderId, razorpayPaymentId: null, amountPaise: input.amountPaise, gstPaise: input.gstPaise, createdAt: new Date(), activatedAt: null };
+    return { id: "mock-sub", userId: input.userId, planId: input.planId, status: "pending", razorpayOrderId: input.razorpayOrderId, razorpayPaymentId: null, amountPaise: input.amountPaise, gstPaise: input.gstPaise, invoiceNumber: null, createdAt: new Date(), activatedAt: null };
   },
-  async activateSubscription(_orderId: string, _paymentId: string): Promise<void> {},
+  async activateSubscription(_orderId: string, _paymentId: string): Promise<string> { return "2026050900001"; },
   async getUserSubscription(_userId: string): Promise<Subscription | null> { return null; },
   async getSubscriptionByOrderId(_orderId: string): Promise<Subscription | null> { return null; },
   async getSubscriptionCount(_planId: string): Promise<number> { return 34; },

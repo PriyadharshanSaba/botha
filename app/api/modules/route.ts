@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { db } from "@/app/lib/db";
+import { getAuthenticatedUser } from "@/app/lib/auth";
 
 // --------------------------------------
 // GET → Fetch progress
@@ -7,8 +8,9 @@ import { db } from "@/app/lib/db";
 // /api/modules?all=1  → { [moduleId]: chapterNumber } for all modules
 // --------------------------------------
 export async function GET(req: NextRequest) {
-  const userId = req.cookies.get("uid")?.value;
-  if (!userId) return NextResponse.json({ error: "Not logged in" }, { status: 401 });
+  const user = await getAuthenticatedUser(req);
+  if (!user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  const userId = user.id;
 
   if (req.nextUrl.searchParams.get("all") === "1") {
     const data = await db.getAllProgress(userId);
@@ -25,11 +27,11 @@ export async function GET(req: NextRequest) {
 // --------------------------------------
 export async function POST(req: NextRequest) {
   try {
-    const userId = req.cookies.get("uid")?.value;
-
-    if (!userId) {
+    const user = await getAuthenticatedUser(req);
+    if (!user) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
+    const userId = user.id;
 
     const { moduleId, chapterNumber } = await req.json();
 

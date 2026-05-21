@@ -2,40 +2,17 @@
 
 import "./about.css";
 import "../landing.css";
-import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
-import { useRouter } from "next/navigation";
 import { useLanguage } from "../context/LanguageContext";
+import TermsModal from "../components/TermsModal";
+import PrivacyModal from "../components/PrivacyModal";
 
 export default function AboutPage() {
   const revealRefs = useRef<HTMLElement[]>([]);
-  const [loggedIn, setLoggedIn] = useState(false);
-  const [accountOpen, setAccountOpen] = useState(false);
-  const accountRef = useRef<HTMLDivElement>(null);
-  const router = useRouter();
   const { lang, setLang, t } = useLanguage();
-
-  useEffect(() => {
-    fetch("/api/me").then((r) => r.json()).then((d) => setLoggedIn(d.loggedIn));
-  }, []);
-
-  useEffect(() => {
-    function handleClick(e: MouseEvent) {
-      if (accountRef.current && !accountRef.current.contains(e.target as Node)) {
-        setAccountOpen(false);
-      }
-    }
-    document.addEventListener("mousedown", handleClick);
-    return () => document.removeEventListener("mousedown", handleClick);
-  }, []);
-
-  async function handleLogout() {
-    await fetch("/api/logout", { method: "POST" });
-    setLoggedIn(false);
-    router.push("/");
-    router.refresh();
-  }
+  const [showTerms, setShowTerms] = useState(false);
+  const [showPrivacy, setShowPrivacy] = useState(false);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -61,67 +38,6 @@ export default function AboutPage() {
 
   return (
     <div className="about-page">
-      {/* NAV */}
-      <nav className="landing-nav">
-        <Link href="/" className="logo">
-          <div className="logo-mark">
-            <Image src="/logo.svg" alt="Bodha" width={24} height={24} style={{ position: "relative", zIndex: 1 }} />
-          </div>
-          <div className="logo-text">Bodha</div>
-        </Link>
-        {loggedIn ? (
-          <div className="about-nav-right">
-            <Link href="/modules" className="about-nav-link">{t("courses")}</Link>
-            <Link href="/vcfo" className="about-nav-link">{t("virtualCfo")}</Link>
-            <Link href="/venture" className="about-nav-link">{t("ventureCapital")}</Link>
-            <Link href="/tools" className="about-nav-link">{t("tools")}</Link>
-            <Link href="#" className="about-nav-link">{t("insights")}</Link>
-            <Link href="/about" className="about-nav-link" style={{ color: "var(--gold)" }}>{t("aboutUs")}</Link>
-            <div className="about-account-wrapper" ref={accountRef}>
-              <button className="about-account-btn" onClick={() => setAccountOpen(!accountOpen)}>
-                {t("account")}
-                <span className={`about-account-arrow ${accountOpen ? "open" : ""}`}>&#9662;</span>
-              </button>
-              {accountOpen && (
-                <div className="about-account-dropdown">
-                  <button
-                    className="about-dropdown-item"
-                    onClick={() => { setLang(lang === "en" ? "kn" : "en"); setAccountOpen(false); }}
-                  >
-                    {lang === "en" ? "\u0C95\u0CA8\u0CCD\u0CA8\u0CA1" : "English"}
-                  </button>
-                  <Link href="#" className="about-dropdown-item" onClick={() => setAccountOpen(false)}>
-                    {t("settings")}
-                  </Link>
-                  <button
-                    className="about-dropdown-item about-dropdown-logout"
-                    onClick={() => { setAccountOpen(false); handleLogout(); }}
-                  >
-                    {t("logout")}
-                  </button>
-                </div>
-              )}
-            </div>
-          </div>
-        ) : (
-          <>
-            <ul className="nav-links">
-              <li><Link href="/#course">Courses</Link></li>
-              <li><Link href="/vcfo">Virtual CFO</Link></li>
-              <li><Link href="/venture">Venture Capital</Link></li>
-              <li><Link href="/tools">Tools</Link></li>
-              <li><Link href="/#services">Insights</Link></li>
-              <li><Link href="/about" style={{ color: "var(--gold)" }}>About Us</Link></li>
-            </ul>
-            <div className="nav-cta">
-              <Link href="/signin" className="btn-ghost">Sign In</Link>
-              <span style={{ color: "rgba(0,0,0,0.15)", fontSize: 18 }}>|</span>
-              <Link href="/signin" className="btn-primary">Sign Up</Link>
-            </div>
-          </>
-        )}
-      </nav>
-
       {/* HERO */}
       <div className="about-hero">
         <div className="about-hero-dots" />
@@ -200,13 +116,16 @@ export default function AboutPage() {
           <div className="about-partner-card about-reveal" ref={addRevealRef} style={{ transitionDelay: "0.05s" }}>
             <div className="about-partner-card-top">
               <div className="about-partner-num">01</div>
-              <div className="about-partner-avatar">A</div>
+              <div className="about-partner-avatar">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src="/AHD.jpeg" alt="CA Amogha H.D" style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
+              </div>
               <div className="about-partner-name">CA Amogha H.D  - Finance</div>
               <div className="about-partner-title">Chartered Accountant &middot; Co-Founder</div>
             </div>
             <div className="about-partner-card-body">
               <p className="about-partner-bio">
-                Our finance partner is a <strong>Chartered Accountant, CFA Level 3 candidate</strong> and <strong>former Deloitte Manager</strong> who has spent years working alongside some of the most experienced financial minds in the industry - Senior Partners, CFOs and other C-suite executives across Financial Services, Consumer and Life Sciences. That proximity to excellence shapes everything: how we think, how we work and the standard we hold ourselves to.
+                Our finance partner is a <strong>Chartered Accountant, CFA Level 3 cleared</strong> and <strong>former Deloitte Manager</strong> who has spent years working alongside some of the most experienced financial minds in the industry - Senior Partners, CFOs and other C-suite executives across Financial Services, Consumer and Life Sciences. That proximity to excellence shapes everything: how we think, how we work and the standard we hold ourselves to.
               </p>
               <p className="about-partner-bio" style={{ marginTop: -10 }}>
                 It&apos;s a rare kind of formation, not just technical training, but years of watching how the best in the business approach complexity, make decisions under pressure and lead with clarity. That perspective now sits at the centre of Bodha and it&apos;s what every client benefits from.
@@ -218,13 +137,16 @@ export default function AboutPage() {
           <div className="about-partner-card about-reveal" ref={addRevealRef} style={{ transitionDelay: "0.15s" }}>
             <div className="about-partner-card-top">
               <div className="about-partner-num">02</div>
-              <div className="about-partner-avatar" style={{ background: "var(--slate)" }}>PD</div>
+              <div className="about-partner-avatar" style={{ background: "var(--slate)" }}>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src="/PD.jpeg" alt="Priyadharshan S" style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
+              </div>
               <div className="about-partner-name">Priyadharshan S - Technology</div>
               <div className="about-partner-title">Engineer &middot; Co-Founder</div>
             </div>
             <div className="about-partner-card-body">
               <p className="about-partner-bio">
-                A <strong>senior developer with a career spent inside early-stage startups</strong> - not as a contractor, but as a core team member working directly alongside founders through the chaos, pivots, and milestones that define the early years of a company. This is someone who has seen from the inside what it takes to build something from nothing.
+                Alongside Bodha’s finance expertise sits a strong focus on systems thinking, execution and building structured learning experiences that simplify complexity. With experience working across technology-driven and fast-moving environments, the approach has always been grounded in clarity, practical decision-making and long-term thinking. That balance between financial depth and operational thinking shapes how Bodha is being built — not just as an education platform, but as a place where people can develop real understanding, confidence and better judgment around money.
               </p>
               <p className="about-partner-bio" style={{ marginTop: -10 }}>
                 Having been on the <strong>founder&apos;s side of the table</strong>, this partner brings something rare to Bodha: a genuine, lived understanding of what entrepreneurs need - not just on the technical side, but in terms of support, clarity, and someone who truly gets the journey. That empathy informs how we engage with founders across our Virtual CFO service, our venture investing, and every conversation we have with a business that&apos;s trying to grow.
@@ -304,17 +226,15 @@ export default function AboutPage() {
         <div className="footer-top">
           <div className="footer-brand">
             <Link href="/" className="logo" style={{ textDecoration: "none" }}>
-              <div className="logo-mark">
-                <Image src="/logo.svg" alt="Bodha" width={20} height={20} style={{ position: "relative", zIndex: 1 }} />
-              </div>
-              <div className="logo-text" style={{ color: "#fff" }}>Bodha</div>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src="/logo.PNG" alt="Bodha" style={{ height: "70px", width: "auto", display: "block" }} />
             </Link>
             <p>Empowering individuals with the financial literacy they need to build lasting wealth - for free.</p>
           </div>
           <div className="footer-col">
             <h5>Services</h5>
             <ul>
-              <li><Link href="/#course">Finance Course</Link></li>
+              <li><Link href="/modules">Finance Course</Link></li>
               <li><Link href="/vcfo">Virtual CFO</Link></li>
               <li><Link href="/venture">Venture Capital</Link></li>
               <li><Link href="/tools">Finance Tools</Link></li>
@@ -331,9 +251,8 @@ export default function AboutPage() {
           <div className="footer-col">
             <h5>Legal</h5>
             <ul>
-              <li><a href="#">Privacy Policy</a></li>
-              <li><a href="#">Terms of Use</a></li>
-              <li><a href="#">Disclaimer</a></li>
+              <li><a href="#" onClick={(e) => { e.preventDefault(); setShowPrivacy(true); }}>Privacy Policy</a></li>
+              <li><a href="#" onClick={(e) => { e.preventDefault(); setShowTerms(true); }}>Terms of Use</a></li>
             </ul>
           </div>
         </div>
@@ -342,6 +261,9 @@ export default function AboutPage() {
           <a href="#">Back to top &uarr;</a>
         </div>
       </footer>
+
+      {showTerms && <TermsModal viewOnly onClose={() => setShowTerms(false)} />}
+      {showPrivacy && <PrivacyModal onClose={() => setShowPrivacy(false)} />}
     </div>
   );
 }

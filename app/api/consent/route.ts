@@ -2,13 +2,15 @@ import { db } from "@/app/lib/db";
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { CURRENT_POLICY_VERSION } from "@/app/lib/consentVersion";
+import { getAuthenticatedUser } from "@/app/lib/auth";
 
 // GET /api/consent — returns current consent for the logged-in user
 export async function GET(req: NextRequest) {
-  const userId = req.cookies.get("uid")?.value;
-  if (!userId) {
+  const user = await getAuthenticatedUser(req);
+  if (!user) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
+  const userId = user.id;
 
   const consent = await db.getConsent(userId, CURRENT_POLICY_VERSION);
   return NextResponse.json({
@@ -20,10 +22,11 @@ export async function GET(req: NextRequest) {
 
 // POST /api/consent — save or update consent choices
 export async function POST(req: NextRequest) {
-  const userId = req.cookies.get("uid")?.value;
-  if (!userId) {
+  const user = await getAuthenticatedUser(req);
+  if (!user) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
+  const userId = user.id;
 
   const body = await req.json();
   const { analytics, marketing, withdraw } = body;

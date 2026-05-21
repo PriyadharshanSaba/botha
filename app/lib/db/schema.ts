@@ -1,4 +1,5 @@
 import { pgTable, text, timestamp, integer, primaryKey, serial, boolean, unique, jsonb } from "drizzle-orm/pg-core";
+import type { BillingInfo } from "./types";
 
 export const users = pgTable("users", {
   id: text("id").primaryKey(),
@@ -9,7 +10,7 @@ export const users = pgTable("users", {
   otp: text("otp"),
   otpExpiry: timestamp("otp_expiry"),
   verified: boolean("verified").default(false).notNull(),
-  billingInfo: jsonb("billing_info"),
+  billingInfo: jsonb("billing_info").$type<BillingInfo | null>(),
 });
 
 export const otpAttempts = pgTable("otp_attempts", {
@@ -27,6 +28,7 @@ export const subscriptions = pgTable("subscriptions", {
   razorpayPaymentId: text("razorpay_payment_id"),
   amountPaise: integer("amount_paise").notNull(),       // total incl. GST
   gstPaise: integer("gst_paise").notNull(),
+  invoiceNumber: text("invoice_number"),
   createdAt: timestamp("created_at").defaultNow().notNull(),
   activatedAt: timestamp("activated_at"),
 });
@@ -61,15 +63,14 @@ export const userProgress = pgTable(
       .unique()
       .references(() => users.id, { onDelete: "cascade" }),
 
-    moduleId: text("module_id").notNull(),       // ← last active module
-    chapterNumber: integer("chapter_number").notNull(), // ← last active chapter
+    moduleId: text("module_id").notNull(),
+    chapterNumber: integer("chapter_number").notNull(),
 
     status: text("status").default("completed"),
 
     updatedAt: timestamp("updated_at").defaultNow(),
   },
   (table) => ({
-    pk: primaryKey(table.userId), // ← ONLY ONE ROW PER USER
+    pk: primaryKey(table.userId),
   })
 );
-

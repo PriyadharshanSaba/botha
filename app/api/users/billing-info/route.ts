@@ -2,12 +2,14 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { db } from "@/app/lib/db";
 import type { BillingInfo } from "@/app/lib/db/types";
+import { getAuthenticatedUser } from "@/app/lib/auth";
 
 export async function POST(req: NextRequest) {
-  const userId = req.cookies.get("uid")?.value;
-  if (!userId) {
+  const user = await getAuthenticatedUser(req);
+  if (!user) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
+  const userId = user.id;
 
   const body = await req.json();
   const { phone, addressLine1, addressLine2, city, state, pincode, gstin, pan } = body;

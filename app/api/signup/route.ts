@@ -3,55 +3,73 @@ import { NextResponse } from "next/server";
 import { generateOTP, isTestEmail } from "@/app/lib/utils/otp";
 import { sendOtpEmail } from "@/app/lib/email/send";
 
-
 export async function POST(req: Request) {
-  const { firstName, lastName, email } = await req.json();
-  console.log("[signup] attempt:", { email, firstName, lastName });
+  const { firstName, lastName, email: rawEmail } = await req.json();
 
-  if (!firstName || !lastName || !email) {
-    console.log("[signup] missing fields");
+  if (!firstName || !lastName || !rawEmail) {
     return NextResponse.json({ error: "Missing fields" }, { status: 400 });
   }
 
+  const email = rawEmail.trim().toLowerCase();
   const existing = await db.getUserByEmail(email);
-  console.log("[signup] existing user:", existing ? { id: existing.id, verified: existing.verified } : null);
 
+  // Already verified → send OTP silently (same response to prevent enumeration)
   if (existing?.verified) {
-    console.log("[signup] rejected — user already verified");
-    return NextResponse.json({ error: "User already exists" }, { status: 409 });
+    const testUser = isTestEmail(email);
+    if (!testUser) {
+      const rateLimit = await db.checkRateLimit(email);
+      if (!rateLimit.allowed) {
+        return NextResponse.json(
+          { error: "Too many attempts. Try again tomorrow." },
+          { status: 429 }
+        );
+      }
+      await db.recordOtpAttempt(email);
+    }
+
+    const otp = generateOTP(email);
+    const expiry = Date.now() + 5 * 60 * 1000;
+    await db.saveOTP(email, otp, expiry);
+
+    if (!testUser) {
+      await sendOtpEmail(email, otp, existing.firstName).catch(() => {});
+    }
+
+    return NextResponse.json({ success: true });
   }
 
-  if (!isTestEmail(email)) {
-    const { allowed, attemptsLeft } = await db.checkRateLimit(email);
-    console.log("[signup] rate limit:", { allowed, attemptsLeft });
-    if (!allowed) {
+  const testUser = isTestEmail(email);
+  let attemptsLeft: number | undefined;
+
+  if (!testUser) {
+    const rateLimit = await db.checkRateLimit(email);
+    if (!rateLimit.allowed) {
       return NextResponse.json(
         { error: "Too many attempts. Try again tomorrow." },
         { status: 429 }
       );
     }
+    attemptsLeft = rateLimit.attemptsLeft - 1;
   }
 
   // Reuse unverified account or create new
-  const user = existing ?? await db.createUser({ firstName, lastName, email });
-  console.log("[signup] user ready:", { id: user.id, reused: !!existing });
+  const user = existing ?? (await db.createUser({ firstName, lastName, email }));
 
   const otp = generateOTP(email);
-  const expiry = Date.now() + 5 * 60 * 1000; // 5 mins
-
+  const expiry = Date.now() + 5 * 60 * 1000;
   await db.saveOTP(email, otp, expiry);
-  console.log("[signup] OTP saved");
 
-  if (!isTestEmail(email)) {
+  if (!testUser) {
     await db.recordOtpAttempt(email);
     try {
       await sendOtpEmail(email, otp, firstName);
-      console.log("[signup] email sent to:", email);
-    } catch (err) {
-      console.error("[signup] email send failed:", err);
-      return NextResponse.json({ error: "Failed to send OTP email" }, { status: 500 });
+    } catch {
+      return NextResponse.json(
+        { error: "Failed to send OTP email" },
+        { status: 500 }
+      );
     }
   }
 
-  return NextResponse.json({ success: true, userId: user.id });
+  return NextResponse.json({ success: true, attemptsLeft });
 }

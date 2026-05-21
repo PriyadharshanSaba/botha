@@ -1,8 +1,9 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
-import Razorpay, { Orders } from "razorpay";
+import Razorpay from "razorpay";
+import type { Orders } from "razorpay/dist/types/orders";
 import { db } from "@/app/lib/db";
-import { PLANS, totalPaise, gstPaise } from "@/app/lib/plans";
+import { PLANS, totalPaise, effectivePrice } from "@/app/lib/plans";
 import { isTestEmail } from "@/app/lib/utils/otp";
 
 export async function POST(req: NextRequest) {
@@ -12,11 +13,7 @@ export async function POST(req: NextRequest) {
   }
 
   const user = await db.getUserById(userId);
-
-  // Server-side guard: test users must use the bypass route
-  if (user && isTestEmail(user.email)) {
-    return NextResponse.json({ error: "test_user" }, { status: 403 });
-  }
+  const isTest = !!(user && isTestEmail(user.email));
 
   // Block double-purchase
   const existing = await db.getUserSubscription(userId);
@@ -38,8 +35,8 @@ export async function POST(req: NextRequest) {
     }
   }
 
-  const amount = totalPaise(plan.basePriceRs);
-  const gst    = gstPaise(plan.basePriceRs);
+  const priceRs = effectivePrice(plan, isTest);
+  const amount  = totalPaise(priceRs);
 
   // Lazy init — only runs when env vars are confirmed present at request time
   if (!process.env.RAZORPAY_KEY_ID || !process.env.RAZORPAY_KEY_SECRET) {
@@ -69,7 +66,7 @@ export async function POST(req: NextRequest) {
     planId,
     razorpayOrderId: order.id,
     amountPaise: amount,
-    gstPaise: gst,
+    gstPaise: 0,
   });
 
   return NextResponse.json({

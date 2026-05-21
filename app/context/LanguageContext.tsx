@@ -16,7 +16,7 @@ const translations: Record<string, Record<Lang, string>> = {
   virtualCfo: { en: "Virtual CFO", kn: "ವರ್ಚುವಲ್ CFO" },
   ventureCapital: { en: "Venture Capital", kn: "ವೆಂಚರ್ ಕ್ಯಾಪಿಟಲ್" },
   tools: { en: "Tools", kn: "ಉಪಕರಣಗಳು" },
-  insights: { en: "Insights", kn: "ಒಳನೋಟಗಳು" },
+  insights: { en: "Blogs", kn: "ಬ್ಲಾಗ್‌ಗಳು" },
   aboutUs: { en: "About Us", kn: "ನಮ್ಮ ಬಗ್ಗೆ" },
   account: { en: "Account", kn: "ಖಾತೆ" },
   settings: { en: "Settings", kn: "ಸೆಟ್ಟಿಂಗ್‌ಗಳು" },

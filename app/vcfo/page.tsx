@@ -2,42 +2,21 @@
 
 import "./vcfo.css";
 import "../landing.css";
-import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
-import { useRouter } from "next/navigation";
 import { useLanguage } from "../context/LanguageContext";
+import TermsModal from "../components/TermsModal";
+import PrivacyModal from "../components/PrivacyModal";
 
 export default function VcfoPage() {
   const revealRefs = useRef<HTMLElement[]>([]);
-  const [loggedIn, setLoggedIn] = useState(false);
-  const [accountOpen, setAccountOpen] = useState(false);
-  const accountRef = useRef<HTMLDivElement>(null);
   const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
   const [checkedChallenges, setCheckedChallenges] = useState<string[]>([]);
-  const router = useRouter();
+  const formRef = useRef<HTMLFormElement>(null);
   const { lang, setLang, t } = useLanguage();
-
-  useEffect(() => {
-    fetch("/api/me").then((r) => r.json()).then((d) => setLoggedIn(d.loggedIn));
-  }, []);
-
-  useEffect(() => {
-    function handleClick(e: MouseEvent) {
-      if (accountRef.current && !accountRef.current.contains(e.target as Node)) {
-        setAccountOpen(false);
-      }
-    }
-    document.addEventListener("mousedown", handleClick);
-    return () => document.removeEventListener("mousedown", handleClick);
-  }, []);
-
-  async function handleLogout() {
-    await fetch("/api/logout", { method: "POST" });
-    setLoggedIn(false);
-    router.push("/");
-    router.refresh();
-  }
+  const [showTerms, setShowTerms] = useState(false);
+  const [showPrivacy, setShowPrivacy] = useState(false);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -62,9 +41,35 @@ export default function VcfoPage() {
     );
   }
 
-  function handleSubmit() {
-    setSubmitted(true);
-    document.getElementById("vcfo-request")?.scrollIntoView({ behavior: "smooth", block: "center" });
+  async function handleSubmit() {
+    if (!formRef.current) return;
+    const fd = new FormData(formRef.current);
+    setSubmitting(true);
+    try {
+      await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          type: "vcfo",
+          name: fd.get("name") ?? "",
+          designation: fd.get("designation") ?? "",
+          email: fd.get("email") ?? "",
+          phone: fd.get("phone") ?? "",
+          company: fd.get("company") ?? "",
+          industry: fd.get("industry") ?? "",
+          stage: fd.get("stage") ?? "",
+          revenue: fd.get("revenue") ?? "",
+          challenges: checkedChallenges.join(", "),
+          service: fd.get("service") ?? "",
+          timeline: fd.get("timeline") ?? "",
+          notes: fd.get("notes") ?? "",
+        }),
+      });
+    } finally {
+      setSubmitting(false);
+      setSubmitted(true);
+      document.getElementById("vcfo-request")?.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
   }
 
   const services = [
@@ -79,12 +84,12 @@ export default function VcfoPage() {
   ];
 
   const testimonials = [
-    { text: "Bodha\u2019s Virtual CFO service saved my startup during a rough funding round. Their team had board-level clarity and execution speed that we simply couldn\u2019t afford in-house. Within 3 months, we closed our Series A.", name: "Rohan Kulkarni", role: "Co-Founder, TechNest", context: "Series A \u00B7 SaaS", initial: "R" },
-    { text: "We were burning cash without knowing exactly where. Within 6 weeks of onboarding Bodha, we had our first 13-week cash flow model, identified \u20B918L in annual savings, and felt genuinely in control for the first time.", name: "Ananya Mehta", role: "Founder & CEO, KraftLiving", context: "Seed Stage \u00B7 D2C", initial: "A" },
-    { text: "Our compliance was a mess \u2014 GST, TDS, ROC \u2014 all behind. Bodha cleaned it all up in 45 days, filed everything that was pending, and set up systems so it never happens again. I\u2019d recommend them to any founder.", name: "Vikram Nair", role: "Managing Director, NairLogix", context: "Growth Stage \u00B7 Manufacturing", initial: "V" },
-    { text: "The fundraise support was exceptional. They built a model that could handle every investor question we got \u2014 and the data room was so clean, our lead investor said it was the best-prepared deck they\u2019d seen at pre-seed.", name: "Sneha Iyer", role: "Co-Founder, GreenStack", context: "Pre-Seed \u00B7 Climate Tech", initial: "S" },
-    { text: "I was skeptical about a \u2018virtual\u2019 CFO. But their team knows our P&L better than I do. Monthly reports land on time, every time. They\u2019ve become a genuine thinking partner, not just a reporting function.", name: "Karthik Balan", role: "CEO, Primus Consulting", context: "Series B \u00B7 Professional Services", initial: "K" },
-    { text: "We hired Bodha to help us set up our finance function from zero \u2014 accounting stack, chart of accounts, SOPs. They were done in 3 weeks and we\u2019ve had clean books ever since. Worth every rupee.", name: "Priya Sharma", role: "Founder, Runo Health", context: "Early Stage \u00B7 Healthtech", initial: "P" },
+    // { text: "Bodha\u2019s Virtual CFO service saved my startup during a rough funding round. Their team had board-level clarity and execution speed that we simply couldn\u2019t afford in-house. Within 3 months, we closed our Series A.", name: "Rohan Kulkarni", role: "Co-Founder, TechNest", context: "Series A \u00B7 SaaS", initial: "R" },
+    { text: "We were burning cash without knowing exactly where. Within 6 weeks of onboarding Bodha, we had our first 13-week cash flow model, identified \u20B918L in annual savings, and felt genuinely in control for the first time.", name: "Sachin S John", role: "CEO, Toodex Technology Pvt. Ltd.", context: "Growth Stage \u00B7 Manufacturing", initial: "S" },
+    { text: "Our compliance was a mess \u2014 GST, TDS, ROC \u2014 all behind. Bodha cleaned it all up in 45 days, filed everything that was pending, and set up systems so it never happens again. I\u2019d recommend them to any founder.", name: "Rahul Thagaraj", context: "Seed\u00B7 SaaS", initial: "R" },
+    // { text: "The fundraise support was exceptional. They built a model that could handle every investor question we got \u2014 and the data room was so clean, our lead investor said it was the best-prepared deck they\u2019d seen at pre-seed.", name: "Sneha Iyer", role: "Co-Founder, GreenStack", context: "Pre-Seed \u00B7 Climate Tech", initial: "S" },
+    // { text: "I was skeptical about a \u2018virtual\u2019 CFO. But their team knows our P&L better than I do. Monthly reports land on time, every time. They\u2019ve become a genuine thinking partner, not just a reporting function.", name: "Karthik Balan", role: "CEO, Primus Consulting", context: "Series B \u00B7 Professional Services", initial: "K" },
+    // { text: "We hired Bodha to help us set up our finance function from zero \u2014 accounting stack, chart of accounts, SOPs. They were done in 3 weeks and we\u2019ve had clean books ever since. Worth every rupee.", name: "Priya Sharma", role: "Founder, Runo Health", context: "Early Stage \u00B7 Healthtech", initial: "P" },
   ];
 
   const challenges = [
@@ -100,59 +105,6 @@ export default function VcfoPage() {
 
   return (
     <div className="vcfo-page">
-      {/* NAV */}
-      <nav className="landing-nav">
-        <Link href="/" className="logo">
-          <div className="logo-mark">
-            <Image src="/logo.svg" alt="Bodha" width={24} height={24} style={{ position: "relative", zIndex: 1 }} />
-          </div>
-          <div className="logo-text">Bodha</div>
-        </Link>
-        {loggedIn ? (
-          <div className="about-nav-right">
-            <Link href="/modules" className="about-nav-link">{t("courses")}</Link>
-            <Link href="/vcfo" className="about-nav-link" style={{ color: "var(--gold)" }}>{t("virtualCfo")}</Link>
-            <Link href="/venture" className="about-nav-link">{t("ventureCapital")}</Link>
-            <Link href="/tools" className="about-nav-link">{t("tools")}</Link>
-            <Link href="#" className="about-nav-link">{t("insights")}</Link>
-            <Link href="/about" className="about-nav-link">{t("aboutUs")}</Link>
-            <div className="about-account-wrapper" ref={accountRef}>
-              <button className="about-account-btn" onClick={() => setAccountOpen(!accountOpen)}>
-                {t("account")}
-                <span className={`about-account-arrow ${accountOpen ? "open" : ""}`}>&#9662;</span>
-              </button>
-              {accountOpen && (
-                <div className="about-account-dropdown">
-                  <button className="about-dropdown-item" onClick={() => { setLang(lang === "en" ? "kn" : "en"); setAccountOpen(false); }}>
-                    {lang === "en" ? "\u0C95\u0CA8\u0CCD\u0CA8\u0CA1" : "English"}
-                  </button>
-                  <Link href="#" className="about-dropdown-item" onClick={() => setAccountOpen(false)}>{t("settings")}</Link>
-                  <button className="about-dropdown-item about-dropdown-logout" onClick={() => { setAccountOpen(false); handleLogout(); }}>
-                    {t("logout")}
-                  </button>
-                </div>
-              )}
-            </div>
-          </div>
-        ) : (
-          <>
-            <ul className="nav-links">
-              <li><Link href="/#course">Courses</Link></li>
-              <li><Link href="/vcfo" style={{ color: "var(--gold)" }}>Virtual CFO</Link></li>
-              <li><Link href="/venture">Venture Capital</Link></li>
-              <li><Link href="/tools">Tools</Link></li>
-              <li><Link href="/#services">Insights</Link></li>
-              <li><Link href="/about">About Us</Link></li>
-            </ul>
-            <div className="nav-cta">
-              <Link href="/signin" className="btn-ghost">Sign In</Link>
-              <span style={{ color: "rgba(0,0,0,0.15)", fontSize: 18 }}>|</span>
-              <Link href="/signin" className="btn-primary">Sign Up</Link>
-            </div>
-          </>
-        )}
-      </nav>
-
       {/* HERO */}
       <div className="vcfo-hero">
         <div className="vcfo-hero-dots" />
@@ -179,7 +131,7 @@ export default function VcfoPage() {
             <div className="vcfo-hc">
               <div className="vcfo-hc-icon">&#128202;</div>
               <div><div className="vcfo-hc-title">Monthly MIS Report</div><div className="vcfo-hc-sub">Delivered by 5th of every month</div></div>
-              <div className="vcfo-hc-val">&nearr;</div>
+              <div className="vcfo-hc-val">↗</div>
             </div>
             <div className="vcfo-hc">
               <div className="vcfo-hc-icon">&#127974;</div>
@@ -335,26 +287,26 @@ export default function VcfoPage() {
 
           <div className="vcfo-form-card vcfo-reveal" ref={addRevealRef} style={{ transitionDelay: "0.15s" }}>
             {!submitted ? (
-              <>
+              <form ref={formRef} onSubmit={(e) => { e.preventDefault(); handleSubmit(); }}>
                 <h3>Request a Virtual CFO</h3>
                 <p className="vcfo-form-desc">Takes 3 minutes. We&apos;ll reach out within 24 hours.</p>
 
                 <div className="vcfo-field-row">
-                  <div className="vcfo-field"><label>Your Name</label><input type="text" placeholder="Arjun Mehta" /></div>
-                  <div className="vcfo-field"><label>Designation</label><input type="text" placeholder="Founder / CFO / Director" /></div>
+                  <div className="vcfo-field"><label>Your Name</label><input type="text" name="name" placeholder="Arjun Mehta" /></div>
+                  <div className="vcfo-field"><label>Designation</label><input type="text" name="designation" placeholder="Founder / CFO / Director" /></div>
                 </div>
                 <div className="vcfo-field-row">
-                  <div className="vcfo-field"><label>Email Address</label><input type="email" placeholder="arjun@yourcompany.com" /></div>
-                  <div className="vcfo-field"><label>Phone Number</label><input type="tel" placeholder="+91 98765 43210" /></div>
+                  <div className="vcfo-field"><label>Email Address</label><input type="email" name="email" placeholder="arjun@yourcompany.com" /></div>
+                  <div className="vcfo-field"><label>Phone Number</label><input type="tel" name="phone" placeholder="+91 98765 43210" /></div>
                 </div>
 
                 <div className="vcfo-form-divider" />
 
                 <div className="vcfo-field-row">
-                  <div className="vcfo-field"><label>Company Name</label><input type="text" placeholder="YourCo Pvt. Ltd." /></div>
+                  <div className="vcfo-field"><label>Company Name</label><input type="text" name="company" placeholder="YourCo Pvt. Ltd." /></div>
                   <div className="vcfo-field">
                     <label>Industry</label>
-                    <select defaultValue="">
+                    <select name="industry" defaultValue="">
                       <option value="" disabled>Select industry</option>
                       <option>SaaS / Software</option>
                       <option>D2C / E-commerce</option>
@@ -370,7 +322,7 @@ export default function VcfoPage() {
                 <div className="vcfo-field-row">
                   <div className="vcfo-field">
                     <label>Company Stage</label>
-                    <select defaultValue="">
+                    <select name="stage" defaultValue="">
                       <option value="" disabled>Select stage</option>
                       <option>Pre-revenue / Idea</option>
                       <option>Early Stage (0&ndash;1 Cr ARR)</option>
@@ -381,7 +333,7 @@ export default function VcfoPage() {
                   </div>
                   <div className="vcfo-field">
                     <label>Current Monthly Revenue</label>
-                    <select defaultValue="">
+                    <select name="revenue" defaultValue="">
                       <option value="" disabled>Select range</option>
                       <option>Pre-revenue</option>
                       <option>Under &#8377;10L/month</option>
@@ -408,7 +360,7 @@ export default function VcfoPage() {
 
                 <div className="vcfo-field">
                   <label>Primary Service of Interest</label>
-                  <select defaultValue="">
+                  <select name="service" defaultValue="">
                     <option value="" disabled>What do you need most right now?</option>
                     <option>MIS &amp; Financial Reporting</option>
                     <option>Cash Flow Management</option>
@@ -423,7 +375,7 @@ export default function VcfoPage() {
 
                 <div className="vcfo-field">
                   <label>When do you need to get started?</label>
-                  <select defaultValue="">
+                  <select name="timeline" defaultValue="">
                     <option value="" disabled>Select timeline</option>
                     <option>Immediately (this week)</option>
                     <option>Within the month</option>
@@ -434,14 +386,14 @@ export default function VcfoPage() {
 
                 <div className="vcfo-field">
                   <label>Anything else we should know? <span style={{ textTransform: "none", letterSpacing: 0, color: "#bbb", fontSize: 11 }}>(optional)</span></label>
-                  <textarea rows={3} placeholder="Tell us about your current finance setup, any specific goals, or what prompted you to look for a Virtual CFO&hellip;" />
+                  <textarea name="notes" rows={3} placeholder="Tell us about your current finance setup, any specific goals, or what prompted you to look for a Virtual CFO&hellip;" />
                 </div>
 
-                <button className="vcfo-submit-btn" onClick={handleSubmit}>Request My Discovery Call &rarr;</button>
+                <button type="submit" className="vcfo-submit-btn" disabled={submitting}>{submitting ? "Sending…" : "Request My Discovery Call →"}</button>
                 <p style={{ marginTop: 12, fontSize: 11, color: "#bbb", textAlign: "center", lineHeight: 1.6 }}>
                   By submitting, you agree to our Privacy Policy. We&apos;ll never share your details or spam you.
                 </p>
-              </>
+              </form>
             ) : (
               <div className="vcfo-success-state show">
                 <div className="vcfo-success-icon">&#9989;</div>
@@ -467,10 +419,8 @@ export default function VcfoPage() {
         <div className="footer-top">
           <div className="footer-brand">
             <Link href="/" className="logo" style={{ textDecoration: "none" }}>
-              <div className="logo-mark">
-                <Image src="/logo.svg" alt="Bodha" width={20} height={20} style={{ position: "relative", zIndex: 1 }} />
-              </div>
-              <div className="logo-text" style={{ color: "#fff" }}>Bodha</div>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src="/logo.PNG" alt="Bodha" style={{ height: "70px", width: "auto", display: "block" }} />
             </Link>
             <p>Empowering founders and businesses with the financial clarity they need to grow with confidence.</p>
           </div>
@@ -478,7 +428,7 @@ export default function VcfoPage() {
             <h5>Services</h5>
             <ul>
               <li><Link href="/vcfo">Virtual CFO</Link></li>
-              <li><Link href="/#course">Finance Course</Link></li>
+              <li><Link href="/modules">Finance Course</Link></li>
               <li><Link href="/venture">Venture Capital</Link></li>
               <li><Link href="/tools">Finance Tools</Link></li>
               <li><Link href="/#services">Blog</Link></li>
@@ -494,9 +444,8 @@ export default function VcfoPage() {
           <div className="footer-col">
             <h5>Legal</h5>
             <ul>
-              <li><a href="#">Privacy Policy</a></li>
-              <li><a href="#">Terms of Use</a></li>
-              <li><a href="#">Disclaimer</a></li>
+              <li><a href="#" onClick={(e) => { e.preventDefault(); setShowPrivacy(true); }}>Privacy Policy</a></li>
+              <li><a href="#" onClick={(e) => { e.preventDefault(); setShowTerms(true); }}>Terms of Use</a></li>
             </ul>
           </div>
         </div>
@@ -505,6 +454,9 @@ export default function VcfoPage() {
           <a href="#">Back to top &uarr;</a>
         </div>
       </footer>
+
+      {showTerms && <TermsModal viewOnly onClose={() => setShowTerms(false)} />}
+      {showPrivacy && <PrivacyModal onClose={() => setShowPrivacy(false)} />}
     </div>
   );
 }

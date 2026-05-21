@@ -4,8 +4,33 @@ import React from "react";
 import AppShell from "./AppShell";
 
 export const metadata = {
-  title: "Bodha",
-  description: "Bodha — finance education",
+  title: "Bodha — The Personal Finance Program",
+  description: "This course is not for people who want to gamble with their money. Our program is built for people who want to build real, lasting wealth — patiently, intelligently and on solid foundations.",
+  icons: {
+    icon: "/logo-favicon.png",
+  },
+  openGraph: {
+    title: "Bodha — The Personal Finance Program by Bodha Ventures",
+    description: "Not for people chasing hot tips or 100x stocks. Built for those who want real, lasting wealth — patiently and intelligently.",
+    url: "https://bodhaventures.in",
+    siteName: "Bodha",
+    images: [
+      {
+        url: "https://bodhaventures.in/preview-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Bodha — The Personal Finance Program",
+      },
+    ],
+    locale: "en_IN",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Bodha — The Personal Finance Program by Bodha Ventures",
+    description: "Not for people chasing hot tips or 100x stocks. Built for those who want real, lasting wealth — patiently and intelligently.",
+    images: ["https://bodhaventures.in/preview-image.png"],
+  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

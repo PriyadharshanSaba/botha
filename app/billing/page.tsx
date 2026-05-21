@@ -13,8 +13,35 @@ type BillingData = {
   planName: string;
   status: string;
   activatedAt: string;
-  breakdown: { baseRs: number; gstRs: number; gstRate: number; totalRs: number };
+  invoiceNumber: string | null;
+  breakdown: { totalRs: number };
 };
+
+function rupeesToWords(amount: number): string {
+  const a = ["", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine",
+    "Ten", "Eleven", "Twelve", "Thirteen", "Fourteen", "Fifteen", "Sixteen",
+    "Seventeen", "Eighteen", "Nineteen"];
+  const b = ["", "", "Twenty", "Thirty", "Forty", "Fifty", "Sixty", "Seventy", "Eighty", "Ninety"];
+
+  function inW(n: number): string {
+    if (n === 0) return "";
+    if (n < 20) return a[n] + " ";
+    if (n < 100) return b[Math.floor(n / 10)] + (n % 10 ? " " + a[n % 10] : "") + " ";
+    return a[Math.floor(n / 100)] + " Hundred " + inW(n % 100);
+  }
+
+  if (amount === 0) return "Rupees Zero Only";
+  const crore = Math.floor(amount / 10000000);
+  const lakh  = Math.floor((amount % 10000000) / 100000);
+  const thou  = Math.floor((amount % 100000) / 1000);
+  const rest  = Math.floor(amount % 1000);
+  let r = "";
+  if (crore) r += inW(crore) + "Crore ";
+  if (lakh)  r += inW(lakh)  + "Lakh ";
+  if (thou)  r += inW(thou)  + "Thousand ";
+  if (rest)  r += inW(rest);
+  return ("Rupees " + r.trim() + " Only").replace(/\s+/g, " ");
+}
 
 export default function BillingPage() {
   return (
@@ -62,91 +89,165 @@ function BillingContent() {
     );
   }
 
+  const { breakdown } = data;
+  const words = rupeesToWords(Math.round(breakdown.totalRs));
+
+  const fmt = (n: number) => "₹" + n.toLocaleString("en-IN", { minimumFractionDigits: 2 });
+
   const activatedDate = data.activatedAt
     ? new Date(data.activatedAt).toLocaleDateString("en-IN", {
         day: "numeric", month: "long", year: "numeric",
       })
     : "—";
 
-  const shortOrderId = data.orderId?.replace("order_", "") ?? "—";
-  const shortPaymentId = data.paymentId?.replace("pay_", "") ?? "—";
+  const invoiceNum = data.invoiceNumber ?? "—";
+
+  const shortOrderId  = data.orderId?.replace("order_", "") ?? "—";
+  const shortPaymentId = data.paymentId && data.paymentId !== "bypass"
+    ? data.paymentId.replace("pay_", "")
+    : null;
 
   return (
     <div className="billing-page">
       <div className="billing-shell">
 
-        {/* ── Success header ── */}
+        {/* ── Success badge ── */}
         <div className="billing-success-badge">
           <div className="billing-check-circle">✓</div>
           <div className="billing-success-text">
             <h1>You're all set{data.user ? `, ${data.user.firstName}` : ""}!</h1>
-            <p>Payment confirmed — your Bodha access is now active.</p>
+            <p>Payment confirmed — your Bodha access is now active. We will send you the invoice copy to your email.</p>
           </div>
         </div>
 
-        {/* ── Receipt card ── */}
-        <div className="billing-receipt">
+        {/* ── Invoice ── */}
+        <div className="inv-wrap">
 
           {/* Header */}
-          <div className="billing-receipt-header">
-            <span className="billing-brand">Bodha</span>
-            <span className="billing-invoice-label">Tax Invoice</span>
+          <div className="inv-header">
+            <div>
+              <div className="brand-name">Bodha Ventures</div>
+              <div className="brand-tag">LLP &nbsp;·&nbsp; Personal Finance &amp; Virtual CFO</div>
+            </div>
+            <div className="inv-title-block">
+              <div className="inv-title">Invoice</div>
+              <div className="inv-num">{invoiceNum}</div>
+            </div>
+          </div>
+
+          <div className="accent-bar" />
+
+          {/* Parties */}
+          <div className="parties">
+            <div className="party-block">
+              <div className="party-label">Supplier</div>
+              <div className="party-name">Bodha Ventures LLP</div>
+              <div className="party-detail">
+                29, 6th Cross, 9th Main,<br />
+                Jalahalli Village,<br />
+                Bengaluru — 560013<br />
+                Karnataka, India<br />
+                bodhaventures@gmail.com
+              </div>
+              <span className="gstin-badge">PAN: ABGFB6431R</span>
+            </div>
+            <div className="party-block">
+              <div className="party-label">Bill To</div>
+              {data.user ? (
+                <>
+                  <div className="party-name">{data.user.firstName} {data.user.lastName}</div>
+                  <div className="party-detail">{data.user.email}</div>
+                </>
+              ) : (
+                <div className="party-detail">—</div>
+              )}
+            </div>
           </div>
 
           {/* Meta */}
-          <div className="billing-meta">
-            <div className="billing-meta-item">
-              <label>Plan</label>
-              <span>{data.planName}</span>
+          <div className="inv-meta">
+            <div>
+              <div className="meta-label">Invoice No.</div>
+              <div className="meta-value">{invoiceNum}</div>
             </div>
-            <div className="billing-meta-item">
-              <label>Date</label>
-              <span>{activatedDate}</span>
+            <div>
+              <div className="meta-label">Invoice Date</div>
+              <div className="meta-value">{activatedDate}</div>
             </div>
-            <div className="billing-meta-item">
-              <label>Order ID</label>
-              <span title={data.orderId}>#{shortOrderId}</span>
-            </div>
-            <div className="billing-meta-item">
-              <label>Payment ID</label>
-              <span title={data.paymentId}>#{shortPaymentId}</span>
-            </div>
-            {data.user && (
-              <div className="billing-meta-item" style={{ gridColumn: "1 / -1" }}>
-                <label>Billed to</label>
-                <span>{data.user.firstName} {data.user.lastName} · {data.user.email}</span>
-              </div>
-            )}
           </div>
 
           {/* Line items */}
-          <div className="billing-items">
-            <div className="billing-item-row">
-              <span>{data.planName} — course access</span>
-              <span>₹{data.breakdown.baseRs.toLocaleString("en-IN", { minimumFractionDigits: 2 })}</span>
-            </div>
-            <div className="billing-item-row">
-              <span>GST ({data.breakdown.gstRate}%)</span>
-              <span>₹{data.breakdown.gstRs.toLocaleString("en-IN", { minimumFractionDigits: 2 })}</span>
-            </div>
-            <div className="billing-item-row total">
-              <span>Total paid</span>
-              <span>₹{data.breakdown.totalRs.toLocaleString("en-IN", { minimumFractionDigits: 2 })}</span>
+          <div className="items-section">
+            <table className="items-table">
+              <thead>
+                <tr>
+                  <th style={{ width: "60%" }}>Description</th>
+                  <th>Qty</th>
+                  <th>Amount (₹)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <div className="item-name">{data.planName} — Bodha Personal Finance Program</div>
+                    <div className="item-desc">
+                      Written course — English + Kannada. Lifetime access.<br />
+                      All tools included. WhatsApp community &amp; doubt support for 1 year.
+                    </div>
+                  </td>
+                  <td>1</td>
+                  <td>{fmt(breakdown.totalRs)}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          {/* Totals */}
+          <div className="totals-wrap">
+            <div className="amounts">
+              <div className="amount-row total">
+                <span>Total Amount</span>
+                <span>{fmt(breakdown.totalRs)}</span>
+              </div>
             </div>
           </div>
 
-          {/* Footer */}
-          <div className="billing-receipt-footer">
-            <p>
-              Bodha Ventures LLP · GSTIN 29AAXXX · Bengaluru, Karnataka · India
-              <br />
-              This is a system-generated invoice. For queries write to{" "}
-              <a href="mailto:support@bodha.in" style={{ color: "var(--gold)" }}>support@bodha.in</a>.
-            </p>
+          {/* Amount in words */}
+          <div className="amount-words">
+            <strong>Amount in words:</strong> {words}
           </div>
+
+          {/* Payment details */}
+          <div className="info-section">
+            <div className="info-title">Payment Details</div>
+            <div className="info-row"><span>Payment Mode</span><span>Online (Razorpay)</span></div>
+            <div className="info-row"><span>Order ID</span><span>#{shortOrderId}</span></div>
+            {shortPaymentId && (
+              <div className="info-row"><span>Payment ID</span><span>#{shortPaymentId}</span></div>
+            )}
+            <div className="info-row">
+              <span>Payment Status</span>
+              <span className="status-paid">Paid</span>
+            </div>
+          </div>
+
+          {/* Declaration */}
+          <div className="declaration-section">
+            <div className="declaration-title">Declaration</div>
+            <div className="declaration-text">
+              We declare that this invoice shows the actual price of the goods / services described and that all particulars are true and correct. This is a computer-generated invoice. All sales are final — course purchases are non-refundable.
+            </div>
+          </div>
+
+          {/* Invoice footer */}
+          <div className="inv-footer">
+            <div className="footer-brand">Bodha Ventures LLP</div>
+            <div className="footer-note">Thank you for your trust &amp; business.</div>
+          </div>
+
         </div>
 
-        {/* ── CTAs ── */}
+        {/* ── CTA ── */}
         <div className="billing-cta">
           <Link href="/modules" className="billing-btn-primary">
             Start learning →

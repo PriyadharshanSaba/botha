@@ -18,9 +18,17 @@ export async function POST(req: NextRequest) {
 
   await db.markUserVerified(email);
 
-  const progress = await db.getLastCompletedChapter(user.id);
+  const [progress, consent] = await Promise.all([
+    db.getLastCompletedChapter(user.id),
+    db.getConsent(user.id, CURRENT_POLICY_VERSION),
+  ]);
 
-  const response = NextResponse.json({ success: true, progress });
+  const needsConsent = !consent || !!consent.withdrawnAt;
+
+  // Check if user has an active subscription — restore cookie for middleware routing
+  const subscription = await db.getUserSubscription(user.id);
+
+  const response = NextResponse.json({ success: true, progress, needsConsent });
 
   response.cookies.set({
     name: "uid",
@@ -31,6 +39,18 @@ export async function POST(req: NextRequest) {
     path: "/",
     maxAge: 60 * 60 * 24 * 7, // 7 days
   });
+
+  if (subscription) {
+    response.cookies.set({
+      name: "subscribed",
+      value: "1",
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "lax",
+      path: "/",
+      maxAge: 60 * 60 * 24 * 365 * 10,
+    });
+  }
 
   // Migrate anonymous consent cookie → DB, then clear it
   const anonCookie = req.cookies.get("bodha_anon_consent")?.value;

@@ -64,37 +64,6 @@ export default function LandingPage() {
 
   return (
     <div className="landing">
-      {/* NAV */}
-      <nav className="landing-nav">
-        <Link href="/" className="logo">
-          <div className="logo-mark">
-            <Image src="/logo.svg" alt="Bodha" width={24} height={24} style={{ position: "relative", zIndex: 1 }} />
-          </div>
-          <div className="logo-text">Bodha</div>
-        </Link>
-        <ul className="nav-links">
-          <li><a href="#course">{isKn ? "ಕೋರ್ಸ್‌ಗಳು" : "Courses"}</a></li>
-          <li><Link href="/vcfo">{isKn ? "ವರ್ಚುವಲ್ CFO" : "Virtual CFO"}</Link></li>
-          <li><Link href="/venture">{isKn ? "ವೆಂಚರ್ ಕ್ಯಾಪಿಟಲ್" : "Venture Capital"}</Link></li>
-          <li><Link href="/tools">{isKn ? "ಉಪಕರಣಗಳು" : "Tools"}</Link></li>
-          <li><a href="#services">{isKn ? "ಒಳನೋಟಗಳು" : "Insights"}</a></li>
-          <li><Link href="/about">{isKn ? "ನಮ್ಮ ಬಗ್ಗೆ" : "About Us"}</Link></li>
-        </ul>
-        <div className="nav-cta">
-          <button
-            onClick={() => setLang(isKn ? "en" : "kn")}
-            className="btn-ghost"
-            style={{ fontFamily: isKn ? "inherit" : "'Noto Sans Kannada', sans-serif" }}
-          >
-            {isKn ? "English" : "ಕನ್ನಡ"}
-          </button>
-          <span style={{ color: "rgba(0,0,0,0.15)", fontSize: 18 }}>|</span>
-          <Link href="/signin" className="btn-ghost">{isKn ? "ಸೈನ್ ಇನ್" : "Sign In"}</Link>
-          <span style={{ color: "rgba(0,0,0,0.15)", fontSize: 18 }}>|</span>
-          <Link href="/signin?mode=signup" className="btn-primary">{isKn ? "ಸೈನ್ ಅಪ್" : "Sign Up"}</Link>
-        </div>
-      </nav>
-
       {/* FINANCE PROGRAM SECTION */}
       <section className="course-section" id="course">
         <div className="course-top reveal" ref={addRevealRef}>
@@ -118,7 +87,7 @@ export default function LandingPage() {
               </>
             ) : (
               <>
-                <h3>This course is <span className="strikeout">not</span> for people who want to gamble with their money.</h3>
+                <h3>This course is not for people who want to gamble with their money.</h3>
                 <p>If you&apos;re looking for hot tips, overnight returns or the next &quot;100x stock&quot; — this isn&apos;t your place. Our program is built for people who want to build real, lasting wealth — patiently, intelligently and on solid foundations.</p>
               </>
             )}
@@ -274,7 +243,7 @@ export default function LandingPage() {
             <div className="service-name">{isKn ? "ಪರ್ಸನಲ್ ಫೈನಾನ್ಸ್ ಪ್ರೋಗ್ರಾಂ" : "Personal Finance Program"}</div>
             <div className="service-desc">{isKn ? "ನಮ್ಮ ಮೂಲಾಧಾರ ಕಾರ್ಯಕ್ರಮ. ಬಜೆಟ್ ರಚನೆ, ಹೂಡಿಕೆ, ತೆರಿಗೆ ಯೋಜನೆ ಮತ್ತು ಬಹು ತಲೆಮಾರಿನ ಸಂಪತ್ತು ನಿರ್ಮಾಣವನ್ನು ಒಳಗೊಂಡ ಮಾಡ್ಯೂಲ್‌ಗಳು." : "Our cornerstone program. Modules covering budgeting, investing, tax planning and building multi-generational wealth."}</div>
             <div className="service-tag">{isKn ? "ಅತ್ಯಂತ ಜನಪ್ರಿಯ" : "Most Popular"}</div>
-            <div className="service-arrow">&nearr;</div>
+            <div className="service-arrow">↗</div>
           </div>
           <div className="service-card reveal" ref={addRevealRef} style={{ transitionDelay: "0.1s" }}>
             <div className="service-num">02</div>
@@ -282,7 +251,7 @@ export default function LandingPage() {
             <div className="service-name">{isKn ? "ವರ್ಚುವಲ್ CFO" : "Virtual CFO"}</div>
             <div className="service-desc">{isKn ? "ಸಂಸ್ಥಾಪಕರು ಮತ್ತು ವ್ಯವಹಾರಗಳಿಗಾಗಿ ಅಗತ್ಯಾನುಸಾರ CFO ತಜ್ಞತೆ. ನಗದು ಹರಿವು, ಆರ್ಥಿಕ ಕಾರ್ಯತಂತ್ರ, MIS ವರದಿಗಳು ಮತ್ತು ಬೋರ್ಡ್ ಮಟ್ಟದ ನಿರ್ಧಾರಗಳು." : "On-demand CFO expertise for founders and businesses. Cash flow, financial strategy, MIS Reports and board-level decisions."}</div>
             <div className="service-tag">{isKn ? "ಸಂಸ್ಥಾಪಕರಿಗೆ" : "For Founders"}</div>
-            <div className="service-arrow">&nearr;</div>
+            <div className="service-arrow">↗</div>
           </div>
           <div className="service-card reveal" ref={addRevealRef} style={{ transitionDelay: "0.2s" }}>
             <div className="service-num">03</div>
@@ -290,7 +259,7 @@ export default function LandingPage() {
             <div className="service-name">{isKn ? "ವೆಂಚರ್ ಕ್ಯಾಪಿಟಲ್" : "Venture Capital"}</div>
             <div className="service-desc">{isKn ? "ಆರಂಭಿಕ ಹಂತದ ಹೂಡಿಕೆ ಅವಕಾಶಗಳು ಮತ್ತು ಕ್ಯುರೇಟೆಡ್ ಡೀಲ್ ಫ್ಲೋ — ಭಾರತದ ಮುಂದಿನ ದೊಡ್ಡ ಕಥೆಯನ್ನು ಬೆಂಬಲಿಸುತ್ತಾ." : "Early-stage funding opportunities and curated deal flow, backing India's next big story."}</div>
             <div className="service-tag">{isKn ? "ಸ್ಟಾರ್ಟಪ್ ಫೋಕಸ್" : "Startup Focus"}</div>
-            <div className="service-arrow">&nearr;</div>
+            <div className="service-arrow">↗</div>
           </div>
           <div className="service-card reveal" ref={addRevealRef} style={{ transitionDelay: "0.3s" }}>
             <div className="service-num">04</div>
@@ -298,7 +267,7 @@ export default function LandingPage() {
             <div className="service-name">{isKn ? "ಹಣಕಾಸು ಸಾಧನಗಳು" : "Finance Tools"}</div>
             <div className="service-desc">{isKn ? "ಕ್ಯಾಲ್ಕುಲೇಟರ್‌ಗಳು, ಟ್ರ್ಯಾಕರ್‌ಗಳು ಮತ್ತು ಪ್ಲ್ಯಾನರ್‌ಗಳು — SIP ಆಪ್ಟಿಮೈಜರ್, ತೆರಿಗೆ ಅಂದಾಜು, ನೆಟ್ ವರ್ತ್ ಟ್ರ್ಯಾಕರ್, ನಿವೃತ್ತಿ ಯೋಜಕ ಮತ್ತು ಇನ್ನೂ ಹೆಚ್ಚು." : "Calculators, trackers and planners — SIP optimizer, tax estimator, net worth tracker, retirement planner and more."}</div>
             <div className="service-tag">{isKn ? "ಪ್ರೋಗ್ರಾಂನ ಭಾಗ" : "Part of the program"}</div>
-            <div className="service-arrow">&nearr;</div>
+            <div className="service-arrow">↗</div>
           </div>
           <div className="service-card reveal" ref={addRevealRef} style={{ transitionDelay: "0.4s" }}>
             <div className="service-num">05</div>
@@ -306,7 +275,7 @@ export default function LandingPage() {
             <div className="service-name">{isKn ? "ಬ್ಲಾಗ್‌ಗಳು ಮತ್ತು ಒಳನೋಟಗಳು" : "Blog & Insights"}</div>
             <div className="service-desc">{isKn ? "ಮಾರುಕಟ್ಟೆ, ವೈಯಕ್ತಿಕ ಹಣಕಾಸು, ನೀತಿ ಮತ್ತು ವ್ಯವಹಾರದ ಕುರಿತು ಸಾಪ್ತಾಹಿಕ ಆಳವಾದ ವಿಶ್ಲೇಷಣೆ — ಪಠ್ಯಪುಸ್ತಕಗಳಿಗಾಗಿ ಅಲ್ಲ, ಮನುಷ್ಯರಿಗಾಗಿ ಬರೆಯಲಾಗಿದೆ." : "Weekly deep dives on markets, personal finance, policy and business — written for humans, not textbooks."}</div>
             <div className="service-tag">{isKn ? "ಸಾಪ್ತಾಹಿಕ" : "Weekly Content"}</div>
-            <div className="service-arrow">&nearr;</div>
+            <div className="service-arrow">↗</div>
           </div>
           <div className="service-card reveal" ref={addRevealRef} style={{ transitionDelay: "0.5s", background: "var(--cream)", borderColor: "transparent", display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", textAlign: "center" as const }}>
             <div style={{ fontFamily: "'Playfair Display', serif", fontSize: 42, marginBottom: 16 }}>&#10022;</div>
@@ -325,12 +294,12 @@ export default function LandingPage() {
         </div>
         <div className="testimonials-grid">
           {[
-            { text: "Bodha completely rewired how I think about money. I cleared my debt in 14 months and now have a real investment strategy. Life-changing.", name: "Priya Sharma", role: "Product Manager, Bengaluru", initial: "P", delay: "0.05s" },
-            { text: "The Virtual CFO service saved my startup during a rough funding round. Board-level clarity and execution speed we couldn't afford in-house.", name: "Rohan Kulkarni", role: "Co-Founder, TechNest", initial: "R", delay: "0.15s" },
-            { text: "We disbanded our in-house finance team six months in. Their bookkeeping services, GST filings and MIS reports gave us everything we needed — faster, cleaner, and at a fraction of the cost.", name: "Neha Iyer", role: "Founder, Mumbai", initial: "N", delay: "0.25s" },
-            { text: "Their VC network helped us get our first term sheet within 3 months. The warm intros and pitch coaching made all the difference.", name: "Siddharth Rao", role: "Founder, GreenStack", initial: "S", delay: "0.1s" },
-            { text: "The SIP optimizer tool helped me reallocate more efficiently. I used to guess — now I have a proper system. Genuinely brilliant.", name: "Aisha Mohammed", role: "Software Engineer, Hyderabad", initial: "A", delay: "0.2s" },
-            { text: "From zero financial literacy to confidently managing my portfolio. Bodha gave me the education my MBA never did.", name: "Vikram Nair", role: "Senior Consultant, Delhi", initial: "V", delay: "0.3s" },
+            { text: "Bodha completely rewired how I think about money. I cleared my debt in 14 months and now have a real investment strategy.", name: "Siddharth S Menon", role: "Software Professional", initial: "S", delay: "0.05s" },
+            { text: "The Virtual CFO service saved my startup during a rough funding round. Board-level clarity and execution speed we couldn't afford in-house.", name: "Abhilash Rajan", role: "Proprietor, SR Enterprises", initial: "A", delay: "0.15s" },
+            { text: "We disbanded our in-house finance team six months in. Their bookkeeping services, GST filings and MIS reports gave us everything we needed — faster, cleaner, and at a fraction of the cost.", name: "Sachin S John", role: "CEO, Toodex Technology Pvt. Ltd.", initial: "S", delay: "0.25s" },
+            // { text: "Their VC network helped us get our first term sheet within 3 months. The warm intros and pitch coaching made all the difference.", name: "Siddharth Rao", role: "Founder, GreenStack", initial: "S", delay: "0.1s" },
+            // { text: "The SIP optimizer tool helped me reallocate more efficiently. I used to guess — now I have a proper system. Genuinely brilliant.", name: "Aisha Mohammed", role: "Software Engineer, Hyderabad", initial: "A", delay: "0.2s" },
+            // { text: "From zero financial literacy to confidently managing my portfolio. Bodha gave me the education my MBA never did.", name: "Vikram Nair", role: "Senior Consultant, Delhi", initial: "V", delay: "0.3s" },
           ].map((t, i) => (
             <div key={i} className="tcard reveal" ref={addRevealRef} style={{ transitionDelay: t.delay }}>
               <div className="tcard-quote">&ldquo;</div>
@@ -362,10 +331,8 @@ export default function LandingPage() {
         <div className="footer-top">
           <div className="footer-brand">
             <Link href="/" className="logo" style={{ textDecoration: "none" }}>
-              <div className="logo-mark">
-                <Image src="/logo.svg" alt="Bodha" width={20} height={20} style={{ position: "relative", zIndex: 1 }} />
-              </div>
-              <div className="logo-text" style={{ color: "#fff" }}>Bodha</div>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src="/logo.PNG" alt="Bodha" style={{ height: "70px", width: "auto", display: "block" }} />
             </Link>
             <p>{isKn ? "ವ್ಯಕ್ತಿಗಳು ಮತ್ತು ವ್ಯವಹಾರಗಳನ್ನು ಆರ್ಥಿಕ ತಜ್ಞತೆಯಿಂದ ಸಶಕ್ತಗೊಳಿಸುತ್ತಾ." : "Empowering individuals and businesses with financial expertise."}</p>
           </div>
@@ -391,7 +358,6 @@ export default function LandingPage() {
             <ul>
               <li><a href="#" onClick={(e) => { e.preventDefault(); setShowPrivacy(true); }}>{isKn ? "ಗೌಪ್ಯತಾ ನೀತಿ" : "Privacy Policy"}</a></li>
               <li><a href="#" onClick={(e) => { e.preventDefault(); setShowTerms(true); }}>{isKn ? "ಬಳಕೆಯ ನಿಯಮಗಳು" : "Terms of Use"}</a></li>
-              <li><a href="#">{isKn ? "ಹಕ್ಕುತ್ಯಾಗ" : "Disclaimer"}</a></li>
             </ul>
           </div>
         </div>

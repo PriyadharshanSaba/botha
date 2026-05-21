@@ -3,6 +3,7 @@
 import { useState, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import TermsModal from "@/app/components/TermsModal";
+import CookieBanner from "@/app/components/CookieBanner";
 
 export default function Page() {
   return (
@@ -32,10 +33,15 @@ function SignInContent() {
   // --- Misc ---
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [notRegistered, setNotRegistered] = useState(false);
 
   // --- Terms ---
   const [termsAccepted, setTermsAccepted] = useState(false);
   const [showTerms, setShowTerms] = useState(false);
+
+  // --- Consent (re-ask after login if missing) ---
+  const [showConsent, setShowConsent] = useState(false);
+  const [consentRedirect, setConsentRedirect] = useState<string>("/modules");
 
   /* --------------------------------
     LOGIN: Send OTP
@@ -43,6 +49,7 @@ function SignInContent() {
   async function handleLogin(e: any) {
     e.preventDefault();
     setError("");
+    setNotRegistered(false);
     setLoading(true);
 
     const res = await fetch("/api/login", {
@@ -55,10 +62,14 @@ function SignInContent() {
 
     if (!res.ok) {
       const data = await res.json().catch(() => ({}));
-      return setError(data.error || "Email not found.");
+      if (data.error === "not_registered") {
+        setNotRegistered(true);
+      } else {
+        setError(data.error || "Something went wrong.");
+      }
+      return;
     }
 
-    // Switch to login OTP screen
     setMode("login-otp");
   }
 
@@ -132,12 +143,16 @@ function SignInContent() {
 
     const data = await res.json();
 
-    if (data.progress?.moduleId) {
-      router.push(`/modules/${data.progress.moduleId}?chapter=${data.progress.chapterNumber}`);
-    } else {
-      router.push("/modules");
-    }
+    const dest = data.progress?.moduleId
+      ? `/modules/${data.progress.moduleId}?chapter=${data.progress.chapterNumber}`
+      : "/modules";
 
+    if (data.needsConsent) {
+      setConsentRedirect(dest);
+      setShowConsent(true);
+    } else {
+      router.push(dest);
+    }
   }
 
 
@@ -170,11 +185,22 @@ function SignInContent() {
                 type="email"
                 placeholder="you@example.com"
                 value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                onChange={(e) => { setEmail(e.target.value); setNotRegistered(false); }}
                 required
               />
 
               {error && <div className="error">{error}</div>}
+              {notRegistered && (
+                <div className="error">
+                  This email isn&apos;t registered.{" "}
+                  <span
+                    style={{ fontWeight: 600, cursor: "pointer", textDecoration: "underline" }}
+                    onClick={() => { setMode("signup"); setNotRegistered(false); setError(""); }}
+                  >
+                    Sign up here
+                  </span>
+                </div>
+              )}
 
               <button className="btn" disabled={loading}>
                 {loading ? "Sending..." : "Send OTP"}
@@ -184,15 +210,8 @@ function SignInContent() {
               <p className="hint" style={{ textAlign: "center", marginTop: "10px" }}>
                 New here?{" "}
                 <span
-                  style={{
-                    fontWeight: 600,
-                    color: "#0f172a",
-                    cursor: "pointer",
-                  }}
-                  onClick={() => {
-                    setMode("signup");
-                    setError("");
-                  }}
+                  style={{ fontWeight: 600, color: "#0f172a", cursor: "pointer" }}
+                  onClick={() => { setMode("signup"); setError(""); setNotRegistered(false); }}
                 >
                   Sign Up
                 </span>
@@ -322,6 +341,16 @@ function SignInContent() {
         <TermsModal
           onAccept={() => { setTermsAccepted(true); setShowTerms(false); }}
           onClose={() => setShowTerms(false)}
+        />
+      )}
+
+      {showConsent && (
+        <CookieBanner
+          isLoggedIn={true}
+          onSave={() => {
+            setShowConsent(false);
+            router.push(consentRedirect);
+          }}
         />
       )}
     </div>

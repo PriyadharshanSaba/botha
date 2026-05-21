@@ -11,6 +11,14 @@ export async function POST() {
     expires: new Date(0),
   });
 
+  res.cookies.set("subscribed", "", {
+    httpOnly: true,
+    secure: true,
+    sameSite: "lax",
+    path: "/",
+    expires: new Date(0),
+  });
+
   res.headers.set("Cache-Control", "no-store");
 
   return res;

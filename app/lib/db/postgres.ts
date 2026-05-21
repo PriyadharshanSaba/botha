@@ -1,10 +1,10 @@
 import { DBDriver, CreateUserInput, User, SaveConsentInput, CookieConsent, Subscription, CreateSubscriptionInput, BillingInfo } from "./types";
 import { db } from "./connection";
 import { users, userProgress, otpAttempts, cookieConsents, subscriptions } from "./schema";
-import { eq, and, gte, count } from "drizzle-orm";
+import { eq, and, gte, count, sql } from "drizzle-orm";
 import crypto from "crypto";
 
-const DAILY_OTP_LIMIT = 2;
+const DAILY_OTP_LIMIT = 5;
 
 export const PostgresDB: DBDriver = {
   /* --------------------------------
@@ -38,7 +38,7 @@ export const PostgresDB: DBDriver = {
     const result = await db
       .select()
       .from(users)
-      .where(eq(users.email, email))
+      .where(sql`lower(${users.email}) = lower(${email})`)
       .limit(1);
 
     return result[0] || null;
@@ -54,7 +54,7 @@ export const PostgresDB: DBDriver = {
         otp,
         otpExpiry: new Date(expiry),
       })
-      .where(eq(users.email, email));
+      .where(sql`lower(${users.email}) = lower(${email})`);
   },
 
   /* --------------------------------
@@ -64,15 +64,18 @@ export const PostgresDB: DBDriver = {
     await db
       .update(users)
       .set({ verified: true })
-      .where(eq(users.email, email));
+      .where(sql`lower(${users.email}) = lower(${email})`);
   },
 
   /* --------------------------------
      RATE LIMIT: Check
   ----------------------------------*/
   async checkRateLimit(email: string) {
-    const startOfDay = new Date();
-    startOfDay.setUTCHours(0, 0, 0, 0);
+    // IST = UTC+5:30; find start of current IST day expressed in UTC
+    const IST_OFFSET_MS = 5.5 * 60 * 60 * 1000;
+    const nowIST = new Date(Date.now() + IST_OFFSET_MS);
+    const startOfISTDay = new Date(Date.UTC(nowIST.getUTCFullYear(), nowIST.getUTCMonth(), nowIST.getUTCDate()));
+    const startOfDay = new Date(startOfISTDay.getTime() - IST_OFFSET_MS);
 
     const result = await db
       .select({ total: count() })
@@ -100,22 +103,35 @@ export const PostgresDB: DBDriver = {
     const result = await db
       .select()
       .from(users)
-      .where(eq(users.email, email))
+      .where(sql`lower(${users.email}) = lower(${email})`)
       .limit(1);
 
     const user = result[0];
-    if (!user) return false;
-    if (user.otp !== otp) return false;
+    if (!user || !user.otp || !user.otpExpiry) return false;
 
-    if (!user.otpExpiry || Date.now() > new Date(user.otpExpiry).getTime()) {
+    // Expired — clear and reject
+    if (Date.now() > new Date(user.otpExpiry).getTime()) {
+      await db
+        .update(users)
+        .set({ otp: null, otpExpiry: null })
+        .where(eq(users.id, user.id));
       return false;
     }
 
-    // Clear OTP after success
+    // Wrong OTP — clear to prevent brute-force (user must request a new one)
+    if (user.otp !== otp) {
+      await db
+        .update(users)
+        .set({ otp: null, otpExpiry: null })
+        .where(eq(users.id, user.id));
+      return false;
+    }
+
+    // Success — clear OTP (single-use)
     await db
       .update(users)
       .set({ otp: null, otpExpiry: null })
-      .where(eq(users.email, email));
+      .where(eq(users.id, user.id));
 
     return true;
   },
@@ -221,12 +237,40 @@ export const PostgresDB: DBDriver = {
 
   /* --------------------------------
      SUBSCRIPTION: Activate on payment
+     Generates sequential invoice number: YYYYMMDD00001
   ----------------------------------*/
-  async activateSubscription(razorpayOrderId: string, razorpayPaymentId: string): Promise<void> {
-    await db
-      .update(subscriptions)
-      .set({ status: "active", razorpayPaymentId, activatedAt: new Date() })
-      .where(eq(subscriptions.razorpayOrderId, razorpayOrderId));
+  async activateSubscription(razorpayOrderId: string, razorpayPaymentId: string): Promise<string> {
+    const now = new Date();
+    const datePrefix = now.getFullYear().toString()
+      + String(now.getMonth() + 1).padStart(2, "0")
+      + String(now.getDate()).padStart(2, "0");
+
+    // Only activate pending subscriptions (idempotency + race condition guard)
+    const result = await db.execute(sql`
+      UPDATE subscriptions
+      SET status = 'active',
+          razorpay_payment_id = ${razorpayPaymentId},
+          activated_at = ${now},
+          invoice_number = ${datePrefix} || LPAD(
+            (
+              SELECT COALESCE(COUNT(*), 0) + 1
+              FROM subscriptions
+              WHERE invoice_number LIKE ${datePrefix + "%"}
+            )::text, 5, '0'
+          )
+      WHERE razorpay_order_id = ${razorpayOrderId}
+        AND status = 'pending'
+      RETURNING invoice_number
+    `);
+
+    // Already activated (replay or race) — return existing invoice number
+    if (!result.rows[0]) {
+      const existing = await db.select().from(subscriptions)
+        .where(eq(subscriptions.razorpayOrderId, razorpayOrderId)).limit(1);
+      return (existing[0] as { invoiceNumber: string }).invoiceNumber;
+    }
+
+    return (result.rows[0] as { invoice_number: string }).invoice_number;
   },
 
   /* --------------------------------
@@ -260,7 +304,10 @@ export const PostgresDB: DBDriver = {
     const res = await db
       .select({ total: count() })
       .from(subscriptions)
-      .where(and(eq(subscriptions.planId, planId), eq(subscriptions.status, "active")));
+      .where(and(
+        eq(subscriptions.planId, planId),
+        sql`${subscriptions.status} IN ('active', 'pending')`
+      ));
     return res[0]?.total ?? 0;
   },
 

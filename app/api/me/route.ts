@@ -10,15 +10,17 @@ export async function GET(req: NextRequest) {
     return NextResponse.json({ loggedIn: false });
   }
 
-  const [user, consent] = await Promise.all([
+  const [user, consent, sub] = await Promise.all([
     db.getUserById(userId),
     db.getConsent(userId, CURRENT_POLICY_VERSION),
+    db.getUserSubscription(userId),
   ]);
 
   const needsConsent = !consent || !!consent.withdrawnAt;
 
   return NextResponse.json({
     loggedIn: true,
+    subscribed: sub?.status === "active",
     isTestUser: user ? isTestEmail(user.email) : false,
     needsConsent,
     consent: consent
