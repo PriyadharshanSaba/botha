@@ -4,10 +4,32 @@ import React from "react";
 import AppShell from "./AppShell";
 
 export const metadata = {
-  title: "Bodha",
-  description: "Bodha — finance education",
+  title: "Bodha — The Personal Finance Program",
+  description: "This course is not for people who want to gamble with their money. Our program is built for people who want to build real, lasting wealth — patiently, intelligently and on solid foundations.",
   icons: {
     icon: "/logo-favicon.png",
+  },
+  openGraph: {
+    title: "The Personal Finance Program — Bodha",
+    description: "This course is not for people who want to gamble with their money. If you're looking for hot tips, overnight returns or the next \"100x stock\" — this isn't your place. Our program is built for people who want to build real, lasting wealth — patiently, intelligently and on solid foundations.",
+    url: "https://bodhaventures.in",
+    siteName: "Bodha",
+    images: [
+      {
+        url: "https://bodhaventures.in/preview-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Bodha — The Personal Finance Program",
+      },
+    ],
+    locale: "en_IN",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "The Personal Finance Program — Bodha",
+    description: "This course is not for people who want to gamble with their money. Our program is built for people who want to build real, lasting wealth — patiently, intelligently and on solid foundations.",
+    images: ["https://bodhaventures.in/preview-image.png"],
   },
 };
 

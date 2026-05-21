@@ -25,10 +25,10 @@ export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
   const publicPaths = ["/", "/signin", "/about", "/vcfo", "/venture", "/tools", "/plans"];
-  const authRedirectPaths = ["/", "/signin"];
+  const authRedirectPaths = ["/signin"];
 
   // Logged-out → only allow public paths
-  if (!loggedIn && !publicPaths.includes(pathname)) {
+  if (!loggedIn && !publicPaths.includes(pathname) && !pathname.startsWith("/blogs")) {
     const url = request.nextUrl.clone();
     url.pathname = "/signin";
     return NextResponse.redirect(url);
