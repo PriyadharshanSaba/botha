@@ -685,12 +685,68 @@
   line-height: 1.6;
 }
 
+/* STAGE GRID 2-col */
+.blog-post-body .stage-grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin: 1.5rem 0;
+}
+
+.blog-post-body .stage-card .s-label-red {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #A0380A;
+  margin-bottom: 6px;
+  display: block;
+}
+
+.blog-post-body .stage-card .s-label-gold {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #C89A2E;
+  margin-bottom: 6px;
+  display: block;
+}
+
+/* RANGE BOX */
+.blog-post-body .range-box {
+  background: #F0EBE3;
+  border: 1px solid rgba(17,17,17,0.18);
+  border-radius: 10px;
+  padding: 1.25rem 1.5rem;
+  margin: 1.5rem 0;
+}
+
+.blog-post-body .range-box .r-label {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #C89A2E;
+  margin-bottom: 8px;
+  display: block;
+}
+
+.blog-post-body .range-box p {
+  font-size: 13.5px;
+  color: #6B6460;
+  margin: 0;
+  line-height: 1.6;
+}
+
 /* RESPONSIVE */
 @media (max-width: 580px) {
   .blog-back-bar { padding: 80px 5vw 0; }
   .blog-post-body { padding: 2rem 1.25rem 4rem; }
   .blog-post-body .elig-grid { grid-template-columns: 1fr; }
   .blog-post-body .stage-grid { grid-template-columns: 1fr; }
+  .blog-post-body .stage-grid-2 { grid-template-columns: 1fr; }
   .blog-post-body .stat-row { grid-template-columns: 1fr; }
   .blog-post-body .benefit-item { grid-template-columns: auto 1fr; }
   .blog-post-body .principle-item { grid-template-columns: auto 1fr; }
