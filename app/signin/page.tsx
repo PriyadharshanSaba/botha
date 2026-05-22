@@ -289,6 +289,8 @@ function SignInContent() {
                     key={i}
                     id={`otp-${i}`}
                     maxLength={1}
+                    inputMode="numeric"
+                    pattern="[0-9]*"
                     className="otp-box"
                     value={digit}
                     onChange={(e) => handleOtpChange(i, e.target.value)}
@@ -319,6 +321,8 @@ function SignInContent() {
                     key={i}
                     id={`otp-${i}`}
                     maxLength={1}
+                    inputMode="numeric"
+                    pattern="[0-9]*"
                     className="otp-box"
                     value={digit}
                     onChange={(e) => handleOtpChange(i, e.target.value)}
