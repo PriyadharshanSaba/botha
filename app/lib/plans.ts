@@ -59,7 +59,7 @@ export const PLANS: Plan[] = [
     seatRange: "From seat 501 onwards",
     maxSeats: null,
     featured: false,
-    waitlist: true,
+    waitlist: false,
     features: [
       { text: "Full course — English + Kannada" },
       { text: "All tools included" },

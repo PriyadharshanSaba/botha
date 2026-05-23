@@ -10,12 +10,20 @@ import PrivacyModal from "../components/PrivacyModal";
 
 const posts = [
   {
-    slug: "rupee-managed-decline",
-    kicker: "Currency · Macroeconomics · India",
-    title: "The Rupee's Managed Decline. And Why India Should Be Worried",
-    deck: "India is growing at 6.5% a year. Its stock market is among the largest in the world. And yet, its currency has lost nearly 9% of its value in twelve months. This paradox deserves an honest answer.",
-    date: "April 21, 2026",
-    readTime: "8 min read",
+    slug: "india-finance-may2026",
+    kicker: "Markets · Macro · India",
+    title: "Indian Markets: A Week That Went Nowhere, For Good Reason",
+    deck: "The Nifty closed flat on the week but the story underneath — AI destroying Indian IT, crude above $100, a new Fed Chair, and Rubio's India visit — was anything but quiet. A full briefing on what happened and what comes next.",
+    date: "May 22, 2026",
+    readTime: "12 min read",
+  },
+  {
+    slug: "startup-cashflow",
+    kicker: "Startups · Finance · Operations",
+    title: "Most Startups Don't Run Out of Ideas. They Run Out of Cash.",
+    deck: "Cashflow is the single most important number in your business, and the one most founders understand last. What it is, why it kills companies, and how to manage it at every stage.",
+    date: "May 5, 2026",
+    readTime: "9 min read",
   },
   {
     slug: "dpiit-startup-recognition",
@@ -26,12 +34,12 @@ const posts = [
     readTime: "7 min read",
   },
   {
-    slug: "startup-cashflow",
-    kicker: "Startups · Finance · Operations",
-    title: "Most Startups Don't Run Out of Ideas. They Run Out of Cash.",
-    deck: "Cashflow is the single most important number in your business, and the one most founders understand last. What it is, why it kills companies, and how to manage it at every stage.",
-    date: "May 5, 2026",
-    readTime: "9 min read",
+    slug: "rupee-managed-decline",
+    kicker: "Currency · Macroeconomics · India",
+    title: "The Rupee's Managed Decline. And Why India Should Be Worried",
+    deck: "India is growing at 6.5% a year. Its stock market is among the largest in the world. And yet, its currency has lost nearly 9% of its value in twelve months. This paradox deserves an honest answer.",
+    date: "April 21, 2026",
+    readTime: "8 min read",
   },
 ];
 
