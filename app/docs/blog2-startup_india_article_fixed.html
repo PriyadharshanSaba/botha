@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DPIIT Startup Recognition — Bodha Ventures</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,400&family=EB+Garamond:ital,wght@0,400;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #F7F3EC;
+    --surface: #EDE9E2;
+    --surface2: #E5E0D8;
+    --border: rgba(17,17,17,0.1);
+    --border2: rgba(17,17,17,0.18);
+    --text: #111111;
+    --muted: #6B6460;
+    --accent: #C89A2E;
+    --accent2: #A37A1A;
+    --gold: #C89A2E;
+    --green: #2E7D45;
+    --red: #A0380A;
+    --card-bg: #F0EBE3;
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 16px;
+    line-height: 1.75;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .page {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 3rem 2rem 6rem;
+  }
+
+  /* TOPBAR */
+  .topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 4rem;
+    padding-bottom: 1.25rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .brand {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+
+  .tag {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  /* HERO */
+  .hero-badge {
+    display: inline-block;
+    background: rgba(200,154,46,0.12);
+    border: 1px solid rgba(200,154,46,0.35);
+    color: var(--accent2);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    padding: 5px 14px;
+    border-radius: 100px;
+    margin-bottom: 1.5rem;
+    display: block;
+    width: fit-content;
+  }
+
+  h1 {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: clamp(32px, 5vw, 52px);
+    font-weight: 800;
+    line-height: 1.08;
+    color: var(--text);
+    letter-spacing: -0.02em;
+    margin-bottom: 1.25rem;
+  }
+
+  h1 span {
+    color: var(--gold);
+  }
+
+  .hero-sub {
+    font-family: 'EB Garamond', Georgia, serif;
+    font-size: 19px;
+    font-style: italic;
+    color: var(--muted);
+    line-height: 1.65;
+    margin-bottom: 2.5rem;
+    max-width: 560px;
+  }
+
+  /* UPDATE BANNER */
+  .update-banner {
+    background: rgba(200,154,46,0.08);
+    border: 1px solid rgba(200,154,46,0.25);
+    border-left: 3px solid var(--gold);
+    padding: 0.9rem 1.25rem;
+    margin-bottom: 3rem;
+    border-radius: 0 8px 8px 0;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+  }
+
+  .update-banner .label {
+    font-size: 10.5px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #7A5C00;
+    white-space: nowrap;
+    margin-top: 2px;
+  }
+
+  .update-banner p {
+    font-size: 13.5px;
+    color: #7A5C00;
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  /* STAT ROW */
+  .stat-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    margin: 2.5rem 0;
+  }
+
+  .stat-cell {
+    background: var(--card-bg);
+    padding: 1.4rem 1.25rem;
+    text-align: center;
+  }
+
+  .stat-cell .big {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 30px;
+    font-weight: 800;
+    color: var(--gold);
+    display: block;
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+
+  .stat-cell .lbl {
+    font-size: 11px;
+    font-weight: 400;
+    color: var(--muted);
+    line-height: 1.45;
+    display: block;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  /* SECTION */
+  .section-tag {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin: 3.5rem 0 0.75rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .section-tag::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  h2 {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 1rem;
+    line-height: 1.25;
+    letter-spacing: -0.01em;
+  }
+
+  p {
+    font-size: 15.5px;
+    color: rgba(240,238,232,0.82);
+    margin-bottom: 1.1rem;
+    line-height: 1.8;
+  }
+
+  strong { color: var(--text); font-weight: 500; }
+
+  hr {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 2.5rem 0;
+  }
+
+  /* ELIGIBILITY GRID */
+  .elig-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin: 1.5rem 0;
+  }
+
+  .elig-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1.1rem 1.25rem;
+    transition: border-color 0.2s;
+  }
+
+  .elig-card:hover { border-color: var(--border2); }
+
+  .elig-card .e-icon {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--green);
+    margin-bottom: 6px;
+    display: block;
+  }
+
+  .elig-card h3 {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 13.5px;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 4px;
+  }
+
+  .elig-card p {
+    font-size: 12.5px;
+    color: var(--muted);
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  /* DEEP TECH BOX */
+  .deep-tech {
+    background: rgba(200,154,46,0.07);
+    border: 1px solid rgba(200,154,46,0.25);
+    border-radius: 12px;
+    padding: 1.4rem 1.6rem;
+    margin: 1.5rem 0;
+  }
+
+  .deep-tech .dt-label {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 6px;
+    display: block;
+  }
+
+  .deep-tech h3 {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 8px;
+  }
+
+  .deep-tech p {
+    font-size: 13.5px;
+    color: #6B5520;
+    margin: 0;
+    line-height: 1.65;
+  }
+
+  /* BENEFITS */
+  .benefit-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin: 1.5rem 0;
+  }
+
+  .benefit-item {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1.1rem 1.25rem;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: 1rem;
+    transition: border-color 0.2s;
+  }
+
+  .benefit-item:hover { border-color: var(--border2); }
+
+  .b-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    flex-shrink: 0;
+  }
+
+  .b-content h4 {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 2px;
+  }
+
+  .b-content p {
+    font-size: 12.5px;
+    color: var(--muted);
+    margin: 0;
+    line-height: 1.5;
+  }
+
+  .b-pill {
+    font-size: 11px;
+    font-weight: 600;
+    padding: 3px 10px;
+    border-radius: 100px;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .pill-gold { background: rgba(200,154,46,0.12); color: #7A5C00; border: 1px solid rgba(200,154,46,0.3); }
+  .pill-green { background: rgba(46,125,69,0.1); color: var(--green); border: 1px solid rgba(46,125,69,0.25); }
+  .pill-purple { background: rgba(200,154,46,0.1); color: var(--accent2); border: 1px solid rgba(200,154,46,0.28); }
+
+  /* PROCESS STEPS */
+  .steps {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    margin: 1.5rem 0;
+    position: relative;
+  }
+
+  .step {
+    display: grid;
+    grid-template-columns: 44px 1fr;
+    gap: 1rem;
+    padding-bottom: 1.5rem;
+    position: relative;
+  }
+
+  .step:last-child { padding-bottom: 0; }
+
+  .step-num-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .step-num {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: var(--card-bg);
+    border: 1px solid rgba(200,154,46,0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--gold);
+    flex-shrink: 0;
+    position: relative;
+    z-index: 1;
+  }
+
+  .step-line {
+    width: 1px;
+    flex: 1;
+    background: var(--border);
+    margin-top: 6px;
+  }
+
+  .step:last-child .step-line { display: none; }
+
+  .step-body {
+    padding-top: 6px;
+  }
+
+  .step-body h4 {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 14.5px;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 4px;
+  }
+
+  .step-body p {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  .step-badge {
+    display: inline-block;
+    font-size: 10.5px;
+    font-weight: 500;
+    color: var(--green);
+    background: rgba(46,125,69,0.1);
+    border: 1px solid rgba(46,125,69,0.25);
+    padding: 2px 8px;
+    border-radius: 100px;
+    margin-left: 8px;
+    vertical-align: middle;
+  }
+
+  /* CALLOUT */
+  .callout {
+    background: rgba(200,154,46,0.07);
+    border: 1px solid rgba(200,154,46,0.2);
+    border-radius: 12px;
+    padding: 1.5rem 1.75rem;
+    margin: 2rem 0;
+  }
+
+  .callout .c-label {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 8px;
+    display: block;
+  }
+
+  .callout p {
+    font-family: 'EB Garamond', Georgia, serif;
+    font-style: italic;
+    font-size: 18px;
+    color: var(--text);
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  /* MISTAKE BOX */
+  .mistake-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin: 1.5rem 0;
+  }
+
+  .mistake-item {
+    background: rgba(160,56,10,0.06);
+    border: 1px solid rgba(160,56,10,0.18);
+    border-radius: 8px;
+    padding: 0.9rem 1.1rem;
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+  }
+
+  .mistake-item .m-x {
+    color: var(--red);
+    font-size: 13px;
+    font-weight: 700;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  .mistake-item p {
+    font-size: 13px;
+    color: rgba(160,56,10,0.85);
+    margin: 0;
+    line-height: 1.6;
+  }
+
+  /* CTA */
+  .cta-block {
+    background: rgba(200,154,46,0.07);
+    border: 1px solid rgba(200,154,46,0.28);
+    border-radius: 16px;
+    padding: 2.5rem 2rem;
+    margin: 3rem 0 0;
+    text-align: center;
+  }
+
+  .cta-block .cta-eye {
+    font-size: 10.5px;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1rem;
+    display: block;
+  }
+
+  .cta-block h2 {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 26px;
+    font-weight: 800;
+    color: var(--text);
+    margin-bottom: 0.75rem;
+    letter-spacing: -0.015em;
+  }
+
+  .cta-block p {
+    font-size: 15px;
+    color: var(--muted);
+    max-width: 440px;
+    margin: 0 auto 1.75rem;
+    line-height: 1.7;
+  }
+
+  .cta-services {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: center;
+    margin-bottom: 2rem;
+  }
+
+  .cta-chip {
+    background: rgba(17,17,17,0.05);
+    border: 1px solid var(--border2);
+    border-radius: 100px;
+    padding: 6px 16px;
+    font-size: 12.5px;
+    color: rgba(240,238,232,0.75);
+  }
+
+  .cta-btn {
+    display: inline-block;
+    background: #111111;
+    color: #F7F3EC;
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    padding: 14px 36px;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: background 0.2s, transform 0.15s;
+    cursor: pointer;
+  }
+
+  .cta-btn:hover { background: #2A2520; transform: translateY(-1px); }
+
+  .cta-note {
+    font-size: 11.5px;
+    color: var(--muted);
+    margin-top: 1rem;
+    display: block;
+  }
+
+  .footnote {
+    font-size: 11px;
+    color: var(--muted);
+    border-top: 1px solid var(--border);
+    padding-top: 1.5rem;
+    margin-top: 3rem;
+    line-height: 1.6;
+  }
+
+  @media (max-width: 580px) {
+    .elig-grid { grid-template-columns: 1fr; }
+    .stat-row { grid-template-columns: 1fr; }
+    .benefit-item { grid-template-columns: auto 1fr; }
+    .b-pill { display: none; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="topbar">
+    <span class="brand">Bodha Ventures</span>
+    <span class="tag">Virtual CFO &amp; Startup Consultancy &nbsp;·&nbsp; April 2026</span>
+  </div>
+
+  <div class="hero-badge">DPIIT Recognition Guide — Updated for 2026</div>
+
+  <h1>Your startup could be saving<br><span>lakhs in taxes.</span><br>Most founders don't know it.</h1>
+
+  <div class="hero-sub">
+    DPIIT Startup Recognition is free, takes under a week, and unlocks benefits worth crores over the life of your company. Here is everything you need to know.
+  </div>
+
+  <div class="update-banner">
+    <span class="label">Feb 2026</span>
+    <p>DPIIT issued Gazette Notification G.S.R. 108(E) on 4 February 2026, significantly updating the startup eligibility framework. Turnover ceilings doubled, cooperative societies added, and a new Deep Tech category introduced. If you're reading an older guide, some of it is no longer accurate.</p>
+  </div>
+
+  <div class="stat-row">
+    <div class="stat-cell">
+      <span class="big">2.23L+</span>
+      <span class="lbl">Startups recognised<br>by DPIIT to date</span>
+    </div>
+    <div class="stat-cell">
+      <span class="big">Zero</span>
+      <span class="lbl">Government fee<br>to apply</span>
+    </div>
+    <div class="stat-cell">
+      <span class="big">3 yrs</span>
+      <span class="lbl">Income tax holiday<br>under Sec 80-IAC</span>
+    </div>
+  </div>
+
+  <!-- SECTION 1: WHAT IS IT -->
+  <div class="section-tag">01 &nbsp; What is DPIIT Recognition</div>
+  <h2>A master access card from the Government of India</h2>
+
+  <p style="color:#111111;">
+    The Department for Promotion of Industry and Internal Trade (DPIIT) officially certifies qualifying businesses as startups under the Startup India initiative. This is not a formality. It is a single certificate that unlocks a stack of government benefits: tax holidays, intellectual property rebates, compliance relief, funding access, and government procurement advantages.
+  </p>
+
+  <p style="color:#111111;">
+    The best way to think about it: most of India's startup benefits require DPIIT recognition as the entry credential. Without it, you are locked out. With it, doors that would otherwise take months of paperwork open quickly.
+  </p>
+
+  <div class="callout">
+    <span class="c-label">Plain English</span>
+    <p>"Get the certificate first. Everything else (the tax holiday, the IP rebates, the seed fund) requires you to have it already."</p>
+  </div>
+
+  <!-- SECTION 2: ELIGIBILITY -->
+  <div class="section-tag">02 &nbsp; Are You Eligible</div>
+  <h2>Five conditions. All must be met simultaneously.</h2>
+
+  <div class="elig-grid">
+    <div class="elig-card">
+      <span class="e-icon">01 · Entity type</span>
+      <h3>Right legal structure</h3>
+      <p>Must be a Private Limited Company (including OPC), LLP, Registered Partnership Firm, or (newly added in 2026) a Cooperative Society. Sole proprietorships do not qualify.</p>
+    </div>
+    <div class="elig-card">
+      <span class="e-icon">02 · Age</span>
+      <h3>Under 10 years old</h3>
+      <p>The entity must not be more than 10 years from its date of incorporation. For Deep Tech startups, this window extends to 20 years under the 2026 notification.</p>
+    </div>
+    <div class="elig-card">
+      <span class="e-icon">03 · Turnover</span>
+      <h3>Below ₹200 crore</h3>
+      <p>Annual turnover must not have exceeded ₹200 crore in any financial year since incorporation. This ceiling was doubled from ₹100 crore by the February 2026 notification. Deep Tech startups get ₹300 crore.</p>
+    </div>
+    <div class="elig-card">
+      <span class="e-icon">04 · Original entity</span>
+      <h3>Not a restructured business</h3>
+      <p>Your startup must be a genuine new venture, not formed by splitting up or reconstructing an already existing business. Duplication of entities with similar addresses and directors also disqualifies.</p>
+    </div>
+  </div>
+
+  <div class="elig-card" style="margin-top:10px;">
+    <span class="e-icon">05 · Innovation</span>
+    <h3>Demonstrable innovation or scalability</h3>
+    <p style="margin:0; font-size:13px; color:var(--muted); line-height:1.6;">Your business must work towards innovation, development, or improvement of a product, process, or service, or demonstrate a scalable business model with high potential for employment or wealth creation. Pre-revenue startups qualify if they can articulate this through a pitch deck or concept note. A vague description ("we use the latest technology") is the single most common reason for rejection.</p>
+  </div>
+
+  <div class="deep-tech">
+    <span class="dt-label">New in 2026 — Deep Tech Category</span>
+    <h3>AI, biotech, quantum, space, robotics? You get a wider window.</h3>
+    <p>The 2026 notification created a separate Deep Tech startup category with a 20-year recognition window and ₹300 crore turnover ceiling, recognising that R&D-intensive ventures have longer gestation periods. Sectors typically qualifying include AI, biotech, quantum computing, space tech, robotics, and advanced materials. Deep Tech classification is determined by DPIIT at their discretion.</p>
+  </div>
+
+  <!-- SECTION 3: BENEFITS -->
+  <div class="section-tag">03 &nbsp; What You Unlock</div>
+  <h2>Six categories of benefit — most founders only know one.</h2>
+
+  <div class="benefit-list">
+    <div class="benefit-item">
+      <div class="b-icon" style="background:rgba(200,154,46,0.12);">💰</div>
+      <div class="b-content">
+        <h4>3-Year Income Tax Holiday</h4>
+        <p>100% deduction on profits for any 3 consecutive years within your first 10 years. Requires a separate 80-IAC application to the Inter-Ministerial Board after DPIIT recognition. Not automatic. Startups incorporated before 31 March 2030 are eligible.</p>
+      </div>
+      <span class="b-pill pill-gold">Sec 80-IAC</span>
+    </div>
+
+    <div class="benefit-item">
+      <div class="b-icon" style="background:rgba(46,125,69,0.1);">⚖️</div>
+      <div class="b-content">
+        <h4>Angel Tax — Abolished</h4>
+        <p>Section 56(2)(viib), which used to tax funding raised above fair market value, was repealed from FY 2025-26 for all companies via the Union Budget 2024. Angel tax no longer exists for any startup, DPIIT recognition or not.</p>
+      </div>
+      <span class="b-pill pill-green">Repealed</span>
+    </div>
+
+    <div class="benefit-item">
+      <div class="b-icon" style="background:rgba(200,154,46,0.1);">🔬</div>
+      <div class="b-content">
+        <h4>80% Patent Fee Rebate + Fast-Track Examination</h4>
+        <p>Patents are expensive and slow. DPIIT recognition gives you an 80% rebate on patent filing fees and access to expedited examination. Trademark applications get a 50% fee rebate. Empanelled facilitators help you file.</p>
+      </div>
+      <span class="b-pill pill-purple">IPR</span>
+    </div>
+
+    <div class="benefit-item">
+      <div class="b-icon" style="background:rgba(200,154,46,0.12);">📋</div>
+      <div class="b-content">
+        <h4>Self-Certification Under Labour and Environmental Laws</h4>
+        <p>Self-certify compliance under 6 labour laws (including EPF, ESI, Gratuity Act) and 3 environmental laws for 5 years. Eliminates routine government inspections, a major operational relief for early-stage companies.</p>
+      </div>
+      <span class="b-pill pill-gold">Compliance</span>
+    </div>
+
+    <div class="benefit-item">
+      <div class="b-icon" style="background:rgba(46,125,69,0.1);">🏛️</div>
+      <div class="b-content">
+        <h4>Government Procurement — No Prior Experience Required</h4>
+        <p>DPIIT-recognised startups can bid for government tenders without the experience or turnover requirements that normally disqualify new companies. Direct access to GeM (Government e-Marketplace).</p>
+      </div>
+      <span class="b-pill pill-green">GeM Access</span>
+    </div>
+
+    <div class="benefit-item">
+      <div class="b-icon" style="background:rgba(200,154,46,0.1);">🌱</div>
+      <div class="b-content">
+        <h4>Government Funding Schemes</h4>
+        <p>Access to Startup India Seed Fund Scheme (up to ₹20 lakh grant + ₹50 lakh debt for scaling), Credit Guarantee Scheme (up to ₹20 crore, revised May 2025), and Fund of Funds 2.0 (₹10,000 crore via SIDBI). DPIIT recognition is the prerequisite for all of these.</p>
+      </div>
+      <span class="b-pill pill-purple">Funding</span>
+    </div>
+  </div>
+
+  <!-- SECTION 4: PROCESS -->
+  <div class="section-tag">04 &nbsp; How to Apply</div>
+  <h2>Fully online. No government fee. Certificate in 2–10 days.</h2>
+
+  <p style="color:#111111;">The entire process runs through the National Single Window System (NSWS) at nsws.gov.in. There is no government fee at any stage. Here is the exact path:</p>
+
+  <div class="steps">
+    <div class="step">
+      <div class="step-num-wrap"><div class="step-num">1</div><div class="step-line"></div></div>
+      <div class="step-body">
+        <h4>Create an account on NSWS <span class="step-badge">nsws.gov.in</span></h4>
+        <p>Register using your PAN, Aadhaar-linked mobile number, and email. This is the central government portal where all approvals (not just startup recognition) are processed.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num-wrap"><div class="step-num">2</div><div class="step-line"></div></div>
+      <div class="step-body">
+        <h4>Add "Registration as a Startup" to your dashboard</h4>
+        <p>Log in, click "Add Approvals" then "Central Approvals," and find the startup registration form. Add it to your dashboard to begin the application.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num-wrap"><div class="step-num">3</div><div class="step-line"></div></div>
+      <div class="step-body">
+        <h4>Fill in entity details and describe your innovation</h4>
+        <p>This is the most critical step. You will provide your incorporation details, turnover for each financial year, and a written description of what makes your startup innovative or scalable. This description is the primary basis for approval or rejection; vague answers get rejected.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num-wrap"><div class="step-num">4</div><div class="step-line"></div></div>
+      <div class="step-body">
+        <h4>Upload supporting documents</h4>
+        <p>Certificate of Incorporation (or Partnership registration), a brief pitch deck or concept note (optional but strongly recommended), and annual turnover details. Aadhaar of the authorised representative is required for OTP verification.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num-wrap"><div class="step-num">5</div><div class="step-line"></div></div>
+      <div class="step-body">
+        <h4>Submit and receive your Certificate of Recognition <span class="step-badge">2–10 days</span></h4>
+        <p>DPIIT reviews applications and issues the certificate (along with your unique DPIIT recognition number) via email. Most clean applications are approved within 2–7 working days.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num-wrap"><div class="step-num">6</div><div class="step-line"></div></div>
+      <div class="step-body">
+        <h4>Apply separately for Section 80-IAC tax holiday</h4>
+        <p>The tax holiday is not automatic. After receiving your DPIIT certificate, you must apply to the Inter-Ministerial Board with a separate, more detailed application. Approval takes 3–12 months. This is where strong documentation of your innovation is most important.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 5: COMMON MISTAKES -->
+  <div class="section-tag">05 &nbsp; What Gets Applications Rejected</div>
+  <h2>Four mistakes that slow or kill your application</h2>
+
+  <div class="mistake-list">
+    <div class="mistake-item">
+      <span class="m-x">✕</span>
+      <p><strong style="color:#A0380A;">Vague innovation description.</strong> Statements like "we provide quality services" or "we use the latest technology" are insufficient. DPIIT evaluates whether your solution involves genuine innovation, improvement, or a scalable model. Describe the specific problem, your novel approach, and the scale of impact.</p>
+    </div>
+    <div class="mistake-item">
+      <span class="m-x">✕</span>
+      <p><strong style="color:#A0380A;">Assuming DPIIT recognition gives the tax holiday automatically.</strong> It does not. The 80-IAC tax benefit requires a completely separate application to the Inter-Ministerial Board. Many founders receive their DPIIT certificate and wait for a tax break that will never arrive unless they file the second application.</p>
+    </div>
+    <div class="mistake-item">
+      <span class="m-x">✕</span>
+      <p><strong style="color:#A0380A;">Applying under the wrong entity type.</strong> Sole proprietorships are not eligible. Neither are companies formed by splitting or reconstructing an existing business. Verify your entity structure before applying.</p>
+    </div>
+    <div class="mistake-item">
+      <span class="m-x">✕</span>
+      <p><strong style="color:#A0380A;">Waiting too long.</strong> The 80-IAC tax holiday is available for startups incorporated before 31 March 2030, but you cannot claim it retroactively for years you were already profitable before recognition. Every month of delay on a profitable company is tax-free income foregone.</p>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <div class="cta-block" style="padding: 1.5rem 1.5rem;">
+    <span class="cta-eye" style="font-size:9.5px;">Bodha Ventures — We Handle This For You</span>
+    <h2 style="font-size:17px; margin-bottom:0.5rem;">Get recognised. We'll do the paperwork.</h2>
+    <p style="font-size:13px; margin-bottom:1.25rem;">From filing your DPIIT application with a professional innovation description to managing your 80-IAC Inter-Ministerial Board application, Bodha Ventures handles the full process so you can focus on building.</p>
+
+    <a class="cta-btn" href="#" style="font-size:13px; padding:11px 28px;">Talk to Bodha Ventures &rarr;</a>
+    <span class="cta-note">Free initial consultation &nbsp;·&nbsp; No hidden fees &nbsp;·&nbsp; Trusted by founders across India</span>
+  </div>
+
+  <div class="footnote">
+    <strong>Sources:</strong> DPIIT Gazette Notification G.S.R. 108(E), 4 February 2026 &nbsp;·&nbsp; Startup India Portal (startupindia.gov.in) &nbsp;·&nbsp; NSWS Portal (nsws.gov.in) &nbsp;·&nbsp; Union Budget 2024 (angel tax repeal) &nbsp;·&nbsp; Union Budget 2025-26 (80-IAC extension to March 2030) &nbsp;·&nbsp; Vakilsearch, ArthSetu, Patron Accounting (process guidance). This article is for informational purposes. For advice specific to your startup, consult Bodha Ventures directly.
+  </div>
+
+</div>
+</body>
+</html>

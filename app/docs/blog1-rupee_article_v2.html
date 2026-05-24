@@ -1,0 +1,824 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Rupee's Managed Decline: Analysis</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --cream: #F7F3EC;
+    --black: #111111;
+    --gold: #C89A2E;
+    --gold-light: #e8c46a;
+    --ink: #2A2520;
+    --muted: #6B6460;
+    --rule: #D8D0C4;
+    --danger-bg: #FDF0E8;
+    --success-bg: #EFF5EC;
+  }
+
+  body {
+    background: var(--cream);
+    color: var(--ink);
+    font-family: 'EB Garamond', Georgia, serif;
+    font-size: 18px;
+    line-height: 1.82;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .page {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 4rem 2rem 6rem;
+  }
+
+  /* ── HEADER ── */
+  .masthead {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--black);
+    padding-bottom: 0.6rem;
+    margin-bottom: 3rem;
+  }
+
+  .masthead-brand {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .masthead-date {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 0.04em;
+  }
+
+  /* ── KICKER ── */
+  .kicker {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 10.5px;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1rem;
+  }
+
+  /* ── HEADLINE ── */
+  h1 {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: clamp(34px, 5vw, 52px);
+    font-weight: 700;
+    line-height: 1.1;
+    color: var(--black);
+    letter-spacing: -0.02em;
+    margin-bottom: 1.25rem;
+  }
+
+  h1 em {
+    font-style: italic;
+    color: var(--gold);
+  }
+
+  /* ── DECK ── */
+  .deck {
+    font-family: 'EB Garamond', Georgia, serif;
+    font-size: 20px;
+    font-style: italic;
+    font-weight: 400;
+    line-height: 1.65;
+    color: var(--muted);
+    border-left: 2px solid var(--gold);
+    padding-left: 1.25rem;
+    margin-bottom: 2rem;
+  }
+
+  /* ── BYLINE ── */
+  .byline-bar {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 0.04em;
+    padding: 1rem 0;
+    border-top: 0.5px solid var(--rule);
+    border-bottom: 0.5px solid var(--rule);
+    margin-bottom: 2.5rem;
+  }
+
+  /* ── STAT BANNER ── */
+  .stat-banner {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--black);
+    border: 1px solid var(--black);
+    margin: 2.5rem 0;
+  }
+
+  .stat-cell {
+    background: var(--cream);
+    padding: 1.4rem 1.2rem;
+    text-align: center;
+  }
+
+  .stat-cell .big {
+    font-family: 'Playfair Display', serif;
+    font-size: 34px;
+    font-weight: 700;
+    color: var(--gold);
+    display: block;
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+
+  .stat-cell .lbl {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 10.5px;
+    font-weight: 400;
+    color: var(--muted);
+    line-height: 1.4;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    display: block;
+  }
+
+  /* ── SECTION TITLES ── */
+  .section-flag {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin: 3.5rem 0 1rem;
+  }
+
+  .section-flag .num {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--cream);
+    background: var(--gold);
+    padding: 3px 9px;
+    display: inline-block;
+  }
+
+  .section-flag .label {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 27px;
+    font-weight: 600;
+    line-height: 1.25;
+    color: var(--black);
+    margin-bottom: 1.1rem;
+    letter-spacing: -0.01em;
+  }
+
+  /* ── BODY TEXT ── */
+  p {
+    font-size: 18px;
+    margin-bottom: 1.2rem;
+    color: var(--ink);
+  }
+
+  strong {
+    font-weight: 500;
+    color: var(--black);
+  }
+
+  /* ── RULE ── */
+  hr {
+    border: none;
+    border-top: 0.5px solid var(--rule);
+    margin: 3rem 0;
+  }
+
+  /* ── CALLOUT ── */
+  .callout {
+    background: var(--black);
+    color: var(--cream);
+    padding: 1.5rem 1.75rem;
+    margin: 2.5rem 0;
+    border-left: 4px solid var(--gold);
+  }
+
+  .callout .tag {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 9.5px;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 8px;
+    display: block;
+  }
+
+  .callout p {
+    color: var(--cream);
+    font-size: 16.5px;
+    margin: 0;
+    line-height: 1.75;
+    opacity: 0.92;
+  }
+
+  /* ── PULL QUOTE ── */
+  .pullquote {
+    font-family: 'Playfair Display', serif;
+    font-size: 24px;
+    font-style: italic;
+    font-weight: 400;
+    line-height: 1.45;
+    color: var(--black);
+    text-align: center;
+    padding: 2rem 1rem;
+    border-top: 2px solid var(--black);
+    border-bottom: 2px solid var(--black);
+    margin: 3rem 0;
+    position: relative;
+  }
+
+  .pullquote::before {
+    content: '\201C';
+    font-family: 'Playfair Display', serif;
+    font-size: 80px;
+    color: var(--gold);
+    line-height: 0;
+    position: absolute;
+    top: 44px;
+    left: 0;
+    opacity: 0.35;
+  }
+
+  /* ── TIMELINE CHART ── */
+  .timeline-wrap {
+    margin: 2rem 0;
+    border: 1px solid var(--rule);
+  }
+
+  .timeline-head {
+    background: var(--black);
+    padding: 0.6rem 1rem;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+
+  .tl-row {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.55rem 1rem;
+    border-bottom: 0.5px solid var(--rule);
+  }
+
+  .tl-row:last-child { border-bottom: none; }
+
+  .tl-row:nth-child(even) { background: rgba(200,154,46,0.05); }
+
+  .tl-year {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--muted);
+    min-width: 36px;
+  }
+
+  .tl-bar-bg {
+    flex: 1;
+    background: rgba(200,154,46,0.15);
+    height: 8px;
+    border-radius: 1px;
+    overflow: hidden;
+  }
+
+  .tl-bar-fill {
+    height: 100%;
+    background: var(--gold);
+    border-radius: 1px;
+  }
+
+  .tl-val {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--black);
+    min-width: 58px;
+    text-align: right;
+  }
+
+  /* ── CAUSE GRID ── */
+  .cause-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--rule);
+    border: 1px solid var(--rule);
+    margin: 2rem 0;
+  }
+
+  .cause-card {
+    background: var(--cream);
+    padding: 1.2rem 1.3rem;
+  }
+
+  .cause-card .c-num {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 9.5px;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 5px;
+    display: block;
+  }
+
+  .cause-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 15.5px;
+    font-weight: 600;
+    color: var(--black);
+    margin-bottom: 5px;
+    line-height: 1.3;
+  }
+
+  .cause-card p {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12.5px;
+    font-weight: 300;
+    color: var(--muted);
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  /* ── IMPACT TABLE ── */
+  .impact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin: 2rem 0;
+  }
+
+  .impact-col h3 {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 9.5px;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+  }
+
+  .impact-col.neg h3 {
+    color: #A0380A;
+    border-bottom: 2px solid #A0380A;
+  }
+
+  .impact-col.pos h3 {
+    color: #2E7D45;
+    border-bottom: 2px solid #2E7D45;
+  }
+
+  .impact-col ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  .impact-col ul li {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 300;
+    color: var(--ink);
+    line-height: 1.6;
+    padding: 0.5rem 0;
+    border-bottom: 0.5px solid var(--rule);
+    display: flex;
+    gap: 8px;
+    align-items: flex-start;
+  }
+
+  .impact-col ul li::before {
+    content: '';
+    display: inline-block;
+    min-width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    margin-top: 7px;
+  }
+
+  .impact-col.neg ul li::before { background: #A0380A; }
+  .impact-col.pos ul li::before { background: #2E7D45; }
+
+  /* ── WHO WINS WHO LOSES ── */
+  .profile-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1px;
+    background: var(--rule);
+    border: 1px solid var(--rule);
+    margin: 2rem 0;
+  }
+
+  .profile-card {
+    background: var(--cream);
+    padding: 1rem 1.1rem;
+  }
+
+  .profile-card .avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    margin-bottom: 10px;
+  }
+
+  .profile-card h4 {
+    font-family: 'Playfair Display', serif;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--black);
+    margin-bottom: 4px;
+  }
+
+  .profile-card .verdict {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+    display: block;
+  }
+
+  .profile-card p {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  .verdict.lose { color: #A0380A; }
+  .verdict.gain { color: #2E7D45; }
+  .verdict.mixed { color: #7A5C00; }
+
+  /* ── RBI BOX ── */
+  .rbi-box {
+    border: 1px solid var(--gold);
+    padding: 1.5rem 1.75rem;
+    margin: 2rem 0;
+    position: relative;
+  }
+
+  .rbi-box::before {
+    content: 'Key fact';
+    position: absolute;
+    top: -10px;
+    left: 1.25rem;
+    background: var(--cream);
+    padding: 0 6px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 9.5px;
+    font-weight: 500;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+
+  .rbi-box p {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13.5px;
+    color: var(--ink);
+    margin: 0;
+    line-height: 1.7;
+  }
+
+  /* ── CONCLUSION ── */
+  .conclusion {
+    border-top: 3px solid var(--black);
+    padding-top: 2rem;
+    margin-top: 3rem;
+  }
+
+  .verdict-line {
+    font-family: 'Playfair Display', serif;
+    font-size: 30px;
+    font-weight: 700;
+    line-height: 1.2;
+    color: var(--black);
+    margin-bottom: 1.5rem;
+    letter-spacing: -0.015em;
+  }
+
+  .verdict-line em {
+    font-style: italic;
+    color: var(--gold);
+  }
+
+  /* ── FOOTNOTE ── */
+  .footnote {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px;
+    color: var(--muted);
+    border-top: 0.5px solid var(--rule);
+    padding-top: 1.5rem;
+    margin-top: 3.5rem;
+    line-height: 1.6;
+  }
+
+  @media (max-width: 600px) {
+    .cause-grid, .impact-grid, .profile-row, .stat-banner { grid-template-columns: 1fr; }
+    h1 { font-size: 30px; }
+    .pullquote { font-size: 20px; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="masthead">
+    <span class="masthead-brand">Economic Analysis</span>
+    <span class="masthead-date">April 2026</span>
+  </div>
+
+  <div class="kicker">Currency &nbsp;·&nbsp; Macroeconomics &nbsp;·&nbsp; India</div>
+
+  <h1>The Rupee's <em>Managed</em> Decline. And Why India Should Be Worried</h1>
+
+  <div class="deck">
+    India is growing at 6.5% a year. Its stock market is among the largest in the world. And yet, its currency has lost nearly 9% of its value in twelve months. This paradox deserves an honest answer, not reassurance.
+  </div>
+
+  <div class="byline-bar">
+    <span>Based on RBI, IMF, HDFC AMC & EBC Financial Group data</span>
+    <span>·</span>
+    <span>For informed general readership</span>
+    <span>·</span>
+    <span>April 21, 2026</span>
+  </div>
+
+  <div class="stat-banner">
+    <div class="stat-cell">
+      <span class="big">₹93</span>
+      <span class="lbl">Per US dollar<br>April 2026</span>
+    </div>
+    <div class="stat-cell">
+      <span class="big">~9%</span>
+      <span class="lbl">Rupee lost in<br>12 months</span>
+    </div>
+    <div class="stat-cell">
+      <span class="big">6th</span>
+      <span class="lbl">India's GDP rank<br>fell from 5th in 2024</span>
+    </div>
+  </div>
+
+  <p>
+    In early 2025, one US dollar cost about ₹84. Today it costs ₹93. In rupee terms, that is a ₹9 difference, enough to raise the cost of your fuel, your imported phone, your child's university abroad, and the fertiliser your farmer cousin buys every season.
+  </p>
+
+  <p>
+    But here is what's really striking: <strong>this is happening while India is the world's fastest-growing major economy.</strong> GDP is expanding. Tax revenues are healthy. The stock market, by market capitalisation, is among the world's largest. And yet the currency is falling. That disconnect is the real story, and it demands a harder look than most coverage has offered.
+  </p>
+
+  <!-- SECTION 1 -->
+  <div class="section-flag">
+    <span class="num">01</span>
+    <span class="label">The paradox</span>
+  </div>
+  <h2>How is a booming economy losing currency value?</h2>
+
+  <p>
+    The short answer is that <strong>currency markets don't price GDP. They price cash flow.</strong> Specifically, they price the balance between the dollars flowing into a country and the dollars flowing out. India's problem is that these flows are badly misaligned.
+  </p>
+
+  <div class="callout">
+    <span class="tag">Plain English</span>
+    <p>Think of India as a household. It earns a good salary (GDP growth), but its credit card bill (import payments) keeps rising, and several family members who used to invest in the home (foreign investors) are quietly withdrawing their deposits. The household looks prosperous on paper. But its wallet is getting lighter.</p>
+  </div>
+
+  <p>
+    Currency markets see the wallet, not the resume. India's net capital account inflows (FDI, FPI, external borrowings, and banking flows combined) hit a record $107.9 billion in 2007–08. By the first half of 2025–26, that had fallen to just $8.6 billion, against a current account deficit of $15.0 billion for the same period, meaning India was no longer generating enough foreign currency to cover its import gap. Net FDI, which strips out Indian companies investing abroad and counts only capital that actually arrives to build businesses, fell to just $0.4 billion in 2024–25 per the RBI Annual Report, down from $44 billion in 2020–21. (Gross FDI inflows reached $81 billion, but include reinvested earnings and capital that cycles back out through repatriations and disinvestments.) Meanwhile, foreign portfolio investors had sold Indian equities worth approximately ₹1.8 lakh crore in calendar year 2026 through mid-April, per NSDL data, with selling continuing beyond that point.
+  </p>
+
+  <p>
+    The result: more dollars leaving India than coming in. And when that happens, the rupee weakens, regardless of how fast the economy is growing.
+  </p>
+
+  <div class="section-flag">
+    <span class="num">02</span>
+    <span class="label">The long view</span>
+  </div>
+  <h2>A slow fall that has become a faster one</h2>
+
+  <p>The rupee's decline against the dollar is not new. Since India liberalised its economy in 1991, the rupee has fallen at roughly 4.5% per year on average, from ₹17 per dollar then to ₹93 today. What's changed is the pace and the context.</p>
+
+  <div class="timeline-wrap">
+    <div class="timeline-head">Rupee per US Dollar: Historical Rate</div>
+    <div class="tl-row"><span class="tl-year">1991</span><div class="tl-bar-bg"><div class="tl-bar-fill" style="width:18%"></div></div><span class="tl-val">₹17 / $1</span></div>
+    <div class="tl-row"><span class="tl-year">2000</span><div class="tl-bar-bg"><div class="tl-bar-fill" style="width:47%"></div></div><span class="tl-val">₹44 / $1</span></div>
+    <div class="tl-row"><span class="tl-year">2010</span><div class="tl-bar-bg"><div class="tl-bar-fill" style="width:48%"></div></div><span class="tl-val">₹45 / $1</span></div>
+    <div class="tl-row"><span class="tl-year">2015</span><div class="tl-bar-bg"><div class="tl-bar-fill" style="width:67%"></div></div><span class="tl-val">₹65 / $1</span></div>
+    <div class="tl-row"><span class="tl-year">2020</span><div class="tl-bar-bg"><div class="tl-bar-fill" style="width:78%"></div></div><span class="tl-val">₹75 / $1</span></div>
+    <div class="tl-row"><span class="tl-year">2024</span><div class="tl-bar-bg"><div class="tl-bar-fill" style="width:87%"></div></div><span class="tl-val">₹84 / $1</span></div>
+    <div class="tl-row"><span class="tl-year">2026 ▶</span><div class="tl-bar-bg"><div class="tl-bar-fill" style="width:96%"></div></div><span class="tl-val">₹93 / $1</span></div>
+  </div>
+
+  <p>
+    Notice the steepening. The rupee went from ₹44 to ₹75 : a ₹31 fall: in two decades from 2000 to 2020. But it has since fallen nearly ₹18 more in just six years. The recent depreciation is not merely a continuation of a trend. <strong>It is an acceleration.</strong>
+  </p>
+
+  <p>
+    There is also a consequence many miss: India's GDP ranking has slipped. The IMF now places India sixth largest in the world by nominal GDP, down from fifth in 2024. Two factors explain this, neither of them a slowdown in growth. First, the rupee's fall: India's economy expanded about 9% in rupee terms, but that growth shrank when measured in dollars. Second, India revised its GDP methodology in early 2026, updating the base year from 2011-12 to 2022-23 at the IMF's own urging, after the Fund had graded India's national accounts data a 'C' for being outdated. The revised, more honest measurement trimmed nominal GDP by roughly 3-4%. The cruel irony is that fixing the ruler made the room look smaller. India's economy did not weaken. It was simply measured more accurately, in a currency that had lost ground.
+  </p>
+
+  <!-- SECTION 3 -->
+  <div class="section-flag">
+    <span class="num">03</span>
+    <span class="label">The causes</span>
+  </div>
+  <h2>Six forces, and one uncomfortable structural truth</h2>
+
+  <div class="cause-grid">
+    <div class="cause-card">
+      <span class="c-num">01 · Oil imports</span>
+      <h3>India's crude addiction</h3>
+      <p>India imports approximately 88–89% of its crude oil, spending billions of dollars every month regardless of global prices. When oil prices rise, or when rerouting due to geopolitics raises costs, rupee pressure spikes immediately. A $10/barrel rise in crude widens the current account deficit by around 0.4% of GDP, per S&P Global estimates.</p>
+    </div>
+    <div class="cause-card">
+      <span class="c-num">02 · Trade deficit</span>
+      <h3>More going out than coming in</h3>
+      <p>India's merchandise trade deficit crossed $333 billion in 2025–26, the highest ever recorded, against total merchandise imports of $775 billion. Exports fell 11.8% in October 2025 even as imports surged 16.6%. Gold imports alone jumped 199% that same month. Dollars leave faster than they arrive.</p>
+    </div>
+    <div class="cause-card">
+      <span class="c-num">03 · Capital flight</span>
+      <h3>Foreign investors leaving</h3>
+      <p>Foreign portfolio investors sold approximately ₹1.8 lakh crore of Indian assets in calendar 2026 through early April, per NSDL and Business Standard data, with outflows continuing beyond that point. India's stock market, trading at a premium P/E of ~21x, was seen as expensive relative to peers. When sentiment shifts, hot money exits fast, converting rupees into dollars at the door.</p>
+    </div>
+    <div class="cause-card">
+      <span class="c-num">04 · US interest rates</span>
+      <h3>The dollar magnet</h3>
+      <p>When US Treasury yields stay high, global investors park money in dollar assets for better returns. This is structural: India cannot offer the same perceived safety as US bonds. Capital flows toward the US, away from India, shrinking dollar supply in the Indian market.</p>
+    </div>
+    <div class="cause-card">
+      <span class="c-num">05 · US tariffs</span>
+      <h3>The trade war tax</h3>
+      <p>US tariff policy has been a moving target. A 50% rate on Indian goods was announced in mid-2025, but was reduced to 18% in February 2026 after Indian oil companies agreed to reduce purchases of Russian crude. US courts subsequently struck down certain reciprocal tariffs, and a 10% baseline now broadly applies. Even at 18%, India’s effective rate remains above the ASEAN average, and the uncertainty itself chilled investor confidence. Sectors like gems, jewellery, textiles, and apparel recorded sharp export declines during peak stress in late 2025. Reduced export earnings, and the cloud of unpredictability, means fewer dollars coming in.</p>
+    </div>
+    <div class="cause-card">
+      <span class="c-num">06 · "Make in India" shortfall</span>
+      <h3>The manufacturing gap</h3>
+      <p>India's manufacturing share of GDP was supposed to hit 25% by 2025. It has instead stayed in the 16–17% range on broad industry definitions, or as low as 12.5% on the World Bank’s narrower measure, lower than when the ambition was announced a decade ago. Without a strong manufacturing export base, India cannot generate the sustained dollar inflows that would naturally support its currency.</p>
+    </div>
+  </div>
+
+  <p>
+    Together, these six forces are not a weather event. They are a structural condition. India exports services brilliantly: IT, consulting, finance. But services are insufficient to close a $333 billion goods deficit. Until India becomes a serious goods exporter, the rupee will remain under structural pressure, growing economy or not.
+  </p>
+
+  <!-- SECTION 4 -->
+  <div class="section-flag">
+    <span class="num">04</span>
+    <span class="label">The RBI question</span>
+  </div>
+  <h2>Is this a managed decline or a loss of control?</h2>
+
+  <p>
+    This is the question that official commentary tends to sidestep, so let's ask it directly.
+  </p>
+
+  <p>
+    The International Monetary Fund recently reclassified India's exchange-rate regime from a "stabilised arrangement" to a <strong>"crawl-like arrangement."</strong> In plain English: the rupee used to be held relatively steady by the RBI. Now it is being allowed to fall, gradually but consistently. The RBI itself says it does not target any particular rate, and that markets should set the price.
+  </p>
+
+  <div class="rbi-box">
+    <p>The RBI holds approximately $700 billion in foreign exchange reserves (around $697–701 billion in early April 2026, with reserves since crossing that threshold). This is substantial insurance. But even this buffer cannot fight a global dollar bull cycle indefinitely, and the RBI knows this. Reserves smooth volatility; they do not reverse structural deficits.</p>
+  </div>
+
+  <p>
+    There is a school of thought, not without merit, that a weaker rupee is partly deliberate. Some economists argue India should let the rupee weaken to boost export competitiveness, similar to how China has used yuan weakness strategically for decades.
+  </p>
+
+  <p>
+    The problem with this theory applied to India is that <strong>India is not China.</strong> China runs trade surpluses. A cheaper yuan makes its exports cheaper without hurting a massive import bill. India runs structural goods deficits. A cheaper rupee makes every import : oil, fertiliser, electronics, machinery more expensive. The rising costs then feed through to inflation, wipe out household budgets, and undercut the export gains. The net benefit is questionable. The net harm to ordinary consumers is not.
+  </p>
+
+  <div class="pullquote">
+    The rupee has been falling since 1991. What's changed is that it now falls despite strong growth, robust reserves, and an RBI that intervenes. That combination should prompt harder questions than it usually does.
+  </div>
+
+  <!-- SECTION 5 -->
+  <div class="section-flag">
+    <span class="num">05</span>
+    <span class="label">The consequences</span>
+  </div>
+  <h2>Who actually pays and who quietly profits</h2>
+
+  <p>The impact of a falling rupee is not distributed equally. This is where the headline numbers obscure what is really happening to real people.</p>
+
+  <div class="profile-row">
+    <div class="profile-card">
+      <div class="avatar" style="background:#FBE8E2; color: #A0380A;">F</div>
+      <h4>The Farmer</h4>
+      <span class="verdict lose">Loses</span>
+      <p>Fertiliser (largely imported) gets costlier. Diesel for pumps and tractors rises. Input costs have risen significantly in recent years, squeezing already thin margins. A weaker rupee tightens them further. Just over half of all agricultural households in India carry debt, per NSO survey data.</p>
+    </div>
+    <div class="profile-card">
+      <div class="avatar" style="background:#FBF4E0; color: #7A5C00;">M</div>
+      <h4>Urban Middle Class</h4>
+      <span class="verdict mixed">Squeezed</span>
+      <p>Fuel rises, imported electronics cost more, foreign education gets further out of reach. Aspiring families saving in rupees find their global purchasing power eroding. This class has no hedge. They neither earn in dollars nor export goods.</p>
+    </div>
+    <div class="profile-card">
+      <div class="avatar" style="background:#E4F0E8; color: #2E7D45;">E</div>
+      <h4>IT Exporter / NRI</h4>
+      <span class="verdict gain">Gains</span>
+      <p>Every dollar earned abroad converts to more rupees. A software firm billing $10 million earns ₹84 crore at ₹84/$ but ₹93 crore at today's rate. NRIs sending remittances home see the same windfall. India receives $125+ billion in remittances annually.</p>
+    </div>
+  </div>
+
+  <p>
+    The asymmetry is stark. Exporters and NRIs, who are economically better-off to begin with, gain directly from depreciation. Farmers, daily wage earners, and fixed-income households absorb rising costs with no compensating benefit. Research estimates that a 5% depreciation in the rupee adds 25–30 basis points to CPI inflation. The 8–9% fall we have seen over the past year implies a meaningful and regressive inflation tax on those least equipped to pay it. Rural CPI inflation in India has historically run higher than urban, meaning the poorest households feel the squeeze most acutely.
+  </p>
+
+  <div class="impact-grid">
+    <div class="impact-col neg">
+      <h3>The clear negatives</h3>
+      <ul>
+        <li><span>Petrol and cooking gas become costlier as oil import bills rise in rupee terms</span></li>
+        <li><span>Fertiliser prices rise, hurting farmers who already borrow to fund inputs</span></li>
+        <li><span>Electronics, phones, and appliances (mostly imported or assembled from imported parts) get more expensive</span></li>
+        <li><span>Corporate debt denominated in dollars becomes more expensive to repay</span></li>
+        <li><span>Studying or seeking healthcare abroad is increasingly unaffordable for the middle class</span></li>
+        <li><span>Imported inflation may force the RBI to hold rates higher, slowing growth and job creation</span></li>
+      </ul>
+    </div>
+    <div class="impact-col pos">
+      <h3>The partial positives</h3>
+      <ul>
+        <li><span>IT and software companies earn more rupees per dollar billed: a direct revenue boost</span></li>
+        <li><span>India's $125+ billion in annual remittances buys more rupees for receiving families</span></li>
+        <li><span>Textiles and pharma exporters gain price competitiveness, if they can hold down input costs</span></li>
+        <li><span>Foreign tourists find India cheaper: a potential boost to hospitality and tourism</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- SECTION 6 -->
+  <div class="section-flag">
+    <span class="num">06</span>
+    <span class="label">The honest verdict</span>
+  </div>
+
+  <div class="conclusion">
+    <div class="verdict-line">Strong economy.<br><em>Weakening currency.</em><br>Both can be true, and both matter.</div>
+
+    <p>
+      India's growth story is real. The ambition to become the world's third-largest economy by 2031 is achievable. But ambition denominated in rupees is worth less in dollar terms every passing year. The IMF already revised India's GDP ranking down from fifth to sixth, not because growth slowed, but because the rupee fell.
+    </p>
+
+    <p>
+      The rupee's decline is neither a crisis nor a minor inconvenience. It sits in the uncomfortable middle: a persistent structural problem that is being managed, but not solved. The RBI can smooth the journey. It cannot change the destination without deeper fixes, including a manufacturing revolution, genuine export diversification, reduction in oil dependence, and durable foreign investment.
+    </p>
+
+    <p>
+      Until then, consider what a "crawl-like depreciation" means in practice: every year, the rupee buys a little less on the world stage. Every year, the farmer's fertiliser costs a little more. Every year, the middle-class family's dream of sending their child abroad requires a little more saving. These are not dramatic headlines. They are quiet, compounding losses: the kind that go unnoticed until they don't.
+    </p>
+
+    <p>
+      The question India needs to ask is not whether the rupee is in crisis. It isn't, at the moment. The question is whether the slow bleed is being mistaken for stability and whether the comfort of managed decline is displacing the urgency of structural repair.
+    </p>
+  </div>
+
+  <div class="footnote">
+    <strong>Data sources:</strong> RBI Handbook of Statistics · IMF World Economic Outlook, April 2026 · EBC Financial Group · HDFC AMC · ICICIdirect · Trading Economics · Angel One · Kotak MF · Asia Times · Business Standard · FPI data: NSDL (as of April 16, 2026). All exchange rates are mid-market rates. This article is for informational purposes only and does not constitute financial or investment advice.
+  </div>
+
+</div>
+</body>
+</html>

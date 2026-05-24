@@ -150,6 +150,12 @@
   margin-bottom: 18px;
 }
 
+/* Invisible spacer to align divider across cards without seat bar.
+   Total = bar (4px) + bar mb (5px) + txt (11px * 1.5 ≈ 17px) + txt mb (18px) ≈ 44px */
+.plan-seats-spacer {
+  height: 44px;
+}
+
 /* Divider */
 .plan-divider {
   border: none;
