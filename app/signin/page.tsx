@@ -159,6 +159,37 @@ function SignInContent() {
   /* --------------------------------
     OTP Box Handler
   ----------------------------------*/
+  function handleOtpKeyDown(e: React.KeyboardEvent<HTMLInputElement>, index: number) {
+    if (e.key === "Backspace" && !otp6[index] && index > 0) {
+      const next = [...otp6];
+      next[index - 1] = "";
+      setOtp6(next);
+      document.getElementById(`otp-${index - 1}`)?.focus();
+    }
+  }
+
+  function handleOtpInput(e: React.FormEvent<HTMLInputElement>, index: number) {
+    const inputType = (e.nativeEvent as InputEvent).inputType;
+    if (inputType === "deleteContentBackward" && !otp6[index] && index > 0) {
+      const next = [...otp6];
+      next[index - 1] = "";
+      setOtp6(next);
+      document.getElementById(`otp-${index - 1}`)?.focus();
+    }
+  }
+
+  function handleOtpPaste(e: React.ClipboardEvent<HTMLInputElement>, index: number) {
+    e.preventDefault();
+    const digits = e.clipboardData.getData("text").replace(/\D/g, "").slice(0, 6);
+    if (!digits) return;
+    const next = [...otp6];
+    for (let i = 0; i < digits.length; i++) {
+      if (index + i < next.length) next[index + i] = digits[i];
+    }
+    setOtp6(next);
+    document.getElementById(`otp-${Math.min(index + digits.length, next.length - 1)}`)?.focus();
+  }
+
   function handleOtpChange(index: number, value: string) {
     if (!/^\d?$/.test(value)) return;
     const next = [...otp6];
@@ -294,6 +325,9 @@ function SignInContent() {
                     className="otp-box"
                     value={digit}
                     onChange={(e) => handleOtpChange(i, e.target.value)}
+                    onKeyDown={(e) => handleOtpKeyDown(e, i)}
+                    onInput={(e) => handleOtpInput(e, i)}
+                    onPaste={(e) => handleOtpPaste(e, i)}
                   />
                 ))}
               </div>
@@ -326,6 +360,9 @@ function SignInContent() {
                     className="otp-box"
                     value={digit}
                     onChange={(e) => handleOtpChange(i, e.target.value)}
+                    onKeyDown={(e) => handleOtpKeyDown(e, i)}
+                    onInput={(e) => handleOtpInput(e, i)}
+                    onPaste={(e) => handleOtpPaste(e, i)}
                   />
                 ))}
               </div>

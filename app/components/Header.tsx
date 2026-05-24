@@ -10,7 +10,7 @@ export default function Header() {
   const router = useRouter();
   const { lang, setLang, t } = useLanguage();
   const [open, setOpen] = useState(false);
-  const [loggedIn, setLoggedIn] = useState(false);
+  const [loggedIn, setLoggedIn] = useState<boolean | null>(null);
   const [accountOpen, setAccountOpen] = useState(false);
   const accountRef = useRef<HTMLDivElement>(null);
 
@@ -23,8 +23,8 @@ export default function Header() {
 
   async function handleLogout() {
     await fetch("/api/logout", { method: "POST" });
+    setLoggedIn(false);
     router.push("/");
-    router.refresh();
   }
 
   useEffect(() => {
@@ -39,12 +39,24 @@ export default function Header() {
 
   return (
     <header className="header">
+      <style>{`
+        @media (max-width: 768px) {
+          .header { justify-content: flex-start; }
+          .header-logo { margin-right: auto; }
+          .hamburger { margin-left: 8px !important; }
+          .nav-links { display: none !important; }
+          .nav-cta { display: none !important; }
+          .desktop-nav { display: none !important; }
+          .mobile-signin-btn { display: inline !important; }
+        }
+        .mobile-signin-btn { display: none; }
+      `}</style>
       <Link href="/" className="header-logo">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src="/logo.PNG" alt="Bodha" style={{ height: "64px", width: "auto", display: "block" }} />
       </Link>
 
-      {loggedIn ? (
+      {loggedIn === null ? null : loggedIn ? (
         <>
           {/* Desktop — signed in */}
           <nav className="header-nav desktop-nav">
@@ -88,8 +100,7 @@ export default function Header() {
               <button className="mobile-link" style={{ background: "none", border: "none", cursor: "pointer", font: "inherit" }} onClick={() => { setLang(lang === "en" ? "kn" : "en"); setOpen(false); }}>
                 {lang === "en" ? "ಕನ್ನಡ" : "English"}
               </button>
-              <Link href="#" className="mobile-link" onClick={() => setOpen(false)}>{t("settings")}</Link>
-              <button className="mobile-logout" onClick={handleLogout}>{t("logout")}</button>
+              <button className="mobile-logout" onClick={() => { setOpen(false); handleLogout(); }}>{t("logout")}</button>
             </nav>
           )}
         </>
@@ -112,6 +123,7 @@ export default function Header() {
             <span style={{ color: "rgba(0,0,0,0.15)", fontSize: 18 }}>|</span>
             <Link href="/signin?mode=signup" className="btn-primary">Sign Up</Link>
           </div>
+          <Link href="/signin" className="btn-ghost mobile-signin-btn">Sign In</Link>
           <button className="hamburger" onClick={() => setOpen(!open)} aria-label="Toggle menu">
             <div className={open ? "bar open bar1" : "bar bar1"}></div>
             <div className={open ? "bar open bar2" : "bar bar2"}></div>
@@ -124,8 +136,10 @@ export default function Header() {
               <Link href="/tools" className="mobile-link" onClick={() => setOpen(false)}>{t("tools")}</Link>
               <Link href="/blogs" className="mobile-link" onClick={() => setOpen(false)}>{t("insights")}</Link>
               <Link href="/about" className="mobile-link" onClick={() => setOpen(false)}>{t("aboutUs")}</Link>
+              <button className="mobile-link" style={{ background: "none", border: "none", cursor: "pointer", font: "inherit", width: "100%" }} onClick={() => { setLang(lang === "en" ? "kn" : "en"); setOpen(false); }}>
+                {lang === "en" ? "ಕನ್ನಡ" : "English"}
+              </button>
               <Link href="/signin" className="mobile-link" onClick={() => setOpen(false)}>Sign In</Link>
-              <Link href="/signin?mode=signup" className="mobile-link" onClick={() => setOpen(false)}>Sign Up</Link>
             </nav>
           )}
         </>
