@@ -9,7 +9,7 @@ export const chapters = [
   {
     title: {
       en: "Chapter 1: Net Worth Thinking — Assets, Liabilities & Cash Flow",
-      kn: "ಅಧ್ಯಾಯ 1: ನಿವ್ವಳ ಮೌಲ್ಯ ಚಿಂತನೆ — ಆಸ್ತಿಗಳು, ಹೊಣೆಗಾರಿಕೆಗಳು ಮತ್ತು ನಗದು ಹರಿವು",
+      kn: "ಅಧ್ಯಾಯ ೧: ನಿವ್ವಳ ಮೌಲ್ಯ ಚಿಂತನೆ — ಆಸ್ತಿಗಳು, ಹೊಣೆಗಾರಿಕೆಗಳು ಮತ್ತು ನಗದು ಹರಿವು",
     },
     content: {
       en: (
@@ -80,7 +80,7 @@ export const chapters = [
   {
     title: {
       en: "Chapter 2: Understanding Your Financial Starting Point",
-      kn: "ಅಧ್ಯಾಯ 2: ನಿಮ್ಮ ಹಣಕಾಸಿನ ಆರಂಭಿಕ ಬಿಂದುವನ್ನು ಅರ್ಥಮಾಡಿಕೊಳ್ಳುವುದು",
+      kn: "ಅಧ್ಯಾಯ ೨: ನಿಮ್ಮ ಹಣಕಾಸಿನ ಆರಂಭಿಕ ಬಿಂದುವನ್ನು ಅರ್ಥಮಾಡಿಕೊಳ್ಳುವುದು",
     },
     content: {
       en: (
@@ -104,7 +104,7 @@ export const chapters = [
       ),
       kn: (
         <p className="text-sm text-yellow-600/60 italic">
-          [ಅಧ್ಯಾಯ 2 ವಿಷಯ: ನಿಮ್ಮ ಹಣಕಾಸಿನ ಆರಂಭಿಕ ಬಿಂದುವನ್ನು ಅರ್ಥಮಾಡಿಕೊಳ್ಳುವುದು — ಶೀಘ್ರದಲ್ಲೇ ಬರಲಿದೆ]
+          [ಅಧ್ಯಾಯ ೨ ವಿಷಯ: ನಿಮ್ಮ ಹಣಕಾಸಿನ ಆರಂಭಿಕ ಬಿಂದುವನ್ನು ಅರ್ಥಮಾಡಿಕೊಳ್ಳುವುದು — ಶೀಘ್ರದಲ್ಲೇ ಬರಲಿದೆ]
         </p>
       ),
     },
@@ -112,7 +112,7 @@ export const chapters = [
   {
     title: {
       en: "Chapter 3: Risk Appetite vs Risk Capacity",
-      kn: "ಅಧ್ಯಾಯ 3: ಅಪಾಯದ ಹಸಿವು ಮತ್ತು ಅಪಾಯ ಭರಿಸುವ ಸಾಮರ್ಥ್ಯ",
+      kn: "ಅಧ್ಯಾಯ ೩: ಅಪಾಯದ ಹಸಿವು ಮತ್ತು ಅಪಾಯ ಭರಿಸುವ ಸಾಮರ್ಥ್ಯ",
     },
     content: {
       en: (
@@ -142,7 +142,7 @@ export const chapters = [
       ),
       kn: (
         <p className="text-sm text-yellow-600/60 italic">
-          [ಅಧ್ಯಾಯ 3 ವಿಷಯ: ಅಪಾಯದ ಹಸಿವು ಮತ್ತು ಅಪಾಯ ಭರಿಸುವ ಸಾಮರ್ಥ್ಯ — ಶೀಘ್ರದಲ್ಲೇ ಬರಲಿದೆ]
+          [ಅಧ್ಯಾಯ ೩ ವಿಷಯ: ಅಪಾಯದ ಹಸಿವು ಮತ್ತು ಅಪಾಯ ಭರಿಸುವ ಸಾಮರ್ಥ್ಯ — ಶೀಘ್ರದಲ್ಲೇ ಬರಲಿದೆ]
         </p>
       ),
     },
@@ -150,7 +150,7 @@ export const chapters = [
   {
     title: {
       en: "Chapter 4: Emergency Fund — Your Financial Safety Net",
-      kn: "ಅಧ್ಯಾಯ 4: ತುರ್ತು ನಿಧಿ — ನಿಮ್ಮ ಹಣಕಾಸಿನ ಸುರಕ್ಷತಾ ಜಾಲ",
+      kn: "ಅಧ್ಯಾಯ ೪: ತುರ್ತು ನಿಧಿ — ನಿಮ್ಮ ಹಣಕಾಸಿನ ಸುರಕ್ಷತಾ ಜಾಲ",
     },
     content: {
       en: (
@@ -174,7 +174,7 @@ export const chapters = [
       ),
       kn: (
         <p className="text-sm text-yellow-600/60 italic">
-          [ಅಧ್ಯಾಯ 4 ವಿಷಯ: ತುರ್ತು ನಿಧಿ — ನಿಮ್ಮ ಹಣಕಾಸಿನ ಸುರಕ್ಷತಾ ಜಾಲ — ಶೀಘ್ರದಲ್ಲೇ ಬರಲಿದೆ]
+          [ಅಧ್ಯಾಯ ೪ ವಿಷಯ: ತುರ್ತು ನಿಧಿ — ನಿಮ್ಮ ಹಣಕಾಸಿನ ಸುರಕ್ಷತಾ ಜಾಲ — ಶೀಘ್ರದಲ್ಲೇ ಬರಲಿದೆ]
         </p>
       ),
     },
@@ -182,7 +182,7 @@ export const chapters = [
   {
     title: {
       en: "Chapter 5: Role of Real Estate in Wealth Allocation",
-      kn: "ಅಧ್ಯಾಯ 5: ಸಂಪತ್ತು ಹಂಚಿಕೆಯಲ್ಲಿ ರಿಯಲ್ ಎಸ್ಟೇಟ್\u200Cನ ಪಾತ್ರ",
+      kn: "ಅಧ್ಯಾಯ ೫: ಸಂಪತ್ತು ಹಂಚಿಕೆಯಲ್ಲಿ ರಿಯಲ್ ಎಸ್ಟೇಟ್\u200Cನ ಪಾತ್ರ",
     },
     content: {
       en: (
@@ -211,7 +211,7 @@ export const chapters = [
       ),
       kn: (
         <p className="text-sm text-yellow-600/60 italic">
-          [ಅಧ್ಯಾಯ 5 ವಿಷಯ: ಸಂಪತ್ತು ಹಂಚಿಕೆಯಲ್ಲಿ ರಿಯಲ್ ಎಸ್ಟೇಟ್&#8204;ನ ಪಾತ್ರ — ಶೀಘ್ರದಲ್ಲೇ ಬರಲಿದೆ]
+          [ಅಧ್ಯಾಯ ೫ ವಿಷಯ: ಸಂಪತ್ತು ಹಂಚಿಕೆಯಲ್ಲಿ ರಿಯಲ್ ಎಸ್ಟೇಟ್&#8204;ನ ಪಾತ್ರ — ಶೀಘ್ರದಲ್ಲೇ ಬರಲಿದೆ]
         </p>
       ),
     },
@@ -219,7 +219,7 @@ export const chapters = [
   {
     title: {
       en: "Chapter 6: Age-Based and Goal-Based Investing",
-      kn: "ಅಧ್ಯಾಯ 6: ವಯಸ್ಸು-ಆಧಾರಿತ ಮತ್ತು ಗುರಿ-ಆಧಾರಿತ ಹೂಡಿಕೆ",
+      kn: "ಅಧ್ಯಾಯ ೬: ವಯಸ್ಸು-ಆಧಾರಿತ ಮತ್ತು ಗುರಿ-ಆಧಾರಿತ ಹೂಡಿಕೆ",
     },
     content: {
       en: (
@@ -272,7 +272,7 @@ export const chapters = [
       ),
       kn: (
         <p className="text-sm text-yellow-600/60 italic">
-          [ಅಧ್ಯಾಯ 6 ವಿಷಯ: ವಯಸ್ಸು-ಆಧಾರಿತ ಮತ್ತು ಗುರಿ-ಆಧಾರಿತ ಹೂಡಿಕೆ — ಶೀಘ್ರದಲ್ಲೇ ಬರಲಿದೆ]
+          [ಅಧ್ಯಾಯ ೬ ವಿಷಯ: ವಯಸ್ಸು-ಆಧಾರಿತ ಮತ್ತು ಗುರಿ-ಆಧಾರಿತ ಹೂಡಿಕೆ — ಶೀಘ್ರದಲ್ಲೇ ಬರಲಿದೆ]
         </p>
       ),
     },
@@ -280,7 +280,7 @@ export const chapters = [
   {
     title: {
       en: "Chapter 7: Asset Allocation — The Core Driver of Returns",
-      kn: "ಅಧ್ಯಾಯ 7: ಆಸ್ತಿ ಹಂಚಿಕೆ — ಆದಾಯದ ಮೂಲ ಚಾಲಕ",
+      kn: "ಅಧ್ಯಾಯ ೭: ಆಸ್ತಿ ಹಂಚಿಕೆ — ಆದಾಯದ ಮೂಲ ಚಾಲಕ",
     },
     content: {
       en: (
@@ -341,7 +341,7 @@ export const chapters = [
       ),
       kn: (
         <p className="text-sm text-yellow-600/60 italic">
-          [ಅಧ್ಯಾಯ 7 ವಿಷಯ: ಆಸ್ತಿ ಹಂಚಿಕೆ — ಆದಾಯದ ಮೂಲ ಚಾಲಕ — ಶೀಘ್ರದಲ್ಲೇ ಬರಲಿದೆ]
+          [ಅಧ್ಯಾಯ ೭ ವಿಷಯ: ಆಸ್ತಿ ಹಂಚಿಕೆ — ಆದಾಯದ ಮೂಲ ಚಾಲಕ — ಶೀಘ್ರದಲ್ಲೇ ಬರಲಿದೆ]
         </p>
       ),
     },
@@ -349,7 +349,7 @@ export const chapters = [
   {
     title: {
       en: "Chapter 8: Diversification — Managing Portfolio Risk",
-      kn: "ಅಧ್ಯಾಯ 8: ವೈವಿಧ್ಯೀಕರಣ — ಪೋರ್ಟ್\u200Cಫೋಲಿಯೊ ಅಪಾಯ ನಿರ್ವಹಣೆ",
+      kn: "ಅಧ್ಯಾಯ ೮: ವೈವಿಧ್ಯೀಕರಣ — ಪೋರ್ಟ್\u200Cಫೋಲಿಯೊ ಅಪಾಯ ನಿರ್ವಹಣೆ",
     },
     content: {
       en: (
@@ -419,7 +419,7 @@ export const chapters = [
       ),
       kn: (
         <p className="text-sm text-yellow-600/60 italic">
-          [ಅಧ್ಯಾಯ 8 ವಿಷಯ: ವೈವಿಧ್ಯೀಕರಣ — ಪೋರ್ಟ್&#8204;ಫೋಲಿಯೊ ಅಪಾಯ ನಿರ್ವಹಣೆ — ಶೀಘ್ರದಲ್ಲೇ ಬರಲಿದೆ]
+          [ಅಧ್ಯಾಯ ೮ ವಿಷಯ: ವೈವಿಧ್ಯೀಕರಣ — ಪೋರ್ಟ್&#8204;ಫೋಲಿಯೊ ಅಪಾಯ ನಿರ್ವಹಣೆ — ಶೀಘ್ರದಲ್ಲೇ ಬರಲಿದೆ]
         </p>
       ),
     },

@@ -15,7 +15,7 @@ export const chapters = [
   {
     title: {
       en: "Chapter 1: Understanding the Income Tax System in India",
-      kn: "ಅಧ್ಯಾಯ 1: ಭಾರತದ ಆದಾಯ ತೆರಿಗೆ ವ್ಯವಸ್ಥೆಯ ಪರಿಚಯ",
+      kn: "ಅಧ್ಯಾಯ ೧: ಭಾರತದ ಆದಾಯ ತೆರಿಗೆ ವ್ಯವಸ್ಥೆಯ ಪರಿಚಯ",
     },
     content: {
       en: (
@@ -154,7 +154,7 @@ export const chapters = [
   {
     title: {
       en: "Chapter 2: Capital Gains - The Foundation of Investment Taxation",
-      kn: "ಅಧ್ಯಾಯ 2: ಬಂಡವಾಳ ಲಾಭ - ಹೂಡಿಕೆ ತೆರಿಗೆಯ ಅಡಿಪಾಯ",
+      kn: "ಅಧ್ಯಾಯ ೨: ಬಂಡವಾಳ ಲಾಭ - ಹೂಡಿಕೆ ತೆರಿಗೆಯ ಅಡಿಪಾಯ",
     },
     content: {
       en: (
@@ -267,7 +267,7 @@ export const chapters = [
   {
     title: {
       en: "Chapter 3: Taxation of Equity Investments",
-      kn: "ಅಧ್ಯಾಯ 3: ಷೇರು ಹೂಡಿಕೆಗಳ ತೆರಿಗೆ",
+      kn: "ಅಧ್ಯಾಯ ೩: ಷೇರು ಹೂಡಿಕೆಗಳ ತೆರಿಗೆ",
     },
     content: {
       en: (
@@ -387,7 +387,7 @@ export const chapters = [
   {
     title: {
       en: "Chapter 4: Taxation of Mutual Funds",
-      kn: "ಅಧ್ಯಾಯ 4: ಮ್ಯೂಚುಯಲ್ ಫಂಡ್\u200Cಗಳ ತೆರಿಗೆ",
+      kn: "ಅಧ್ಯಾಯ ೪: ಮ್ಯೂಚುಯಲ್ ಫಂಡ್\u200Cಗಳ ತೆರಿಗೆ",
     },
     content: {
       en: (
@@ -526,7 +526,7 @@ export const chapters = [
   {
     title: {
       en: "Chapter 5: Growth vs IDCW - Tax Impact and Compounding",
-      kn: "ಅಧ್ಯಾಯ 5: ಗ್ರೋತ್ vs IDCW - ತೆರಿಗೆ ಪರಿಣಾಮ ಮತ್ತು ಕಂಪೌಂಡಿಂಗ್",
+      kn: "ಅಧ್ಯಾಯ ೫: ಗ್ರೋತ್ vs IDCW - ತೆರಿಗೆ ಪರಿಣಾಮ ಮತ್ತು ಕಂಪೌಂಡಿಂಗ್",
     },
     content: {
       en: (
@@ -639,7 +639,7 @@ export const chapters = [
   {
     title: {
       en: "Chapter 6: Dividend Taxation",
-      kn: "ಅಧ್ಯಾಯ 6: ಡಿವಿಡೆಂಡ್ ತೆರಿಗೆ",
+      kn: "ಅಧ್ಯಾಯ ೬: ಡಿವಿಡೆಂಡ್ ತೆರಿಗೆ",
     },
     content: {
       en: (
@@ -743,7 +743,7 @@ export const chapters = [
   {
     title: {
       en: "Chapter 7: Interest Income and Fixed Income Taxation",
-      kn: "ಅಧ್ಯಾಯ 7: ಬಡ್ಡಿ ಆದಾಯ ಮತ್ತು ಸ್ಥಿರ ಆದಾಯ ತೆರಿಗೆ",
+      kn: "ಅಧ್ಯಾಯ ೭: ಬಡ್ಡಿ ಆದಾಯ ಮತ್ತು ಸ್ಥಿರ ಆದಾಯ ತೆರಿಗೆ",
     },
     content: {
       en: (
@@ -876,7 +876,7 @@ export const chapters = [
   {
     title: {
       en: "Chapter 8: Tax Loss Harvesting",
-      kn: "ಅಧ್ಯಾಯ 8: ತೆರಿಗೆ ನಷ್ಟ ಕಟಾವು",
+      kn: "ಅಧ್ಯಾಯ ೮: ತೆರಿಗೆ ನಷ್ಟ ಕಟಾವು",
     },
     content: {
       en: (

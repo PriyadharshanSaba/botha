@@ -2,6 +2,7 @@ import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import ModuleViewer from "@/app/modules/ModuleViewer";
 import { chapters } from "./chapters";
+import { chaptersKn } from "./chapters-kn";
 
 import "../modules.css";
 import "../module-detail.css";
@@ -22,8 +23,14 @@ export default async function ChoosingTheRightFundPage() {
     >
       {chapters.map((ch, i) => (
         <div key={i}>
-          <h2>{ch.title}</h2>
-          {ch.content}
+          <div data-lang="en">
+            <h2>{ch.title}</h2>
+            {ch.content}
+          </div>
+          <div data-lang="kn">
+            <h2>{chaptersKn[i].title}</h2>
+            {chaptersKn[i].content}
+          </div>
         </div>
       ))}
     </ModuleViewer>

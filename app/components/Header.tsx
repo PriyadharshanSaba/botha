@@ -76,7 +76,6 @@ export default function Header() {
                   <button className="dropdown-item" onClick={() => { setLang(lang === "en" ? "kn" : "en"); setAccountOpen(false); }}>
                     {lang === "en" ? "ಕನ್ನಡ" : "English"}
                   </button>
-                  <Link href="#" className="dropdown-item" onClick={() => setAccountOpen(false)}>{t("settings")}</Link>
                   <button className="dropdown-item dropdown-logout" onClick={() => { setAccountOpen(false); handleLogout(); }}>
                     {t("logout")}
                   </button>

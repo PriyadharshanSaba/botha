@@ -26,7 +26,12 @@ export default function ModuleCard({
   view_module_link,
   progressChapter,
 }: ModuleCardProps) {
-  const { t } = useLanguage();
+  const { t, lang } = useLanguage();
+
+  const knDigits = ['೦','೧','೨','೩','೪','೫','೬','೭','೮','೯'];
+  const displayId = lang === "kn"
+    ? String(id).split('').map(d => knDigits[parseInt(d)]).join('')
+    : id;
 
   const hasProgress = progressChapter !== undefined && progressChapter > 0;
   const progressPct = hasProgress
@@ -37,7 +42,7 @@ export default function ModuleCard({
     <Link href={view_module_link} className="module-card-link">
       <div className="module-card hover-card">
         <div className="module-header">
-          <h2 className="module-number">{id}</h2>
+          <h2 className="module-number">{displayId}</h2>
         </div>
 
         <h3 className="module-name">{title}</h3>
