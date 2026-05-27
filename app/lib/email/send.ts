@@ -176,7 +176,7 @@ export async function sendInvoiceEmail(to: string, data: InvoiceData) {
       <tbody><tr>
         <td style="padding:13px 8px 13px 0;font-size:12px;color:${SLATE};vertical-align:top;border-bottom:1px solid ${MIST};">
           <div style="font-weight:500;color:${INK};margin-bottom:3px;">${escapeHtml(data.planName)} &mdash; Bodha Personal Finance Program</div>
-          <div style="font-size:11px;color:${MUTED};line-height:1.5;">Written course &mdash; English + Kannada. Lifetime access.<br/>All tools included. WhatsApp community &amp; doubt support for 1 year.</div>
+          <div style="font-size:11px;color:${MUTED};line-height:1.5;">Written course &mdash; English + Kannada. Lifetime access.<br/></div>
         </td>
         <td style="padding:13px 8px;text-align:right;font-size:12px;color:${SLATE};vertical-align:top;border-bottom:1px solid ${MIST};">1</td>
         <td style="padding:13px 0 13px 8px;text-align:right;font-size:12px;color:${SLATE};vertical-align:top;border-bottom:1px solid ${MIST};">${fmt(data.totalRs)}</td>

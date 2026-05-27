@@ -98,7 +98,7 @@ export function renderInvoiceHtml(inv: RenderableInvoice): string {
       <tr>
         <td style="padding:14px 8px 14px 0;font-size:12px;color:${SLATE};vertical-align:top;border-bottom:1px solid ${MIST};">
           <div style="font-weight:500;color:${INK};margin-bottom:3px;">${escapeHtml(li.description)}</div>
-          <div style="font-size:11px;color:${MUTED};line-height:1.5;">Written course — English + Kannada. Lifetime access.<br/>All tools included. WhatsApp community &amp; doubt support for 1 year.</div>
+          <div style="font-size:11px;color:${MUTED};line-height:1.5;">Written course — English + Kannada. Lifetime access.<br/></div>
           ${i === 0 ? "" : ""}
         </td>
         <td style="padding:14px 8px;text-align:center;font-size:12px;color:${SLATE};vertical-align:top;border-bottom:1px solid ${MIST};">${escapeHtml(li.hsnSac)}</td>
@@ -172,7 +172,7 @@ export function renderInvoiceHtml(inv: RenderableInvoice): string {
         <div style="font-size:10px;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:${GOLD};margin-bottom:10px;">Bill To</div>
         <div style="font-size:14px;font-weight:500;color:${INK};margin-bottom:4px;">${escapeHtml(buyer.name)}</div>
         <div style="font-size:12px;color:${SLATE};line-height:1.7;">${renderAddressLines(buyer)}${buyer.email ? `<br/>${escapeHtml(buyer.email)}` : ""}</div>
-        ${buyer.gstin ? `<div style="display:inline-block;margin-top:10px;font-size:10px;font-weight:500;background:${GOLD_BG};color:${GOLD};padding:3px 10px;border-radius:4px;letter-spacing:0.05em;">GSTIN: ${escapeHtml(buyer.gstin)}</div>` : `<div style="margin-top:10px;font-size:11px;color:${MUTED};font-style:italic;">(unregistered)</div>`}
+        ${buyer.gstin ? `<div style="display:inline-block;margin-top:10px;font-size:10px;font-weight:500;background:${GOLD_BG};color:${GOLD};padding:3px 10px;border-radius:4px;letter-spacing:0.05em;">GSTIN: ${escapeHtml(buyer.gstin)}</div>` : ``}
       </td>
     </tr></table>
   </td></tr>

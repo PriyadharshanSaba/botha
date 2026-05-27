@@ -196,7 +196,6 @@ function BillingContent() {
                     <div className="item-name">{data.planName} — Bodha Personal Finance Program</div>
                     <div className="item-desc">
                       Written course — English + Kannada. Lifetime access.<br />
-                      All tools included. WhatsApp community &amp; doubt support for 1 year.
                     </div>
                   </td>
                   <td>999293</td>
