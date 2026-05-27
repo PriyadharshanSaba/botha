@@ -7,10 +7,16 @@ import AppFooter from "./components/AppFooter";
 import CookieBanner from "./components/CookieBanner";
 import { LanguageProvider } from "./context/LanguageContext";
 
-export default function AppShell({ children }: { children: React.ReactNode }) {
+export default function AppShell({
+  children,
+  initialLoggedIn,
+}: {
+  children: React.ReactNode;
+  initialLoggedIn: boolean;
+}) {
   const pathname = usePathname();
   const [showBanner, setShowBanner] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(initialLoggedIn);
 
   // middleware already handles protection!
   const showHeader = pathname !== "/signin";
@@ -51,7 +57,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
 
   return (
     <LanguageProvider>
-      {showHeader && <Header />}
+      {showHeader && <Header initialLoggedIn={initialLoggedIn} />}
       {children}
       {showAppFooter && <AppFooter />}
       {showBanner && (

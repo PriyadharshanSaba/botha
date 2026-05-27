@@ -1,6 +1,7 @@
 // app/layout.tsx
 import "./globals.css";
 import React from "react";
+import { cookies } from "next/headers";
 import AppShell from "./AppShell";
 
 export const metadata = {
@@ -33,7 +34,10 @@ export const metadata = {
   },
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
+  // Server-side login check from cookie — avoids client-side flash while /api/me resolves.
+  const initialLoggedIn = (await cookies()).has("uid");
+
   return (
     <html lang="en">
       <head>
@@ -43,7 +47,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
       </head>
       <body>
-        <AppShell>
+        <AppShell initialLoggedIn={initialLoggedIn}>
           {children}
         </AppShell>
       </body>

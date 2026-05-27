@@ -6,25 +6,19 @@ import { useState, useRef, useEffect } from "react";
 import { useLanguage } from "../context/LanguageContext";
 import "./header.css";
 
-export default function Header() {
+export default function Header({ initialLoggedIn }: { initialLoggedIn: boolean }) {
   const router = useRouter();
   const { lang, setLang, t } = useLanguage();
   const [open, setOpen] = useState(false);
-  const [loggedIn, setLoggedIn] = useState<boolean | null>(null);
+  const [loggedIn, setLoggedIn] = useState<boolean>(initialLoggedIn);
   const [accountOpen, setAccountOpen] = useState(false);
   const accountRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    fetch("/api/me")
-      .then(r => r.json())
-      .then(d => setLoggedIn(d.loggedIn === true))
-      .catch(() => {});
-  }, []);
 
   async function handleLogout() {
     await fetch("/api/logout", { method: "POST" });
     setLoggedIn(false);
     router.push("/");
+    router.refresh(); // re-read uid cookie absence in RSC
   }
 
   useEffect(() => {
@@ -56,7 +50,7 @@ export default function Header() {
         <img src="/logo.PNG" alt="Bodha" style={{ height: "64px", width: "auto", display: "block" }} />
       </Link>
 
-      {loggedIn === null ? null : loggedIn ? (
+      {loggedIn ? (
         <>
           {/* Desktop — signed in */}
           <nav className="header-nav desktop-nav">
