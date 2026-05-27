@@ -56,8 +56,6 @@ export async function GET(req: NextRequest) {
   }
   const plan = getPlan(planId);
 
-  const totalRs = invoice.totalPaise / 100;
-
   return NextResponse.json({
     user: { firstName: user.firstName, lastName: user.lastName, email: user.email },
     orderId: invoice.razorpayOrderId,
@@ -67,6 +65,17 @@ export async function GET(req: NextRequest) {
     status: invoice.status,
     activatedAt: invoice.issuedAt ?? invoice.invoiceDate,
     invoiceNumber: invoice.invoiceNumber,
-    breakdown: { totalRs },
+    invoiceId: invoice.id,
+    pdfAvailable: invoice.pdfObjectKey !== null,
+    placeOfSupply: invoice.placeOfSupply,
+    buyer: invoice.buyerSnapshot,           // for full address render on /billing
+    totalPaise: invoice.totalPaise,         // exact paise for amount-in-words
+    breakdown: {
+      taxableRs: invoice.taxableTotalPaise / 100,
+      cgstRs:    invoice.cgstPaise / 100,
+      sgstRs:    invoice.sgstPaise / 100,
+      igstRs:    invoice.igstPaise / 100,
+      totalRs:   invoice.totalPaise / 100,
+    },
   });
 }

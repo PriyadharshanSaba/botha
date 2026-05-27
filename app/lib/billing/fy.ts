@@ -17,9 +17,17 @@ export function indianFY(d: Date): string {
   return `${startYear}-${String(startYear + 1).slice(2)}`;
 }
 
-/** Format full invoice number from FY + sequence. */
+/**
+ * Format full invoice number from FY + sequence.
+ *
+ * GST cap: invoice number ≤ 16 chars. `BV/YYYY-YY/` is 11 chars, leaving 5 for
+ * the sequence — so the hard ceiling is 99999/FY.
+ *
+ * Padding: 4 digits for seq 1-9999 (preserves existing format like BV/2026-27/0001).
+ * Sequence 10000-99999 renders without padding (no leading zero needed).
+ */
 export function formatInvoiceNumber(fy: string, seq: number): string {
-  if (seq < 1 || seq > 9999) {
+  if (seq < 1 || seq > 99999) {
     throw new Error(`invoice sequence out of range: ${seq}`);
   }
   return `BV/${fy}/${String(seq).padStart(4, "0")}`;

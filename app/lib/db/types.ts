@@ -98,6 +98,7 @@ export type InvoiceLineItem = {
   description: string;
   hsnSac: string;          // e.g. "999293" for commercial training
   qty: number;
+  unit: string;            // unit of measure, e.g. "Nos"
   unitPriceRs: number;     // pre-tax per unit (rupees, display only)
   taxableRs: number;       // qty * unitPriceRs (rupees, display only)
 };
@@ -136,6 +137,8 @@ export type Invoice = {
   notes: InvoiceNotes | null;
   voidedAt: Date | null;
   voidReason: string | null;
+
+  pdfObjectKey: string | null;
 
   createdAt: Date;
   issuedAt: Date | null;

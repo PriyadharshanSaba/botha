@@ -1,4 +1,5 @@
 import { Resend } from "resend";
+import { GetObjectCommand, S3Client } from "@aws-sdk/client-s3";
 
 function escapeHtml(str: string): string {
   return str
@@ -17,9 +18,38 @@ type InvoiceData = {
   orderId: string;
   paymentId: string;
   totalRs: number;
+  taxableRs: number;
+  cgstRs: number;
+  sgstRs: number;
+  igstRs: number;
+  placeOfSupply: string;
   activatedAt: string;
   invoiceNumber: string;
+  pdfObjectKey?: string | null;
 };
+
+async function fetchPdfBuffer(objectKey: string): Promise<Buffer | null> {
+  const { R2_ACCOUNT_ID, R2_ACCESS_KEY_ID, R2_SECRET_ACCESS_KEY, R2_BUCKET } = process.env;
+  if (!R2_ACCOUNT_ID || !R2_ACCESS_KEY_ID || !R2_SECRET_ACCESS_KEY || !R2_BUCKET) {
+    return null;
+  }
+  const client = new S3Client({
+    region: "auto",
+    endpoint: `https://${R2_ACCOUNT_ID}.r2.cloudflarestorage.com`,
+    credentials: { accessKeyId: R2_ACCESS_KEY_ID, secretAccessKey: R2_SECRET_ACCESS_KEY },
+  });
+  try {
+    const out = await client.send(new GetObjectCommand({ Bucket: R2_BUCKET, Key: objectKey }));
+    const chunks: Buffer[] = [];
+    for await (const c of out.Body as AsyncIterable<Uint8Array>) {
+      chunks.push(Buffer.isBuffer(c) ? c : Buffer.from(c));
+    }
+    return Buffer.concat(chunks);
+  } catch (err) {
+    console.error("[email] R2 PDF fetch failed:", err);
+    return null;
+  }
+}
 
 function rupeesToWords(amount: number): string {
   const a = ["", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine",
@@ -109,8 +139,9 @@ export async function sendInvoiceEmail(to: string, data: InvoiceData) {
       <td width="50%" valign="top" style="padding-right:20px;">
         <div style="font-size:10px;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:${GOLD};margin-bottom:10px;">Supplier</div>
         <div style="font-size:14px;font-weight:500;color:${INK};margin-bottom:4px;">Bodha Ventures LLP</div>
-        <div style="font-size:12px;color:${SLATE};line-height:1.7;">29, 6th Cross, 9th Main,<br/>Jalahalli Village,<br/>Bengaluru &mdash; 560013<br/>Karnataka, India<br/>bodhaventures@gmail.com</div>
-        <div style="display:inline-block;margin-top:8px;font-size:10px;font-weight:500;background:${GOLD_BG};color:${GOLD};padding:3px 10px;border-radius:4px;letter-spacing:0.05em;">PAN: ABGFB6431R</div>
+        <div style="font-size:12px;color:${SLATE};line-height:1.7;">29, 6th Cross, 9th Main,<br/>Jalahalli Village,<br/>Bengaluru &mdash; 560013<br/>Karnataka, India<br/>info@bodhaventures.in</div>
+        <div style="display:inline-block;margin-top:8px;font-size:10px;font-weight:500;background:${GOLD_BG};color:${GOLD};padding:3px 10px;border-radius:4px;letter-spacing:0.05em;">GSTIN: 29ABGFB6431R1ZT</div>
+        <div style="display:inline-block;margin-top:8px;margin-left:6px;font-size:10px;font-weight:500;background:${GOLD_BG};color:${GOLD};padding:3px 10px;border-radius:4px;letter-spacing:0.05em;">PAN: ABGFB6431R</div>
       </td>
       <td width="50%" valign="top" style="padding-left:20px;border-left:1px solid ${MIST};">
         <div style="font-size:10px;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:${GOLD};margin-bottom:10px;">Bill To</div>
@@ -153,10 +184,20 @@ export async function sendInvoiceEmail(to: string, data: InvoiceData) {
     </table>
   </td></tr>
 
+  <!-- ── PLACE OF SUPPLY ── -->
+  <tr><td style="padding:8px 32px 0;font-size:12px;color:${SLATE};"><strong>Place of Supply:</strong> ${escapeHtml(data.placeOfSupply)}</td></tr>
+
   <!-- ── TOTALS ── -->
   <tr><td style="padding:16px 32px 20px;border-top:1px solid ${MIST};">
     <table width="100%" cellpadding="0" cellspacing="0" border="0">
-      <tr><td style="font-size:15px;font-weight:500;color:${INK};padding:8px 0;">Total Amount</td><td align="right" style="font-size:15px;font-weight:500;color:${INK};padding:8px 0;">${fmt(data.totalRs)}</td></tr>
+      <tr><td style="font-size:12px;color:${MUTED};padding:4px 0;">Taxable Total</td><td align="right" style="font-size:12px;color:${INK};padding:4px 0;">${fmt(data.taxableRs)}</td></tr>
+      ${data.cgstRs > 0 || data.sgstRs > 0 ? `
+      <tr><td style="font-size:12px;color:${MUTED};padding:4px 0;">CGST @ 9%</td><td align="right" style="font-size:12px;color:${INK};padding:4px 0;">${fmt(data.cgstRs)}</td></tr>
+      <tr><td style="font-size:12px;color:${MUTED};padding:4px 0;">SGST @ 9%</td><td align="right" style="font-size:12px;color:${INK};padding:4px 0;">${fmt(data.sgstRs)}</td></tr>
+      ` : data.igstRs > 0 ? `
+      <tr><td style="font-size:12px;color:${MUTED};padding:4px 0;">IGST @ 18%</td><td align="right" style="font-size:12px;color:${INK};padding:4px 0;">${fmt(data.igstRs)}</td></tr>
+      ` : ""}
+      <tr><td style="font-size:15px;font-weight:500;color:${INK};padding:8px 0;border-top:1px solid ${MIST};">Grand Total</td><td align="right" style="font-size:15px;font-weight:500;color:${INK};padding:8px 0;border-top:1px solid ${MIST};">${fmt(data.totalRs)}</td></tr>
     </table>
   </td></tr>
 
@@ -187,7 +228,7 @@ export async function sendInvoiceEmail(to: string, data: InvoiceData) {
   <!-- ── CTA ── -->
   <tr><td style="padding:20px 32px;border-top:1px solid ${MIST};text-align:center;">
     <a href="${appUrl}/modules" style="display:inline-block;background:${GOLD};color:${INK};font-family:Arial,sans-serif;font-size:14px;font-weight:700;text-decoration:none;padding:12px 28px;border-radius:6px;letter-spacing:0.02em;">Start learning &rarr;</a>
-    <div style="margin-top:12px;font-size:11px;color:${MUTED};">Questions? <a href="mailto:support@bodha.in" style="color:${GOLD};text-decoration:none;">support@bodha.in</a></div>
+    <div style="margin-top:12px;font-size:11px;color:${MUTED};">Questions? <a href="mailto:info@bodhaventures.in.in" style="color:${GOLD};text-decoration:none;">info@bodhaventures.in.in</a></div>
   </td></tr>
 
   <!-- ── FOOTER ── -->
@@ -204,11 +245,18 @@ export async function sendInvoiceEmail(to: string, data: InvoiceData) {
 </body>
 </html>`;
 
+  const attachments: { filename: string; content: Buffer }[] = [];
+  if (data.pdfObjectKey) {
+    const pdf = await fetchPdfBuffer(data.pdfObjectKey);
+    if (pdf) attachments.push({ filename: `${data.invoiceNumber.replace(/\//g, "_")}.pdf`, content: pdf });
+  }
+
   const { error } = await resend.emails.send({
     from: "Bodha Ventures <info@bodhaventures.in>",
     to,
-    subject: `Invoice — ${escapeHtml(data.planName)} | Bodha Ventures LLP`,
+    subject: `Invoice ${data.invoiceNumber} — Bodha Ventures LLP`,
     html,
+    attachments: attachments.length > 0 ? attachments : undefined,
   });
 
   if (error) console.error("[Resend] Invoice email failed:", error);

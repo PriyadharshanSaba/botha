@@ -24,9 +24,9 @@ export const CURRENT_SUPPLIER: Supplier = {
     pincode: "560013",
     country: "India",
   },
-  email: "bodhaventures@gmail.com",
+  email: "info@bodhaventures.in",
   pan: "ABGFB6431R",
-  // gstin: "29XXXXXXXXXXXZX",   // uncomment + fill when GST registration completes
+  gstin: "29ABGFB6431R1ZT",       // GST registration effective 2026-05-27
   stateCode: "29",                // Karnataka
 };
 

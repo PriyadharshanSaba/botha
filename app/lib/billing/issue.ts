@@ -23,6 +23,9 @@ import { cloneSupplier, CURRENT_SUPPLIER } from "./supplier";
 import { buildBuyerSnapshot } from "./snapshot";
 import { computeInvoiceTax, type TaxBreakup } from "./tax";
 import { indianFY, formatInvoiceNumber } from "./fy";
+import { renderInvoiceHtml } from "./render/invoice-html";
+import { htmlToPdfBuffer } from "./render/invoice-pdf";
+import { uploadInvoicePdf } from "./storage";
 import type { InvoiceLineItem } from "@/app/lib/db/types";
 
 /* ──────────────────────────────────────────────────────────────────────── */
@@ -81,6 +84,7 @@ export async function createDraftInvoice(
       description: `${plan.name} — Bodha Personal Finance Program`,
       hsnSac: "999293",
       qty: 1,
+      unit: "Nos",
       unitPriceRs: input.taxablePaise / 100,
       taxableRs:   input.taxablePaise / 100,
     },
@@ -183,6 +187,31 @@ export async function issueInvoice(
 
     return num;
   });
+
+  // Best-effort PDF generation + R2 upload. Failure does NOT block issuance —
+  // pdf_object_key stays NULL, /billing falls back to "Download unavailable".
+  try {
+    const html = renderInvoiceHtml({
+      invoiceNumber,
+      invoiceDate: invoice.invoiceDate,
+      buyerSnapshot: invoice.buyerSnapshot,
+      supplierSnapshot: invoice.supplierSnapshot,
+      lineItems: invoice.lineItems,
+      placeOfSupply: invoice.placeOfSupply,
+      taxableTotalPaise: invoice.taxableTotalPaise,
+      cgstPaise: invoice.cgstPaise,
+      sgstPaise: invoice.sgstPaise,
+      igstPaise: invoice.igstPaise,
+      totalPaise: invoice.totalPaise,
+      razorpayOrderId: invoice.razorpayOrderId,
+      razorpayPaymentId,
+    });
+    const pdfBuf = await htmlToPdfBuffer(html);
+    const key    = await uploadInvoicePdf(invoice.id, pdfBuf);
+    await drizzle.update(invoices).set({ pdfObjectKey: key }).where(eq(invoices.id, invoice.id));
+  } catch (err) {
+    console.error(`[issueInvoice] PDF gen/upload failed for ${invoice.id}:`, err);
+  }
 
   return {
     invoiceId: invoice.id,

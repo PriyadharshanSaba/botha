@@ -1,6 +1,9 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
+import { eq } from "drizzle-orm";
 import { db } from "@/app/lib/db";
+import { db as drizzle } from "@/app/lib/db/connection";
+import { invoices } from "@/app/lib/db/schema";
 import { isTestEmail } from "@/app/lib/utils/otp";
 import { PLANS, type PlanId } from "@/app/lib/plans";
 import { sendInvoiceEmail } from "@/app/lib/email/send";
@@ -48,17 +51,32 @@ export async function POST(req: NextRequest) {
 
     // Fire invoice email for new bypass activations — non-blocking
     if (issued?.invoiceNumber) {
-      sendInvoiceEmail(user.email, {
-        firstName: user.firstName,
-        lastName: user.lastName,
-        email: user.email,
-        planName: plan.name,
-        orderId,
-        paymentId: "bypass",
-        totalRs: 0,
-        activatedAt: new Date().toISOString(),
-        invoiceNumber: issued.invoiceNumber,
-      }).catch((e) => console.error("[invoice] bypass send failed:", e));
+      (async () => {
+        const invRows = await drizzle
+          .select()
+          .from(invoices)
+          .where(eq(invoices.id, issued.invoiceId))
+          .limit(1);
+        const inv = invRows[0];
+        if (!inv) return;
+        await sendInvoiceEmail(user.email, {
+          firstName: user.firstName,
+          lastName: user.lastName,
+          email: user.email,
+          planName: plan.name,
+          orderId,
+          paymentId: "bypass",
+          totalRs:   inv.totalPaise / 100,
+          taxableRs: inv.taxableTotalPaise / 100,
+          cgstRs:    inv.cgstPaise / 100,
+          sgstRs:    inv.sgstPaise / 100,
+          igstRs:    inv.igstPaise / 100,
+          placeOfSupply: inv.placeOfSupply,
+          activatedAt: new Date().toISOString(),
+          invoiceNumber: issued.invoiceNumber,
+          pdfObjectKey: inv.pdfObjectKey,
+        });
+      })().catch((e) => console.error("[invoice] bypass send failed:", e));
     }
   }
 

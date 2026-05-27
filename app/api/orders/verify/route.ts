@@ -1,7 +1,10 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import crypto from "crypto";
+import { eq } from "drizzle-orm";
 import { db } from "@/app/lib/db";
+import { db as drizzle } from "@/app/lib/db/connection";
+import { invoices } from "@/app/lib/db/schema";
 import { getPlan, type PlanId } from "@/app/lib/plans";
 import { sendInvoiceEmail } from "@/app/lib/email/send";
 import { issueInvoice } from "@/app/lib/billing/issue";
@@ -62,22 +65,36 @@ export async function POST(req: NextRequest) {
 
   // Fire invoice email — non-blocking, failure doesn't affect payment response.
   // Skip if invoice issuance somehow returned no number (legacy edge case).
-  if (invoiceNumber) {
-    db.getUserById(userId).then((user) => {
+  if (invoiceNumber && issued) {
+    (async () => {
+      const user = await db.getUserById(userId);
       if (!user) return;
+      const invRows = await drizzle
+        .select()
+        .from(invoices)
+        .where(eq(invoices.id, issued.invoiceId))
+        .limit(1);
+      const inv = invRows[0];
+      if (!inv) return;
       const plan = getPlan(sub.planId as PlanId);
-      return sendInvoiceEmail(user.email, {
+      await sendInvoiceEmail(user.email, {
         firstName: user.firstName,
         lastName: user.lastName,
         email: user.email,
         planName: plan.name,
         orderId: razorpay_order_id,
         paymentId: razorpay_payment_id,
-        totalRs: sub.amountPaise / 100,
+        totalRs:    inv.totalPaise / 100,
+        taxableRs:  inv.taxableTotalPaise / 100,
+        cgstRs:     inv.cgstPaise / 100,
+        sgstRs:     inv.sgstPaise / 100,
+        igstRs:     inv.igstPaise / 100,
+        placeOfSupply: inv.placeOfSupply,
         activatedAt: new Date().toISOString(),
         invoiceNumber,
+        pdfObjectKey: inv.pdfObjectKey,
       });
-    }).catch((e) => console.error("[invoice] send failed:", e));
+    })().catch((e) => console.error("[invoice] send failed:", e));
   } else {
     console.warn("[orders/verify] skipped invoice email — no invoiceNumber for order:", razorpay_order_id);
   }

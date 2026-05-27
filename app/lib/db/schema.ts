@@ -67,6 +67,8 @@ export const invoices = pgTable(
     voidedAt:   timestamp("voided_at"),
     voidReason: text("void_reason"),
 
+    pdfObjectKey: text("pdf_object_key"),                                                      // R2 object key; NULL if generation failed
+
     createdAt: timestamp("created_at").defaultNow().notNull(),
     issuedAt:  timestamp("issued_at"),
   },

@@ -75,6 +75,7 @@ export async function backfillInvoices(opts: { dryRun: boolean }): Promise<Backf
         description: `${plan.name} — Bodha Personal Finance Program`,
         hsnSac: "999293",                                  // commercial training & coaching
         qty: 1,
+        unit: "Nos",
         unitPriceRs: sub.amountPaise / 100,
         taxableRs:   sub.amountPaise / 100,
       },

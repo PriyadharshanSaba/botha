@@ -182,6 +182,14 @@ export default function PlansPage() {
                       <span className="plan-price">₹{effectivePrice(plan, isTestUser).toLocaleString("en-IN")}</span>
                       {!isTestUser && plan.originalPriceRs && <span className="plan-price-orig">₹{plan.originalPriceRs.toLocaleString("en-IN")}</span>}
                     </div>
+                    {!isTestUser && (
+                      <p className="plan-gst-note">
+                        + 18% GST
+                        <span className="plan-gst-incl">
+                          (₹{Math.round(effectivePrice(plan, isTestUser) * 1.18).toLocaleString("en-IN")} inclusive of GST)
+                        </span>
+                      </p>
+                    )}
 
                     {plan.maxSeats !== null ? (
                       <>
@@ -249,6 +257,34 @@ export default function PlansPage() {
                 ₹{effectivePrice(selectedPlan, isTestUser).toLocaleString("en-IN")}
               </div>
             </div>
+
+            {/* GST breakdown — updates live with state selection */}
+            {!isTestUser && (() => {
+              const base    = effectivePrice(selectedPlan, isTestUser);
+              const taxable = Math.round(base);
+              const tax     = Math.round(taxable * 0.18);
+              const total   = taxable + tax;
+              const intra   = billing.state === "Karnataka";
+              const half    = Math.floor(tax / 2);
+              const cgst    = half;
+              const sgst    = tax - half;
+              return (
+                <div className="bf-tax-breakdown">
+                  <div className="bf-tax-row"><span>Taxable value</span><span>₹{taxable.toLocaleString("en-IN")}</span></div>
+                  {billing.state === "" ? (
+                    <div className="bf-tax-row bf-tax-muted"><span>GST @ 18% (select state for split)</span><span>₹{tax.toLocaleString("en-IN")}</span></div>
+                  ) : intra ? (
+                    <>
+                      <div className="bf-tax-row"><span>CGST @ 9%</span><span>₹{cgst.toLocaleString("en-IN")}</span></div>
+                      <div className="bf-tax-row"><span>SGST @ 9%</span><span>₹{sgst.toLocaleString("en-IN")}</span></div>
+                    </>
+                  ) : (
+                    <div className="bf-tax-row"><span>IGST @ 18%</span><span>₹{tax.toLocaleString("en-IN")}</span></div>
+                  )}
+                  <div className="bf-tax-row bf-tax-total"><span>Total payable</span><span>₹{total.toLocaleString("en-IN")}</span></div>
+                </div>
+              );
+            })()}
 
             <form className="bf-form" onSubmit={handleBillingSubmit} noValidate>
               <div className="bf-section-label">Billing details</div>

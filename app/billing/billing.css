@@ -466,6 +466,25 @@
   background: #2a2d35;
 }
 
+.billing-btn-secondary {
+  display: block;
+  width: 100%;
+  padding: 12px;
+  background: #fff;
+  color: #0d0d0d;
+  border: 1px solid #0d0d0d;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  transition: background 0.2s;
+}
+.billing-btn-secondary:hover {
+  background: #f3f4f6;
+}
+
 .billing-support {
   text-align: center;
   font-size: 12px;

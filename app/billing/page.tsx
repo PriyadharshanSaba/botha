@@ -3,6 +3,8 @@
 import { useEffect, useState, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
+import { paiseToWords } from "@/app/lib/billing/words";
+import type { BuyerSnapshot } from "@/app/lib/db/types";
 import "./billing.css";
 
 type BillingData = {
@@ -14,34 +16,19 @@ type BillingData = {
   status: string;
   activatedAt: string;
   invoiceNumber: string | null;
-  breakdown: { totalRs: number };
+  invoiceId: string;
+  pdfAvailable: boolean;
+  placeOfSupply: string;
+  buyer: BuyerSnapshot;
+  totalPaise: number;
+  breakdown: {
+    taxableRs: number;
+    cgstRs: number;
+    sgstRs: number;
+    igstRs: number;
+    totalRs: number;
+  };
 };
-
-function rupeesToWords(amount: number): string {
-  const a = ["", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine",
-    "Ten", "Eleven", "Twelve", "Thirteen", "Fourteen", "Fifteen", "Sixteen",
-    "Seventeen", "Eighteen", "Nineteen"];
-  const b = ["", "", "Twenty", "Thirty", "Forty", "Fifty", "Sixty", "Seventy", "Eighty", "Ninety"];
-
-  function inW(n: number): string {
-    if (n === 0) return "";
-    if (n < 20) return a[n] + " ";
-    if (n < 100) return b[Math.floor(n / 10)] + (n % 10 ? " " + a[n % 10] : "") + " ";
-    return a[Math.floor(n / 100)] + " Hundred " + inW(n % 100);
-  }
-
-  if (amount === 0) return "Rupees Zero Only";
-  const crore = Math.floor(amount / 10000000);
-  const lakh  = Math.floor((amount % 10000000) / 100000);
-  const thou  = Math.floor((amount % 100000) / 1000);
-  const rest  = Math.floor(amount % 1000);
-  let r = "";
-  if (crore) r += inW(crore) + "Crore ";
-  if (lakh)  r += inW(lakh)  + "Lakh ";
-  if (thou)  r += inW(thou)  + "Thousand ";
-  if (rest)  r += inW(rest);
-  return ("Rupees " + r.trim() + " Only").replace(/\s+/g, " ");
-}
 
 export default function BillingPage() {
   return (
@@ -90,7 +77,7 @@ function BillingContent() {
   }
 
   const { breakdown } = data;
-  const words = rupeesToWords(Math.round(breakdown.totalRs));
+  const words = paiseToWords(data.totalPaise);
 
   const fmt = (n: number) => "₹" + n.toLocaleString("en-IN", { minimumFractionDigits: 2 });
 
@@ -147,20 +134,29 @@ function BillingContent() {
                 Jalahalli Village,<br />
                 Bengaluru — 560013<br />
                 Karnataka, India<br />
-                bodhaventures@gmail.com
+                info@bodhaventures.in
               </div>
-              <span className="gstin-badge">PAN: ABGFB6431R</span>
+              <span className="gstin-badge">GSTIN: 29ABGFB6431R1ZT</span>
+              <span className="gstin-badge" style={{ marginLeft: 6 }}>PAN: ABGFB6431R</span>
             </div>
             <div className="party-block">
               <div className="party-label">Bill To</div>
-              {data.user ? (
-                <>
-                  <div className="party-name">{data.user.firstName} {data.user.lastName}</div>
-                  <div className="party-detail">{data.user.email}</div>
-                </>
-              ) : (
-                <div className="party-detail">—</div>
-              )}
+              <div className="party-name">{data.buyer.name}</div>
+              <div className="party-detail">
+                {data.buyer.address ? (
+                  <>
+                    {data.buyer.address.line1}
+                    {data.buyer.address.line2 ? <><br />{data.buyer.address.line2}</> : null}
+                    <br />
+                    {data.buyer.address.city} — {data.buyer.address.pincode}<br />
+                    {data.buyer.address.state}, {data.buyer.address.country}<br />
+                  </>
+                ) : null}
+                {data.buyer.email ?? data.user?.email ?? ""}
+              </div>
+              {data.buyer.gstin ? (
+                <span className="gstin-badge">GSTIN: {data.buyer.gstin}</span>
+              ) : null}
             </div>
           </div>
 
@@ -176,14 +172,22 @@ function BillingContent() {
             </div>
           </div>
 
+          {/* Place of supply */}
+          <div className="amount-words" style={{ marginBottom: 10 }}>
+            <strong>Place of Supply:</strong> {data.placeOfSupply}
+          </div>
+
           {/* Line items */}
           <div className="items-section">
             <table className="items-table">
               <thead>
                 <tr>
-                  <th style={{ width: "60%" }}>Description</th>
+                  <th style={{ width: "50%" }}>Description</th>
+                  <th>HSN/SAC</th>
                   <th>Qty</th>
-                  <th>Amount (₹)</th>
+                  <th>Unit</th>
+                  <th>Rate (₹)</th>
+                  <th>Taxable (₹)</th>
                 </tr>
               </thead>
               <tbody>
@@ -195,8 +199,11 @@ function BillingContent() {
                       All tools included. WhatsApp community &amp; doubt support for 1 year.
                     </div>
                   </td>
+                  <td>999293</td>
                   <td>1</td>
-                  <td>{fmt(breakdown.totalRs)}</td>
+                  <td>Nos</td>
+                  <td>{breakdown.taxableRs.toLocaleString("en-IN", { minimumFractionDigits: 2 })}</td>
+                  <td>{breakdown.taxableRs.toLocaleString("en-IN", { minimumFractionDigits: 2 })}</td>
                 </tr>
               </tbody>
             </table>
@@ -205,8 +212,29 @@ function BillingContent() {
           {/* Totals */}
           <div className="totals-wrap">
             <div className="amounts">
+              <div className="amount-row">
+                <span>Taxable Total</span>
+                <span>{fmt(breakdown.taxableRs)}</span>
+              </div>
+              {breakdown.cgstRs > 0 || breakdown.sgstRs > 0 ? (
+                <>
+                  <div className="amount-row">
+                    <span>CGST @ 9%</span>
+                    <span>{fmt(breakdown.cgstRs)}</span>
+                  </div>
+                  <div className="amount-row">
+                    <span>SGST @ 9%</span>
+                    <span>{fmt(breakdown.sgstRs)}</span>
+                  </div>
+                </>
+              ) : breakdown.igstRs > 0 ? (
+                <div className="amount-row">
+                  <span>IGST @ 18%</span>
+                  <span>{fmt(breakdown.igstRs)}</span>
+                </div>
+              ) : null}
               <div className="amount-row total">
-                <span>Total Amount</span>
+                <span>Grand Total</span>
                 <span>{fmt(breakdown.totalRs)}</span>
               </div>
             </div>
@@ -252,9 +280,23 @@ function BillingContent() {
           <Link href="/modules" className="billing-btn-primary">
             Start learning →
           </Link>
+          {data.pdfAvailable ? (
+            <a
+              href={`/api/billing/invoice/${data.invoiceId}/pdf`}
+              className="billing-btn-secondary"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Download invoice (PDF)
+            </a>
+          ) : (
+            <p className="billing-support" style={{ fontSize: 12 }}>
+              PDF download unavailable — contact support if you need a copy.
+            </p>
+          )}
           <p className="billing-support">
             Questions? Email us at{" "}
-            <a href="mailto:support@bodha.in">support@bodha.in</a>
+            <a href="mailto:info@bodhaventures.in">info@bodhaventures.in</a>
           </p>
         </div>
 
