@@ -1,8 +1,7 @@
 "use client";
 
 import { useEffect, useState, Suspense } from "react";
-import { useSearchParams } from "next/navigation";
-import Link from "next/link";
+import { useRouter, useSearchParams } from "next/navigation";
 import { paiseToWords } from "@/app/lib/billing/words";
 import type { BuyerSnapshot } from "@/app/lib/db/types";
 import "./billing.css";
@@ -39,11 +38,19 @@ export default function BillingPage() {
 }
 
 function BillingContent() {
+  const router = useRouter();
   const searchParams = useSearchParams();
   const ref = searchParams.get("ref");
 
   const [data, setData] = useState<BillingData | null>(null);
   const [error, setError] = useState("");
+  const [navigating, setNavigating] = useState(false);
+
+  function startLearning() {
+    if (navigating) return;
+    setNavigating(true);
+    router.push("/modules");
+  }
 
   useEffect(() => {
     const url = ref ? `/api/billing?ref=${ref}` : "/api/billing";
@@ -276,9 +283,22 @@ function BillingContent() {
 
         {/* ── CTA ── */}
         <div className="billing-cta">
-          <Link href="/modules" className="billing-btn-primary">
-            Start learning →
-          </Link>
+          <button
+            type="button"
+            className="billing-btn-primary"
+            onClick={startLearning}
+            disabled={navigating}
+            aria-busy={navigating}
+          >
+            {navigating ? (
+              <>
+                <span className="billing-btn-spinner" aria-hidden="true" />
+                Loading your modules…
+              </>
+            ) : (
+              <>Start learning →</>
+            )}
+          </button>
           {data.pdfAvailable ? (
             <a
               href={`/api/billing/invoice/${data.invoiceId}/pdf`}

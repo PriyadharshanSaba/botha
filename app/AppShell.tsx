@@ -32,10 +32,14 @@ export default function AppShell({
     pathname.startsWith("/blogs/");
   const showAppFooter = showHeader && !hasOwnFooter;
 
+  // Re-check auth on every route change — keeps Header in sync after
+  // OTP login / payment without requiring a full page refresh.
   useEffect(() => {
-    fetch("/api/me")
+    let cancelled = false;
+    fetch("/api/me", { cache: "no-store" })
       .then((r) => r.json())
       .then((data) => {
+        if (cancelled) return;
         setIsLoggedIn(data.loggedIn);
         if (data.needsConsent) {
           setShowBanner(true);
@@ -46,10 +50,12 @@ export default function AppShell({
         }
       })
       .catch(() => {
+        if (cancelled) return;
         // network error — show banner so user can consent anyway
         setShowBanner(true);
       });
-  }, []);
+    return () => { cancelled = true; };
+  }, [pathname]);
 
   function handleConsentSaved() {
     setShowBanner(false);
@@ -57,7 +63,7 @@ export default function AppShell({
 
   return (
     <LanguageProvider>
-      {showHeader && <Header initialLoggedIn={initialLoggedIn} />}
+      {showHeader && <Header loggedIn={isLoggedIn} onLoggedOut={() => setIsLoggedIn(false)} />}
       {children}
       {showAppFooter && <AppFooter />}
       {showBanner && (

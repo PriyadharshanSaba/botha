@@ -6,17 +6,22 @@ import { useState, useRef, useEffect } from "react";
 import { useLanguage } from "../context/LanguageContext";
 import "./header.css";
 
-export default function Header({ initialLoggedIn }: { initialLoggedIn: boolean }) {
+export default function Header({
+  loggedIn,
+  onLoggedOut,
+}: {
+  loggedIn: boolean;
+  onLoggedOut?: () => void;
+}) {
   const router = useRouter();
   const { lang, setLang, t } = useLanguage();
   const [open, setOpen] = useState(false);
-  const [loggedIn, setLoggedIn] = useState<boolean>(initialLoggedIn);
   const [accountOpen, setAccountOpen] = useState(false);
   const accountRef = useRef<HTMLDivElement>(null);
 
   async function handleLogout() {
     await fetch("/api/logout", { method: "POST" });
-    setLoggedIn(false);
+    onLoggedOut?.();
     router.push("/");
     router.refresh(); // re-read uid cookie absence in RSC
   }

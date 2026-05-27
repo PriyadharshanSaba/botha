@@ -35,6 +35,7 @@ export default function PlansPage() {
   const [isTestUser, setIsTestUser] = useState(false);
   const [billing, setBilling]       = useState<BillingInfo>(EMPTY_BILLING);
   const [submitting, setSubmitting] = useState(false);
+  const [finalizing, setFinalizing] = useState(false);
   const [errors, setErrors]         = useState<Partial<BillingInfo>>({});
 
   useEffect(() => {
@@ -57,6 +58,12 @@ export default function PlansPage() {
     if (!billing.city)          e.city         = "Required";
     if (!billing.state)         e.state        = "Required";
     if (!billing.pincode || !/^\d{6}$/.test(billing.pincode)) e.pincode = "Enter a valid 6-digit PIN";
+    if (billing.gstin && !/^\d{2}[A-Z]{5}\d{4}[A-Z][1-9A-Z]Z[0-9A-Z]$/.test(billing.gstin)) {
+      e.gstin = "Enter a valid 15-character GSTIN";
+    }
+    if (billing.pan && !/^[A-Z]{5}\d{4}[A-Z]$/.test(billing.pan)) {
+      e.pan = "Enter a valid 10-character PAN";
+    }
     setErrors(e);
     return Object.keys(e).length === 0;
   }
@@ -105,6 +112,7 @@ export default function PlansPage() {
       prefill: { contact: billing.phone },
       theme: { color: "#1D9E75" },
       handler: async (response: any) => {
+        setFinalizing(true);
         const verifyRes = await fetch("/api/orders/verify", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -117,6 +125,7 @@ export default function PlansPage() {
         if (verifyRes.ok) {
           router.push(`/billing?ref=${orderId}`);
         } else {
+          setFinalizing(false);
           alert("Payment verification failed. Contact support with payment ID: " + response.razorpay_payment_id);
         }
       },
@@ -129,7 +138,7 @@ export default function PlansPage() {
   function field(
     label: string,
     key: keyof BillingInfo,
-    opts: { placeholder?: string; optional?: boolean; type?: string } = {}
+    opts: { placeholder?: string; optional?: boolean; type?: string; uppercase?: boolean } = {}
   ) {
     return (
       <div className="bf-field">
@@ -141,7 +150,11 @@ export default function PlansPage() {
           type={opts.type ?? "text"}
           placeholder={opts.placeholder}
           value={(billing[key] as string) ?? ""}
-          onChange={ev => { setBilling(b => ({ ...b, [key]: ev.target.value })); setErrors(er => ({ ...er, [key]: undefined })); }}
+          onChange={ev => {
+            const v = opts.uppercase ? ev.target.value.toUpperCase() : ev.target.value;
+            setBilling(b => ({ ...b, [key]: v }));
+            setErrors(er => ({ ...er, [key]: undefined }));
+          }}
         />
         {errors[key] && <span className="bf-error">{errors[key]}</span>}
       </div>
@@ -152,6 +165,16 @@ export default function PlansPage() {
   return (
     <>
       <Script src="https://checkout.razorpay.com/v1/checkout.js" onReady={() => setScriptReady(true)} />
+
+      {finalizing && (
+        <div className="plans-finalizing">
+          <div className="plans-finalizing-card">
+            <div className="plans-finalizing-spinner" />
+            <div className="plans-finalizing-title">Confirming your payment…</div>
+            <div className="plans-finalizing-sub">Setting up your access. Do not close this window.</div>
+          </div>
+        </div>
+      )}
 
       <div className="plans-page">
 
@@ -182,14 +205,12 @@ export default function PlansPage() {
                       <span className="plan-price">₹{effectivePrice(plan, isTestUser).toLocaleString("en-IN")}</span>
                       {!isTestUser && plan.originalPriceRs && <span className="plan-price-orig">₹{plan.originalPriceRs.toLocaleString("en-IN")}</span>}
                     </div>
-                    {!isTestUser && (
-                      <p className="plan-gst-note">
-                        + 18% GST
-                        <span className="plan-gst-incl">
-                          (₹{Math.round(effectivePrice(plan, isTestUser) * 1.18).toLocaleString("en-IN")} inclusive of GST)
-                        </span>
-                      </p>
-                    )}
+                    <p className="plan-gst-note">
+                      + 18% GST
+                      <span className="plan-gst-incl">
+                        (₹{Math.round(effectivePrice(plan, isTestUser) * 1.18).toLocaleString("en-IN")} inclusive of GST)
+                      </span>
+                    </p>
 
                     {plan.maxSeats !== null ? (
                       <>
@@ -313,7 +334,8 @@ export default function PlansPage() {
               {field("PIN code", "pincode", { placeholder: "560001" })}
 
               <div className="bf-section-label" style={{ marginTop: 24 }}>Tax details <span className="bf-optional">(optional — for business purchase)</span></div>
-              {field("PAN", "pan", { placeholder: "ABCDE1234F", optional: true })}
+              {field("GSTIN", "gstin", { placeholder: "29ABCDE1234F1Z5", optional: true, uppercase: true })}
+              {field("PAN", "pan", { placeholder: "ABCDE1234F", optional: true, uppercase: true })}
 
               <button
                 type="submit"
