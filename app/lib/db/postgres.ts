@@ -229,7 +229,6 @@ export const PostgresDB: DBDriver = {
       status: "pending",
       razorpayOrderId: input.razorpayOrderId,
       amountPaise: input.amountPaise,
-      gstPaise: input.gstPaise,
       createdAt: new Date(),
     });
     return (await db.select().from(subscriptions).where(eq(subscriptions.id, id)).limit(1))[0] as Subscription;
@@ -237,40 +236,25 @@ export const PostgresDB: DBDriver = {
 
   /* --------------------------------
      SUBSCRIPTION: Activate on payment
-     Generates sequential invoice number: YYYYMMDD00001
+     Flips status to 'active' on the matching pending sub.
+     Invoice number now lives on invoices.invoice_number (assigned by
+     issueInvoice in app/lib/billing/issue.ts).
   ----------------------------------*/
-  async activateSubscription(razorpayOrderId: string, razorpayPaymentId: string): Promise<string> {
-    const now = new Date();
-    const datePrefix = now.getFullYear().toString()
-      + String(now.getMonth() + 1).padStart(2, "0")
-      + String(now.getDate()).padStart(2, "0");
-
+  async activateSubscription(razorpayOrderId: string, razorpayPaymentId: string): Promise<void> {
     // Only activate pending subscriptions (idempotency + race condition guard)
-    const result = await db.execute(sql`
-      UPDATE subscriptions
-      SET status = 'active',
-          razorpay_payment_id = ${razorpayPaymentId},
-          activated_at = ${now},
-          invoice_number = ${datePrefix} || LPAD(
-            (
-              SELECT COALESCE(COUNT(*), 0) + 1
-              FROM subscriptions
-              WHERE invoice_number LIKE ${datePrefix + "%"}
-            )::text, 5, '0'
-          )
-      WHERE razorpay_order_id = ${razorpayOrderId}
-        AND status = 'pending'
-      RETURNING invoice_number
-    `);
-
-    // Already activated (replay or race) — return existing invoice number
-    if (!result.rows[0]) {
-      const existing = await db.select().from(subscriptions)
-        .where(eq(subscriptions.razorpayOrderId, razorpayOrderId)).limit(1);
-      return (existing[0] as { invoiceNumber: string }).invoiceNumber;
-    }
-
-    return (result.rows[0] as { invoice_number: string }).invoice_number;
+    await db
+      .update(subscriptions)
+      .set({
+        status: "active",
+        razorpayPaymentId,
+        activatedAt: new Date(),
+      })
+      .where(
+        and(
+          eq(subscriptions.razorpayOrderId, razorpayOrderId),
+          eq(subscriptions.status, "pending")
+        )
+      );
   },
 
   /* --------------------------------

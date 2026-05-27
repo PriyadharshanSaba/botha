@@ -4,6 +4,7 @@ import { db } from "@/app/lib/db";
 import { isTestEmail } from "@/app/lib/utils/otp";
 import { PLANS, type PlanId } from "@/app/lib/plans";
 import { sendInvoiceEmail } from "@/app/lib/email/send";
+import { createDraftInvoice, issueInvoice } from "@/app/lib/billing/issue";
 
 export async function POST(req: NextRequest) {
   const userId = req.cookies.get("uid")?.value;
@@ -29,27 +30,36 @@ export async function POST(req: NextRequest) {
     orderId = existing.razorpayOrderId!;
   } else {
     orderId = `bypass_${userId}_${Date.now()}`;
-    await db.createSubscription({
+    const sub = await db.createSubscription({
       userId,
       planId: plan.id,
       razorpayOrderId: orderId,
       amountPaise: 0,
-      gstPaise: 0,
     });
-    const invoiceNumber = await db.activateSubscription(orderId, "bypass");
+    await createDraftInvoice({
+      userId,
+      subscriptionId: sub.id,
+      razorpayOrderId: orderId,
+      planId: plan.id as PlanId,
+      taxablePaise: 0,
+    });
+    const issued = await issueInvoice(orderId, "bypass");
+    await db.activateSubscription(orderId, "bypass");
 
     // Fire invoice email for new bypass activations — non-blocking
-    sendInvoiceEmail(user.email, {
-      firstName: user.firstName,
-      lastName: user.lastName,
-      email: user.email,
-      planName: plan.name,
-      orderId,
-      paymentId: "bypass",
-      totalRs: 0,
-      activatedAt: new Date().toISOString(),
-      invoiceNumber,
-    }).catch((e) => console.error("[invoice] bypass send failed:", e));
+    if (issued?.invoiceNumber) {
+      sendInvoiceEmail(user.email, {
+        firstName: user.firstName,
+        lastName: user.lastName,
+        email: user.email,
+        planName: plan.name,
+        orderId,
+        paymentId: "bypass",
+        totalRs: 0,
+        activatedAt: new Date().toISOString(),
+        invoiceNumber: issued.invoiceNumber,
+      }).catch((e) => console.error("[invoice] bypass send failed:", e));
+    }
   }
 
   const response = NextResponse.json({ success: true, orderId });

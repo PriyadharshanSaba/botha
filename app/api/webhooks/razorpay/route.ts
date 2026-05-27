@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import crypto from "crypto";
 import { db } from "@/app/lib/db";
+import { issueInvoice } from "@/app/lib/billing/issue";
 
 export async function POST(req: NextRequest) {
   const body = await req.text();
@@ -35,6 +36,13 @@ export async function POST(req: NextRequest) {
           await db.activateSubscription(orderId, payment.id);
         } catch (e) {
           console.error("[webhook] activation failed:", e);
+        }
+        // Dual-write: issue invoice in new table too (Phase 2). Idempotent
+        // with /orders/verify — whichever fires first wins, the second no-ops.
+        try {
+          await issueInvoice(orderId, payment.id);
+        } catch (e) {
+          console.error("[webhook] issueInvoice failed:", e);
         }
       }
       break;

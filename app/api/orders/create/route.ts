@@ -3,8 +3,13 @@ import type { NextRequest } from "next/server";
 import Razorpay from "razorpay";
 import type { Orders } from "razorpay/dist/types/orders";
 import { db } from "@/app/lib/db";
-import { PLANS, totalPaise, effectivePrice } from "@/app/lib/plans";
+import { PLANS, effectivePrice } from "@/app/lib/plans";
 import { isTestEmail } from "@/app/lib/utils/otp";
+import { CURRENT_SUPPLIER } from "@/app/lib/billing/supplier";
+import { computeInvoiceTax } from "@/app/lib/billing/tax";
+import { getStateCode } from "@/app/lib/billing/state-codes";
+import { createDraftInvoice } from "@/app/lib/billing/issue";
+import type { PlanId } from "@/app/lib/plans";
 
 export async function POST(req: NextRequest) {
   const userId = req.cookies.get("uid")?.value;
@@ -35,8 +40,13 @@ export async function POST(req: NextRequest) {
     }
   }
 
-  const priceRs = effectivePrice(plan, isTest);
-  const amount  = totalPaise(priceRs);
+  const priceRs      = effectivePrice(plan, isTest);
+  const taxablePaise = Math.round(priceRs) * 100;
+
+  // Compute tax (pre-GST → tax = 0, total = taxable; post-GST → +18%)
+  const buyerStateCode = getStateCode(user?.billingInfo?.state);
+  const tax            = computeInvoiceTax(taxablePaise, buyerStateCode, CURRENT_SUPPLIER);
+  const amount         = tax.totalPaise;
 
   // Lazy init — only runs when env vars are confirmed present at request time
   if (!process.env.RAZORPAY_KEY_ID || !process.env.RAZORPAY_KEY_SECRET) {
@@ -61,12 +71,20 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "Payment gateway error" }, { status: 502 });
   }
 
-  await db.createSubscription({
+  const sub = await db.createSubscription({
     userId,
     planId,
     razorpayOrderId: order.id,
     amountPaise: amount,
-    gstPaise: 0,
+  });
+
+  // Source-of-truth invoice row (status='draft' until payment success).
+  await createDraftInvoice({
+    userId,
+    subscriptionId: sub.id,
+    razorpayOrderId: order.id,
+    planId: planId as PlanId,
+    taxablePaise,
   });
 
   return NextResponse.json({
