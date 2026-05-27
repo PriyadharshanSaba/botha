@@ -199,7 +199,7 @@ export default function PlansPage() {
                   <div key={plan.id} className={`plan-card ${plan.featured ? "featured" : ""}`}>
                     <span className={`plan-badge ${plan.badgeStyle}`}>{plan.badge}</span>
                     <p className="plan-name">{plan.name}</p>
-                    <p className="plan-tagline">{plan.tagline}</p>
+                    {plan.tagline && <p className="plan-tagline">{plan.tagline}</p>}
 
                     <div className="plan-price-row">
                       <span className="plan-price">₹{effectivePrice(plan, isTestUser).toLocaleString("en-IN")}</span>

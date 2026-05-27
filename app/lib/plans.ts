@@ -54,7 +54,7 @@ export const PLANS: Plan[] = [
     name: "Regular enrollment",
     badge: "Standard",
     badgeStyle: "standard",
-    tagline: "Full price after the first 500 seats are taken.",
+    tagline: "",
     basePriceRs: 4999,
     seatRange: "From seat 501 onwards",
     maxSeats: null,
