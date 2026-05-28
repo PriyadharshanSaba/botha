@@ -1,7 +1,6 @@
 "use client";
 
 import "./landing.css";
-import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import TermsModal from "@/app/components/TermsModal";
@@ -12,7 +11,7 @@ export default function LandingPage() {
   const revealRefs = useRef<HTMLElement[]>([]);
   const [showTerms, setShowTerms] = useState(false);
   const [showPrivacy, setShowPrivacy] = useState(false);
-  const { lang, setLang } = useLanguage();
+  const { lang } = useLanguage();
 
   useEffect(() => {
     const observer = new IntersectionObserver(

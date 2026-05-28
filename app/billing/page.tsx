@@ -109,7 +109,7 @@ function BillingContent() {
         <div className="billing-success-badge">
           <div className="billing-check-circle">✓</div>
           <div className="billing-success-text">
-            <h1>You're all set{data.user ? `, ${data.user.firstName}` : ""}!</h1>
+            <h1>You&apos;re all set{data.user ? `, ${data.user.firstName}` : ""}!</h1>
             <p>Payment confirmed — your Bodha access is now active. We will send you the invoice copy to your email.</p>
           </div>
         </div>

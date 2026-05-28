@@ -4,7 +4,6 @@ import "./blogs.css";
 import "../landing.css";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
-import { useLanguage } from "../context/LanguageContext";
 import TermsModal from "../components/TermsModal";
 import PrivacyModal from "../components/PrivacyModal";
 
@@ -45,7 +44,6 @@ const posts = [
 
 export default function BlogsPage() {
   const revealRefs = useRef<HTMLElement[]>([]);
-  const { lang, setLang, t } = useLanguage();
   const [showTerms, setShowTerms] = useState(false);
   const [showPrivacy, setShowPrivacy] = useState(false);
 

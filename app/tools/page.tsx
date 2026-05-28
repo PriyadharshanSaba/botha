@@ -5,7 +5,6 @@ import "../landing.css";
 import "../about/about.css";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
-import { useLanguage } from "../context/LanguageContext";
 import TermsModal from "../components/TermsModal";
 import PrivacyModal from "../components/PrivacyModal";
 import { Chart as ChartJS, registerables } from "chart.js";
@@ -34,7 +33,6 @@ const tools = [
 export default function ToolsPage() {
   const revealRefs = useRef<HTMLElement[]>([]);
   const [subscribed, setSubscribed] = useState(false);
-  const { lang, setLang, t } = useLanguage();
   const [showTerms, setShowTerms] = useState(false);
   const [showPrivacy, setShowPrivacy] = useState(false);
 
@@ -205,7 +203,7 @@ export default function ToolsPage() {
       return tax;
     }
 
-    let slabTax = slabCalc(Math.max(totalNormal, 0));
+    const slabTax = slabCalc(Math.max(totalNormal, 0));
 
     /* 87A rebate */
     let rebate87a = 0;

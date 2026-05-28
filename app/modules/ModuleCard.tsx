@@ -18,7 +18,6 @@ interface ModuleCardProps {
 
 export default function ModuleCard({
   id,
-  color,
   title,
   chapters,
   chaptersNum,

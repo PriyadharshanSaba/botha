@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, Suspense } from "react";
+import { useState, Suspense, type FormEvent } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import TermsModal from "@/app/components/TermsModal";
 import CookieBanner from "@/app/components/CookieBanner";
@@ -46,7 +46,7 @@ function SignInContent() {
   /* --------------------------------
     LOGIN: Send OTP
   ----------------------------------*/
-  async function handleLogin(e: any) {
+  async function handleLogin(e: FormEvent) {
     e.preventDefault();
     setError("");
     setNotRegistered(false);
@@ -77,7 +77,7 @@ function SignInContent() {
   /* --------------------------------
     SIGNUP: Send OTP
   ----------------------------------*/
-  async function handleSignup(e: any) {
+  async function handleSignup(e: FormEvent) {
     e.preventDefault();
     setError("");
     setLoading(true);
@@ -102,7 +102,7 @@ function SignInContent() {
   /* --------------------------------
     SIGNUP: Verify OTP
   ----------------------------------*/
-  async function handleVerifySignup(e: any) {
+  async function handleVerifySignup(e: FormEvent) {
     e.preventDefault();
     const code = otp6.join("");
 
@@ -123,7 +123,7 @@ function SignInContent() {
     router.push("/plans");
   }
 
-  async function handleVerifyLogin(e: any) {
+  async function handleVerifyLogin(e: FormEvent) {
     e.preventDefault();
     const code = otp6.join("");
 
@@ -168,7 +168,7 @@ function SignInContent() {
     }
   }
 
-  function handleOtpInput(e: React.FormEvent<HTMLInputElement>, index: number) {
+  function handleOtpInput(e: FormEvent<HTMLInputElement>, index: number) {
     const inputType = (e.nativeEvent as InputEvent).inputType;
     if (inputType === "deleteContentBackward" && !otp6[index] && index > 0) {
       const next = [...otp6];

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { DBDriver, UserWithOTP, CreateUserInput, CookieConsent, SaveConsentInput, Subscription, CreateSubscriptionInput, BillingInfo } from "./types";
 import { mockUsers } from "../mock/users";
 import crypto from "crypto";

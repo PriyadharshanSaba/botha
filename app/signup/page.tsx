@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, type FormEvent } from "react";
 import { useRouter } from "next/navigation";
 
 export default function Signup() {
@@ -10,7 +10,7 @@ export default function Signup() {
   const [form, setForm] = useState({ firstName: "", lastName: "", email: "" });
   const [otp, setOtp] = useState("");
 
-  async function handleSignup(e: any) {
+  async function handleSignup(e: FormEvent) {
     e.preventDefault();
     
     const res = await fetch("/api/signup", {
@@ -27,7 +27,7 @@ export default function Signup() {
     setStep("otp");
   }
 
-  async function handleVerify(e: any) {
+  async function handleVerify(e: FormEvent) {
     e.preventDefault();
 
     const res = await fetch("/api/verify-otp", {

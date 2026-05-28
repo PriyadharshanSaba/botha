@@ -7,8 +7,34 @@ import { PLANS, type Plan, effectivePrice } from "@/app/lib/plans";
 import type { BillingInfo } from "@/app/lib/db/types";
 import "./plans.css";
 
+type RazorpayPaymentResponse = {
+  razorpay_order_id: string;
+  razorpay_payment_id: string;
+  razorpay_signature: string;
+};
+
+type RazorpayOptions = {
+  key: string;
+  amount: number;
+  currency: string;
+  name: string;
+  description: string;
+  order_id: string;
+  prefill?: { contact?: string; name?: string; email?: string };
+  theme?: { color?: string };
+  handler: (response: RazorpayPaymentResponse) => void;
+  modal?: { ondismiss?: () => void };
+};
+
+interface RazorpayInstance {
+  open: () => void;
+  on: (event: string, handler: (...args: unknown[]) => void) => void;
+}
+
 declare global {
-  interface Window { Razorpay: any; }
+  interface Window {
+    Razorpay: new (options: RazorpayOptions) => RazorpayInstance;
+  }
 }
 
 const INDIAN_STATES = [
@@ -111,7 +137,7 @@ export default function PlansPage() {
       order_id: orderId,
       prefill: { contact: billing.phone },
       theme: { color: "#1D9E75" },
-      handler: async (response: any) => {
+      handler: async (response: RazorpayPaymentResponse) => {
         setFinalizing(true);
         const verifyRes = await fetch("/api/orders/verify", {
           method: "POST",
@@ -226,7 +252,7 @@ export default function PlansPage() {
                     )}
 
                     <hr className="plan-divider" />
-                    <p className="plan-features-label">What's included</p>
+                    <p className="plan-features-label">What&apos;s included</p>
                     <ul className="plan-features">
                       {plan.features.map((f, i) => (
                         <li key={i} className={f.highlight ? "highlight" : ""}>

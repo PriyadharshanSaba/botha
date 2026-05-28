@@ -1,14 +1,6 @@
 import React from "react";
 
 // ─────────────────────────────────────────────────────────────────────────────
-// Shared table styles (reusable across chapters)
-// ─────────────────────────────────────────────────────────────────────────────
-const tbl: React.CSSProperties = { width: "100%", borderCollapse: "collapse", margin: "16px 0", fontSize: "0.95em" };
-const th: React.CSSProperties = { background: "#c9a84c", color: "#fdfcf9", padding: "10px 12px", textAlign: "left" };
-const td: React.CSSProperties = { padding: "10px 12px", borderBottom: "1px solid rgba(0,0,0,0.08)" };
-const tdAlt: React.CSSProperties = { ...td, background: "rgba(201,168,76,0.06)" };
-
-// ─────────────────────────────────────────────────────────────────────────────
 // Chapter content components
 // ─────────────────────────────────────────────────────────────────────────────
 
