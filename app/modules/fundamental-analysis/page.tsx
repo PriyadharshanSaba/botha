@@ -21,8 +21,14 @@ export default async function FundamentalAnalysisPage() {
     >
       {chapters.map((ch, i) => (
         <div key={i}>
-          <h2>{ch.title}</h2>
-          {ch.content}
+          <div data-lang="en">
+            <h2>{ch.title.en}</h2>
+            {ch.content.en}
+          </div>
+          <div data-lang="kn">
+            <h2>{ch.title.kn}</h2>
+            {ch.content.kn}
+          </div>
         </div>
       ))}
     </ModuleViewer>
