@@ -9,6 +9,14 @@ import PrivacyModal from "../components/PrivacyModal";
 
 const posts = [
   {
+    slug: "india-finance-may29-2026",
+    kicker: "Markets · Macro · India",
+    title: "Hormuz, Rubio, and a Nifty That Gave It All Back",
+    deck: "A week that looked like a breakout and ended as a retreat. The Iran ceasefire MoU pushed markets to weekly highs, only for Friday's selloff to erase every gain. Trade deal advanced, Coal India OFS launched, GDP release pushed to June 5.",
+    date: "May 29, 2026",
+    readTime: "14 min read",
+  },
+  {
     slug: "india-finance-may2026",
     kicker: "Markets · Macro · India",
     title: "Indian Markets: A Week That Went Nowhere, For Good Reason",
