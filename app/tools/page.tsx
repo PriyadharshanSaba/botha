@@ -347,49 +347,67 @@ export default function ToolsPage() {
   useEffect(() => {
     let cancelled = false;
     (async () => {
-      const meRes = await fetch("/api/me");
-      if (!meRes.ok) {
-        setErrorMsg("Please sign in.");
-        setBootstrapping(false);
-        return;
-      }
-      const me = (await meRes.json()) as { loggedIn: boolean; id?: string };
-      if (!me.loggedIn || !me.id) {
-        setErrorMsg("Please sign in.");
-        setBootstrapping(false);
-        return;
-      }
-      const id = me.id;
-      if (cancelled) return;
-      setUserId(id);
+      try {
+        const meRes = await fetch("/api/me");
+        if (!meRes.ok) {
+          setErrorMsg("Please sign in.");
+          setBootstrapping(false);
+          return;
+        }
+        const me = (await meRes.json()) as { loggedIn: boolean; id?: string };
+        if (!me.loggedIn || !me.id) {
+          setErrorMsg("Please sign in.");
+          setBootstrapping(false);
+          return;
+        }
+        const id = me.id;
+        if (cancelled) return;
+        setUserId(id);
 
-      const lock = await acquireTabLock(id);
-      if (cancelled) {
-        lock.release();
-        return;
-      }
-      if (!lock.acquired) {
-        setTabLockState("blocked");
+        const lock = await acquireTabLock(id);
+        if (cancelled) {
+          lock.release();
+          return;
+        }
+        if (!lock.acquired) {
+          setTabLockState("blocked");
+          setBootstrapping(false);
+          return;
+        }
+        tabLockReleaseRef.current = lock.release;
+        setTabLockState("owned");
+
+        const now = new Date();
+        setNwtMonth(`${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}`);
+
+        const result = await initTracker(id);
+        if (cancelled) return;
+        setNwtData(result.entries);
+        setServerReachable(result.serverReachable);
+        setPendingN(pendingCount(id));
         setBootstrapping(false);
-        return;
+      } catch {
+        if (cancelled) return;
+        setErrorMsg("Couldn't reach server. Please retry.");
+        setBootstrapping(false);
       }
-      tabLockReleaseRef.current = lock.release;
-      setTabLockState("owned");
-
-      const now = new Date();
-      setNwtMonth(`${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}`);
-
-      const result = await initTracker(id);
-      if (cancelled) return;
-      setNwtData(result.entries);
-      setServerReachable(result.serverReachable);
-      setPendingN(pendingCount(id));
-      setBootstrapping(false);
     })();
 
     return () => {
       cancelled = true;
       tabLockReleaseRef.current?.();
+    };
+  }, []);
+
+  /* destroy chart instances on unmount */
+  useEffect(() => {
+    return () => {
+      nwtLineInst.current?.destroy();
+      nwtBarInst.current?.destroy();
+      nwtDonutInst.current?.destroy();
+      nwtLineInst.current = null;
+      nwtBarInst.current = null;
+      nwtDonutInst.current = null;
     };
   }, []);
 
