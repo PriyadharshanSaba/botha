@@ -15,11 +15,15 @@ import type { ImportReport } from "./import";
 
 export type { ImportReport } from "./import";
 
-async function fetchAllFromServer(): Promise<{ entries: NwtEntry[]; updatedAt: string }> {
+async function fetchAllFromServer(): Promise<{ entries: NwtEntry[]; updatedAt: string; importUsedAt: string | null }> {
   const res = await fetch("/api/networth", { method: "GET", credentials: "include" });
   if (!res.ok) throw new Error(`GET /api/networth failed: ${res.status}`);
-  const body = (await res.json()) as { entries: NwtEntry[]; updatedAt: string | null };
-  return { entries: body.entries, updatedAt: body.updatedAt ?? new Date().toISOString() };
+  const body = (await res.json()) as { entries: NwtEntry[]; updatedAt: string | null; importUsedAt?: string | null };
+  return {
+    entries: body.entries,
+    updatedAt: body.updatedAt ?? new Date().toISOString(),
+    importUsedAt: body.importUsedAt ?? null,
+  };
 }
 
 async function postEntry(entry: NwtEntry): Promise<{ updatedAt: string }> {
@@ -48,6 +52,7 @@ export type InitResult = {
   entries: NwtEntry[];
   source: "cache" | "server" | "empty";
   serverReachable: boolean;
+  importUsedAt: string | null;
 };
 
 /**
@@ -74,6 +79,7 @@ export async function initTracker(userId: string): Promise<InitResult> {
         entries: fresh.entries,
         source: fresh.entries.length === 0 ? "empty" : "server",
         serverReachable: true,
+        importUsedAt: fresh.importUsedAt,
       };
     } catch {
       // Fall back to whatever cache we have (or empty)
@@ -81,6 +87,7 @@ export async function initTracker(userId: string): Promise<InitResult> {
         entries: cache?.entries ?? [],
         source: cache && cache.entries.length > 0 ? "cache" : "empty",
         serverReachable: false,
+        importUsedAt: null,
       };
     }
   }
@@ -89,6 +96,7 @@ export async function initTracker(userId: string): Promise<InitResult> {
     entries: cache.entries,
     source: cache.entries.length === 0 ? "empty" : "cache",
     serverReachable: true,
+    importUsedAt: null,
   };
 }
 
@@ -149,14 +157,14 @@ export async function flushPending(userId: string): Promise<number> {
  * Manual refresh. Flushes pending first, then GETs server state and replaces
  * cache entries. Throws if either step fails so the UI can surface the error.
  */
-export async function refresh(userId: string): Promise<NwtEntry[]> {
+export async function refresh(userId: string): Promise<{ entries: NwtEntry[]; importUsedAt: string | null }> {
   const stillPending = await flushPending(userId);
   if (stillPending > 0) {
     throw new Error(`refresh-blocked: ${stillPending} unsynced entries`);
   }
   const fresh = await fetchAllFromServer();
   replaceCacheEntries(userId, fresh.entries, new Date().toISOString());
-  return fresh.entries;
+  return { entries: fresh.entries, importUsedAt: fresh.importUsedAt };
 }
 
 export function pendingCount(userId: string): number {

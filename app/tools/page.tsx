@@ -16,6 +16,7 @@ import {
   pendingCount,
 } from "@/app/lib/networth/client";
 import { acquireTabLock } from "@/app/lib/networth/tab-lock";
+import ImportModal from "./import-modal";
 ChartJS.register(...registerables);
 
 /* ── helpers ── */
@@ -326,6 +327,8 @@ export default function ToolsPage() {
   const [refreshing, setRefreshing] = useState(false);
   const [pendingN, setPendingN] = useState(0);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
+  const [importUsedAt, setImportUsedAt] = useState<string | null>(null);
+  const [importOpen, setImportOpen] = useState(false);
   const tabLockReleaseRef = useRef<() => void>(() => {});
   const [nwtFields, setNwtFields] = useState({
     stocks: 0, mfEquity: 0, mfDebt: 0, fd: 0, bonds: 0,
@@ -383,6 +386,7 @@ export default function ToolsPage() {
         const result = await initTracker(id);
         if (cancelled) return;
         setNwtData(result.entries);
+        setImportUsedAt(result.importUsedAt);
         setServerReachable(result.serverReachable);
         setPendingN(pendingCount(id));
         setBootstrapping(false);
@@ -454,8 +458,9 @@ export default function ToolsPage() {
     setErrorMsg(null);
     setRefreshing(true);
     try {
-      const fresh = await refreshTracker(userId);
-      setNwtData(fresh);
+      const { entries, importUsedAt: ts } = await refreshTracker(userId);
+      setNwtData(entries);
+      setImportUsedAt(ts);
       setPendingN(pendingCount(userId));
       setServerReachable(true);
     } catch (e) {
@@ -1272,14 +1277,26 @@ export default function ToolsPage() {
                         <span className="ft-offline-badge" style={{ fontSize: 11, color: "#888" }}>Offline — showing saved data</span>
                       )}
                     </div>
-                    <button
-                      className="ft-calc-btn"
-                      onClick={handleRefresh}
-                      disabled={refreshing}
-                      style={{ margin: 0, fontSize: 12, padding: "8px 14px", minWidth: 100 }}
-                    >
-                      {refreshing ? "Refreshing…" : "Refresh"}
-                    </button>
+                    <div style={{ display: "flex", gap: 8 }}>
+                      {!importUsedAt && (
+                        <button
+                          className="ft-calc-btn"
+                          onClick={() => setImportOpen(true)}
+                          disabled={bootstrapping || refreshing || saving}
+                          style={{ margin: 0, fontSize: 12, padding: "8px 14px", minWidth: 100, background: "transparent", color: "#1f3a52", border: "1px solid #1f3a52" }}
+                        >
+                          Import history
+                        </button>
+                      )}
+                      <button
+                        className="ft-calc-btn"
+                        onClick={handleRefresh}
+                        disabled={refreshing}
+                        style={{ margin: 0, fontSize: 12, padding: "8px 14px", minWidth: 100 }}
+                      >
+                        {refreshing ? "Refreshing…" : "Refresh"}
+                      </button>
+                    </div>
                   </div>
                   {errorMsg && (
                     <div className="ft-tracker-error" style={{ marginBottom: 12, padding: "10px 14px", background: "rgba(184,92,56,0.08)", borderRadius: 8, fontSize: 12, color: "#b85c38" }}>
@@ -1509,6 +1526,26 @@ export default function ToolsPage() {
               })()}
             </div>
           </div>
+          {userId && (
+            <ImportModal
+              open={importOpen}
+              userId={userId}
+              onClose={() => setImportOpen(false)}
+              onCommitted={async (count) => {
+                // Pull fresh data + flag from server; close modal.
+                try {
+                  const { entries, importUsedAt: ts } = await refreshTracker(userId);
+                  setNwtData(entries);
+                  setImportUsedAt(ts);
+                } catch {
+                  // Server unreachable; the next manual refresh will update.
+                }
+                setImportOpen(false);
+                // count param is informational; could surface via a toast in future.
+                void count;
+              }}
+            />
+          )}
         </div>
       </div>
 
