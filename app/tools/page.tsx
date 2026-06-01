@@ -1282,7 +1282,8 @@ export default function ToolsPage() {
                         <button
                           className="ft-calc-btn"
                           onClick={() => setImportOpen(true)}
-                          disabled={bootstrapping || refreshing || saving}
+                          disabled={bootstrapping || refreshing || saving || pendingN > 0}
+                          title={pendingN > 0 ? "Sync pending entries via Refresh first" : undefined}
                           style={{ margin: 0, fontSize: 12, padding: "8px 14px", minWidth: 100, background: "transparent", color: "#1f3a52", border: "1px solid #1f3a52" }}
                         >
                           Import history

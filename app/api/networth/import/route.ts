@@ -116,6 +116,14 @@ export async function POST(req: NextRequest) {
       });
     }
 
+    // Defensive: if recovery dropped every accepted row, abort without burning the flag.
+    if (entriesToInsert.length === 0) {
+      return NextResponse.json(
+        { ...report, committed: false },
+        { status: 200, headers: NO_STORE },
+      );
+    }
+
     const jsonbArray = JSON.stringify(entriesToInsert);
     // Upsert: creates row on first use, appends + flags on subsequent existence.
     // DO UPDATE's WHERE clause enforces one-shot: a row with import_used_at IS NOT NULL
