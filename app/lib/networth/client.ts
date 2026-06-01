@@ -11,6 +11,9 @@ import {
   isCacheStale,
 } from "./cache";
 import { migrateLegacy } from "./migration";
+import type { ImportReport } from "./import";
+
+export type { ImportReport } from "./import";
 
 async function fetchAllFromServer(): Promise<{ entries: NwtEntry[]; updatedAt: string }> {
   const res = await fetch("/api/networth", { method: "GET", credentials: "include" });
@@ -167,4 +170,86 @@ export function getCachedEntries(userId: string): NwtEntry[] {
 /** Used after a successful login to ensure the cache row exists. */
 export function ensureCacheShell(userId: string): void {
   if (!readCache(userId)) writeCache(userId, {});
+}
+
+export type ImportOutcome =
+  | { ok: true; report: ImportReport }
+  | {
+      ok: false;
+      error:
+        | "invalid-json"
+        | "invalid-envelope"
+        | "import-already-used"
+        | "payload-too-large"
+        | "unauthenticated"
+        | "server-error"
+        | "network";
+    };
+
+const KNOWN_IMPORT_ERRORS = [
+  "invalid-json",
+  "invalid-envelope",
+  "import-already-used",
+  "payload-too-large",
+  "unauthenticated",
+  "server-error",
+] as const;
+
+type KnownImportError = (typeof KNOWN_IMPORT_ERRORS)[number];
+
+function mapImportError(value: unknown): KnownImportError {
+  if (typeof value === "string" && (KNOWN_IMPORT_ERRORS as readonly string[]).includes(value)) {
+    return value as KnownImportError;
+  }
+  return "server-error";
+}
+
+async function postImport(raw: string, dryRun: boolean): Promise<ImportOutcome> {
+  let res: Response;
+  try {
+    res = await fetch(`/api/networth/import?dryRun=${dryRun ? "true" : "false"}`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      credentials: "include",
+      body: JSON.stringify({ raw }),
+    });
+  } catch {
+    return { ok: false, error: "network" };
+  }
+
+  if (res.ok) {
+    try {
+      const report = (await res.json()) as ImportReport;
+      return { ok: true, report };
+    } catch {
+      return { ok: false, error: "server-error" };
+    }
+  }
+
+  let errStr: unknown;
+  try {
+    const body = (await res.json()) as { error?: unknown };
+    errStr = body?.error;
+  } catch {
+    errStr = undefined;
+  }
+  return { ok: false, error: mapImportError(errStr) };
+}
+
+/** Dry-run preview. Posts raw paste; server returns accepted/rejected without committing. */
+export async function parseImport(raw: string): Promise<ImportOutcome> {
+  return postImport(raw, true);
+}
+
+/** Commit. Posts raw paste with dryRun=false; on 200 + committed=true, refreshes cache. */
+export async function commitImport(userId: string, raw: string): Promise<ImportOutcome> {
+  const outcome = await postImport(raw, false);
+  if (outcome.ok && (outcome.report as ImportReport & { committed?: boolean }).committed === true) {
+    try {
+      await refresh(userId);
+    } catch {
+      /* swallow — import already succeeded server-side; cache will catch up on next mount */
+    }
+  }
+  return outcome;
 }
