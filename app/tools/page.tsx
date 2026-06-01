@@ -1526,7 +1526,7 @@ export default function ToolsPage() {
               })()}
             </div>
           </div>
-          {userId && (
+          {userId && importOpen && (
             <ImportModal
               open={importOpen}
               userId={userId}

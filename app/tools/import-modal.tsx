@@ -61,16 +61,10 @@ function formatAlloc(alloc: Record<string, number>): string {
 
 export default function ImportModal(props: ImportModalProps): JSX.Element | null {
   const { open, userId, onClose, onCommitted } = props;
+  // Parent uses {importOpen && <ImportModal .../>} so each open is a fresh mount.
+  // Initial state is therefore always consent — no reset effect needed.
   const [state, setState] = useState<State>({ mode: "consent", consented: false });
   const [copied, setCopied] = useState(false);
-
-  // Reset state every time the modal transitions to open
-  useEffect(() => {
-    if (open) {
-      setState({ mode: "consent", consented: false });
-      setCopied(false);
-    }
-  }, [open]);
 
   // Copied flag auto-clears after 2s
   useEffect(() => {
