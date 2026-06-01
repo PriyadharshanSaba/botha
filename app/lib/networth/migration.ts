@@ -96,7 +96,5 @@ export async function migrateLegacy(userId: string): Promise<{ migrated: number;
   }
   for (const k of pinKeys) localStorage.removeItem(k);
 
-  // Mark in cache via the userId-scoped key so subsequent mounts skip the migration scan.
-  void userId; // userId is used implicitly by /api/networth/bulk via cookie
   return { migrated: allEntries.length, failedKeys: [] };
 }
