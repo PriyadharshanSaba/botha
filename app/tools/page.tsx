@@ -4,10 +4,18 @@ import "./tools.css";
 import "../landing.css";
 import "../about/about.css";
 import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import TermsModal from "../components/TermsModal";
 import PrivacyModal from "../components/PrivacyModal";
 import { Chart as ChartJS, registerables } from "chart.js";
+import type { NwtEntry } from "@/app/lib/networth/types";
+import {
+  initTracker,
+  saveEntry,
+  refresh as refreshTracker,
+  pendingCount,
+} from "@/app/lib/networth/client";
+import { acquireTabLock } from "@/app/lib/networth/tab-lock";
 ChartJS.register(...registerables);
 
 /* ── helpers ── */
@@ -15,9 +23,8 @@ function fmt(n: number) {
   return "\u20B9" + Math.round(n).toLocaleString("en-IN");
 }
 
-/* ── NWT types ── */
-interface NwtAlloc { equity: number; debt: number; gold: number; realestate: number; cash: number; }
-interface NwtEntry { month: string; assets: number; liabs: number; nw: number; alloc: NwtAlloc; }
+const sumValues = (m: Record<string, number>) => Object.values(m).reduce((a, b) => a + b, 0);
+const monthNw = (d: NwtEntry) => sumValues(d.assets) - sumValues(d.liabs);
 
 /* ── tool card data ── */
 const tools = [
@@ -308,12 +315,18 @@ export default function ToolsPage() {
   }
 
   /* ── Net Worth Tracker ── */
-  const [nwtUser, setNwtUser] = useState<string | null>(null);
-  const [nwtLoginName, setNwtLoginName] = useState("");
-  const [nwtLoginPin, setNwtLoginPin] = useState("");
+  const [userId, setUserId] = useState<string | null>(null);
+  const [tabLockState, setTabLockState] = useState<"checking" | "owned" | "blocked">("checking");
   const [nwtMonth, setNwtMonth] = useState("");
   const [nwtSaveMsg, setNwtSaveMsg] = useState(false);
   const [nwtData, setNwtData] = useState<NwtEntry[]>([]);
+  const [bootstrapping, setBootstrapping] = useState(true);
+  const [serverReachable, setServerReachable] = useState(true);
+  const [saving, setSaving] = useState(false);
+  const [refreshing, setRefreshing] = useState(false);
+  const [pendingN, setPendingN] = useState(0);
+  const [errorMsg, setErrorMsg] = useState<string | null>(null);
+  const tabLockReleaseRef = useRef<() => void>(() => {});
   const [nwtFields, setNwtFields] = useState({
     stocks: 0, mfEquity: 0, mfDebt: 0, fd: 0, bonds: 0,
     gold: 0, sgb: 0, property: 0, savings: 0, otherAsset: 0,
@@ -326,66 +339,127 @@ export default function ToolsPage() {
   const nwtBarInst = useRef<ChartJS | null>(null);
   const nwtDonutInst = useRef<ChartJS | null>(null);
 
-  function nwtKey(name: string) { return "nwt_" + name.trim().toLowerCase().replace(/\s+/g, "_"); }
-  function nwtLoad(name: string): NwtEntry[] {
-    try { return JSON.parse(localStorage.getItem(nwtKey(name)) || "[]") || []; } catch { return []; }
-  }
-  function nwtPersist(name: string, data: NwtEntry[]) {
-    localStorage.setItem(nwtKey(name), JSON.stringify(data));
-  }
+  const sortedData = useMemo(
+    () => [...nwtData].sort((a, b) => a.month.localeCompare(b.month)),
+    [nwtData],
+  );
 
-  function handleNwtLogin() {
-    const name = nwtLoginName.trim();
-    const pin = nwtLoginPin.trim();
-    if (!name || !/^\d{4}$/.test(pin)) { alert("Enter your name and a 4-digit PIN."); return; }
-    const storedPin = localStorage.getItem(nwtKey(name) + "_pin");
-    if (storedPin && storedPin !== pin) { alert("Incorrect PIN."); return; }
-    if (!storedPin) localStorage.setItem(nwtKey(name) + "_pin", pin);
-    const now = new Date();
-    setNwtMonth(`${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}`);
-    setNwtUser(name);
-    setNwtData(nwtLoad(name));
-  }
+  useEffect(() => {
+    let cancelled = false;
+    (async () => {
+      const meRes = await fetch("/api/me");
+      if (!meRes.ok) {
+        setErrorMsg("Please sign in.");
+        setBootstrapping(false);
+        return;
+      }
+      const me = (await meRes.json()) as { loggedIn: boolean; id?: string };
+      if (!me.loggedIn || !me.id) {
+        setErrorMsg("Please sign in.");
+        setBootstrapping(false);
+        return;
+      }
+      const id = me.id;
+      if (cancelled) return;
+      setUserId(id);
 
-  function handleNwtLogout() {
-    setNwtUser(null); setNwtLoginName(""); setNwtLoginPin(""); setNwtData([]);
-    if (nwtLineInst.current) { nwtLineInst.current.destroy(); nwtLineInst.current = null; }
-    if (nwtBarInst.current) { nwtBarInst.current.destroy(); nwtBarInst.current = null; }
-    if (nwtDonutInst.current) { nwtDonutInst.current.destroy(); nwtDonutInst.current = null; }
-  }
+      const lock = await acquireTabLock(id);
+      if (cancelled) {
+        lock.release();
+        return;
+      }
+      if (!lock.acquired) {
+        setTabLockState("blocked");
+        setBootstrapping(false);
+        return;
+      }
+      tabLockReleaseRef.current = lock.release;
+      setTabLockState("owned");
 
-  function handleNwtSave() {
-    if (!nwtUser) return;
+      const now = new Date();
+      setNwtMonth(`${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}`);
+
+      const result = await initTracker(id);
+      if (cancelled) return;
+      setNwtData(result.entries);
+      setServerReachable(result.serverReachable);
+      setPendingN(pendingCount(id));
+      setBootstrapping(false);
+    })();
+
+    return () => {
+      cancelled = true;
+      tabLockReleaseRef.current?.();
+    };
+  }, []);
+
+  async function handleAddNwtEntry() {
+    if (!userId || saving) return;
     if (!nwtMonth) { alert("Select a month."); return; }
+    setErrorMsg(null);
+    setSaving(true);
     const f = nwtFields;
     const equity = f.stocks + f.mfEquity;
     const debt = f.mfDebt + f.fd + f.bonds;
     const gold = f.gold + f.sgb;
     const realestate = f.property;
     const cash = f.savings + f.otherAsset;
-    const assets = equity + debt + gold + realestate + cash;
-    const liabs = f.homeLoan + f.carLoan + f.personalLoan + f.cc;
-    const entry: NwtEntry = { month: nwtMonth, assets, liabs, nw: assets - liabs, alloc: { equity, debt, gold, realestate, cash } };
-    const data = nwtLoad(nwtUser);
-    const idx = data.findIndex(d => d.month === nwtMonth);
-    if (idx >= 0) data[idx] = entry; else data.push(entry);
-    data.sort((a, b) => a.month.localeCompare(b.month));
-    nwtPersist(nwtUser, data);
-    setNwtData([...data]);
-    setNwtFields({ stocks: 0, mfEquity: 0, mfDebt: 0, fd: 0, bonds: 0, gold: 0, sgb: 0, property: 0, savings: 0, otherAsset: 0, homeLoan: 0, carLoan: 0, personalLoan: 0, cc: 0 });
-    setNwtSaveMsg(true);
-    setTimeout(() => setNwtSaveMsg(false), 3000);
+    const result = await saveEntry(userId, {
+      month: nwtMonth,
+      assets: {
+        stocks: f.stocks, mfEquity: f.mfEquity, mfDebt: f.mfDebt, fd: f.fd, bonds: f.bonds,
+        gold: f.gold, sgb: f.sgb, property: f.property, savings: f.savings, otherAsset: f.otherAsset,
+      },
+      liabs: {
+        homeLoan: f.homeLoan, carLoan: f.carLoan, personalLoan: f.personalLoan, cc: f.cc,
+      },
+      alloc: { equity, debt, gold, realestate, cash },
+    });
+    setNwtData(result.entries);
+    setPendingN(pendingCount(userId));
+    if (!result.ok) {
+      setErrorMsg(
+        result.reason === "network"
+          ? "Saved locally. We'll retry when you're back online."
+          : "Server error. Saved locally and we'll retry on Refresh.",
+      );
+    } else {
+      setNwtSaveMsg(true);
+      setTimeout(() => setNwtSaveMsg(false), 3000);
+      setNwtFields({ stocks: 0, mfEquity: 0, mfDebt: 0, fd: 0, bonds: 0, gold: 0, sgb: 0, property: 0, savings: 0, otherAsset: 0, homeLoan: 0, carLoan: 0, personalLoan: 0, cc: 0 });
+    }
+    setSaving(false);
+  }
+
+  async function handleRefresh() {
+    if (!userId || refreshing) return;
+    setErrorMsg(null);
+    setRefreshing(true);
+    try {
+      const fresh = await refreshTracker(userId);
+      setNwtData(fresh);
+      setPendingN(pendingCount(userId));
+      setServerReachable(true);
+    } catch (e) {
+      setErrorMsg(
+        e instanceof Error && e.message.startsWith("refresh-blocked")
+          ? "Some entries couldn't be synced. We'll retry on next save."
+          : "Refresh failed. Please try again.",
+      );
+    } finally {
+      setRefreshing(false);
+    }
   }
 
   /* chart rendering */
   useEffect(() => {
-    if (!nwtUser || !nwtData.length) return;
+    if (!sortedData.length) return;
     const t = setTimeout(() => {
-      const months = nwtData.map(d => {
+      const months = sortedData.map(d => {
         const [y, m] = d.month.split("-");
         return new Date(+y, +m - 1, 1).toLocaleString("en-IN", { month: "short", year: "2-digit" });
       });
-      const vals = nwtData.map(d => d.nw);
+      const vals = sortedData.map(monthNw);
 
       /* line chart */
       if (nwtLineRef.current) {
@@ -408,7 +482,7 @@ export default function ToolsPage() {
       }
 
       /* donut chart */
-      const latest = nwtData[nwtData.length - 1];
+      const latest = sortedData[sortedData.length - 1];
       const { equity = 0, debt = 0, gold = 0, realestate = 0, cash = 0 } = latest.alloc || {};
       const allocTotal = equity + debt + gold + realestate + cash;
       if (nwtDonutRef.current && allocTotal > 0) {
@@ -421,7 +495,7 @@ export default function ToolsPage() {
       }
     }, 50);
     return () => clearTimeout(t);
-  }, [nwtData, nwtUser]);
+  }, [sortedData]);
 
   /* ═══════════════════════════════════════════
      MARQUEE DATA
@@ -1153,33 +1227,47 @@ export default function ToolsPage() {
           {/* Two-pane body */}
           <div style={{ display: "grid", gridTemplateColumns: "340px 1fr", flex: 1, overflow: "hidden", minHeight: 0 }}>
 
-            {/* LEFT: login / entry form */}
+            {/* LEFT: tab-lock / bootstrap / entry form */}
             <div style={{ borderRight: "1px solid rgba(0,0,0,0.08)", overflowY: "auto", padding: "28px 28px 40px" }}>
-              {!nwtUser ? (
-                /* Login panel */
-                <div>
-                  <div style={{ fontSize: 13, fontWeight: 500, marginBottom: 16, color: "#555" }}>Sign in to your tracker</div>
-                  <div className="ft-form-group" style={{ marginBottom: 12 }}>
-                    <label className="ft-form-label">Your Name</label>
-                    <input className="ft-form-input" type="text" value={nwtLoginName} onChange={e => setNwtLoginName(e.target.value)} placeholder="e.g. Arjun Sharma" />
-                  </div>
-                  <div className="ft-form-group" style={{ marginBottom: 16 }}>
-                    <label className="ft-form-label">PIN (4 digits)</label>
-                    <input className="ft-form-input" type="password" value={nwtLoginPin} onChange={e => setNwtLoginPin(e.target.value)} placeholder="****" maxLength={4} inputMode="numeric" />
-                  </div>
-                  <button className="ft-calc-btn" style={{ margin: 0, fontSize: 13, padding: "12px 0" }} onClick={handleNwtLogin}>Continue →</button>
-                  <p style={{ fontSize: 11, color: "#bbb", marginTop: 10, lineHeight: 1.5 }}>New user? Enter any name and PIN — your tracker is created automatically. Data is stored locally in your browser.</p>
+              {tabLockState === "blocked" ? (
+                <div className="ft-tracker-blocked">
+                  <h3 style={{ fontFamily: "'Playfair Display', serif", fontSize: 18, fontWeight: 700, marginBottom: 10 }}>Networth Tracker is open in another tab.</h3>
+                  <p style={{ fontSize: 13, color: "#666", lineHeight: 1.5, marginBottom: 16 }}>Switch to that tab to continue, or close it and click Retry here.</p>
+                  <button className="ft-calc-btn" style={{ margin: 0, fontSize: 13, padding: "12px 0" }} onClick={() => window.location.reload()}>
+                    Retry
+                  </button>
                 </div>
+              ) : bootstrapping ? (
+                <div className="ft-tracker-loading" style={{ fontSize: 13, color: "#888", padding: "20px 0" }}>Loading your data…</div>
+              ) : errorMsg && !userId ? (
+                <div className="ft-tracker-error" style={{ fontSize: 13, color: "#b85c38", padding: "20px 0" }}>{errorMsg}</div>
               ) : (
-                /* Entry form */
                 <div>
-                  <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 20 }}>
-                    <div>
-                      <div style={{ fontSize: 13, fontWeight: 500 }}>Welcome, {nwtUser} 👋</div>
-                      <div style={{ fontSize: 11, color: "#aaa", marginTop: 2 }}>Log your monthly snapshot</div>
+                  <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 16, gap: 12 }}>
+                    <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
+                      {pendingN > 0 && (
+                        <span className="ft-pending-badge" title="Entries not yet synced to server" style={{ fontSize: 11, color: "#b85c38", fontWeight: 500 }}>
+                          {pendingN} unsynced
+                        </span>
+                      )}
+                      {!serverReachable && (
+                        <span className="ft-offline-badge" style={{ fontSize: 11, color: "#888" }}>Offline — showing saved data</span>
+                      )}
                     </div>
-                    <button onClick={handleNwtLogout} style={{ fontSize: 11, color: "#bbb", background: "none", border: "none", cursor: "pointer", textDecoration: "underline" }}>Sign out</button>
+                    <button
+                      className="ft-calc-btn"
+                      onClick={handleRefresh}
+                      disabled={refreshing}
+                      style={{ margin: 0, fontSize: 12, padding: "8px 14px", minWidth: 100 }}
+                    >
+                      {refreshing ? "Refreshing…" : "Refresh"}
+                    </button>
                   </div>
+                  {errorMsg && (
+                    <div className="ft-tracker-error" style={{ marginBottom: 12, padding: "10px 14px", background: "rgba(184,92,56,0.08)", borderRadius: 8, fontSize: 12, color: "#b85c38" }}>
+                      {errorMsg}
+                    </div>
+                  )}
 
                   <div className="ft-form-group" style={{ marginBottom: 14 }}>
                     <label className="ft-form-label">Month</label>
@@ -1266,8 +1354,13 @@ export default function ToolsPage() {
                     <input className="ft-form-input" type="number" value={nwtFields.cc || ""} onChange={e => setNwtFields(p => ({ ...p, cc: Number(e.target.value) || 0 }))} placeholder="0" />
                   </div>
 
-                  <button className="ft-calc-btn" style={{ margin: 0, fontSize: 13, padding: "12px 0", background: "var(--gold)", color: "var(--ink)" }} onClick={handleNwtSave}>
-                    Save This Month →
+                  <button
+                    className="ft-calc-btn"
+                    style={{ margin: 0, fontSize: 13, padding: "12px 0", background: "var(--gold)", color: "var(--ink)" }}
+                    onClick={handleAddNwtEntry}
+                    disabled={saving}
+                  >
+                    {saving ? "Saving…" : "Save This Month →"}
                   </button>
                   {nwtSaveMsg && (
                     <div style={{ marginTop: 10, padding: "10px 14px", background: "rgba(45,122,58,0.1)", borderRadius: 8, fontSize: 12, color: "#2d7a3a", fontWeight: 500 }}>
@@ -1280,16 +1373,17 @@ export default function ToolsPage() {
 
             {/* RIGHT: charts + history */}
             <div style={{ overflowY: "auto", padding: "28px 32px 40px", background: "#fafaf8" }}>
-              {!nwtData.length ? (
+              {!sortedData.length ? (
                 <div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", height: "100%", opacity: 0.45, textAlign: "center" }}>
                   <div style={{ fontSize: 48, marginBottom: 14 }}>📊</div>
                   <div style={{ fontFamily: "'Playfair Display', serif", fontSize: 18, fontWeight: 700, color: "var(--ink)" }}>Your charts will appear here</div>
-                  <div style={{ fontSize: 13, color: "#999", marginTop: 6 }}>Sign in and log your first month to get started</div>
+                  <div style={{ fontSize: 13, color: "#999", marginTop: 6 }}>Log your first month to get started</div>
                 </div>
               ) : (() => {
-                const latest = nwtData[nwtData.length - 1];
-                const prev = nwtData.length > 1 ? nwtData[nwtData.length - 2] : null;
-                const change = prev ? latest.nw - prev.nw : null;
+                const latest = sortedData[sortedData.length - 1];
+                const prev = sortedData.length > 1 ? sortedData[sortedData.length - 2] : null;
+                const latestNw = monthNw(latest);
+                const change = prev ? latestNw - monthNw(prev) : null;
                 const [ly, lm] = latest.month.split("-");
                 const latestLabel = new Date(+ly, +lm - 1, 1).toLocaleString("en-IN", { month: "long", year: "numeric" });
                 const { equity = 0, debt = 0, gold = 0, realestate = 0, cash = 0 } = latest.alloc || {};
@@ -1303,7 +1397,7 @@ export default function ToolsPage() {
                     <div style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 12, marginBottom: 28 }}>
                       <div style={{ background: "#fff", border: "1px solid rgba(0,0,0,0.08)", borderRadius: 12, padding: "16px 18px" }}>
                         <div style={{ fontSize: 11, color: "#aaa", textTransform: "uppercase", letterSpacing: 1, marginBottom: 6 }}>Latest Net Worth</div>
-                        <div style={{ fontFamily: "'Playfair Display', serif", fontSize: 20, fontWeight: 700, color: latest.nw >= 0 ? "var(--ink)" : "#b85c38" }}>{fmt(latest.nw)}</div>
+                        <div style={{ fontFamily: "'Playfair Display', serif", fontSize: 20, fontWeight: 700, color: latestNw >= 0 ? "var(--ink)" : "#b85c38" }}>{fmt(latestNw)}</div>
                         <div style={{ fontSize: 11, color: "#bbb", marginTop: 4 }}>{latestLabel}</div>
                       </div>
                       <div style={{ background: "#fff", border: "1px solid rgba(0,0,0,0.08)", borderRadius: 12, padding: "16px 18px" }}>
@@ -1315,7 +1409,7 @@ export default function ToolsPage() {
                       </div>
                       <div style={{ background: "#fff", border: "1px solid rgba(0,0,0,0.08)", borderRadius: 12, padding: "16px 18px" }}>
                         <div style={{ fontSize: 11, color: "#aaa", textTransform: "uppercase", letterSpacing: 1, marginBottom: 6 }}>Total Entries</div>
-                        <div style={{ fontFamily: "'Playfair Display', serif", fontSize: 20, fontWeight: 700, color: "var(--ink)" }}>{nwtData.length}</div>
+                        <div style={{ fontFamily: "'Playfair Display', serif", fontSize: 20, fontWeight: 700, color: "var(--ink)" }}>{sortedData.length}</div>
                         <div style={{ fontSize: 11, color: "#bbb", marginTop: 4 }}>months tracked</div>
                       </div>
                     </div>
@@ -1373,15 +1467,18 @@ export default function ToolsPage() {
                             </tr>
                           </thead>
                           <tbody>
-                            {[...nwtData].reverse().map(d => {
+                            {[...sortedData].reverse().map(d => {
                               const [y, m] = d.month.split("-");
                               const label = new Date(+y, +m - 1, 1).toLocaleString("en-IN", { month: "long", year: "numeric" });
+                              const dAssets = sumValues(d.assets);
+                              const dLiabs = sumValues(d.liabs);
+                              const dNw = dAssets - dLiabs;
                               return (
-                                <tr key={d.month} style={{ borderBottom: "1px solid rgba(0,0,0,0.06)" }}>
+                                <tr key={d.id} style={{ borderBottom: "1px solid rgba(0,0,0,0.06)" }}>
                                   <td style={{ padding: "11px 20px", fontSize: 13, fontWeight: 500 }}>{label}</td>
-                                  <td style={{ padding: "11px 20px", fontSize: 13, color: "#2d7a3a" }}>{fmt(d.assets)}</td>
-                                  <td style={{ padding: "11px 20px", fontSize: 13, color: "#b85c38" }}>{fmt(d.liabs)}</td>
-                                  <td style={{ padding: "11px 20px", fontSize: 13, fontWeight: 700, color: d.nw >= 0 ? "#2d7a3a" : "#b85c38" }}>{fmt(d.nw)}</td>
+                                  <td style={{ padding: "11px 20px", fontSize: 13, color: "#2d7a3a" }}>{fmt(dAssets)}</td>
+                                  <td style={{ padding: "11px 20px", fontSize: 13, color: "#b85c38" }}>{fmt(dLiabs)}</td>
+                                  <td style={{ padding: "11px 20px", fontSize: 13, fontWeight: 700, color: dNw >= 0 ? "#2d7a3a" : "#b85c38" }}>{fmt(dNw)}</td>
                                 </tr>
                               );
                             })}
