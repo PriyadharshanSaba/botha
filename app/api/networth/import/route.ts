@@ -10,7 +10,7 @@ import {
   buildReport,
   validateImportEntry,
 } from "@/app/lib/networth/import";
-import type { NwtEntry } from "@/app/lib/networth/types";
+import { SCHEMA_VERSION, type NwtEntry } from "@/app/lib/networth/types";
 
 const NO_STORE = { "Cache-Control": "no-store" } as const;
 
@@ -117,12 +117,17 @@ export async function POST(req: NextRequest) {
     }
 
     const jsonbArray = JSON.stringify(entriesToInsert);
+    // Upsert: creates row on first use, appends + flags on subsequent existence.
+    // DO UPDATE's WHERE clause enforces one-shot: a row with import_used_at IS NOT NULL
+    // matches the conflict but skips the UPDATE, returning 0 rows → 409.
     const result = await db.execute(sql`
-      UPDATE networth_data
-      SET entries = entries || ${jsonbArray}::jsonb,
-          import_used_at = now(),
-          updated_at = now()
-      WHERE user_id = ${userId} AND import_used_at IS NULL
+      INSERT INTO networth_data (user_id, entries, schema_version, import_used_at, updated_at)
+      VALUES (${userId}, ${jsonbArray}::jsonb, ${SCHEMA_VERSION}, now(), now())
+      ON CONFLICT (user_id) DO UPDATE
+        SET entries = networth_data.entries || EXCLUDED.entries,
+            import_used_at = now(),
+            updated_at = now()
+        WHERE networth_data.import_used_at IS NULL
       RETURNING user_id
     `);
 
