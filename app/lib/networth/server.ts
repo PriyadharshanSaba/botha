@@ -32,9 +32,10 @@ export async function appendEntry(
   userId: string,
   entry: NwtEntry,
 ): Promise<{ updatedAt: string }> {
+  const entryJson = JSON.stringify(entry);
   const result = await db.execute(sql`
     INSERT INTO networth_data (user_id, entries, schema_version, updated_at)
-    VALUES (${userId}, jsonb_build_array(${entry}::jsonb), ${SCHEMA_VERSION}, now())
+    VALUES (${userId}, jsonb_build_array(${entryJson}::jsonb), ${SCHEMA_VERSION}, now())
     ON CONFLICT (user_id) DO UPDATE
       SET entries    = networth_data.entries || EXCLUDED.entries,
           updated_at = now()
