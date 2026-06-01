@@ -41,17 +41,20 @@ export async function appendEntry(
           updated_at = now()
     RETURNING updated_at, jsonb_array_length(entries) AS len
   `);
-  const row = (result.rows ?? result)[0] as { updated_at: Date; len: number };
+  const row = result.rows[0] as { updated_at: Date; len: number };
   if (row.len > MAX_ENTRIES_PER_USER) {
-    // Roll back via a corrective update: drop the just-appended last element.
+    // Cap is soft: a concurrent append between RETURNING and this UPDATE can
+    // re-cross the cap. Acceptable given the 1000-entry ceiling. The rollback
+    // is best-effort and drops only THIS request's appended element.
     await db.execute(sql`
       UPDATE networth_data
       SET entries = entries - (jsonb_array_length(entries) - 1)
       WHERE user_id = ${userId}
     `);
-    throw new Error("MAX_ENTRIES_EXCEEDED");
+    // Prefix contract: callers should check `e.message.startsWith("MAX_ENTRIES_EXCEEDED")`.
+    throw new Error(`MAX_ENTRIES_EXCEEDED:${userId}:${row.len}`);
   }
-  return { updatedAt: new Date(row.updated_at).toISOString() };
+  return { updatedAt: row.updated_at.toISOString() };
 }
 
 /** Bulk append with per-id dedup. Returns accepted + rejected ids. */
@@ -78,7 +81,8 @@ export async function bulkAppend(
   }
 
   if (current.entries.length + accepted.length > MAX_ENTRIES_PER_USER) {
-    throw new Error("MAX_ENTRIES_EXCEEDED");
+    // Prefix contract: callers should check `e.message.startsWith("MAX_ENTRIES_EXCEEDED")`.
+    throw new Error(`MAX_ENTRIES_EXCEEDED:${userId}:${current.entries.length + accepted.length}`);
   }
 
   if (accepted.length === 0) {
@@ -98,10 +102,10 @@ export async function bulkAppend(
           updated_at = now()
     RETURNING updated_at
   `);
-  const row = (result.rows ?? result)[0] as { updated_at: Date };
+  const row = result.rows[0] as { updated_at: Date };
   return {
     accepted: accepted.map((e) => e.id),
     rejected,
-    updatedAt: new Date(row.updated_at).toISOString(),
+    updatedAt: row.updated_at.toISOString(),
   };
 }
