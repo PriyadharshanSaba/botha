@@ -3,7 +3,7 @@ import { db } from "@/app/lib/db/connection";
 import { networthData } from "@/app/lib/db/schema";
 import { eq, sql } from "drizzle-orm";
 import type { NwtEntry } from "./types";
-import { SCHEMA_VERSION, MAX_ENTRIES_PER_USER } from "./types";
+import { SCHEMA_VERSION, MAX_ENTRIES_PER_USER, UUID_V4, MONTH_RE } from "./types";
 
 export async function getNetworth(userId: string): Promise<{
   entries: NwtEntry[];
@@ -107,5 +107,37 @@ export async function bulkAppend(
     accepted: accepted.map((e) => e.id),
     rejected,
     updatedAt: row.updated_at.toISOString(),
+  };
+}
+
+function isFiniteNumberRecord(x: unknown): x is Record<string, number> {
+  if (x === null || typeof x !== "object" || Array.isArray(x)) return false;
+  for (const v of Object.values(x as Record<string, unknown>)) {
+    if (typeof v !== "number" || !Number.isFinite(v)) return false;
+  }
+  return true;
+}
+
+export function validateEntry(raw: unknown): { ok: true; entry: NwtEntry } | { ok: false; reason: string } {
+  if (!raw || typeof raw !== "object") return { ok: false, reason: "not-an-object" };
+  const e = raw as Record<string, unknown>;
+  if (typeof e.id !== "string" || !UUID_V4.test(e.id)) return { ok: false, reason: "bad-id" };
+  if (typeof e.month !== "string" || !MONTH_RE.test(e.month)) return { ok: false, reason: "bad-month" };
+  if (typeof e.createdAt !== "string" || Number.isNaN(Date.parse(e.createdAt))) {
+    return { ok: false, reason: "bad-createdAt" };
+  }
+  if (!isFiniteNumberRecord(e.assets)) return { ok: false, reason: "bad-assets" };
+  if (!isFiniteNumberRecord(e.liabs)) return { ok: false, reason: "bad-liabs" };
+  if (!isFiniteNumberRecord(e.alloc)) return { ok: false, reason: "bad-alloc" };
+  return {
+    ok: true,
+    entry: {
+      id: e.id,
+      month: e.month,
+      createdAt: e.createdAt,
+      assets: e.assets as Record<string, number>,
+      liabs: e.liabs as Record<string, number>,
+      alloc: e.alloc as Record<string, number>,
+    },
   };
 }
