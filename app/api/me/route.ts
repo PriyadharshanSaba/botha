@@ -20,6 +20,7 @@ export async function GET(req: NextRequest) {
 
   return NextResponse.json({
     loggedIn: true,
+    id: userId,
     subscribed: sub?.status === "active",
     isTestUser: user ? isTestEmail(user.email) : false,
     needsConsent,
