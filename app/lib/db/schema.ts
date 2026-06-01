@@ -1,6 +1,7 @@
 import { pgTable, text, timestamp, integer, primaryKey, serial, boolean, unique, jsonb, index, uniqueIndex } from "drizzle-orm/pg-core";
 import { sql } from "drizzle-orm";
 import type { BillingInfo, BuyerSnapshot, SupplierSnapshot, InvoiceLineItem, InvoiceNotes } from "./types";
+import type { NwtEntry } from "@/app/lib/networth/types";
 
 export const users = pgTable("users", {
   id: text("id").primaryKey(),
@@ -131,3 +132,15 @@ export const userProgress = pgTable(
     pk: primaryKey(table.userId),
   })
 );
+
+export const networthData = pgTable("networth_data", {
+  userId: text("user_id")
+    .primaryKey()
+    .references(() => users.id, { onDelete: "cascade" }),
+  entries: jsonb("entries")
+    .$type<NwtEntry[]>()
+    .notNull()
+    .default(sql`'[]'::jsonb`),
+  schemaVersion: integer("schema_version").notNull().default(1),
+  updatedAt: timestamp("updated_at").defaultNow().notNull(),
+});
