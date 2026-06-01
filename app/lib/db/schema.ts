@@ -143,4 +143,5 @@ export const networthData = pgTable("networth_data", {
     .default(sql`'[]'::jsonb`),
   schemaVersion: integer("schema_version").notNull().default(1),
   updatedAt: timestamp("updated_at").defaultNow().notNull(),
+  importUsedAt: timestamp("import_used_at"),
 });
