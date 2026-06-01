@@ -9,6 +9,7 @@ export async function getNetworth(userId: string): Promise<{
   entries: NwtEntry[];
   schemaVersion: number;
   updatedAt: string | null;
+  importUsedAt: string | null;
 }> {
   const rows = await db
     .select()
@@ -18,13 +19,32 @@ export async function getNetworth(userId: string): Promise<{
 
   const row = rows[0];
   if (!row) {
-    return { entries: [], schemaVersion: SCHEMA_VERSION, updatedAt: null };
+    return { entries: [], schemaVersion: SCHEMA_VERSION, updatedAt: null, importUsedAt: null };
   }
   return {
     entries: row.entries ?? [],
     schemaVersion: row.schemaVersion,
     updatedAt: row.updatedAt.toISOString(),
+    importUsedAt: row.importUsedAt ? row.importUsedAt.toISOString() : null,
   };
+}
+
+export async function getExistingMonths(userId: string): Promise<Set<string>> {
+  const { entries } = await getNetworth(userId);
+  return new Set(entries.map((e) => e.month));
+}
+
+export async function markImportUsed(userId: string): Promise<void> {
+  const result = await db.execute(sql`
+    UPDATE networth_data
+    SET import_used_at = now()
+    WHERE user_id = ${userId} AND import_used_at IS NULL
+    RETURNING user_id
+  `);
+  if (result.rows.length === 0) {
+    // Prefix contract: callers should check `e.message.startsWith("IMPORT_ALREADY_USED")`.
+    throw new Error("IMPORT_ALREADY_USED:" + userId);
+  }
 }
 
 /** Atomic append. Returns the updated row's updated_at. */
