@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState, useRef, useEffect } from "react";
 import { useLanguage } from "../context/LanguageContext";
+import { clearAllNetworthKeys } from "@/app/lib/networth/cache";
 import "./header.css";
 
 export default function Header({
@@ -21,6 +22,7 @@ export default function Header({
 
   async function handleLogout() {
     await fetch("/api/logout", { method: "POST" });
+    try { clearAllNetworthKeys(); } catch { /* localStorage unavailable */ }
     onLoggedOut?.();
     router.push("/");
     router.refresh(); // re-read uid cookie absence in RSC
