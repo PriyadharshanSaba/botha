@@ -485,7 +485,7 @@ export default function ToolsPage() {
         nwtLineInst.current = new ChartJS(nwtLineRef.current, {
           type: "line",
           data: { labels: months, datasets: [{ label: "Net Worth", data: vals, borderColor: "#c9a84c", backgroundColor: "rgba(201,168,76,0.08)", borderWidth: 2.5, pointBackgroundColor: vals.map(v => v >= 0 ? "#c9a84c" : "#b85c38"), pointRadius: 5, tension: 0.35, fill: true }] },
-          options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false }, tooltip: { callbacks: { label: (ctx) => " " + fmt(Number(ctx.parsed.y)) } } }, scales: { x: { ticks: { font: { size: 11 }, color: "#aaa" } }, y: { beginAtZero: false, ticks: { font: { size: 11 }, color: "#aaa", callback: v => { const n = Number(v); if (Math.abs(n) >= 1e7) return "₹" + (n / 1e7).toFixed(1) + "Cr"; if (Math.abs(n) >= 1e5) return "₹" + (n / 1e5).toFixed(1) + "L"; return "₹" + n.toLocaleString("en-IN"); } } } } },
+          options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false }, tooltip: { callbacks: { label: (ctx) => " " + fmt(Number(ctx.parsed.y)) } } }, scales: { x: { ticks: { font: { size: 11 }, color: "#aaa" } }, y: { beginAtZero: true, ticks: { font: { size: 11 }, color: "#aaa", callback: v => { const n = Number(v); if (Math.abs(n) >= 1e7) return "₹" + (n / 1e7).toFixed(1) + "Cr"; if (Math.abs(n) >= 1e5) return "₹" + (n / 1e5).toFixed(1) + "L"; return "₹" + n.toLocaleString("en-IN"); } } } } },
         });
       }
 
@@ -495,7 +495,7 @@ export default function ToolsPage() {
         nwtBarInst.current = new ChartJS(nwtBarRef.current, {
           type: "bar",
           data: { labels: months, datasets: [{ label: "Net Worth", data: vals, backgroundColor: vals.map(v => v >= 0 ? "rgba(45,122,58,0.75)" : "rgba(184,92,56,0.75)"), borderColor: vals.map(v => v >= 0 ? "#2d7a3a" : "#b85c38"), borderWidth: 1.5, borderRadius: 4 }] },
-          options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false }, tooltip: { callbacks: { label: (ctx) => " " + fmt(Number(ctx.parsed.y)) } } }, scales: { x: { grid: { display: false }, ticks: { font: { size: 10 }, color: "#aaa" } }, y: { beginAtZero: false, ticks: { font: { size: 10 }, color: "#aaa", callback: v => { const n = Number(v); if (Math.abs(n) >= 1e7) return "₹" + (n / 1e7).toFixed(1) + "Cr"; if (Math.abs(n) >= 1e5) return "₹" + (n / 1e5).toFixed(1) + "L"; return "₹" + n.toLocaleString("en-IN"); } } } } },
+          options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false }, tooltip: { callbacks: { label: (ctx) => " " + fmt(Number(ctx.parsed.y)) } } }, scales: { x: { grid: { display: false }, ticks: { font: { size: 10 }, color: "#aaa" } }, y: { beginAtZero: true, ticks: { font: { size: 10 }, color: "#aaa", callback: v => { const n = Number(v); if (Math.abs(n) >= 1e7) return "₹" + (n / 1e7).toFixed(1) + "Cr"; if (Math.abs(n) >= 1e5) return "₹" + (n / 1e5).toFixed(1) + "L"; return "₹" + n.toLocaleString("en-IN"); } } } } },
         });
       }
 
