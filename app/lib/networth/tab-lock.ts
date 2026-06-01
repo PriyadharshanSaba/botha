@@ -68,9 +68,11 @@ function acquireViaLease(userId: string): Promise<LockResult> {
       return;
     }
 
-    localStorage.setItem(key, JSON.stringify({ ownedAt: now }));
+    let lastWrite = now;
+    localStorage.setItem(key, JSON.stringify({ ownedAt: lastWrite }));
     const interval = setInterval(() => {
-      localStorage.setItem(key, JSON.stringify({ ownedAt: Date.now() }));
+      lastWrite = Date.now();
+      localStorage.setItem(key, JSON.stringify({ ownedAt: lastWrite }));
     }, LEASE_REFRESH_MS);
 
     resolve({
@@ -78,14 +80,14 @@ function acquireViaLease(userId: string): Promise<LockResult> {
       release: () => {
         clearInterval(interval);
         const cur = localStorage.getItem(key);
-        if (cur) {
-          try {
-            const p = JSON.parse(cur) as { ownedAt: number };
-            // Only delete if we still own it
-            if (p && p.ownedAt <= Date.now()) localStorage.removeItem(key);
-          } catch {
-            localStorage.removeItem(key);
-          }
+        if (!cur) return;
+        try {
+          const p = JSON.parse(cur) as { ownedAt: number };
+          // Only delete if our last heartbeat is still the current value —
+          // i.e. no other tab has overwritten the lease since.
+          if (p && p.ownedAt === lastWrite) localStorage.removeItem(key);
+        } catch {
+          // unparseable — leave alone
         }
       },
     });
