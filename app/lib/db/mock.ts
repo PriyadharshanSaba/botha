@@ -88,6 +88,7 @@ export const MockDB: DBDriver = {
   async getReferralOffer(_code: string) { return null; },
   async getReferralIdentity(_userId: string) { return { canRefer: false, referralCode: null, offer: null }; },
   async recordRedemption(_input) { /* no-op */ },
+  async getReferralStats(_referrerUserId: string) { return { count: 0, totalDiscountPaise: 0 }; },
 
   async saveConsent(input: SaveConsentInput): Promise<CookieConsent> {
     return {

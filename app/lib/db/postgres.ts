@@ -1,4 +1,4 @@
-import { DBDriver, CreateUserInput, User, SaveConsentInput, CookieConsent, Subscription, CreateSubscriptionInput, BillingInfo, ReferralOffer, ReferralIdentity } from "./types";
+import { DBDriver, CreateUserInput, User, SaveConsentInput, CookieConsent, Subscription, CreateSubscriptionInput, BillingInfo, ReferralOffer, ReferralIdentity, ReferralStats } from "./types";
 import { db } from "./connection";
 import { users, userProgress, otpAttempts, cookieConsents, subscriptions, referralOffers, referralRedemptions } from "./schema";
 import { eq, and, gte, count, sql } from "drizzle-orm";
@@ -427,6 +427,24 @@ export const PostgresDB: DBDriver = {
         appliedDiscountPaise: input.appliedDiscountPaise,
       })
       .onConflictDoNothing();
+  },
+
+  /* --------------------------------
+     REFERRAL STATS — count + total discount given by this referrer
+  ----------------------------------*/
+  async getReferralStats(referrerUserId: string): Promise<ReferralStats> {
+    const result = await db
+      .select({
+        count: count(),
+        total: sql<number>`COALESCE(SUM(${referralRedemptions.appliedDiscountPaise}), 0)`,
+      })
+      .from(referralRedemptions)
+      .where(eq(referralRedemptions.referrerUserId, referrerUserId));
+    const row = result[0];
+    return {
+      count: Number(row?.count ?? 0),
+      totalDiscountPaise: Number(row?.total ?? 0),
+    };
   },
 };
 

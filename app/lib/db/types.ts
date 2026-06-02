@@ -75,6 +75,11 @@ export type ReferralIdentity = {
   offer: ReferralOffer | null;
 };
 
+export type ReferralStats = {
+  count: number;
+  totalDiscountPaise: number;
+};
+
 /* ──────────────────────────────────────────────────────────────────────── */
 /* Invoice — immutable per-transaction record                              */
 /* See: docs/superpowers/specs/2026-05-25-billing-invoice-design.md         */
@@ -217,4 +222,5 @@ export interface DBDriver {
     razorpayOrderId: string;
     appliedDiscountPaise: number;
   }): Promise<void>;
+  getReferralStats(referrerUserId: string): Promise<ReferralStats>;
 }
