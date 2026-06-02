@@ -53,7 +53,7 @@ export async function POST(req: NextRequest) {
   let finalTaxablePaise = taxablePaise;
   let appliedReferralCode: string | null = null;
 
-  if (rawCode && !isTest) {
+  if (rawCode) {
     const referral = await applyReferral({
       code: normaliseCode(rawCode),
       refereeUserId: userId,

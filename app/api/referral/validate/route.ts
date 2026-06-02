@@ -25,14 +25,9 @@ export async function POST(req: NextRequest) {
   if (!user) {
     return NextResponse.json({ valid: false, error: "Unauthorized" }, { status: 401 });
   }
-  if (isTestEmail(user.email)) {
-    return NextResponse.json(
-      { valid: false, error: "Test users cannot use referral codes" },
-      { status: 400 },
-    );
-  }
 
-  const basePaise = Math.round(effectivePrice(plan, false)) * 100;
+  // Test users get the test price; discount preview must match it.
+  const basePaise = Math.round(effectivePrice(plan, isTestEmail(user.email))) * 100;
   const result = await applyReferral({
     code: normaliseCode(body.code),
     refereeUserId: userId,

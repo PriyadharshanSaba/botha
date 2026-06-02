@@ -357,9 +357,8 @@ export default function PlansPage() {
               </div>
             </div>
 
-            {/* Referral code — hidden for test users (they get fixed ₹10 price) */}
-            {!isTestUser && (
-              <>
+            {/* Referral code — also shown to test users for end-to-end testing */}
+            <>
                 <div className="bf-referral-row">
                   <input
                     type="text"
@@ -402,7 +401,6 @@ export default function PlansPage() {
                   <div className="bf-referral-error">{refStatus.message}</div>
                 )}
               </>
-            )}
 
             {/* GST breakdown — updates live with state selection */}
             {!isTestUser && (() => {
