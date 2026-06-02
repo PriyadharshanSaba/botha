@@ -8,6 +8,7 @@ import { invoices } from "@/app/lib/db/schema";
 import { getPlan, type PlanId } from "@/app/lib/plans";
 import { sendInvoiceEmail } from "@/app/lib/email/send";
 import { issueInvoice } from "@/app/lib/billing/issue";
+import { recordRedemptionForSubscription } from "@/app/lib/referral/server";
 
 export async function POST(req: NextRequest) {
   const userId = req.cookies.get("uid")?.value;
@@ -62,6 +63,14 @@ export async function POST(req: NextRequest) {
 
   // Flip subscription status to 'active'.
   await db.activateSubscription(razorpay_order_id, razorpay_payment_id);
+
+  // Record referral redemption if a code was attached. Idempotent — webhook may
+  // race with this path; UNIQUE(razorpay_order_id) keeps only one row alive.
+  try {
+    await recordRedemptionForSubscription(sub);
+  } catch (e) {
+    console.error("[orders/verify] redemption insert failed:", e);
+  }
 
   // Fire invoice email — non-blocking, failure doesn't affect payment response.
   // Skip if invoice issuance somehow returned no number (legacy edge case).

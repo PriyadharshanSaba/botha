@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import crypto from "crypto";
 import { db } from "@/app/lib/db";
 import { issueInvoice } from "@/app/lib/billing/issue";
+import { recordRedemptionForSubscription } from "@/app/lib/referral/server";
 
 export async function POST(req: NextRequest) {
   const body = await req.text();
@@ -43,6 +44,13 @@ export async function POST(req: NextRequest) {
           await issueInvoice(orderId, payment.id);
         } catch (e) {
           console.error("[webhook] issueInvoice failed:", e);
+        }
+        // Record referral redemption (idempotent via UNIQUE razorpay_order_id).
+        try {
+          const sub = await db.getSubscriptionByOrderId(orderId);
+          if (sub) await recordRedemptionForSubscription(sub);
+        } catch (e) {
+          console.error("[webhook] redemption insert failed:", e);
         }
       }
       break;

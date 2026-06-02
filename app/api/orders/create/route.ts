@@ -10,6 +10,7 @@ import { computeInvoiceTax } from "@/app/lib/billing/tax";
 import { getStateCode } from "@/app/lib/billing/state-codes";
 import { createDraftInvoice } from "@/app/lib/billing/issue";
 import type { PlanId } from "@/app/lib/plans";
+import { applyReferral, normaliseCode } from "@/app/lib/referral/server";
 
 export async function POST(req: NextRequest) {
   const userId = req.cookies.get("uid")?.value;
@@ -26,7 +27,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "Already subscribed" }, { status: 409 });
   }
 
-  const { planId } = await req.json();
+  const { planId, referralCode: rawCode } = await req.json();
   const plan = PLANS.find((p) => p.id === planId);
   if (!plan || plan.waitlist) {
     return NextResponse.json({ error: "Plan not available" }, { status: 400 });
@@ -48,6 +49,26 @@ export async function POST(req: NextRequest) {
   const tax            = computeInvoiceTax(taxablePaise, buyerStateCode, CURRENT_SUPPLIER);
   const amount         = tax.totalPaise;
 
+  // Discount on the pre-GST taxable base so GST is recomputed on the discounted amount.
+  let finalTaxablePaise = taxablePaise;
+  let appliedReferralCode: string | null = null;
+
+  if (rawCode && !isTest) {
+    const referral = await applyReferral({
+      code: normaliseCode(rawCode),
+      refereeUserId: userId,
+      basePaise: taxablePaise,
+    });
+    if (referral.ok) {
+      finalTaxablePaise = taxablePaise - referral.discountPaise;
+      appliedReferralCode = referral.code;
+    }
+    // Invalid codes silently ignored — UI already validated.
+  }
+
+  const finalTax    = computeInvoiceTax(finalTaxablePaise, buyerStateCode, CURRENT_SUPPLIER);
+  const finalAmount = finalTax.totalPaise;
+
   // Lazy init — only runs when env vars are confirmed present at request time
   if (!process.env.RAZORPAY_KEY_ID || !process.env.RAZORPAY_KEY_SECRET) {
     console.error("[orders/create] Razorpay env vars not set");
@@ -62,7 +83,7 @@ export async function POST(req: NextRequest) {
   let order: Orders.RazorpayOrder;
   try {
     order = await razorpay.orders.create({
-      amount,
+      amount: finalAmount,
       currency: "INR",
       notes: { planId, userId },
     });
@@ -75,7 +96,9 @@ export async function POST(req: NextRequest) {
     userId,
     planId,
     razorpayOrderId: order.id,
-    amountPaise: amount,
+    amountPaise: finalAmount,
+    referralCode: appliedReferralCode,
+    originalAmountPaise: amount,
   });
 
   // Source-of-truth invoice row (status='draft' until payment success).
@@ -84,12 +107,12 @@ export async function POST(req: NextRequest) {
     subscriptionId: sub.id,
     razorpayOrderId: order.id,
     planId: planId as PlanId,
-    taxablePaise,
+    taxablePaise: finalTaxablePaise,
   });
 
   return NextResponse.json({
     orderId: order.id,
-    amount,
+    amount: finalAmount,
     currency: "INR",
     keyId: process.env.RAZORPAY_KEY_ID,
     planName: plan.name,
