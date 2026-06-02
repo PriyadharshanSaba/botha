@@ -248,14 +248,21 @@ export default function ImportModal(props: ImportModalProps): JSX.Element | null
           {copied && <span style={{ fontSize: 13, color: "#2f7a4a" }}>Copied!</span>}
         </div>
         <div style={subheadingStyle}>Step 2 — Paste the AI&apos;s output</div>
-        <div style={{ display: "flex", gap: 8, marginBottom: 8, alignItems: "flex-start" }}>
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/import-guide/step1.webp" alt="Reference 1" style={{ width: 96, height: 96, objectFit: "cover", border: "1px solid #ddd", borderRadius: 6 }} />
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/import-guide/step2.webp" alt="Reference 2" style={{ width: 96, height: 96, objectFit: "cover", border: "1px solid #ddd", borderRadius: 6 }} />
-          <span style={{ fontSize: 11, color: "#666", lineHeight: 1.4 }}>
-            Reference: copy the AI&apos;s full JSON output and paste below.
-          </span>
+        <div style={{ display: "flex", gap: 12, marginBottom: 10, flexWrap: "wrap" }}>
+          <figure style={{ margin: 0, display: "flex", flexDirection: "column", gap: 4, maxWidth: 180 }}>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/import-guide/step1.webp" alt="Open AI chat and paste prompt + CSV" style={{ width: 160, height: "auto", border: "1px solid #ddd", borderRadius: 6, display: "block" }} />
+            <figcaption style={{ fontSize: 10, color: "#666", lineHeight: 1.3 }}>
+              <b>1.</b> In ChatGPT/Claude, paste the prompt followed by your CSV.
+            </figcaption>
+          </figure>
+          <figure style={{ margin: 0, display: "flex", flexDirection: "column", gap: 4, maxWidth: 180 }}>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/import-guide/step2.webp" alt="Click Copy on the AI's response" style={{ width: 160, height: "auto", border: "1px solid #ddd", borderRadius: 6, display: "block" }} />
+            <figcaption style={{ fontSize: 10, color: "#666", lineHeight: 1.3 }}>
+              <b>2.</b> Hit <b>Copy</b> on the AI&apos;s full JSON reply, then paste it below.
+            </figcaption>
+          </figure>
         </div>
         <textarea
           rows={8}
