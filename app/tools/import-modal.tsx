@@ -65,6 +65,7 @@ export default function ImportModal(props: ImportModalProps): JSX.Element | null
   // Initial state is therefore always consent — no reset effect needed.
   const [state, setState] = useState<State>({ mode: "consent", consented: false });
   const [copied, setCopied] = useState(false);
+  const [expanded, setExpanded] = useState<string | null>(null);
 
   // Copied flag auto-clears after 2s
   useEffect(() => {
@@ -249,20 +250,23 @@ export default function ImportModal(props: ImportModalProps): JSX.Element | null
         </div>
         <div style={subheadingStyle}>Step 2 — Paste the AI&apos;s output</div>
         <div style={{ display: "flex", gap: 12, marginBottom: 10, flexWrap: "wrap" }}>
-          <figure style={{ margin: 0, display: "flex", flexDirection: "column", gap: 4, maxWidth: 180 }}>
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/import-guide/step1.webp" alt="Open AI chat and paste prompt + CSV" style={{ width: 160, height: "auto", border: "1px solid #ddd", borderRadius: 6, display: "block" }} />
-            <figcaption style={{ fontSize: 10, color: "#666", lineHeight: 1.3 }}>
-              <b>1.</b> In ChatGPT/Claude, paste the prompt followed by your CSV.
-            </figcaption>
-          </figure>
-          <figure style={{ margin: 0, display: "flex", flexDirection: "column", gap: 4, maxWidth: 180 }}>
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/import-guide/step2.webp" alt="Click Copy on the AI's response" style={{ width: 160, height: "auto", border: "1px solid #ddd", borderRadius: 6, display: "block" }} />
-            <figcaption style={{ fontSize: 10, color: "#666", lineHeight: 1.3 }}>
-              <b>2.</b> Hit <b>Copy</b> on the AI&apos;s full JSON reply, then paste it below.
-            </figcaption>
-          </figure>
+          {[
+            { src: "/import-guide/step1.webp", alt: "Open AI chat and paste prompt + CSV", caption: <><b>1.</b> In ChatGPT/Claude, paste the prompt followed by your CSV.</> },
+            { src: "/import-guide/step2.webp", alt: "Click Copy on the AI's response", caption: <><b>2.</b> Hit <b>Copy</b> on the AI&apos;s full JSON reply, then paste it below.</> },
+          ].map((g) => (
+            <figure key={g.src} style={{ margin: 0, display: "flex", flexDirection: "column", gap: 4, width: 160 }}>
+              <button
+                type="button"
+                onClick={() => setExpanded(g.src)}
+                aria-label={`Expand: ${g.alt}`}
+                style={{ padding: 0, border: 0, background: "none", cursor: "zoom-in", borderRadius: 6, overflow: "hidden", display: "block" }}
+              >
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={g.src} alt={g.alt} style={{ width: 160, height: 100, objectFit: "cover", border: "1px solid #ddd", borderRadius: 6, display: "block" }} />
+              </button>
+              <figcaption style={{ fontSize: 10, color: "#666", lineHeight: 1.3 }}>{g.caption}</figcaption>
+            </figure>
+          ))}
         </div>
         <textarea
           rows={8}
@@ -531,6 +535,25 @@ export default function ImportModal(props: ImportModalProps): JSX.Element | null
       <div style={cardStyle} onClick={(e) => e.stopPropagation()}>
         {body}
       </div>
+      {expanded && (
+        <div
+          onClick={(e) => { e.stopPropagation(); setExpanded(null); }}
+          style={{
+            position: "fixed",
+            inset: 0,
+            background: "rgba(0,0,0,0.85)",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            zIndex: 1100,
+            cursor: "zoom-out",
+            padding: 24,
+          }}
+        >
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src={expanded} alt="Expanded reference" style={{ maxWidth: "92vw", maxHeight: "92vh", objectFit: "contain", borderRadius: 8, boxShadow: "0 8px 32px rgba(0,0,0,0.5)" }} />
+        </div>
+      )}
     </div>
   );
 }
