@@ -1,11 +1,18 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import Script from "next/script";
 import { PLANS, type Plan, effectivePrice } from "@/app/lib/plans";
 import type { BillingInfo } from "@/app/lib/db/types";
+import { useLanguage } from "@/app/context/LanguageContext";
 import "./plans.css";
+
+type ReferralStatus =
+  | { state: "idle" }
+  | { state: "checking" }
+  | { state: "applied"; code: string; description: string | null; discountPaise: number; finalPaise: number }
+  | { state: "error"; message: string };
 
 type RazorpayPaymentResponse = {
   razorpay_order_id: string;
@@ -54,6 +61,8 @@ const EMPTY_BILLING: BillingInfo = {
 
 export default function PlansPage() {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const { t } = useLanguage();
   const [step, setStep]             = useState<Step>("plans");
   const [selectedPlan, setSelected] = useState<Plan | null>(null);
   const [seatCounts, setSeatCounts] = useState<Record<string, number>>({});
@@ -63,11 +72,51 @@ export default function PlansPage() {
   const [submitting, setSubmitting] = useState(false);
   const [finalizing, setFinalizing] = useState(false);
   const [errors, setErrors]         = useState<Partial<BillingInfo>>({});
+  const [refInput, setRefInput]     = useState("");
+  const [refStatus, setRefStatus]   = useState<ReferralStatus>({ state: "idle" });
 
   useEffect(() => {
     fetch("/api/orders/seats").then(r => r.json()).then(setSeatCounts).catch(() => {});
     fetch("/api/me").then(r => r.json()).then(d => setIsTestUser(d.isTestUser === true)).catch(() => {});
   }, []);
+
+  // Prefill referral code from ?ref= query param
+  useEffect(() => {
+    const fromUrl = searchParams.get("ref");
+    if (fromUrl) setRefInput(fromUrl.trim().toUpperCase().slice(0, 32));
+  }, [searchParams]);
+
+  // Reset code state when changing plan (discount may differ)
+  useEffect(() => {
+    if (refStatus.state === "applied") setRefStatus({ state: "idle" });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedPlan?.id]);
+
+  async function applyReferralCode() {
+    if (!selectedPlan || !refInput) return;
+    setRefStatus({ state: "checking" });
+    try {
+      const r = await fetch("/api/referral/validate", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ code: refInput, planId: selectedPlan.id }),
+      });
+      const j = await r.json();
+      if (j.valid) {
+        setRefStatus({
+          state: "applied",
+          code: j.code,
+          description: j.description ?? null,
+          discountPaise: j.discountPaise,
+          finalPaise: j.finalPaise,
+        });
+      } else {
+        setRefStatus({ state: "error", message: j.error ?? t("invalidCode") });
+      }
+    } catch {
+      setRefStatus({ state: "error", message: "Network error" });
+    }
+  }
 
   // ── Step 1: pick a plan ──────────────────────────────────────────────
   function handleSelectPlan(plan: Plan) {
@@ -116,7 +165,10 @@ export default function PlansPage() {
     const orderRes = await fetch("/api/orders/create", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ planId: selectedPlan.id }),
+      body: JSON.stringify({
+        planId: selectedPlan.id,
+        referralCode: refStatus.state === "applied" ? refStatus.code : undefined,
+      }),
     });
     if (!orderRes.ok) {
       const err = await orderRes.json().catch(() => ({}));
@@ -304,6 +356,53 @@ export default function PlansPage() {
                 ₹{effectivePrice(selectedPlan, isTestUser).toLocaleString("en-IN")}
               </div>
             </div>
+
+            {/* Referral code — hidden for test users (they get fixed ₹10 price) */}
+            {!isTestUser && (
+              <>
+                <div className="bf-referral-row">
+                  <input
+                    type="text"
+                    className="bf-input"
+                    placeholder={t("referralCode")}
+                    value={refInput}
+                    onChange={(e) => {
+                      setRefInput(e.target.value.toUpperCase().slice(0, 32));
+                      if (refStatus.state !== "idle") setRefStatus({ state: "idle" });
+                    }}
+                    disabled={refStatus.state === "applied"}
+                    style={{ flex: 1 }}
+                  />
+                  {refStatus.state === "applied" ? (
+                    <button
+                      type="button"
+                      className="plan-btn"
+                      onClick={() => { setRefInput(""); setRefStatus({ state: "idle" }); }}
+                    >
+                      Remove
+                    </button>
+                  ) : (
+                    <button
+                      type="button"
+                      className="plan-btn primary"
+                      disabled={!refInput || refStatus.state === "checking"}
+                      onClick={applyReferralCode}
+                    >
+                      {refStatus.state === "checking" ? "…" : t("applyCode")}
+                    </button>
+                  )}
+                </div>
+                {refStatus.state === "applied" && (
+                  <div className="bf-referral-applied">
+                    ✓ {refStatus.code} — {refStatus.description ?? t("codeApplied")}
+                    {" "}(− ₹{(refStatus.discountPaise / 100).toLocaleString("en-IN")})
+                  </div>
+                )}
+                {refStatus.state === "error" && (
+                  <div className="bf-referral-error">{refStatus.message}</div>
+                )}
+              </>
+            )}
 
             {/* GST breakdown — updates live with state selection */}
             {!isTestUser && (() => {

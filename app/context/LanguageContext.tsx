@@ -30,6 +30,12 @@ const translations: Record<string, Record<Lang, string>> = {
   previous: { en: "Previous", kn: "ಹಿಂದಿನ" },
   next: { en: "Next", kn: "ಮುಂದಿನ" },
   loadingProgress: { en: "Loading your progress…", kn: "ನಿಮ್ಮ ಪ್ರಗತಿಯನ್ನು ಲೋಡ್ ಮಾಡಲಾಗುತ್ತಿದೆ…" },
+
+  // Referral
+  referralCode: { en: "Referral code", kn: "ರೆಫರಲ್ ಕೋಡ್" },
+  applyCode: { en: "Apply", kn: "ಅನ್ವಯಿಸಿ" },
+  codeApplied: { en: "Code applied", kn: "ಕೋಡ್ ಅನ್ವಯಿಸಲಾಗಿದೆ" },
+  invalidCode: { en: "Invalid code", kn: "ಅಮಾನ್ಯ ಕೋಡ್" },
 };
 
 const LanguageContext = createContext<LanguageContextType>({
