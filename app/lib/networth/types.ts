@@ -15,6 +15,7 @@ export type NwtCache = {
   entries: NwtEntry[];
   lastSyncedAt: string | null;
   updatedAt: string;
+  importUsedAt?: string | null;
 };
 
 export type NwtPending = {

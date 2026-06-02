@@ -75,6 +75,7 @@ export async function initTracker(userId: string): Promise<InitResult> {
     try {
       const fresh = await fetchAllFromServer();
       replaceCacheEntries(userId, fresh.entries, new Date().toISOString());
+      writeCache(userId, { importUsedAt: fresh.importUsedAt });
       return {
         entries: fresh.entries,
         source: fresh.entries.length === 0 ? "empty" : "server",
@@ -87,7 +88,7 @@ export async function initTracker(userId: string): Promise<InitResult> {
         entries: cache?.entries ?? [],
         source: cache && cache.entries.length > 0 ? "cache" : "empty",
         serverReachable: false,
-        importUsedAt: null,
+        importUsedAt: cache?.importUsedAt ?? null,
       };
     }
   }
@@ -96,7 +97,7 @@ export async function initTracker(userId: string): Promise<InitResult> {
     entries: cache.entries,
     source: cache.entries.length === 0 ? "empty" : "cache",
     serverReachable: true,
-    importUsedAt: null,
+    importUsedAt: cache.importUsedAt ?? null,
   };
 }
 
@@ -164,6 +165,7 @@ export async function refresh(userId: string): Promise<{ entries: NwtEntry[]; im
   }
   const fresh = await fetchAllFromServer();
   replaceCacheEntries(userId, fresh.entries, new Date().toISOString());
+  writeCache(userId, { importUsedAt: fresh.importUsedAt });
   return { entries: fresh.entries, importUsedAt: fresh.importUsedAt };
 }
 
