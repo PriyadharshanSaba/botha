@@ -113,3 +113,39 @@ main().catch((e) => {
   console.error("✗", e instanceof Error ? e.message : e);
   process.exit(1);
 });
+
+
+/**
+                                                                                                                                                                    
+  BEGIN;                                                                                                                                                                
+                                                                                                                                                                        
+  -- 1. Deactivate any prior offer owned by this user (preserves history).                                                                                              
+  UPDATE referral_offers                                    
+  SET active = false                                                                                                                                                    
+  WHERE owner_user_id = '<userId>';                         
+
+  -- 2. Insert new offer — pick ONE of percent OR flat (paise), leave the other NULL.                                                                                     
+  INSERT INTO referral_offers
+    (code, owner_user_id, discount_percent, discount_flat_paise, description, active, expires_at)                                                                       
+  VALUES                                                                                                                                                                
+    ('BODHA10', '<userId>', 10, NULL, 'Friends & family', true, NULL);                                                                                                  
+    --                      ^^ percent (1..100)                                                                                                                         
+    -- For flat: (..., NULL, 50000, ...)   -- 50000 paise = ₹500                                                                                                        
+                                                                                                                                                                        
+  -- 3. Flip user flags.                                                                                                                                                
+  UPDATE users                                                                                                                                                          
+  SET can_refer = true, referral_code = 'BODHA10'           
+  WHERE id = '<userId>';
+
+  COMMIT;                                                                                                                                                               
+   
+  Verify after:                                                                                                                                                         
+  SELECT u.email, u.can_refer, u.referral_code, o.discount_percent, o.discount_flat_paise, o.active
+  FROM users u                                                                                     
+  LEFT JOIN referral_offers o ON o.owner_user_id = u.id AND o.active = true                                                                                             
+  WHERE u.id = '<userId>';
+                                                                                                                                                                        
+  Find userId by email:                                     
+  SELECT id, email FROM users WHERE email = 'someone@example.com';    
+
+ */
