@@ -11,8 +11,30 @@ import "./plans.css";
 type ReferralStatus =
   | { state: "idle" }
   | { state: "checking" }
-  | { state: "applied"; code: string; description: string | null; discountPaise: number; finalPaise: number }
+  | { state: "applied"; code: string; description: string | null; discountPercent: number | null; discountFlatPaise: number | null }
   | { state: "error"; message: string };
+
+const MIN_PAISE = 100; // ₹1 Razorpay floor
+
+/** Compute per-plan discounted price for the currently applied referral. */
+function discountedFor(plan: Plan, isTest: boolean, ref: ReferralStatus) {
+  const basePaise = Math.round(effectivePrice(plan, isTest)) * 100;
+  if (ref.state !== "applied") {
+    return { basePaise, discountPaise: 0, finalPaise: basePaise };
+  }
+  let discountPaise = 0;
+  if (ref.discountPercent != null) {
+    discountPaise = Math.round((basePaise * ref.discountPercent) / 100);
+  } else if (ref.discountFlatPaise != null) {
+    discountPaise = ref.discountFlatPaise;
+  }
+  let finalPaise = basePaise - discountPaise;
+  if (finalPaise < MIN_PAISE) {
+    finalPaise = MIN_PAISE;
+    discountPaise = basePaise - MIN_PAISE;
+  }
+  return { basePaise, discountPaise, finalPaise };
+}
 
 type RazorpayPaymentResponse = {
   razorpay_order_id: string;
@@ -86,20 +108,14 @@ export default function PlansPage() {
     if (fromUrl) setRefInput(fromUrl.trim().toUpperCase().slice(0, 32));
   }, [searchParams]);
 
-  // Reset code state when changing plan (discount may differ)
-  useEffect(() => {
-    if (refStatus.state === "applied") setRefStatus({ state: "idle" });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedPlan?.id]);
-
   async function applyReferralCode() {
-    if (!selectedPlan || !refInput) return;
+    if (!refInput) return;
     setRefStatus({ state: "checking" });
     try {
       const r = await fetch("/api/referral/validate", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ code: refInput, planId: selectedPlan.id }),
+        body: JSON.stringify({ code: refInput }),
       });
       const j = await r.json();
       if (j.valid) {
@@ -107,8 +123,8 @@ export default function PlansPage() {
           state: "applied",
           code: j.code,
           description: j.description ?? null,
-          discountPaise: j.discountPaise,
-          finalPaise: j.finalPaise,
+          discountPercent: j.discountPercent ?? null,
+          discountFlatPaise: j.discountFlatPaise ?? null,
         });
       } else {
         setRefStatus({ state: "error", message: j.error ?? t("invalidCode") });
@@ -267,11 +283,61 @@ export default function PlansPage() {
               </p>
             </div>
 
+            {/* Referral code — plan-agnostic; discount reflected on each card */}
+            <div className="plans-referral">
+              <div className="bf-referral-row">
+                <input
+                  type="text"
+                  className="bf-input"
+                  placeholder={t("referralCode")}
+                  value={refInput}
+                  onChange={(e) => {
+                    setRefInput(e.target.value.toUpperCase().slice(0, 32));
+                    if (refStatus.state !== "idle") setRefStatus({ state: "idle" });
+                  }}
+                  disabled={refStatus.state === "applied"}
+                  style={{ flex: 1 }}
+                />
+                {refStatus.state === "applied" ? (
+                  <button
+                    type="button"
+                    className="plan-btn"
+                    onClick={() => { setRefInput(""); setRefStatus({ state: "idle" }); }}
+                  >
+                    Remove
+                  </button>
+                ) : (
+                  <button
+                    type="button"
+                    className="plan-btn primary"
+                    disabled={!refInput || refStatus.state === "checking"}
+                    onClick={applyReferralCode}
+                  >
+                    {refStatus.state === "checking" ? "…" : t("applyCode")}
+                  </button>
+                )}
+              </div>
+              {refStatus.state === "applied" && (
+                <div className="bf-referral-applied">
+                  ✓ {refStatus.code} — {refStatus.description ?? t("codeApplied")}
+                  {refStatus.discountPercent != null && ` (${refStatus.discountPercent}% off)`}
+                  {refStatus.discountFlatPaise != null && ` (− ₹${(refStatus.discountFlatPaise / 100).toLocaleString("en-IN")})`}
+                </div>
+              )}
+              {refStatus.state === "error" && (
+                <div className="bf-referral-error">{refStatus.message}</div>
+              )}
+            </div>
+
             <div className="plans-grid">
               {PLANS.map((plan) => {
                 const taken   = seatCounts[plan.id] ?? (plan.id === "founding" ? 0 : 0);
                 const pct     = plan.maxSeats ? Math.min((taken / plan.maxSeats) * 100, 100) : 0;
                 const soldOut = plan.maxSeats !== null && taken >= plan.maxSeats;
+                const d       = discountedFor(plan, isTestUser, refStatus);
+                const finalRs = d.finalPaise / 100;
+                const baseRs  = d.basePaise / 100;
+                const hasDiscount = d.discountPaise > 0;
 
                 return (
                   <div key={plan.id} className={`plan-card ${plan.featured ? "featured" : ""}`}>
@@ -280,13 +346,15 @@ export default function PlansPage() {
                     {plan.tagline && <p className="plan-tagline">{plan.tagline}</p>}
 
                     <div className="plan-price-row">
-                      <span className="plan-price">₹{effectivePrice(plan, isTestUser).toLocaleString("en-IN")}</span>
-                      {!isTestUser && plan.originalPriceRs && <span className="plan-price-orig">₹{plan.originalPriceRs.toLocaleString("en-IN")}</span>}
+                      <span className="plan-price">₹{finalRs.toLocaleString("en-IN")}</span>
+                      {hasDiscount
+                        ? <span className="plan-price-orig">₹{baseRs.toLocaleString("en-IN")}</span>
+                        : (!isTestUser && plan.originalPriceRs && <span className="plan-price-orig">₹{plan.originalPriceRs.toLocaleString("en-IN")}</span>)}
                     </div>
                     <p className="plan-gst-note">
                       + 18% GST
                       <span className="plan-gst-incl">
-                        (₹{Math.round(effectivePrice(plan, isTestUser) * 1.18).toLocaleString("en-IN")} inclusive of GST)
+                        (₹{Math.round(finalRs * 1.18).toLocaleString("en-IN")} inclusive of GST)
                       </span>
                     </p>
 
@@ -323,7 +391,7 @@ export default function PlansPage() {
                         onClick={() => handleSelectPlan(plan)}
                         disabled={!scriptReady}
                       >
-                        Enroll at ₹{effectivePrice(plan, isTestUser).toLocaleString("en-IN")}
+                        Enroll at ₹{finalRs.toLocaleString("en-IN")}
                       </button>
                     )}
                   </div>
@@ -346,66 +414,42 @@ export default function PlansPage() {
               ← Back to plans
             </button>
 
-            {/* Selected plan summary pill */}
-            <div className="bf-plan-summary">
-              <div>
-                <span className={`plan-badge ${selectedPlan.badgeStyle}`} style={{ marginBottom: 0 }}>{selectedPlan.badge}</span>
-                <span className="bf-plan-name">{selectedPlan.name}</span>
-              </div>
-              <div className="bf-plan-price">
-                ₹{effectivePrice(selectedPlan, isTestUser).toLocaleString("en-IN")}
-              </div>
-            </div>
-
-            {/* Referral code — also shown to test users for end-to-end testing */}
-            <>
-                <div className="bf-referral-row">
-                  <input
-                    type="text"
-                    className="bf-input"
-                    placeholder={t("referralCode")}
-                    value={refInput}
-                    onChange={(e) => {
-                      setRefInput(e.target.value.toUpperCase().slice(0, 32));
-                      if (refStatus.state !== "idle") setRefStatus({ state: "idle" });
-                    }}
-                    disabled={refStatus.state === "applied"}
-                    style={{ flex: 1 }}
-                  />
-                  {refStatus.state === "applied" ? (
-                    <button
-                      type="button"
-                      className="plan-btn"
-                      onClick={() => { setRefInput(""); setRefStatus({ state: "idle" }); }}
-                    >
-                      Remove
-                    </button>
-                  ) : (
-                    <button
-                      type="button"
-                      className="plan-btn primary"
-                      disabled={!refInput || refStatus.state === "checking"}
-                      onClick={applyReferralCode}
-                    >
-                      {refStatus.state === "checking" ? "…" : t("applyCode")}
-                    </button>
-                  )}
-                </div>
-                {refStatus.state === "applied" && (
-                  <div className="bf-referral-applied">
-                    ✓ {refStatus.code} — {refStatus.description ?? t("codeApplied")}
-                    {" "}(− ₹{(refStatus.discountPaise / 100).toLocaleString("en-IN")})
+            {/* Selected plan summary pill — reflects applied referral discount */}
+            {(() => {
+              const d = discountedFor(selectedPlan, isTestUser, refStatus);
+              const finalRs = d.finalPaise / 100;
+              const baseRs  = d.basePaise / 100;
+              const hasDiscount = d.discountPaise > 0;
+              return (
+                <div className="bf-plan-summary">
+                  <div>
+                    <span className={`plan-badge ${selectedPlan.badgeStyle}`} style={{ marginBottom: 0 }}>{selectedPlan.badge}</span>
+                    <span className="bf-plan-name">{selectedPlan.name}</span>
                   </div>
-                )}
-                {refStatus.state === "error" && (
-                  <div className="bf-referral-error">{refStatus.message}</div>
-                )}
-              </>
+                  <div className="bf-plan-price">
+                    {hasDiscount && (
+                      <span className="plan-price-orig" style={{ marginRight: 8 }}>
+                        ₹{baseRs.toLocaleString("en-IN")}
+                      </span>
+                    )}
+                    ₹{finalRs.toLocaleString("en-IN")}
+                  </div>
+                </div>
+              );
+            })()}
+
+            {/* Applied referral indicator (input lives on step 1) */}
+            {refStatus.state === "applied" && (
+              <div className="bf-referral-applied" style={{ marginBottom: 12 }}>
+                ✓ {refStatus.code} — {refStatus.description ?? t("codeApplied")}
+                {refStatus.discountPercent != null && ` (${refStatus.discountPercent}% off)`}
+                {refStatus.discountFlatPaise != null && ` (− ₹${(refStatus.discountFlatPaise / 100).toLocaleString("en-IN")})`}
+              </div>
+            )}
 
             {/* GST breakdown — updates live with state selection */}
             {!isTestUser && (() => {
-              const base    = effectivePrice(selectedPlan, isTestUser);
-              const taxable = Math.round(base);
+              const taxable = Math.round(discountedFor(selectedPlan, isTestUser, refStatus).finalPaise / 100);
               const tax     = Math.round(taxable * 0.18);
               const total   = taxable + tax;
               const intra   = billing.state === "Karnataka";
