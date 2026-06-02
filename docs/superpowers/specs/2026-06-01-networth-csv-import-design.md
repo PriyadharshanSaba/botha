@@ -199,7 +199,7 @@ Single checkbox: "I have read and accept the above" — required to proceed.
 ### Paste screen content
 
 - Button "Copy import prompt" → copies `IMPORT_PROMPT_V1` to clipboard
-- Textarea: max length 256 KB enforced client-side. Placeholder: "Paste the AI's JSON output here…"
+- Textarea: max length 256 KB enforced client-side. Placeholder: "Paste the AI's resposnse here…"
 - Button "Parse" → POST `dryRun=true`. Disabled until textarea is non-empty.
 
 ### Preview screen

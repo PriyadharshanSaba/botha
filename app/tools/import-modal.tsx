@@ -230,7 +230,7 @@ export default function ImportModal(props: ImportModalProps): JSX.Element | null
     return (
       <div>
         <h2 style={headingStyle}>Import from CSV</h2>
-        <div style={subheadingStyle}>Step 1 — Get the JSON from your AI</div>
+        <div style={subheadingStyle}>Step 1 — Copy the prompt and paste it in any GPT's chatbox along with your networth CSV / excel file uploaded</div>
         <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
           <button
             type="button"
@@ -244,7 +244,7 @@ export default function ImportModal(props: ImportModalProps): JSX.Element | null
               }
             }}
           >
-            Copy import prompt
+            Copy prompt
           </button>
           {copied && <span style={{ fontSize: 13, color: "#2f7a4a" }}>Copied!</span>}
         </div>
@@ -272,7 +272,7 @@ export default function ImportModal(props: ImportModalProps): JSX.Element | null
           rows={8}
           value={s.raw}
           maxLength={MAX_BYTES}
-          placeholder="Paste the AI's JSON output here…"
+          placeholder="Paste the AI's response here…"
           onChange={(e) => setState({ mode: "paste", raw: e.target.value })}
           style={{
             width: "100%",
