@@ -23,6 +23,8 @@ export async function GET(req: NextRequest) {
     id: userId,
     subscribed: sub?.status === "active",
     isTestUser: user ? isTestEmail(user.email) : false,
+    canRefer: user?.canRefer ?? false,
+    referralCode: user?.referralCode ?? null,
     needsConsent,
     consent: consent
       ? { analytics: consent.analytics, marketing: consent.marketing }

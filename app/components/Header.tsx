@@ -18,7 +18,27 @@ export default function Header({
   const { lang, setLang, t } = useLanguage();
   const [open, setOpen] = useState(false);
   const [accountOpen, setAccountOpen] = useState(false);
+  const [canRefer, setCanRefer] = useState(false);
+  const [referralCode, setReferralCode] = useState<string | null>(null);
   const accountRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!loggedIn) {
+      setCanRefer(false);
+      setReferralCode(null);
+      return;
+    }
+    let cancelled = false;
+    fetch("/api/me", { credentials: "include" })
+      .then((r) => r.ok ? r.json() : null)
+      .then((data) => {
+        if (cancelled || !data?.loggedIn) return;
+        setCanRefer(!!data.canRefer);
+        setReferralCode(data.referralCode ?? null);
+      })
+      .catch(() => { /* non-fatal */ });
+    return () => { cancelled = true; };
+  }, [loggedIn]);
 
   async function handleLogout() {
     await fetch("/api/logout", { method: "POST" });
@@ -74,6 +94,15 @@ export default function Header({
               </button>
               {accountOpen && (
                 <div className="account-dropdown">
+                  {canRefer && referralCode && (
+                    <div className="dropdown-referral">
+                      <span className="dropdown-referral-label">{t("referralCode")}</span>
+                      <span className="dropdown-referral-code">{referralCode}</span>
+                    </div>
+                  )}
+                  <Link href="/account" className="dropdown-item" onClick={() => setAccountOpen(false)}>
+                    {t("account")}
+                  </Link>
                   <button className="dropdown-item" onClick={() => { setLang(lang === "en" ? "kn" : "en"); setAccountOpen(false); }}>
                     {lang === "en" ? "ಕನ್ನಡ" : "English"}
                   </button>
@@ -97,6 +126,12 @@ export default function Header({
               <Link href="/tools" className="mobile-link" onClick={() => setOpen(false)}>{t("tools")}</Link>
               <Link href="/blogs" className="mobile-link" onClick={() => setOpen(false)}>{t("insights")}</Link>
               <Link href="/about" className="mobile-link" onClick={() => setOpen(false)}>{t("aboutUs")}</Link>
+              {canRefer && referralCode && (
+                <div className="mobile-referral">
+                  {t("referralCode")}: <strong>{referralCode}</strong>
+                </div>
+              )}
+              <Link href="/account" className="mobile-link" onClick={() => setOpen(false)}>{t("account")}</Link>
               <button className="mobile-link" style={{ background: "none", border: "none", cursor: "pointer", font: "inherit" }} onClick={() => { setLang(lang === "en" ? "kn" : "en"); setOpen(false); }}>
                 {lang === "en" ? "ಕನ್ನಡ" : "English"}
               </button>
