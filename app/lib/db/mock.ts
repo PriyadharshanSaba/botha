@@ -12,6 +12,8 @@ export const MockDB: DBDriver = {
       ...data,
       otp: "000000",
       verified: false,
+      canRefer: false,
+      referralCode: null,
     };
     users.push(user);
     return user;
@@ -76,12 +78,16 @@ export const MockDB: DBDriver = {
   async saveBillingInfo(_userId: string, _info: BillingInfo): Promise<void> {},
 
   async createSubscription(input: CreateSubscriptionInput): Promise<Subscription> {
-    return { id: "mock-sub", userId: input.userId, planId: input.planId, status: "pending", razorpayOrderId: input.razorpayOrderId, razorpayPaymentId: null, amountPaise: input.amountPaise, createdAt: new Date(), activatedAt: null };
+    return { id: "mock-sub", userId: input.userId, planId: input.planId, status: "pending", razorpayOrderId: input.razorpayOrderId, razorpayPaymentId: null, amountPaise: input.amountPaise, createdAt: new Date(), activatedAt: null, referralCode: input.referralCode ?? null, originalAmountPaise: input.originalAmountPaise ?? null };
   },
   async activateSubscription(_orderId: string, _paymentId: string): Promise<void> { /* no-op */ },
   async getUserSubscription(_userId: string): Promise<Subscription | null> { return null; },
   async getSubscriptionByOrderId(_orderId: string): Promise<Subscription | null> { return null; },
   async getSubscriptionCount(_planId: string): Promise<number> { return 34; },
+
+  async getReferralOffer(_code: string) { return null; },
+  async getReferralIdentity(_userId: string) { return { canRefer: false, referralCode: null, offer: null }; },
+  async recordRedemption(_input) { /* no-op */ },
 
   async saveConsent(input: SaveConsentInput): Promise<CookieConsent> {
     return {

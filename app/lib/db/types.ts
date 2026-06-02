@@ -16,6 +16,8 @@ export type User = {
   email: string;
   verified: boolean;
   billingInfo?: BillingInfo | null;
+  canRefer: boolean;
+  referralCode: string | null;
 };
 
 export type UserWithOTP = User & {
@@ -43,6 +45,8 @@ export type Subscription = {
   amountPaise: number;
   createdAt: Date;
   activatedAt: Date | null;
+  referralCode: string | null;
+  originalAmountPaise: number | null;
 };
 
 export type CreateSubscriptionInput = {
@@ -50,6 +54,25 @@ export type CreateSubscriptionInput = {
   planId: string;
   razorpayOrderId: string;
   amountPaise: number;
+  referralCode?: string | null;
+  originalAmountPaise?: number | null;
+};
+
+export type ReferralOffer = {
+  code: string;
+  ownerUserId: string;
+  discountPercent: number | null;
+  discountFlatPaise: number | null;
+  description: string | null;
+  active: boolean;
+  createdAt: Date;
+  expiresAt: Date | null;
+};
+
+export type ReferralIdentity = {
+  canRefer: boolean;
+  referralCode: string | null;
+  offer: ReferralOffer | null;
 };
 
 /* ──────────────────────────────────────────────────────────────────────── */
@@ -185,4 +208,13 @@ export interface DBDriver {
   getUserSubscription(userId: string): Promise<Subscription | null>;
   getSubscriptionByOrderId(razorpayOrderId: string): Promise<Subscription | null>;
   getSubscriptionCount(planId: string): Promise<number>;
+  getReferralOffer(code: string): Promise<ReferralOffer | null>;
+  getReferralIdentity(userId: string): Promise<ReferralIdentity>;
+  recordRedemption(input: {
+    code: string;
+    referrerUserId: string;
+    refereeUserId: string;
+    razorpayOrderId: string;
+    appliedDiscountPaise: number;
+  }): Promise<void>;
 }

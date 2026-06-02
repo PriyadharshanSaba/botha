@@ -8,6 +8,8 @@ export const mockUsers: UserWithOTP[] = [
     email: "priyadharshan.97@gmail.com",
     otp: "123456",
     verified: true,
+    canRefer: false,
+    referralCode: null,
   },
   {
     id: "u2",
@@ -16,6 +18,8 @@ export const mockUsers: UserWithOTP[] = [
     email: "amogh036@gmail.com",
     otp: "123456",
     verified: true,
+    canRefer: false,
+    referralCode: null,
   },
   {
     id: "u3",
@@ -24,6 +28,8 @@ export const mockUsers: UserWithOTP[] = [
     email: "1@1",
     otp: "000000",
     verified: true,
+    canRefer: false,
+    referralCode: null,
   },
 ];
 

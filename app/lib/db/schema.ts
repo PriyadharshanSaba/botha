@@ -13,6 +13,9 @@ export const users = pgTable("users", {
   otpExpiry: timestamp("otp_expiry"),
   verified: boolean("verified").default(false).notNull(),
   billingInfo: jsonb("billing_info").$type<BillingInfo | null>(),
+
+  canRefer: boolean("can_refer").notNull().default(false),
+  referralCode: text("referral_code"),
 });
 
 export const otpAttempts = pgTable("otp_attempts", {
@@ -32,6 +35,9 @@ export const subscriptions = pgTable("subscriptions", {
   invoiceId: text("invoice_id").references(() => invoices.id, { onDelete: "set null" }),
   createdAt: timestamp("created_at").defaultNow().notNull(),
   activatedAt: timestamp("activated_at"),
+
+  referralCode: text("referral_code"),
+  originalAmountPaise: integer("original_amount_paise"),
 });
 
 /**
@@ -145,3 +151,31 @@ export const networthData = pgTable("networth_data", {
   updatedAt: timestamp("updated_at").defaultNow().notNull(),
   importUsedAt: timestamp("import_used_at"),
 });
+
+export const referralOffers = pgTable("referral_offers", {
+  code: text("code").primaryKey(),
+  ownerUserId: text("owner_user_id")
+    .notNull()
+    .references(() => users.id, { onDelete: "cascade" }),
+  discountPercent: integer("discount_percent"),
+  discountFlatPaise: integer("discount_flat_paise"),
+  description: text("description"),
+  active: boolean("active").notNull().default(true),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  expiresAt: timestamp("expires_at"),
+}, (table) => ({
+  ownerIdx: index("idx_referral_offers_owner").on(table.ownerUserId),
+}));
+
+export const referralRedemptions = pgTable("referral_redemptions", {
+  id: serial("id").primaryKey(),
+  code: text("code").notNull().references(() => referralOffers.code, { onDelete: "restrict" }),
+  referrerUserId: text("referrer_user_id").notNull().references(() => users.id, { onDelete: "restrict" }),
+  refereeUserId: text("referee_user_id").notNull().references(() => users.id, { onDelete: "restrict" }),
+  razorpayOrderId: text("razorpay_order_id").notNull().unique(),
+  appliedDiscountPaise: integer("applied_discount_paise").notNull(),
+  redeemedAt: timestamp("redeemed_at").defaultNow().notNull(),
+}, (table) => ({
+  referrerIdx: index("idx_redemptions_referrer").on(table.referrerUserId),
+  refereeIdx: index("idx_redemptions_referee").on(table.refereeUserId),
+}));
