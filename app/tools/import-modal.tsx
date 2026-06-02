@@ -248,6 +248,15 @@ export default function ImportModal(props: ImportModalProps): JSX.Element | null
           {copied && <span style={{ fontSize: 13, color: "#2f7a4a" }}>Copied!</span>}
         </div>
         <div style={subheadingStyle}>Step 2 — Paste the AI&apos;s output</div>
+        <div style={{ display: "flex", gap: 8, marginBottom: 8, alignItems: "flex-start" }}>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/import-guide/step1.webp" alt="Reference 1" style={{ width: 96, height: 96, objectFit: "cover", border: "1px solid #ddd", borderRadius: 6 }} />
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/import-guide/step2.webp" alt="Reference 2" style={{ width: 96, height: 96, objectFit: "cover", border: "1px solid #ddd", borderRadius: 6 }} />
+          <span style={{ fontSize: 11, color: "#666", lineHeight: 1.4 }}>
+            Reference: copy the AI&apos;s full JSON output and paste below.
+          </span>
+        </div>
         <textarea
           rows={8}
           value={s.raw}
