@@ -1,4 +1,4 @@
-import { eq } from "drizzle-orm";
+import { eq, sql } from "drizzle-orm";
 import { db } from "@/app/lib/db/connection";
 import { users, referralOffers } from "@/app/lib/db/schema";
 
@@ -109,4 +109,57 @@ export async function deactivateReferralOffer(code: string): Promise<void> {
       .set({ referralCode: null, canRefer: false })
       .where(eq(users.id, ownerId));
   }
+}
+
+export type ActiveOfferRow = {
+  code: string;
+  ownerEmail: string;
+  ownerFirstName: string | null;
+  ownerLastName: string | null;
+  discountPercent: number | null;
+  discountFlatPaise: number | null;
+  expiresAt: string | null;
+  redemptions: number;
+};
+
+export async function listActiveOffers(): Promise<ActiveOfferRow[]> {
+  const res = await db.execute(sql`
+    SELECT o.code,
+           u.email AS owner_email,
+           u.first_name AS owner_first_name,
+           u.last_name AS owner_last_name,
+           o.discount_percent,
+           o.discount_flat_paise,
+           o.expires_at,
+           COALESCE(
+             (SELECT COUNT(*) FROM referral_redemptions r WHERE r.code = o.code),
+             0
+           )::int AS redemptions
+    FROM referral_offers o
+    JOIN users u ON u.id = o.owner_user_id
+    WHERE o.active = true
+    ORDER BY o.created_at DESC
+  `);
+
+  const rows = res.rows as Array<{
+    code: string;
+    owner_email: string;
+    owner_first_name: string | null;
+    owner_last_name: string | null;
+    discount_percent: number | null;
+    discount_flat_paise: number | null;
+    expires_at: string | null;
+    redemptions: number;
+  }>;
+
+  return rows.map((r) => ({
+    code: r.code,
+    ownerEmail: r.owner_email,
+    ownerFirstName: r.owner_first_name,
+    ownerLastName: r.owner_last_name,
+    discountPercent: r.discount_percent,
+    discountFlatPaise: r.discount_flat_paise,
+    expiresAt: r.expires_at,
+    redemptions: Number(r.redemptions),
+  }));
 }
