@@ -579,6 +579,58 @@
   line-height: 1.65;
 }
 
+/* Chart */
+.rd-article .chart-wrap {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 1.5rem;
+  margin: 1.75rem 0;
+}
+.rd-article .chart-wrap .f-label {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--gold-rd);
+  margin-bottom: 4px;
+  display: block;
+}
+.rd-article .chart-wrap .chart-sub {
+  font-size: 13px;
+  color: var(--muted);
+  font-style: italic;
+  margin-bottom: 1rem;
+  display: block;
+  font-family: 'EB Garamond', serif;
+}
+.rd-article .chart-source {
+  font-size: 11px;
+  color: var(--muted);
+  margin-top: 8px;
+  display: block;
+}
+.rd-article .chart-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+.rd-article .legend-item {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11px;
+  color: var(--muted);
+}
+.rd-article .legend-swatch {
+  width: 10px;
+  height: 10px;
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+
 /* Highlights */
 .rd-article .hl { background: rgba(200,154,46,0.15); padding: 0 3px; border-radius: 3px; }
 .rd-article .hl-red { background: rgba(160,56,10,0.1); padding: 0 3px; border-radius: 3px; }

@@ -3,8 +3,107 @@
 import "./article.css";
 import "../../landing.css";
 import Link from "next/link";
+import { useEffect, useRef } from "react";
+import Chart from "chart.js/auto";
 
 export default function RupeeDescentPage() {
+  const chartRef = useRef<HTMLCanvasElement>(null);
+
+  useEffect(() => {
+    if (!chartRef.current) return;
+
+    const currencies = [
+      "South African Rand (ZAR)",
+      "Brazilian Real (BRL)",
+      "Japanese Yen (JPY)",
+      "Thai Baht (THB)",
+      "Malaysian Ringgit (MYR)",
+      "South Korean Won (KRW)",
+      "Indonesian Rupiah (IDR)",
+      "Vietnamese Dong (VND)",
+      "Indian Rupee (INR)",
+      "Mexican Peso (MXN)",
+      "Chinese Yuan (CNY)",
+      "Singapore Dollar (SGD)",
+    ];
+    const fiveYear = [-30, -35, -35, -20, -18, -18, -20, -15, -27, -20, -12, 2];
+    const tenYear = [-55, -60, -50, -25, -30, -22, -35, -25, -42, -25, -10, 3];
+
+    const getColor = (v: number, label: string, opacity = 1) => {
+      if (label.includes("INR")) return `rgba(160,56,10,${opacity})`;
+      if (v >= -10) return `rgba(46,125,69,${opacity})`;
+      if (v >= -20) return `rgba(200,154,46,${opacity})`;
+      return `rgba(160,56,10,${opacity})`;
+    };
+
+    const chart = new Chart(chartRef.current, {
+      type: "bar",
+      data: {
+        labels: currencies,
+        datasets: [
+          {
+            label: "5-Year",
+            data: fiveYear,
+            backgroundColor: fiveYear.map((v, i) => getColor(v, currencies[i], 0.85)),
+            borderColor: fiveYear.map((v, i) => getColor(v, currencies[i], 1)),
+            borderWidth: 0,
+            borderSkipped: false,
+          },
+          {
+            label: "10-Year",
+            data: tenYear,
+            backgroundColor: tenYear.map((v, i) => getColor(v, currencies[i], 0.28)),
+            borderColor: fiveYear.map((v, i) => getColor(v, currencies[i], 0.55)),
+            borderWidth: 1,
+            borderSkipped: false,
+          },
+        ],
+      },
+      options: {
+        indexAxis: "y",
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: {
+            display: true,
+            labels: {
+              font: { family: "'DM Sans', sans-serif", size: 11 },
+              color: "#6B6460",
+              boxWidth: 12,
+              boxHeight: 12,
+            },
+          },
+          tooltip: {
+            callbacks: {
+              label: (ctx) => ` ${ctx.dataset.label}: ${(ctx.parsed.x as number).toFixed(1)}%`,
+            },
+          },
+        },
+        scales: {
+          x: {
+            min: -70,
+            max: 15,
+            grid: { color: "rgba(17,17,17,0.06)" },
+            ticks: {
+              font: { family: "'DM Sans', sans-serif", size: 10 },
+              color: "#6B6460",
+              callback: (v) => v + "%",
+            },
+          },
+          y: {
+            grid: { display: false },
+            ticks: {
+              font: { family: "'DM Sans', sans-serif", size: 11 },
+              color: "#111111",
+            },
+          },
+        },
+      },
+    });
+
+    return () => chart.destroy();
+  }, []);
+
   return (
     <div className="blog-article-page">
       {/* ── BACK LINK ── */}
@@ -40,7 +139,7 @@ export default function RupeeDescentPage() {
             <span className="lbl">5-Year Fall<br />Jun 2021 → Jun 2026</span>
           </div>
           <div className="stat-cell">
-            <span className="big red">~51%</span>
+            <span className="big red">~42%</span>
             <span className="lbl">10-Year Fall<br />Jun 2016 → Jun 2026</span>
           </div>
           <div className="stat-cell">
@@ -52,7 +151,7 @@ export default function RupeeDescentPage() {
         {/* EXECUTIVE SUMMARY */}
         <div className="callout">
           <span className="c-label">The Story in Brief</span>
-          <p>The Indian rupee has lost roughly <strong>51% of its value against the US dollar over the past decade</strong> — a slide that has gathered pace, not slowed. The causes are structural and chronic: a persistent current account deficit, an economy that imports 85% of its oil, and an inflation rate consistently above that of India&apos;s trading partners. The RBI has intervened on an extraordinary scale — burning through <strong>over $47 billion in reserves</strong> since the February 2026 peak — but cannot permanently reverse the gravity of economics.</p>
+          <p>The Indian rupee has lost roughly <strong>42% of its value against the US dollar over the past decade</strong> — a slide that has gathered pace, not slowed. The causes are structural and chronic: a persistent current account deficit, an economy that imports 85% of its oil, and an inflation rate consistently above that of India&apos;s trading partners. The RBI has intervened on an extraordinary scale — burning through <strong>over $47 billion in reserves</strong> since the February 2026 peak — but cannot permanently reverse the gravity of economics.</p>
           <p style={{ marginTop: "0.75rem", marginBottom: 0 }}>What makes the current episode more troubling than past ones is this: the rupee kept falling even <em>after</em> the US Federal Reserve began cutting rates in late 2024. That decoupling signals something important — India&apos;s currency weakness is no longer just imported from Washington. It now has a structural engine of its own. This is what the Finance Ministry&apos;s reassurances don&apos;t quite address, and what this analysis seeks to explain.</p>
         </div>
 
@@ -67,10 +166,10 @@ export default function RupeeDescentPage() {
         <div className="formula-box">
           <span className="f-label">The Silent Tax on Every Indian Family</span>
           <span className="formula">₹10 lakh sent abroad in 2016 (at ₹68/$) → $14,700 received</span>
-          <span className="sub">The same ₹10 lakh in 2026 (at ₹95/$) → $10,500 received. A purchasing-power loss of over $4,200 per transaction — a silent, recurring penalty paid by every family with overseas education expenses, dollar-denominated obligations, or foreign travel plans.</span>
+          <span className="sub">The same ₹10 lakh in 2026 (at ₹95/$) → $10,500 received. A purchasing-power loss of approximately $4,200 per transaction — a silent, recurring penalty paid by every family with overseas education expenses, dollar-denominated obligations, or foreign travel plans.</span>
         </div>
 
-        <p>These figures use RBI reference rates cross-checked against BIS and Bloomberg data. But raw nominal numbers alone don&apos;t tell the complete story. India&apos;s <strong>Real Effective Exchange Rate (REER)</strong> — which adjusts for inflation differentials against trading partners — shows a depreciation of roughly <strong>10–12% over the same decade</strong>, considerably less than the nominal 51%. This is because India&apos;s higher domestic inflation partially offsets the purchasing power loss that the nominal rate suggests.</p>
+        <p>These figures use RBI reference rates cross-checked against BIS and Bloomberg data. But raw nominal numbers alone don&apos;t tell the complete story. India&apos;s <strong>Real Effective Exchange Rate (REER)</strong> — which adjusts for inflation differentials against trading partners — shows a depreciation of roughly <strong>10–12% over the same decade</strong>, considerably less than the nominal 42%. This is because India&apos;s higher domestic inflation partially offsets the purchasing power loss that the nominal rate suggests.</p>
 
         <p>That distinction matters — but it doesn&apos;t make the nominal slide inconsequential. Imports are priced in dollars, not REER units. And for India, which imports far more than it exports in goods terms, the nominal rate is the one that matters in practice.</p>
 
@@ -127,7 +226,7 @@ export default function RupeeDescentPage() {
 
         <div className="callout">
           <span className="c-label">The Uncomfortable Paradox</span>
-          <p>&quot;The rupee doesn&apos;t always weaken because India is failing. It weakens partly because India is growing — and growing economies that import capital and energy tend to have softer currencies. A rapidly industrialising country consumes more oil, more capital goods, more raw materials. All of that requires dollars.&quot; The uncomfortable addendum: a 51% fall over ten years is in a different category from a routine development-era drift. At some point, quantity becomes quality.</p>
+          <p>&quot;The rupee doesn&apos;t always weaken because India is failing. It weakens partly because India is growing — and growing economies that import capital and energy tend to have softer currencies. A rapidly industrialising country consumes more oil, more capital goods, more raw materials. All of that requires dollars.&quot; The uncomfortable addendum: a 42% fall over ten years is in a different category from a routine development-era drift. At some point, quantity becomes quality.</p>
         </div>
 
         {/* SECTION 3 */}
@@ -145,7 +244,7 @@ export default function RupeeDescentPage() {
           <div className="stage-card">
             <span className="s-label-red">Hurts</span>
             <h3>The Overseas Education Tax</h3>
-            <p>A US master&apos;s programme costing $60,000 required <strong>₹41 lakh</strong> at 2016 rates. At 2026 rates, the same degree costs <strong>₹57 lakh</strong> — a 39% increase with zero change in dollar cost. For middle-class families, this is often the difference between going and staying back.</p>
+            <p>A US master&apos;s programme costing $60,000 required <strong>₹41 lakh</strong> at 2016 rates. At 2026 rates, the same degree costs <strong>₹57 lakh</strong> — a ~42% increase with zero change in dollar cost. For middle-class families, this is often the difference between going and staying back.</p>
           </div>
           <div className="stage-card">
             <span className="s-label">Helps</span>
@@ -170,6 +269,20 @@ export default function RupeeDescentPage() {
 
         <p>The only honest way to judge the rupee&apos;s performance is comparatively. Currencies don&apos;t move in isolation — they all respond to the same global forces: dollar strength, commodity cycles, investor risk appetite. Some slip more than others. Some, remarkably, hold firm or strengthen. The question is why — and what it reveals about India.</p>
 
+        <div className="chart-wrap">
+          <span className="f-label">Figure 1 — Approximate Depreciation vs. USD</span>
+          <span className="chart-sub">Cumulative % change, 5-year and 10-year windows ending mid-2026 (negative = weaker vs. dollar)</span>
+          <div className="chart-legend">
+            <div className="legend-item"><div className="legend-swatch" style={{ background: "#A0380A" }}></div> Significant (&gt;20% depreciation)</div>
+            <div className="legend-item"><div className="legend-swatch" style={{ background: "#C89A2E" }}></div> Moderate (10–20%)</div>
+            <div className="legend-item"><div className="legend-swatch" style={{ background: "#2E7D45" }}></div> Resilient (&lt;10% / appreciation)</div>
+          </div>
+          <div style={{ position: "relative", width: "100%", height: "360px" }}>
+            <canvas ref={chartRef} role="img" aria-label="Bar chart comparing 5-year and 10-year depreciation across 12 currencies." />
+          </div>
+          <span className="chart-source">Sources: BIS, Federal Reserve H.10, Trading Economics, central bank data. Figures are approximate spot-rate changes.</span>
+        </div>
+
         <table className="week-table">
           <thead>
             <tr>
@@ -187,7 +300,7 @@ export default function RupeeDescentPage() {
               <td className="td-red">-9%</td>
               <td className="td-red">-14%</td>
               <td className="td-red">-27%</td>
-              <td className="td-red">-51%</td>
+              <td className="td-red">-42%</td>
               <td>—</td>
             </tr>
             <tr>
@@ -455,7 +568,7 @@ export default function RupeeDescentPage() {
             <div className="step-num-wrap"><div className="step-num">1</div><div className="step-line"></div></div>
             <div className="step-body">
               <h4>The Scale Is Larger Than Most Realise</h4>
-              <p>The rupee has depreciated approximately 9%, 14%, 27%, and 51% over 1, 3, 5, and 10 years respectively — pushing from ~₹67 in 2016 to ~₹95 by mid-2026. This is not a rounding error; it is a structural and sustained devaluation of Indian purchasing power in global terms. Every Indian who holds savings in rupees, pays for imports, or has overseas commitments has felt this — even if they have not consciously tracked it.</p>
+              <p>The rupee has depreciated approximately 9%, 14%, 27%, and 42% over 1, 3, 5, and 10 years respectively — pushing from ~₹67 in 2016 to ~₹95 by mid-2026. This is not a rounding error; it is a structural and sustained devaluation of Indian purchasing power in global terms. Every Indian who holds savings in rupees, pays for imports, or has overseas commitments has felt this — even if they have not consciously tracked it.</p>
             </div>
           </div>
           <div className="step">
