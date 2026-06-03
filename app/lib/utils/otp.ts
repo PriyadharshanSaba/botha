@@ -6,6 +6,10 @@ const TEST_EMAILS: string[] = process.env.TEST_EMAILS
     ? []
     : ["hdamogha@gmail.com", "priyadharshan.97@gmail.com", "1@1"];
 
+export function getTestEmails(): string[] {
+  return TEST_EMAILS;
+}
+
 export function generateOTP(email?: string) {
   if (email && TEST_EMAILS.includes(email.toLowerCase())) {
     return "000000";
