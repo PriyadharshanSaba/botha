@@ -13,6 +13,7 @@ import { eq } from "drizzle-orm";
 import { db as drizzle } from "@/app/lib/db/connection";
 import { invoices } from "@/app/lib/db/schema";
 import { getAuthenticatedUser } from "@/app/lib/auth";
+import { isAdminEmail } from "@/app/lib/admin";
 import { getSignedInvoicePdfUrl } from "@/app/lib/billing/storage";
 
 export async function GET(
@@ -29,7 +30,8 @@ export async function GET(
   const rows = await drizzle.select().from(invoices).where(eq(invoices.id, id)).limit(1);
   const invoice = rows[0];
 
-  if (!invoice || invoice.userId !== user.id) {
+  const isAdmin = isAdminEmail(user.email);
+  if (!invoice || (invoice.userId !== user.id && !isAdmin)) {
     return NextResponse.json({ error: "Not found" }, { status: 404 });
   }
 
