@@ -16,6 +16,8 @@ export const users = pgTable("users", {
 
   canRefer: boolean("can_refer").notNull().default(false),
   referralCode: text("referral_code"),
+
+  createdAt: timestamp("created_at").defaultNow().notNull(),
 });
 
 export const otpAttempts = pgTable("otp_attempts", {
