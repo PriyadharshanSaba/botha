@@ -35,7 +35,7 @@ export async function getSignupsLedger({ limit = 100 }: { limit?: number } = {})
     FROM subscriptions s
     JOIN users u ON u.id = s.user_id
     LEFT JOIN invoices i
-      ON i.subscription_id = s.id AND i.status = 'paid'
+      ON i.subscription_id = s.id AND i.status IN ('issued', 'paid')
     WHERE s.status = 'active'
       AND LOWER(u.email) NOT IN ${excludeList}
     ORDER BY s.created_at DESC

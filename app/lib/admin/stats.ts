@@ -35,7 +35,7 @@ export async function getDashboardStats(): Promise<DashboardStats> {
     SELECT COALESCE(SUM(i.total_paise), 0)::bigint AS total
     FROM invoices i
     JOIN users u ON u.id = i.user_id
-    WHERE i.status = 'paid'
+    WHERE i.status IN ('issued', 'paid')
       AND LOWER(u.email) NOT IN ${excludeList}
   `);
   const moneyRow = moneyRes.rows[0] as { total: number | string } | undefined;
