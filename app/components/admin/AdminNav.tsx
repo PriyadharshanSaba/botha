@@ -19,32 +19,28 @@ export default function AdminNav({ email }: { email: string }) {
   }
 
   return (
-    <header
-      style={{
-        display: "flex",
-        gap: 24,
-        padding: "12px 24px",
-        borderBottom: "2px solid #d4a017",
-        alignItems: "center",
-      }}
-    >
-      <strong>Admin</strong>
-      <nav style={{ display: "flex", gap: 16, flex: 1 }}>
-        {links.map((l) => (
-          <Link
-            key={l.href}
-            href={l.href}
-            style={{
-              textDecoration: pathname === l.href ? "underline" : "none",
-              fontWeight: pathname === l.href ? 700 : 400,
-            }}
-          >
-            {l.label}
-          </Link>
-        ))}
+    <header className="admin-nav">
+      <div className="admin-brand">
+        <span className="admin-brand-dot">●</span>Admin
+      </div>
+      <nav className="admin-nav-links">
+        {links.map((l) => {
+          const active = pathname === l.href;
+          return (
+            <Link
+              key={l.href}
+              href={l.href}
+              className={`admin-nav-link${active ? " active" : ""}`}
+            >
+              {l.label}
+            </Link>
+          );
+        })}
       </nav>
-      <span style={{ color: "#666", fontSize: 14 }}>{email}</span>
-      <button onClick={logout}>Sign out</button>
+      <span className="admin-nav-email">{email}</span>
+      <button onClick={logout} className="admin-nav-signout">
+        Sign out
+      </button>
     </header>
   );
 }

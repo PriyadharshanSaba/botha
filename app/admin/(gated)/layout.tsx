@@ -3,6 +3,7 @@ import { redirect } from "next/navigation";
 import { db } from "@/app/lib/db";
 import { isAdminEmail } from "@/app/lib/admin";
 import AdminNav from "@/app/components/admin/AdminNav";
+import "@/app/components/admin/admin.css";
 
 export default async function AdminLayout({
   children,
@@ -22,9 +23,9 @@ export default async function AdminLayout({
   }
 
   return (
-    <div>
+    <div className="admin-shell">
       <AdminNav email={user.email} />
-      <div style={{ padding: 24 }}>{children}</div>
+      <div className="admin-page">{children}</div>
     </div>
   );
 }

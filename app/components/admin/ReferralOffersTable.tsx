@@ -28,48 +28,57 @@ export default function ReferralOffersTable({ rows }: { rows: ActiveOfferRow[] }
 
   return (
     <section>
-      <h2 style={{ marginBottom: 12 }}>Active offers</h2>
-      <table style={{ width: "100%", borderCollapse: "collapse" }}>
-        <thead>
-          <tr style={{ textAlign: "left", borderBottom: "2px solid #333" }}>
-            <th style={{ padding: 8 }}>Owner</th>
-            <th style={{ padding: 8 }}>Code</th>
-            <th style={{ padding: 8 }}>Discount</th>
-            <th style={{ padding: 8 }}>Expires</th>
-            <th style={{ padding: 8 }}>Redemptions</th>
-            <th style={{ padding: 8 }}></th>
-          </tr>
-        </thead>
-        <tbody>
-          {rows.map((r) => (
-            <tr key={r.code} style={{ borderBottom: "1px solid #eee" }}>
-              <td style={{ padding: 8 }}>
-                {r.ownerEmail}
-                <br />
-                <span style={{ color: "#666", fontSize: 12 }}>
-                  {[r.ownerFirstName, r.ownerLastName].filter(Boolean).join(" ")}
-                </span>
-              </td>
-              <td style={{ padding: 8, fontFamily: "monospace" }}>{r.code}</td>
-              <td style={{ padding: 8 }}>{discountLabel(r)}</td>
-              <td style={{ padding: 8 }}>
-                {r.expiresAt ? new Date(r.expiresAt).toLocaleDateString("en-IN") : "—"}
-              </td>
-              <td style={{ padding: 8 }}>{r.redemptions}</td>
-              <td style={{ padding: 8 }}>
-                <button onClick={() => deactivate(r.code)}>Deactivate</button>
-              </td>
-            </tr>
-          ))}
-          {rows.length === 0 && (
+      <h2 className="admin-h2">Active offers</h2>
+      <div className="admin-table-wrap">
+        <table className="admin-table">
+          <thead>
             <tr>
-              <td colSpan={6} style={{ padding: 16, color: "#666" }}>
-                No active offers.
-              </td>
+              <th>Owner</th>
+              <th>Code</th>
+              <th>Discount</th>
+              <th>Expires</th>
+              <th className="right">Redemptions</th>
+              <th></th>
             </tr>
-          )}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {rows.map((r) => (
+              <tr key={r.code}>
+                <td>
+                  {r.ownerEmail}
+                  <br />
+                  <span className="muted">
+                    {[r.ownerFirstName, r.ownerLastName].filter(Boolean).join(" ")}
+                  </span>
+                </td>
+                <td className="mono">{r.code}</td>
+                <td>{discountLabel(r)}</td>
+                <td>
+                  {r.expiresAt
+                    ? new Date(r.expiresAt).toLocaleDateString("en-IN")
+                    : "—"}
+                </td>
+                <td className="right">{r.redemptions}</td>
+                <td className="right">
+                  <button
+                    className="admin-btn-danger"
+                    onClick={() => deactivate(r.code)}
+                  >
+                    Deactivate
+                  </button>
+                </td>
+              </tr>
+            ))}
+            {rows.length === 0 && (
+              <tr>
+                <td colSpan={6} className="admin-table-empty">
+                  No active offers.
+                </td>
+              </tr>
+            )}
+          </tbody>
+        </table>
+      </div>
     </section>
   );
 }

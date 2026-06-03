@@ -16,56 +16,46 @@ export default async function AdminDashboardPage() {
 
   return (
     <main>
-      <h1 style={{ marginBottom: 24 }}>Dashboard</h1>
+      <h1 className="admin-h1">Dashboard</h1>
+      <p className="admin-sub">Live metrics, excluding test emails.</p>
 
-      <section
-        style={{
-          display: "grid",
-          gridTemplateColumns: "1fr 1fr",
-          gap: 16,
-          marginBottom: 32,
-        }}
-      >
-        <div style={{ border: "1px solid #ddd", padding: 16, borderRadius: 8 }}>
-          <div style={{ color: "#666", fontSize: 13 }}>Total subscribers</div>
-          <div style={{ fontSize: 36, fontWeight: 700 }}>
-            {stats.subscriberCount}
-          </div>
+      <section className="admin-metrics">
+        <div className="admin-tile">
+          <div className="admin-tile-label">Total subscribers</div>
+          <div className="admin-tile-value">{stats.subscriberCount}</div>
         </div>
-        <div style={{ border: "1px solid #ddd", padding: 16, borderRadius: 8 }}>
-          <div style={{ color: "#666", fontSize: 13 }}>Money collected</div>
-          <div style={{ fontSize: 36, fontWeight: 700 }}>
-            ₹{rupees(stats.moneyCollectedPaise)}
-          </div>
+        <div className="admin-tile">
+          <div className="admin-tile-label">Money collected</div>
+          <div className="admin-tile-value">₹{rupees(stats.moneyCollectedPaise)}</div>
         </div>
       </section>
 
-      <section style={{ marginBottom: 32 }}>
-        <h3 style={{ marginBottom: 8 }}>Active plans</h3>
-        <ul>
-          {stats.planBreakdown.map((p) => (
-            <li key={p.planId}>
-              {planName(p.planId)} — {p.count}
-            </li>
-          ))}
-          {stats.planBreakdown.length === 0 && <li style={{ color: "#666" }}>No active plans yet</li>}
-        </ul>
+      <section>
+        <h2 className="admin-h2">Active plans</h2>
+        {stats.planBreakdown.length === 0 ? (
+          <p className="admin-plan-empty">No active plans yet</p>
+        ) : (
+          <ul className="admin-plan-list">
+            {stats.planBreakdown.map((p) => (
+              <li key={p.planId} className="admin-plan-chip">
+                {planName(p.planId)}
+                <span className="admin-plan-chip-count">{p.count}</span>
+              </li>
+            ))}
+          </ul>
+        )}
       </section>
 
-      <section
-        style={{
-          display: "grid",
-          gridTemplateColumns: "1fr 1fr",
-          gap: 24,
-        }}
-      >
+      <section className="admin-charts" style={{ marginTop: 32 }}>
         <DailyBarChart
           points={stats.paidSubsLast10Days}
-          label="New paying subscribers (last 10 days)"
+          label="New paying subscribers"
+          sub="Last 10 days"
         />
         <DailyBarChart
           points={stats.newSignupsLast10Days}
-          label="New user signups (last 10 days)"
+          label="New user signups"
+          sub="Last 10 days"
         />
       </section>
     </main>

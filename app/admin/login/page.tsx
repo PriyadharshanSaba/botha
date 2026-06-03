@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
+import "@/app/components/admin/admin.css";
 
 export default function AdminLoginPage() {
   const router = useRouter();
@@ -50,57 +51,64 @@ export default function AdminLoginPage() {
   }
 
   return (
-    <main style={{ maxWidth: 420, margin: "10vh auto", padding: 24 }}>
-      <h1 style={{ marginBottom: 8 }}>Admin sign in</h1>
-      <p style={{ color: "#666", marginBottom: 24 }}>
-        Restricted access. Authorized emails only.
-      </p>
-      {stage === "email" && (
-        <form onSubmit={sendOtp}>
-          <label>
-            Email
-            <input
-              type="email"
-              autoFocus
-              required
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              style={{ width: "100%", padding: 10, marginTop: 6 }}
-            />
-          </label>
-          <button type="submit" disabled={busy} style={{ marginTop: 16 }}>
-            {busy ? "Sending..." : "Send OTP"}
-          </button>
-        </form>
-      )}
-      {stage === "otp" && (
-        <form onSubmit={verifyOtp}>
-          <p style={{ marginBottom: 12 }}>OTP sent to {email}</p>
-          <label>
-            OTP
-            <input
-              type="text"
-              inputMode="numeric"
-              autoFocus
-              required
-              value={otp}
-              onChange={(e) => setOtp(e.target.value)}
-              style={{ width: "100%", padding: 10, marginTop: 6 }}
-            />
-          </label>
-          <button type="submit" disabled={busy} style={{ marginTop: 16 }}>
-            {busy ? "Verifying..." : "Verify"}
-          </button>
-          <button
-            type="button"
-            onClick={() => { setStage("email"); setOtp(""); }}
-            style={{ marginLeft: 8 }}
-          >
-            Back
-          </button>
-        </form>
-      )}
-      {err && <p style={{ color: "crimson", marginTop: 12 }}>{err}</p>}
+    <main className="admin-login-page">
+      <div className="admin-login-card">
+        <div className="admin-login-eyebrow">Botha · Admin</div>
+        <h1 className="admin-login-title">Sign in</h1>
+        <p className="admin-login-sub">Restricted access. Authorized emails only.</p>
+
+        {stage === "email" && (
+          <form onSubmit={sendOtp} className="admin-form">
+            <div className="admin-field">
+              <label htmlFor="admin-email" className="admin-label">Email</label>
+              <input
+                id="admin-email"
+                className="admin-input"
+                type="email"
+                autoFocus
+                required
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+            </div>
+            <button type="submit" className="admin-btn" disabled={busy}>
+              {busy ? "Sending…" : "Send OTP"}
+            </button>
+          </form>
+        )}
+
+        {stage === "otp" && (
+          <form onSubmit={verifyOtp} className="admin-form">
+            <p style={{ fontSize: 13, color: "#475569" }}>OTP sent to {email}</p>
+            <div className="admin-field">
+              <label htmlFor="admin-otp" className="admin-label">OTP</label>
+              <input
+                id="admin-otp"
+                className="admin-input"
+                type="text"
+                inputMode="numeric"
+                autoFocus
+                required
+                value={otp}
+                onChange={(e) => setOtp(e.target.value)}
+              />
+            </div>
+            <div className="admin-btn-row">
+              <button type="submit" className="admin-btn" disabled={busy}>
+                {busy ? "Verifying…" : "Verify"}
+              </button>
+              <button
+                type="button"
+                className="admin-btn admin-btn-outline"
+                onClick={() => { setStage("email"); setOtp(""); }}
+              >
+                Back
+              </button>
+            </div>
+          </form>
+        )}
+        {err && <p className="admin-msg-err">{err}</p>}
+      </div>
     </main>
   );
 }

@@ -6,7 +6,8 @@ export default async function ReferralsPage() {
   const rows = await listActiveOffers();
   return (
     <main>
-      <h1 style={{ marginBottom: 16 }}>Referrals</h1>
+      <h1 className="admin-h1">Referrals</h1>
+      <p className="admin-sub">Enable codes, track usage, deactivate as needed.</p>
       <ReferralEnableForm />
       <ReferralOffersTable rows={rows} />
     </main>

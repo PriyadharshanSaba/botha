@@ -36,48 +36,56 @@ export default function OnboardPage() {
   }
 
   return (
-    <main style={{ maxWidth: 480 }}>
-      <h1 style={{ marginBottom: 16 }}>Onboard user</h1>
-      <p style={{ color: "#666", marginBottom: 16 }}>
+    <main>
+      <h1 className="admin-h1">Onboard user</h1>
+      <p className="admin-sub">
         Creates a verified user row. No emails sent. User signs in via normal OTP afterwards.
       </p>
-      <form onSubmit={submit}>
-        <label style={{ display: "block", marginBottom: 12 }}>
-          Email
-          <input
-            type="email"
-            required
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            style={{ display: "block", width: "100%", padding: 8, marginTop: 4 }}
-          />
-        </label>
-        <label style={{ display: "block", marginBottom: 12 }}>
-          First name
-          <input
-            type="text"
-            required
-            value={firstName}
-            onChange={(e) => setFirstName(e.target.value)}
-            style={{ display: "block", width: "100%", padding: 8, marginTop: 4 }}
-          />
-        </label>
-        <label style={{ display: "block", marginBottom: 12 }}>
-          Last name
-          <input
-            type="text"
-            required
-            value={lastName}
-            onChange={(e) => setLastName(e.target.value)}
-            style={{ display: "block", width: "100%", padding: 8, marginTop: 4 }}
-          />
-        </label>
-        <button type="submit" disabled={busy}>
-          {busy ? "Creating..." : "Create user"}
-        </button>
-      </form>
-      {result && <p style={{ color: "green", marginTop: 16 }}>{result}</p>}
-      {err && <p style={{ color: "crimson", marginTop: 16 }}>{err}</p>}
+
+      <div className="admin-card">
+        <form onSubmit={submit} className="admin-form">
+          <div className="admin-field">
+            <label htmlFor="ob-email">Email</label>
+            <input
+              id="ob-email"
+              className="admin-input"
+              type="email"
+              required
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+          </div>
+          <div className="admin-field">
+            <label htmlFor="ob-fn">First name</label>
+            <input
+              id="ob-fn"
+              className="admin-input"
+              type="text"
+              required
+              value={firstName}
+              onChange={(e) => setFirstName(e.target.value)}
+            />
+          </div>
+          <div className="admin-field">
+            <label htmlFor="ob-ln">Last name</label>
+            <input
+              id="ob-ln"
+              className="admin-input"
+              type="text"
+              required
+              value={lastName}
+              onChange={(e) => setLastName(e.target.value)}
+            />
+          </div>
+          <div className="admin-btn-row">
+            <button type="submit" className="admin-btn" disabled={busy}>
+              {busy ? "Creating…" : "Create user"}
+            </button>
+          </div>
+        </form>
+        {result && <p className="admin-msg-ok">{result}</p>}
+        {err && <p className="admin-msg-err">{err}</p>}
+      </div>
     </main>
   );
 }
