@@ -20,9 +20,38 @@ export function proxy(request: NextRequest) {
 
   const uid = request.cookies.get("uid")?.value;
   const subscribed = request.cookies.get("subscribed")?.value;
+  const adminFlag = request.cookies.get("admin")?.value;
   const loggedIn = Boolean(uid);
 
   const { pathname } = request.nextUrl;
+
+  // Admin gate: /admin/* and /api/admin/* require uid + admin=1.
+  // Allow the login page itself + its auth APIs through.
+  const isAdminAuthPath =
+    pathname === "/admin/login" ||
+    pathname.startsWith("/api/admin/login") ||
+    pathname.startsWith("/api/admin/verify-otp") ||
+    pathname.startsWith("/api/admin/logout");
+
+  if (
+    (pathname.startsWith("/admin") || pathname.startsWith("/api/admin")) &&
+    !isAdminAuthPath
+  ) {
+    if (!uid || adminFlag !== "1") {
+      const url = request.nextUrl.clone();
+      url.pathname = "/admin/login";
+      url.searchParams.set("next", pathname);
+      return NextResponse.redirect(url);
+    }
+    // Authenticated admin — short-circuit so user-facing rules below don't fire.
+    return NextResponse.next();
+  }
+
+  // Short-circuit admin login + admin auth APIs so the user-facing rules below
+  // don't redirect them (e.g. logged-out → /signin).
+  if (isAdminAuthPath) {
+    return NextResponse.next();
+  }
 
   const publicPaths = ["/", "/signin", "/about", "/vcfo", "/venture", "/tools", "/plans"];
   const authRedirectPaths = ["/signin"];
@@ -67,6 +96,7 @@ export function proxy(request: NextRequest) {
 
 export const config = {
   matcher: [
-    "/((?!api|_next|static|favicon\\.ico)(?!.*\\.[a-zA-Z0-9]{1,5}$).*)"
+    "/((?!api|_next|static|favicon\\.ico)(?!.*\\.[a-zA-Z0-9]{1,5}$).*)",
+    "/api/admin/:path*",
   ],
 };
