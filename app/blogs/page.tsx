@@ -9,6 +9,14 @@ import PrivacyModal from "../components/PrivacyModal";
 
 const posts = [
   {
+    slug: "rupee-descent",
+    kicker: "Currency · Macroeconomics · India",
+    title: "The Rupee's Long Descent",
+    deck: "From ₹45 to ₹95 in two decades — and the slide accelerating. A deep investigation into why India's currency keeps losing ground, how it compares to the rest of the world, and why the official reassurances no longer fully hold.",
+    date: "June 2026",
+    readTime: "11 min read",
+  },
+  {
     slug: "india-finance-may29-2026",
     kicker: "Markets · Macro · India",
     title: "Hormuz, Rubio, and a Nifty That Gave It All Back",
