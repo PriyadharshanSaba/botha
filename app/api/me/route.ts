@@ -17,11 +17,12 @@ export async function GET(req: NextRequest) {
   ]);
 
   const needsConsent = !consent || !!consent.withdrawnAt;
+  const subscribed = sub?.status === "active";
 
-  return NextResponse.json({
+  const response = NextResponse.json({
     loggedIn: true,
     id: userId,
-    subscribed: sub?.status === "active",
+    subscribed,
     isTestUser: user ? isTestEmail(user.email) : false,
     canRefer: user?.canRefer ?? false,
     referralCode: user?.referralCode ?? null,
@@ -30,4 +31,21 @@ export async function GET(req: NextRequest) {
       ? { analytics: consent.analytics, marketing: consent.marketing }
       : null,
   });
+
+  // Cookie recovery — user has active sub but missing `subscribed` cookie
+  // (e.g. webhook activated the sub after a lost mobile UPI handler). Without
+  // this, middleware bounces them from /modules → /plans on next visit.
+  if (subscribed && !req.cookies.get("subscribed")) {
+    response.cookies.set({
+      name: "subscribed",
+      value: "1",
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "lax",
+      path: "/",
+      maxAge: 60 * 60 * 24 * 365 * 10,
+    });
+  }
+
+  return response;
 }

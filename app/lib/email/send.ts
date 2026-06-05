@@ -228,7 +228,7 @@ export async function sendInvoiceEmail(to: string, data: InvoiceData) {
   <!-- ── CTA ── -->
   <tr><td style="padding:20px 32px;border-top:1px solid ${MIST};text-align:center;">
     <a href="${appUrl}/modules" style="display:inline-block;background:${GOLD};color:${INK};font-family:Arial,sans-serif;font-size:14px;font-weight:700;text-decoration:none;padding:12px 28px;border-radius:6px;letter-spacing:0.02em;">Start learning &rarr;</a>
-    <div style="margin-top:12px;font-size:11px;color:${MUTED};">Questions? <a href="mailto:info@bodhaventures.in.in" style="color:${GOLD};text-decoration:none;">info@bodhaventures.in.in</a></div>
+    <div style="margin-top:12px;font-size:11px;color:${MUTED};">Questions? <a href="mailto:info@bodhaventures.in" style="color:${GOLD};text-decoration:none;">info@bodhaventures.in</a></div>
   </td></tr>
 
   <!-- ── FOOTER ── -->

@@ -283,52 +283,6 @@ export default function PlansPage() {
               </p>
             </div>
 
-            {/* Referral code — plan-agnostic; discount reflected on each card */}
-            <div className="plans-referral">
-              <div className="bf-referral-row">
-                <input
-                  type="text"
-                  className="bf-input"
-                  placeholder={t("referralCode")}
-                  value={refInput}
-                  onChange={(e) => {
-                    setRefInput(e.target.value.toUpperCase().slice(0, 32));
-                    if (refStatus.state !== "idle") setRefStatus({ state: "idle" });
-                  }}
-                  disabled={refStatus.state === "applied"}
-                  style={{ flex: 1 }}
-                />
-                {refStatus.state === "applied" ? (
-                  <button
-                    type="button"
-                    className="plan-btn"
-                    onClick={() => { setRefInput(""); setRefStatus({ state: "idle" }); }}
-                  >
-                    Remove
-                  </button>
-                ) : (
-                  <button
-                    type="button"
-                    className="plan-btn primary"
-                    disabled={!refInput || refStatus.state === "checking"}
-                    onClick={applyReferralCode}
-                  >
-                    {refStatus.state === "checking" ? "…" : t("applyCode")}
-                  </button>
-                )}
-              </div>
-              {refStatus.state === "applied" && (
-                <div className="bf-referral-applied">
-                  ✓ {refStatus.code} — {refStatus.description ?? t("codeApplied")}
-                  {refStatus.discountPercent != null && ` (${refStatus.discountPercent}% off)`}
-                  {refStatus.discountFlatPaise != null && ` (− ₹${(refStatus.discountFlatPaise / 100).toLocaleString("en-IN")})`}
-                </div>
-              )}
-              {refStatus.state === "error" && (
-                <div className="bf-referral-error">{refStatus.message}</div>
-              )}
-            </div>
-
             <div className="plans-grid">
               {PLANS.map((plan) => {
                 const taken   = seatCounts[plan.id] ?? (plan.id === "founding" ? 0 : 0);
@@ -397,6 +351,52 @@ export default function PlansPage() {
                   </div>
                 );
               })}
+            </div>
+
+            {/* Referral code — plan-agnostic; discount reflected on each card */}
+            <div className="plans-referral">
+              <div className="bf-referral-row">
+                <input
+                  type="text"
+                  className="bf-input"
+                  placeholder={t("referralCode")}
+                  value={refInput}
+                  onChange={(e) => {
+                    setRefInput(e.target.value.toUpperCase().slice(0, 32));
+                    if (refStatus.state !== "idle") setRefStatus({ state: "idle" });
+                  }}
+                  disabled={refStatus.state === "applied"}
+                  style={{ flex: 1 }}
+                />
+                {refStatus.state === "applied" ? (
+                  <button
+                    type="button"
+                    className="plan-btn"
+                    onClick={() => { setRefInput(""); setRefStatus({ state: "idle" }); }}
+                  >
+                    Remove
+                  </button>
+                ) : (
+                  <button
+                    type="button"
+                    className="plan-btn primary"
+                    disabled={!refInput || refStatus.state === "checking"}
+                    onClick={applyReferralCode}
+                  >
+                    {refStatus.state === "checking" ? "…" : t("applyCode")}
+                  </button>
+                )}
+              </div>
+              {refStatus.state === "applied" && (
+                <div className="bf-referral-applied">
+                  ✓ {refStatus.code} — {refStatus.description ?? t("codeApplied")}
+                  {refStatus.discountPercent != null && ` (${refStatus.discountPercent}% off)`}
+                  {refStatus.discountFlatPaise != null && ` (− ₹${(refStatus.discountFlatPaise / 100).toLocaleString("en-IN")})`}
+                </div>
+              )}
+              {refStatus.state === "error" && (
+                <div className="bf-referral-error">{refStatus.message}</div>
+              )}
             </div>
 
             <p className="plans-already">
