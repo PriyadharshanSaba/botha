@@ -77,6 +77,9 @@ export default function LandingPage() {
         </div>
 
         <div className="course-manifesto reveal" ref={addRevealRef}>
+          <Link href="/waitlist" className="btn-primary manifesto-cta">
+            {isKn ? "ಕ್ಲಬ್‌ಗೆ ಸೇರಿ" : "Join The Club"}
+          </Link>
           <div className="manifesto-accent">&#10022;</div>
           <div className="manifesto-body">
             {isKn ? (
@@ -280,7 +283,7 @@ export default function LandingPage() {
             <div style={{ fontFamily: "'Playfair Display', serif", fontSize: 42, marginBottom: 16 }}>&#10022;</div>
             <div style={{ fontFamily: "'Playfair Display', serif", fontSize: 20, fontWeight: 700, marginBottom: 10, color: "var(--ink)" }}>{isKn ? "ಇನ್ನಷ್ಟು ಶೀಘ್ರದಲ್ಲಿ" : "More coming soon"}</div>
             <div style={{ fontSize: 14, color: "#888", lineHeight: 1.6 }}>{isKn ? "ನಾವು ಯಾವಾಗಲೂ ನಿರ್ಮಿಸುತ್ತಿದ್ದೇವೆ. ಹೊಸ ಅರ್ಪಣೆಗಳಿಗೆ ಆರಂಭಿಕ ಪ್ರವೇಶಕ್ಕಾಗಿ ಸಂಚಿಗೆ ಸೇರಿ." : "We're always building. Join the waitlist for early access to new offerings."}</div>
-            <Link href="/signin?mode=signup" className="btn-primary" style={{ marginTop: 20 }}>{isKn ? "ಪ್ರತೀಕ್ಷಾ ಪಟ್ಟಿಗೆ ಸೇರಿ" : "Join Waitlist"}</Link>
+            <Link href="/waitlist" className="btn-primary" style={{ marginTop: 20 }}>{isKn ? "ಪ್ರತೀಕ್ಷಾ ಪಟ್ಟಿಗೆ ಸೇರಿ" : "Join The Club"}</Link>
           </div>
         </div>
       </section>

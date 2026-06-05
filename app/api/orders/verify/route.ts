@@ -73,8 +73,10 @@ export async function POST(req: NextRequest) {
   }
 
   // Fire invoice email — non-blocking, failure doesn't affect payment response.
+  // Only the path that actually flipped draft→issued sends the email.
+  // If the webhook beat us to it (alreadyIssued=true), it already sent the email.
   // Skip if invoice issuance somehow returned no number (legacy edge case).
-  if (invoiceNumber && issued) {
+  if (invoiceNumber && issued && !issued.alreadyIssued) {
     (async () => {
       const user = await db.getUserById(userId);
       if (!user) return;

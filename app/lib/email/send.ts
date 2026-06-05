@@ -262,6 +262,32 @@ export async function sendInvoiceEmail(to: string, data: InvoiceData) {
   if (error) console.error("[Resend] Invoice email failed:", error);
 }
 
+export async function sendWaitlistEmail(data: { firstName: string; lastName: string; email: string }) {
+  const resend = new Resend(process.env.RESEND_API_KEY);
+  const { firstName, lastName, email } = data;
+  const { error } = await resend.emails.send({
+    from: "Bodha Ventures <info@bodhaventures.in>",
+    to: "info@bodhaventures.in",
+    replyTo: email,
+    subject: `New waitlist signup — ${firstName} ${lastName}`,
+    html: `
+      <div style="font-family: sans-serif; max-width: 480px; margin: 0 auto; padding: 24px;">
+        <h2 style="margin: 0 0 12px;">New waitlist signup</h2>
+        <table style="border-collapse: collapse; width: 100%;">
+          <tr><td style="padding: 6px 0; color: #555;">First name</td><td style="padding: 6px 0; font-weight: 600;">${escapeHtml(firstName)}</td></tr>
+          <tr><td style="padding: 6px 0; color: #555;">Last name</td><td style="padding: 6px 0; font-weight: 600;">${escapeHtml(lastName)}</td></tr>
+          <tr><td style="padding: 6px 0; color: #555;">Email</td><td style="padding: 6px 0; font-weight: 600;">${escapeHtml(email)}</td></tr>
+          <tr><td style="padding: 6px 0; color: #555;">When</td><td style="padding: 6px 0;">${new Date().toISOString()}</td></tr>
+        </table>
+      </div>
+    `,
+  });
+  if (error) {
+    console.error("[Resend] Waitlist email failed:", error);
+    throw new Error(error.message ?? "Resend error");
+  }
+}
+
 export async function sendOtpEmail(to: string, otp: string, firstName: string) {
   const resend = new Resend(process.env.RESEND_API_KEY);
   const { data, error } = await resend.emails.send({

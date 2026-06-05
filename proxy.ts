@@ -53,7 +53,7 @@ export function proxy(request: NextRequest) {
     return NextResponse.next();
   }
 
-  const publicPaths = ["/", "/signin", "/about", "/vcfo", "/venture", "/tools", "/plans"];
+  const publicPaths = ["/", "/signin", "/waitlist", "/about", "/vcfo", "/venture", "/tools", "/plans"];
   const authRedirectPaths = ["/signin"];
 
   // Logged-out → only allow public paths

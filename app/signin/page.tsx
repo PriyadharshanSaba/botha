@@ -18,12 +18,15 @@ function SignInContent() {
   const searchParams = useSearchParams();
 
   // --- Modes ---
-  const [mode, setMode] = useState<"login" | "login-otp" | "signup" | "signup-otp">(() =>
-    searchParams.get("mode") === "signup" ? "signup" : "login"
-  );
+  const [mode, setMode] = useState<"login" | "login-otp" | "signup" | "signup-otp">(() => {
+    const m = searchParams.get("mode");
+    if (m === "signup") return "signup";
+    if (m === "signup-otp") return "signup-otp";
+    return "login";
+  });
 
   // --- Form fields ---
-  const [email, setEmail] = useState("");
+  const [email, setEmail] = useState(() => searchParams.get("email") ?? "");
   const [first, setFirst] = useState("");
   const [last, setLast] = useState("");
 

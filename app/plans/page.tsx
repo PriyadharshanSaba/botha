@@ -336,7 +336,7 @@ export default function PlansPage() {
                     </ul>
 
                     {plan.waitlist ? (
-                      <button className="plan-btn waitlist" disabled>Join waitlist — coming soon</button>
+                      <button className="plan-btn waitlist" disabled>Join The Club — coming soon</button>
                     ) : soldOut ? (
                       <button className="plan-btn" disabled>Sold out</button>
                     ) : (

@@ -164,7 +164,27 @@ export async function issueInvoice(
 
   // Counter bump + invoice update inside one transaction → if anything throws,
   // counter rolls back, no gap.
-  const invoiceNumber = await drizzle.transaction(async (tx) => {
+  // Concurrency: /orders/verify and the Razorpay webhook can both call this
+  // for the same order. SELECT ... FOR UPDATE serializes them on the invoice
+  // row — the loser sees status='issued' and returns alreadyIssued=true
+  // without bumping the counter or sending another email.
+  const txResult = await drizzle.transaction(async (tx) => {
+    const lockedRows = await tx.execute<{
+      invoice_number: string | null;
+      status: string;
+    }>(sql`
+      SELECT invoice_number, status FROM invoices
+      WHERE id = ${invoice.id}
+      FOR UPDATE
+    `);
+    const locked = lockedRows.rows[0];
+    if (!locked) throw new Error(`issueInvoice: invoice vanished mid-txn: ${invoice.id}`);
+
+    // Winner already flipped draft→issued in a concurrent txn — bail.
+    if (locked.invoice_number && locked.status !== "draft") {
+      return { invoiceNumber: locked.invoice_number, alreadyIssued: true as const };
+    }
+
     const counterResult = await tx.execute(sql`
       INSERT INTO invoice_counters (fy, last_seq)
       VALUES (${fy}, 1)
@@ -185,8 +205,20 @@ export async function issueInvoice(
       })
       .where(eq(invoices.id, invoice.id));
 
-    return num;
+    return { invoiceNumber: num, alreadyIssued: false as const };
   });
+
+  // Race loser — skip PDF gen, skip return (return same shape as earlier-bail
+  // path above so caller's !alreadyIssued guard works).
+  if (txResult.alreadyIssued) {
+    return {
+      invoiceId: invoice.id,
+      invoiceNumber: txResult.invoiceNumber,
+      alreadyIssued: true,
+    };
+  }
+
+  const invoiceNumber = txResult.invoiceNumber;
 
   // Best-effort PDF generation + R2 upload. Failure does NOT block issuance —
   // pdf_object_key stays NULL, /billing falls back to "Download unavailable".
