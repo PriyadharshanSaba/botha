@@ -50,7 +50,7 @@ export default function IndiaFinanceJun5Page() {
           </div>
         </div>
 
-        {/* SECTION 1 */}
+        {/* SECTION 1: MARKET SCORECARD */}
         <div className="section-tag">01 &nbsp; The Market Scorecard</div>
         <h2>A Week Without a Clear Direction — Until Friday&apos;s Double-Header</h2>
 
@@ -120,7 +120,7 @@ export default function IndiaFinanceJun5Page() {
           <p>The Nifty 50 is down 4.66% over the past 12 months in rupee terms. Add the rupee&apos;s ~11.5% depreciation against the dollar and the dollar-adjusted return for a foreign equity investor is approximately −15.5% (precisely: (1 − 0.0466) × (1 − 0.115) − 1 ≈ −15.5%). That is not a sentiment problem. Capital allocates rationally. Until the rupee stabilises and earnings growth re-accelerates, the structural FPI outflow pressure will not abate.</p>
         </div>
 
-        {/* SECTION 2 */}
+        {/* SECTION 2: GDP RELEASE */}
         <div className="section-tag">02 &nbsp; The Headline Number</div>
         <h2>FY26 GDP at 7.7% — The Number the World Will Quote, and the Story Underneath It</h2>
 
@@ -139,7 +139,7 @@ export default function IndiaFinanceJun5Page() {
           <p>The February Budget set a FY27 fiscal deficit target of 4.3% using the old GDP base. On the new 2022-23 base series, that same nominal borrowing would be divided by a larger nominal GDP denominator — but achieving 4.3% still requires nominal GDP growth of approximately 13–14%. The RBI&apos;s own central forecast implies nominal GDP growth of ~12% for FY27 (precisely: (1.066) × (1.051) − 1 ≈ 12.0%). That gap — ~12% actual versus 13–14% required — means the government&apos;s 4.3% target is arithmetically difficult to achieve without either cutting spending or accepting a fiscal slippage. The June Budget update must address this explicitly. If it doesn&apos;t, sovereign credit analysts will do the arithmetic themselves and draw their own conclusions. Note: the stronger-than-expected FY26 PE of 7.7% provides a marginally larger nominal GDP base for FY27 calculations, but does not close the gap materially.</p>
         </div>
 
-        {/* SECTION 3 */}
+        {/* SECTION 3: RBI MPC */}
         <div className="section-tag">03 &nbsp; Monetary Policy</div>
         <h2>RBI Unanimously Holds at 5.25% — The Forecast Revisions Are the Real Story</h2>
 
@@ -180,7 +180,7 @@ export default function IndiaFinanceJun5Page() {
           </div>
         </div>
 
-        {/* SECTION 4 */}
+        {/* SECTION 4: FPI G-SEC TAX */}
         <div className="section-tag">04 &nbsp; Policy Surprise</div>
         <h2>Government Abolishes FPI Capital Gains Tax on G-Secs — By Ordinance</h2>
 
@@ -204,7 +204,7 @@ export default function IndiaFinanceJun5Page() {
           <p>Deeper FPI penetration in G-Secs creates a new vulnerability that doesn&apos;t exist when the market is domestically held. When a sudden risk-off event strikes — an Iran escalation, a Fed surprise — foreign holders sell G-Secs, pushing yields up, which triggers rupee weakness, which triggers more selling. India&apos;s equity market has already experienced exactly this dynamic over the past 18 months. Extending that structural fragility to the sovereign bond market requires a robust monitoring and circuit-breaker framework. The RBI and SEBI will need to be proactive, not reactive, in designing those safeguards before the inflows they are attracting become large enough to matter — and to destabilise.</p>
         </div>
 
-        {/* SECTION 5 */}
+        {/* SECTION 5: US-INDIA TRADE */}
         <div className="section-tag">05 &nbsp; Trade: US-India BTA</div>
         <h2>&ldquo;99% Done&rdquo; — But Section 301 Just Rewrote the Math</h2>
 
@@ -219,7 +219,7 @@ export default function IndiaFinanceJun5Page() {
 
         <p>The pharmaceutical sector — India&apos;s largest single export category to the US at approximately <strong>$8.7 billion annually</strong> (FY24 figure; FY26 likely higher given 9%+ YoY growth) — deserves specific attention here. Pharma has been mostly exempt from tariff pressure and has been trading on BTA optimism. A Section 301 action that encompasses pharmaceutical supply chains (citing contract manufacturing labour practices) would reprice the entire sector&apos;s US earnings outlook. This is a tail risk, not the base case, but it is no longer inconceivable given the USTR&apos;s scope of investigation.</p>
 
-        {/* SECTION 6 */}
+        {/* SECTION 6: IRAN & OIL */}
         <div className="section-tag">06 &nbsp; Global: Iran, Oil and India&apos;s True Import Bill</div>
         <h2>Oil Trapped Between $93 and $98 — Neither the Relief Nor the Crisis Markets Need</h2>
 
@@ -238,7 +238,7 @@ export default function IndiaFinanceJun5Page() {
           <p>India&apos;s oil import economics in FY27 carry a structural wrinkle that most commentary misses. India had been importing 35–40% of its crude needs from Russia at significant discounts — roughly 1.5–2 mb/d. As part of the BTA framework, India effectively agreed to restructure these purchases in exchange for the US removing its &ldquo;Russian oil penalty&rdquo; tariff. This means India&apos;s average crude procurement cost in FY27 is structurally higher than in FY26, even at the same Brent headline price. India is now buying more from the Middle East and West Africa at closer-to-Brent pricing — just as Brent itself is elevated by the Iran conflict. The oil bill inflation for FY27 is doubly pressured: elevated Brent and a narrowed Russia discount. That is the true current account arithmetic that is invisible in the headline crude chart.</p>
         </div>
 
-        {/* SECTION 7 */}
+        {/* SECTION 7: RBI DIVIDEND */}
         <div className="section-tag">07 &nbsp; Fiscal: The RBI Dividend and a Circular Dynamic</div>
         <h2>The ₹2.86 Lakh Crore RBI Dividend — India&apos;s Accidental Fiscal Cushion</h2>
 
@@ -251,7 +251,7 @@ export default function IndiaFinanceJun5Page() {
           <p>The scale of the FY26 RBI dividend is the direct product of the RBI&apos;s active foreign exchange intervention strategy throughout the year. When the RBI sells dollars to support the rupee, it realises gains on forex reserves accumulated at lower dollar levels — those gains flow through the P&amp;L into the surplus transfer. So the same rupee weakness that is creating economic stress also generated the record dividend. The circular logic: weak rupee → RBI intervention profits → record dividend → government fiscal cushion → less pressure to cut capex or borrow more → lower G-Sec supply premium → some rupee support. It is one of the least-discussed structural features of India&apos;s macroeconomic architecture, and it partially explains why the fiscal maths has been more resilient than external observers expect.</p>
         </div>
 
-        {/* SECTION 8 */}
+        {/* SECTION 8: GLOBAL MARKETS */}
         <div className="section-tag">08 &nbsp; Global Finance</div>
         <h2>US Markets at Records, India Disconnected — The Divergence Deepens</h2>
 
@@ -265,7 +265,7 @@ export default function IndiaFinanceJun5Page() {
           <span className="sub">US 10-yr Treasury yield: ~4.4–4.5% under Fed Chair Kevin Warsh. No rate cuts signalled for 2026. India 10-yr G-Sec yield: ~6.4–6.5%. The ~200 bps spread should theoretically attract FPI debt flows — the new G-Sec tax exemption is designed to capitalise on this differential for long-duration foreign institutional buyers. FTSE 100 and DAX: broadly flat for the week amid oil volatility.</span>
         </div>
 
-        {/* SECTION 9 */}
+        {/* SECTION 9: FULL PICTURE */}
         <div className="section-tag">09 &nbsp; The Full Picture</div>
         <h2>What Changed This Week, What Persists, and What Comes Next</h2>
 
