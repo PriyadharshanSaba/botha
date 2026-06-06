@@ -161,7 +161,19 @@ export default function ModuleViewer({
 
       {/* === Active Chapter === */}
       <section className="chapters-list">
-        <div className="chapter" data-active-lang={lang}>
+        <div
+          className="chapter"
+          data-active-lang={lang}
+          // Content protection (layer 2): block clipboard + context menu + drag.
+          // CSS user-select:none handles selection blocking; these stop the
+          // remaining vectors (right-click → Copy, Ctrl+C, drag-to-clipboard).
+          // Not bulletproof — devtools / screenshots still work — but raises
+          // friction for casual copying.
+          onCopy={(e) => e.preventDefault()}
+          onCut={(e) => e.preventDefault()}
+          onContextMenu={(e) => e.preventDefault()}
+          onDragStart={(e) => e.preventDefault()}
+        >
           {chapterElements[chapterIndex]}
         </div>
       </section>
