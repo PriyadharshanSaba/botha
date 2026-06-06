@@ -162,6 +162,9 @@
   margin-bottom: 6px;
 }
 
+.blog-post-body .stat-cell .big.red { color: #A0380A; }
+.blog-post-body .stat-cell .big.green { color: #2E7D45; }
+
 .blog-post-body .stat-cell .lbl {
   font-size: 11px;
   font-weight: 400;

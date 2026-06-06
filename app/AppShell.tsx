@@ -7,10 +7,16 @@ import AppFooter from "./components/AppFooter";
 import CookieBanner from "./components/CookieBanner";
 import { LanguageProvider } from "./context/LanguageContext";
 
-export default function AppShell({ children }: { children: React.ReactNode }) {
+export default function AppShell({
+  children,
+  initialLoggedIn,
+}: {
+  children: React.ReactNode;
+  initialLoggedIn: boolean;
+}) {
   const pathname = usePathname();
   const [showBanner, setShowBanner] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(initialLoggedIn);
 
   // middleware already handles protection!
   const showHeader = pathname !== "/signin";
@@ -26,10 +32,14 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
     pathname.startsWith("/blogs/");
   const showAppFooter = showHeader && !hasOwnFooter;
 
+  // Re-check auth on every route change — keeps Header in sync after
+  // OTP login / payment without requiring a full page refresh.
   useEffect(() => {
-    fetch("/api/me")
+    let cancelled = false;
+    fetch("/api/me", { cache: "no-store" })
       .then((r) => r.json())
       .then((data) => {
+        if (cancelled) return;
         setIsLoggedIn(data.loggedIn);
         if (data.needsConsent) {
           setShowBanner(true);
@@ -40,10 +50,12 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
         }
       })
       .catch(() => {
+        if (cancelled) return;
         // network error — show banner so user can consent anyway
         setShowBanner(true);
       });
-  }, []);
+    return () => { cancelled = true; };
+  }, [pathname]);
 
   function handleConsentSaved() {
     setShowBanner(false);
@@ -51,7 +63,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
 
   return (
     <LanguageProvider>
-      {showHeader && <Header />}
+      {showHeader && <Header loggedIn={isLoggedIn} onLoggedOut={() => setIsLoggedIn(false)} />}
       {children}
       {showAppFooter && <AppFooter />}
       {showBanner && (

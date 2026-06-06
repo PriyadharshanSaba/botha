@@ -15,7 +15,6 @@ type Props = {
 export default function ModuleViewer({
   moduleId,
   moduleNumber,
-  moduleName,
   completionMessage,
   children,
 }: Props) {
@@ -47,6 +46,13 @@ export default function ModuleViewer({
       })
       .finally(() => setIsLoading(false));
   }, []);
+
+  useEffect(() => {
+    if (isLoading) return;
+    requestAnimationFrame(() => {
+      window.scrollTo({ top: 0, behavior: "instant" });
+    });
+  }, [isLoading, chapterIndex, isComplete]);
 
   async function saveProgress(chapterNumber: number) {
     await fetch("/api/modules", {

@@ -25,8 +25,8 @@ export default function PrivacyModal({ onClose }: PrivacyModalProps) {
           <section className="ts">
             <div className="ts-num">01</div>
             <h3>Introduction</h3>
-            <p>Bodha Ventures LLP ("Bodha", "we", "our", "us") is a financial services and education company headquartered in Bengaluru, India. We are fully committed to protecting your personal data and maintaining transparent practices in how it is collected, processed, and safeguarded.</p>
-            <p>This Privacy Policy applies to all users ("you", "your") who access or interact with our digital properties and services, including:</p>
+            <p>Bodha Ventures LLP (&quot;Bodha&quot;, &quot;we&quot;, &quot;our&quot;, &quot;us&quot;) is a financial services and education company headquartered in Bengaluru, India. We are fully committed to protecting your personal data and maintaining transparent practices in how it is collected, processed, and safeguarded.</p>
+            <p>This Privacy Policy applies to all users (&quot;you&quot;, &quot;your&quot;) who access or interact with our digital properties and services, including:</p>
             <ul style={{ margin: "8px 0 8px 18px", fontSize: 13, color: "#475569", lineHeight: 1.7 }}>
               <li>Personal Finance Courses (with user accounts and login functionality)</li>
               <li>Virtual CFO (vCFO) advisory services</li>
@@ -137,7 +137,7 @@ export default function PrivacyModal({ onClose }: PrivacyModalProps) {
               <li><strong>Right to Grievance Redressal</strong> — Lodge a complaint with our Grievance Officer (Section 14) or the Data Protection Board of India.</li>
               <li><strong>Right to Nominate</strong> — Nominate an individual to exercise your data rights on your behalf in the event of your death or incapacity.</li>
             </ul>
-            <p>To exercise any of the above rights, please contact us at <a href="mailto:bodhaventures@gmail.com">bodhaventures@gmail.com</a>. We will respond within 30 days of receiving a valid request.</p>
+            <p>To exercise any of the above rights, please contact us at <a href="mailto:info@bodhaventures.in">info@bodhaventures.in</a>. We will respond within 30 days of receiving a valid request.</p>
           </section>
 
           <section className="ts">
@@ -146,7 +146,7 @@ export default function PrivacyModal({ onClose }: PrivacyModalProps) {
             <div className="ts-callout warning">
               <strong>Age Restriction —</strong> Our services are strictly intended for individuals aged 18 years and above. We do not knowingly collect, process, or store personal data from minors. If we become aware that data has been collected from a person under 18 without appropriate consent, we will delete it immediately.
             </div>
-            <p>If you believe a minor has provided us with personal information, please notify us immediately at <a href="mailto:bodhaventures@gmail.com">bodhaventures@gmail.com</a>.</p>
+            <p>If you believe a minor has provided us with personal information, please notify us immediately at <a href="mailto:info@bodhaventures.in">info@bodhaventures.in</a>.</p>
           </section>
 
           <section className="ts">
@@ -158,7 +158,7 @@ export default function PrivacyModal({ onClose }: PrivacyModalProps) {
           <section className="ts">
             <div className="ts-num">13</div>
             <h3>Updates to This Policy</h3>
-            <p>We may revise this Privacy Policy from time to time to reflect changes in our practices, services, or applicable legal requirements. When we make material changes, we will update the "Last Updated" date, notify registered users via email for significant changes, and where required, seek fresh consent for new or materially different processing.</p>
+            <p>We may revise this Privacy Policy from time to time to reflect changes in our practices, services, or applicable legal requirements. When we make material changes, we will update the &quot;Last Updated&quot; date, notify registered users via email for significant changes, and where required, seek fresh consent for new or materially different processing.</p>
             <p>Continued use of our platform after changes take effect constitutes acceptance of the revised Policy.</p>
           </section>
 
@@ -169,7 +169,7 @@ export default function PrivacyModal({ onClose }: PrivacyModalProps) {
             <div className="ts-callout">
               <strong>Name:</strong> S Priyadharshan<br />
               <strong>Designation:</strong> Grievance Officer, Bodha Ventures LLP<br />
-              <strong>Email:</strong> <a href="mailto:bodhaventures@gmail.com">bodhaventures@gmail.com</a><br />
+              <strong>Email:</strong> <a href="mailto:info@bodhaventures.in">info@bodhaventures.in</a><br />
               <strong>Address:</strong> Bodha Ventures LLP, Bengaluru, Karnataka, India<br />
               <strong>Response Time:</strong> Within 30 days of receipt of grievance
             </div>
@@ -212,7 +212,7 @@ export default function PrivacyModal({ onClose }: PrivacyModalProps) {
             <p>For any questions, concerns, or requests regarding this Privacy Policy or your personal data, please reach out to us:</p>
             <div className="ts-callout">
               <strong>Company:</strong> Bodha Ventures LLP<br />
-              <strong>Email:</strong> <a href="mailto:bodhaventures@gmail.com">bodhaventures@gmail.com</a><br />
+              <strong>Email:</strong> <a href="mailto:info@bodhaventures.in">info@bodhaventures.in</a><br />
               <strong>Location:</strong> Bengaluru, Karnataka, India
             </div>
           </section>

@@ -27,7 +27,7 @@ export default function TermsModal({ onAccept, onClose, viewOnly = false }: Term
           <section className="ts">
             <div className="ts-num">01</div>
             <h3>Acceptance of Terms</h3>
-            <p>These Terms of Use ("Terms") constitute a legally binding agreement between you and Bodha Ventures LLP, governing your access to our website, courses, tools, and content.</p>
+            <p>These Terms of Use (&quot;Terms&quot;) constitute a legally binding agreement between you and Bodha Ventures LLP, governing your access to our website, courses, tools, and content.</p>
             <div className="ts-callout warning">
               <strong>Binding Agreement —</strong> By creating an account or using any of our services, you confirm that you have read, understood, and agree to be bound by these Terms in their entirety. If you do not agree, you must not use our platform.
             </div>
@@ -122,7 +122,7 @@ By completing your purchase, you acknowledge and agree that no refunds, transfer
           <section className="ts">
             <div className="ts-num">14</div>
             <h3>Termination</h3>
-            <p>We may suspend or terminate your account immediately and without notice if you breach any provision of these Terms. Termination for breach does not entitle you to any refund. You may close your account at any time by contacting <a href="mailto:bodhaventures@gmail.com">bodhaventures@gmail.com</a>.</p>
+            <p>We may suspend or terminate your account immediately and without notice if you breach any provision of these Terms. Termination for breach does not entitle you to any refund. You may close your account at any time by contacting <a href="mailto:info@bodhaventures.in">info@bodhaventures.in</a>.</p>
           </section>
 
           <section className="ts">
@@ -134,20 +134,20 @@ By completing your purchase, you acknowledge and agree that no refunds, transfer
           <section className="ts">
             <div className="ts-num">16</div>
             <h3>Modifications to Terms</h3>
-            <p>We reserve the right to revise these Terms at any time. Material changes will be communicated via email and by updating the "Last Updated" date. Continued use of the platform after changes constitutes acceptance of the revised Terms.</p>
+            <p>We reserve the right to revise these Terms at any time. Material changes will be communicated via email and by updating the &quot;Last Updated&quot; date. Continued use of the platform after changes constitutes acceptance of the revised Terms.</p>
           </section>
 
           <section className="ts">
             <div className="ts-num">17</div>
             <h3>Governing Law & Disputes</h3>
-            <p>These Terms are governed by the laws of India. Any disputes shall be subject to the exclusive jurisdiction of courts in Bengaluru, Karnataka, India. Before initiating legal proceedings, you agree to attempt good-faith resolution by contacting us at <a href="mailto:bodhaventures@gmail.com">bodhaventures@gmail.com</a> and allowing 30 days for resolution.</p>
+            <p>These Terms are governed by the laws of India. Any disputes shall be subject to the exclusive jurisdiction of courts in Bengaluru, Karnataka, India. Before initiating legal proceedings, you agree to attempt good-faith resolution by contacting us at <a href="mailto:info@bodhaventures.in">info@bodhaventures.in</a> and allowing 30 days for resolution.</p>
           </section>
 
           <section className="ts">
             <div className="ts-num">18–20</div>
             <h3>Severability, Entire Agreement & Contact</h3>
             <p>If any provision of these Terms is found invalid or unenforceable, the remaining provisions continue in full force. These Terms constitute the entire agreement between you and Bodha Ventures LLP regarding use of the platform and supersede all prior agreements.</p>
-            <p style={{ marginTop: 8 }}>For any queries contact: <a href="mailto:bodhaventures@gmail.com">bodhaventures@gmail.com</a></p>
+            <p style={{ marginTop: 8 }}>For any queries contact: <a href="mailto:info@bodhaventures.in">info@bodhaventures.in</a></p>
           </section>
 
         </div>

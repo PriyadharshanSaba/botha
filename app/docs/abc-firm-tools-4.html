@@ -1,0 +1,2172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ABC Firm — Finance Tools</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #0d0d0d;
+    --cream: #f5f0e8;
+    --gold: #c9a84c;
+    --gold-light: #e8d08a;
+    --slate: #2a2d35;
+    --mist: #e8e4dc;
+    --rust: #b85c38;
+    --white: #fdfcf9;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--white);
+    color: var(--ink);
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 5vw;
+    height: 72px;
+    background: rgba(253,252,249,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(201,168,76,0.18);
+  }
+  .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+  .logo-mark {
+    width: 40px; height: 40px;
+    background: var(--ink);
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    position: relative; overflow: hidden;
+  }
+  .logo-mark::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0; height: 50%;
+    background: var(--gold);
+  }
+  .logo-mark span {
+    font-family: 'Playfair Display', serif;
+    font-weight: 900; font-size: 15px; color: var(--white);
+    position: relative; z-index: 1; letter-spacing: -0.5px;
+  }
+  .logo-text {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700; font-size: 20px; color: var(--ink); letter-spacing: -0.3px;
+  }
+  .logo-text span { color: var(--gold); }
+  nav .nav-links { display: flex; gap: 32px; list-style: none; }
+  nav .nav-links a {
+    text-decoration: none; font-size: 14px; font-weight: 500;
+    color: var(--slate); letter-spacing: 0.3px; transition: color 0.2s;
+  }
+  nav .nav-links a:hover { color: var(--gold); }
+  nav .nav-links a.active { color: var(--gold); }
+  .nav-cta { display: flex; align-items: center; gap: 14px; }
+  .btn-ghost {
+    font-size: 14px; font-weight: 500; color: var(--ink);
+    background: none; border: none; cursor: pointer;
+    letter-spacing: 0.3px; transition: color 0.2s;
+  }
+  .btn-ghost:hover { color: var(--gold); }
+  .btn-primary {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px; font-weight: 500; color: var(--ink);
+    background: var(--gold); border: none; cursor: pointer;
+    padding: 10px 22px; border-radius: 6px; letter-spacing: 0.4px;
+    transition: background 0.2s, transform 0.15s;
+  }
+  .btn-primary:hover { background: var(--gold-light); transform: translateY(-1px); }
+
+  /* ── PAGE HEADER ── */
+  .page-header {
+    padding-top: 72px;
+    background: var(--white);
+    border-bottom: 1px solid rgba(0,0,0,0.07);
+  }
+  .page-header-inner {
+    padding: 32px 10vw 28px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 40px;
+  }
+  .page-header-left { flex: 1; }
+  .breadcrumb {
+    display: flex; align-items: center; gap: 6px;
+    font-size: 12px; color: #bbb; margin-bottom: 12px;
+  }
+  .breadcrumb a { color: #bbb; text-decoration: none; transition: color 0.2s; }
+  .breadcrumb a:hover { color: var(--gold); }
+  .breadcrumb span { color: var(--gold); }
+  .page-header-label {
+    font-size: 11px; font-weight: 500; letter-spacing: 2.5px; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 10px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .page-header-label::before { content: ''; width: 20px; height: 1.5px; background: var(--gold); }
+  .page-header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(26px, 2.8vw, 40px);
+    font-weight: 900; line-height: 1.1;
+    letter-spacing: -1.5px; color: var(--ink);
+    margin-bottom: 10px;
+  }
+  .page-header h1 em { font-style: italic; color: var(--gold); }
+  .page-header-sub {
+    font-size: 14px; color: #777; line-height: 1.6;
+    max-width: 400px; font-weight: 300;
+  }
+  .page-header-right {
+    display: flex; align-items: center; gap: 10px; flex-shrink: 0;
+  }
+  .meta-badge {
+    display: inline-flex; align-items: center; gap: 7px;
+    background: rgba(40,167,69,0.08);
+    border: 1px solid rgba(40,167,69,0.18);
+    border-radius: 100px;
+    padding: 6px 14px;
+    font-size: 12px; font-weight: 500; letter-spacing: 0.3px;
+    color: #2d7a3a; white-space: nowrap;
+  }
+  .meta-badge::before {
+    content: ''; width: 6px; height: 6px; border-radius: 50%; background: #2d7a3a; flex-shrink: 0;
+  }
+  .meta-pill {
+    display: inline-flex; align-items: center;
+    background: var(--cream);
+    border: 1px solid rgba(0,0,0,0.07);
+    border-radius: 100px;
+    padding: 6px 14px;
+    font-size: 12px; color: #888; white-space: nowrap;
+  }
+
+  /* ── MARQUEE ── */
+  .marquee-strip {
+    background: var(--ink); padding: 14px 0; overflow: hidden; white-space: nowrap;
+  }
+  .marquee-inner { display: inline-flex; gap: 48px; animation: marquee 20s linear infinite; }
+  .marquee-item {
+    font-size: 13px; font-weight: 500; letter-spacing: 1.5px; text-transform: uppercase;
+    color: rgba(255,255,255,0.5); display: flex; align-items: center; gap: 48px;
+  }
+  .marquee-item::after { content: '✦'; color: var(--gold); font-size: 10px; }
+
+  /* ── SECTION COMMONS ── */
+  .section-label {
+    font-size: 11px; font-weight: 500; letter-spacing: 2.5px; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 16px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .section-label::before { content: ''; width: 24px; height: 1.5px; background: var(--gold); }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(28px, 3vw, 44px); font-weight: 900;
+    letter-spacing: -1.5px; line-height: 1.1; color: var(--ink);
+  }
+
+  /* ── TOOLS SECTION ── */
+  .tools-section { padding: 40px 10vw 80px; background: var(--white); }
+
+  .tools-intro {
+    background: var(--ink);
+    border-radius: 20px; padding: 44px 52px;
+    display: flex; align-items: flex-start; gap: 32px;
+    margin-bottom: 64px; position: relative; overflow: hidden;
+  }
+  .tools-intro::before {
+    content: ''; position: absolute; top: 0; left: 0; bottom: 0;
+    width: 4px; background: var(--gold);
+  }
+  .intro-accent {
+    font-size: 48px; color: var(--gold); opacity: 0.4;
+    flex-shrink: 0; margin-top: -6px;
+    font-family: 'Playfair Display', serif;
+  }
+  .intro-body h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(20px, 1.8vw, 28px); font-weight: 700;
+    color: var(--white); letter-spacing: -0.5px; line-height: 1.3; margin-bottom: 12px;
+  }
+  .intro-body p { font-size: 15px; color: rgba(255,255,255,0.6); line-height: 1.75; font-weight: 300; max-width: 660px; }
+  .intro-body strong { color: var(--gold-light); font-weight: 500; }
+
+  /* ── TOOLS GRID ── */
+  .tools-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+
+  .tool-card {
+    background: var(--white);
+    border: 1px solid rgba(0,0,0,0.08);
+    border-radius: 16px;
+    padding: 36px 32px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.25s, box-shadow 0.25s, border-color 0.25s;
+    display: flex; flex-direction: column;
+  }
+  .tool-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0; height: 3px;
+    background: var(--gold);
+    transform: scaleX(0); transform-origin: left;
+    transition: transform 0.3s;
+  }
+  .tool-card:hover { transform: translateY(-6px); box-shadow: 0 20px 50px rgba(0,0,0,0.1); border-color: transparent; }
+  .tool-card:hover::before { transform: scaleX(1); }
+
+  .tool-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 12px; font-weight: 400; color: var(--gold);
+    letter-spacing: 1px; margin-bottom: 18px;
+  }
+  .tool-icon { font-size: 28px; margin-bottom: 16px; }
+  .tool-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px; font-weight: 700; color: var(--ink);
+    letter-spacing: -0.5px; margin-bottom: 10px; line-height: 1.2;
+  }
+  .tool-desc {
+    font-size: 13px; color: #666; line-height: 1.65; font-weight: 300;
+    flex: 1; margin-bottom: 22px;
+  }
+  .tool-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 22px; }
+  .tool-tag {
+    font-size: 11px; font-weight: 500; letter-spacing: 0.5px;
+    background: rgba(201,168,76,0.1); color: #8a6d20;
+    padding: 4px 10px; border-radius: 100px; white-space: nowrap;
+  }
+  .tool-free-tag {
+    font-size: 11px; font-weight: 500; letter-spacing: 0.5px;
+    background: rgba(40,167,69,0.1); color: #2d7a3a;
+    padding: 4px 10px; border-radius: 100px; white-space: nowrap;
+  }
+  .tool-action {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-top: auto;
+  }
+  .tool-open-btn {
+    font-size: 13px; font-weight: 500; color: var(--gold);
+    background: none; border: none; cursor: pointer;
+    display: flex; align-items: center; gap: 6px;
+    padding: 0; letter-spacing: 0.2px; transition: gap 0.2s;
+  }
+  .tool-open-btn:hover { gap: 10px; }
+  .tool-arrow {
+    font-size: 18px; color: var(--gold);
+    transition: transform 0.2s;
+  }
+  .tool-card:hover .tool-arrow { transform: translate(3px, -3px); }
+
+  /* ── MODAL ── */
+  .modal-overlay {
+    position: fixed; inset: 0; z-index: 200;
+    background: rgba(13,13,13,0.7);
+    backdrop-filter: blur(8px);
+    display: flex; align-items: center; justify-content: center;
+    padding: 20px;
+    opacity: 0; pointer-events: none;
+    transition: opacity 0.3s;
+  }
+  .modal-overlay.open { opacity: 1; pointer-events: all; }
+
+  .modal {
+    background: var(--white);
+    border-radius: 20px;
+    width: 100%; max-width: 540px;
+    max-height: 90vh; overflow-y: auto;
+    padding: 44px;
+    position: relative;
+    transform: translateY(16px);
+    transition: transform 0.3s;
+    box-shadow: 0 40px 100px rgba(0,0,0,0.2);
+  }
+  .modal-overlay.open .modal { transform: translateY(0); }
+
+  .modal-close {
+    position: absolute; top: 18px; right: 18px;
+    width: 36px; height: 36px; border-radius: 8px;
+    background: rgba(0,0,0,0.05); border: none; cursor: pointer;
+    font-size: 18px; color: #888; display: flex; align-items: center; justify-content: center;
+    transition: background 0.2s;
+  }
+  .modal-close:hover { background: rgba(0,0,0,0.1); color: var(--ink); }
+
+  .modal-label {
+    font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
+    color: var(--gold); font-weight: 500; margin-bottom: 8px;
+  }
+  .modal-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px; font-weight: 900; letter-spacing: -1px;
+    color: var(--ink); margin-bottom: 6px;
+  }
+  .modal-subtitle { font-size: 14px; color: #888; font-weight: 300; margin-bottom: 32px; }
+
+  .form-group { margin-bottom: 18px; }
+  .form-label {
+    display: block; font-size: 12px; font-weight: 500;
+    letter-spacing: 0.5px; color: #555; margin-bottom: 7px;
+    text-transform: uppercase;
+  }
+  .form-input {
+    width: 100%; background: var(--cream);
+    border: 1px solid rgba(0,0,0,0.1);
+    border-radius: 8px; padding: 11px 14px;
+    color: var(--ink); font-family: 'DM Sans', sans-serif;
+    font-size: 14px; outline: none;
+    transition: border-color 0.2s, background 0.2s;
+  }
+  .form-input:focus { border-color: var(--gold); background: var(--white); }
+  .form-input::placeholder { color: #bbb; }
+  .form-select {
+    width: 100%; background: var(--cream);
+    border: 1px solid rgba(0,0,0,0.1);
+    border-radius: 8px; padding: 11px 14px;
+    color: var(--ink); font-family: 'DM Sans', sans-serif;
+    font-size: 14px; outline: none; cursor: pointer;
+    transition: border-color 0.2s;
+  }
+  .form-select:focus { border-color: var(--gold); }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+
+  .toggle-row {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 12px 0; margin-bottom: 4px;
+    border-top: 1px solid rgba(0,0,0,0.07);
+    border-bottom: 1px solid rgba(0,0,0,0.07);
+    margin-bottom: 18px;
+  }
+  .toggle-label { font-size: 14px; font-weight: 500; color: var(--ink); }
+  .toggle {
+    width: 44px; height: 24px; border-radius: 100px;
+    background: rgba(0,0,0,0.12); border: none; cursor: pointer;
+    position: relative; transition: background 0.2s; flex-shrink: 0;
+  }
+  .toggle.on { background: var(--gold); }
+  .toggle::after {
+    content: ''; position: absolute;
+    width: 18px; height: 18px; background: white; border-radius: 50%;
+    top: 3px; left: 3px; transition: left 0.2s;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+  }
+  .toggle.on::after { left: 23px; }
+
+  .divider-label {
+    display: flex; align-items: center; gap: 12px;
+    font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase;
+    color: #bbb; margin: 22px 0 18px;
+  }
+  .divider-label::before, .divider-label::after {
+    content: ''; flex: 1; height: 1px; background: rgba(0,0,0,0.08);
+  }
+
+  .calc-btn {
+    width: 100%; background: var(--ink); color: var(--white);
+    border: none; cursor: pointer; border-radius: 8px;
+    padding: 14px; font-family: 'DM Sans', sans-serif;
+    font-size: 14px; font-weight: 500; letter-spacing: 0.3px;
+    transition: background 0.2s, transform 0.15s; margin-top: 8px;
+  }
+  .calc-btn:hover { background: var(--slate); transform: translateY(-1px); }
+
+  .result-box {
+    background: var(--cream);
+    border: 1px solid rgba(201,168,76,0.25);
+    border-radius: 14px; padding: 28px;
+    margin-top: 24px; display: none;
+    border-left: 4px solid var(--gold);
+  }
+  .result-box.show { display: block; }
+  .result-box-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 13px; font-weight: 700; color: var(--gold);
+    letter-spacing: 1px; text-transform: uppercase; margin-bottom: 16px;
+  }
+  .result-row {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 9px 0; border-bottom: 1px solid rgba(0,0,0,0.06);
+  }
+  .result-row:last-child { border-bottom: none; }
+  .result-label { font-size: 13px; color: #777; font-weight: 300; }
+  .result-value {
+    font-family: 'Playfair Display', serif;
+    font-size: 16px; font-weight: 700; color: var(--ink); letter-spacing: -0.3px;
+  }
+  .result-value.big { font-size: 22px; color: var(--gold); letter-spacing: -0.5px; }
+  .result-value.negative { color: var(--rust); }
+
+  /* ── REVEAL ── */
+  .reveal {
+    opacity: 0; transform: translateY(20px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    nav .nav-links { display: none; }
+    .tools-grid { grid-template-columns: 1fr 1fr; }
+    .tools-intro { flex-direction: column; gap: 16px; padding: 32px 28px; }
+  }
+  @media (max-width: 600px) {
+    .tools-section { padding: 60px 6vw 80px; }
+    .tools-grid { grid-template-columns: 1fr; gap: 14px; }
+    .form-row { grid-template-columns: 1fr; }
+    .modal { padding: 32px 24px; }
+    .page-header-inner { padding: 48px 6vw 48px; }
+  }
+
+  @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="logo">
+    <div class="logo-mark"><span>ABC</span></div>
+    <div class="logo-text">ABC <span>Firm</span></div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#">Home</a></li>
+    <li><a href="#">Finance Course</a></li>
+    <li><a href="#">Virtual CFO</a></li>
+    <li><a href="#" class="active">Tools</a></li>
+    <li><a href="#">Blog</a></li>
+  </ul>
+  <div class="nav-cta">
+    <button class="btn-ghost">Log in</button>
+    <button class="btn-primary">Get Started</button>
+  </div>
+</nav>
+
+<!-- PAGE HEADER -->
+<div class="page-header">
+  <div class="page-header-inner">
+    <div class="page-header-left">
+      <div class="breadcrumb"><a href="#">Home</a> / <span>Finance Tools</span></div>
+      <div class="page-header-label">Finance Tools</div>
+      <h1>Your financial <em>toolkit</em></h1>
+      <p class="page-header-sub">Six free calculators for real decisions — plus the Net Worth Tracker, included with the Personal Finance Course.</p>
+    </div>
+    <div class="page-header-right">
+      <div class="meta-badge">6 tools free</div>
+      <div class="meta-pill">7 tools · Tracker with Course</div>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- TOOLS SECTION -->
+<section class="tools-section">
+
+<div class="tools-grid">
+
+    <!-- 1. NET WORTH -->
+    <div class="tool-card reveal" style="transition-delay:0.05s" onclick="openModal('networth')">
+      <div class="tool-num">01 ——</div>
+      <div class="tool-icon">🏦</div>
+      <div class="tool-name">Net Worth Calculator</div>
+      <div class="tool-desc">Get a clear, honest snapshot of where you stand financially. Add every asset and liability to see your true net worth — and what's dragging it down.</div>
+      <div class="tool-tags">
+        <span class="tool-tag">Assets</span>
+        <span class="tool-tag">Liabilities</span>
+        <span class="tool-free-tag">Free</span>
+      </div>
+      <div class="tool-action">
+        <button class="tool-open-btn">Open Calculator →</button>
+        <div class="tool-arrow">↗</div>
+      </div>
+    </div>
+
+    <!-- 2. SIP CALCULATOR -->
+    <div class="tool-card reveal" style="transition-delay:0.1s" onclick="openModal('sip')">
+      <div class="tool-num">02 ——</div>
+      <div class="tool-icon">📈</div>
+      <div class="tool-name">SIP Calculator</div>
+      <div class="tool-desc">See exactly how your monthly investments compound over time. Toggle on the step-up option to model increasing contributions year on year.</div>
+      <div class="tool-tags">
+        <span class="tool-tag">Compounding</span>
+        <span class="tool-tag">Step-Up</span>
+        <span class="tool-free-tag">Free</span>
+      </div>
+      <div class="tool-action">
+        <button class="tool-open-btn">Open Calculator →</button>
+        <div class="tool-arrow">↗</div>
+      </div>
+    </div>
+
+    <!-- 3. BUDGET PLANNER -->
+    <div class="tool-card reveal" style="transition-delay:0.15s" onclick="openModal('budget')">
+      <div class="tool-num">03 ——</div>
+      <div class="tool-icon">📊</div>
+      <div class="tool-name">Budget Planner</div>
+      <div class="tool-desc">Allocate your income intelligently using the 50/30/20 rule — customisable to your situation. Know exactly how much you should be investing each month.</div>
+      <div class="tool-tags">
+        <span class="tool-tag">50/30/20</span>
+        <span class="tool-tag">Monthly Plan</span>
+        <span class="tool-free-tag">Free</span>
+      </div>
+      <div class="tool-action">
+        <button class="tool-open-btn">Open Planner →</button>
+        <div class="tool-arrow">↗</div>
+      </div>
+    </div>
+
+    <!-- 4. GOAL SIP -->
+    <div class="tool-card reveal" style="transition-delay:0.2s" onclick="openModal('goalsip')">
+      <div class="tool-num">04 ——</div>
+      <div class="tool-icon">🎯</div>
+      <div class="tool-name">Goal-Based SIP Planner</div>
+      <div class="tool-desc">Name your goal, set a deadline, and let the math do the rest. Get the exact monthly SIP required to fund your dream — home, education, or retirement.</div>
+      <div class="tool-tags">
+        <span class="tool-tag">Goal Planning</span>
+        <span class="tool-tag">Timeline</span>
+        <span class="tool-free-tag">Free</span>
+      </div>
+      <div class="tool-action">
+        <button class="tool-open-btn">Plan My Goal →</button>
+        <div class="tool-arrow">↗</div>
+      </div>
+    </div>
+
+    <!-- 5. TAX TRACKER -->
+    <div class="tool-card reveal" style="transition-delay:0.25s" onclick="openModal('tax')">
+      <div class="tool-num">05 ——</div>
+      <div class="tool-icon">🧾</div>
+      <div class="tool-name">Tax Estimator</div>
+      <div class="tool-desc">Estimate your total tax liability under the new regime — salary, interest, dividends, STCG, and LTCG. Includes cess, surcharge, and 87A rebate.</div>
+      <div class="tool-tags">
+        <span class="tool-tag">New Regime</span>
+        <span class="tool-tag">LTCG / STCG</span>
+        <span class="tool-free-tag">Free</span>
+      </div>
+      <div class="tool-action">
+        <button class="tool-open-btn">Open Tracker →</button>
+        <div class="tool-arrow">↗</div>
+      </div>
+    </div>
+
+    <!-- 6. REBALANCING -->
+    <div class="tool-card reveal" style="transition-delay:0.3s" onclick="openModal('rebalance')">
+      <div class="tool-num">06 ——</div>
+      <div class="tool-icon">⚖️</div>
+      <div class="tool-name">Rebalancing Calculator</div>
+      <div class="tool-desc">Input your target and current allocation. Get exact buy/sell amounts for equity, debt, and gold to restore your intended balance.</div>
+      <div class="tool-tags">
+        <span class="tool-tag">Allocation</span>
+        <span class="tool-tag">Drift</span>
+        <span class="tool-free-tag">Free</span>
+      </div>
+      <div class="tool-action">
+        <button class="tool-open-btn">Open Calculator →</button>
+        <div class="tool-arrow">↗</div>
+      </div>
+    </div>
+
+
+    <!-- 7. NET WORTH TRACKER -->
+    <div class="tool-card reveal" style="transition-delay:0.35s" onclick="openModal('nwtracker')">
+      <div class="tool-num">07 ——</div>
+      <div class="tool-icon">📅</div>
+      <div class="tool-name">Net Worth Tracker</div>
+      <div class="tool-desc">Log your assets and liabilities every month and watch your net worth grow through live charts. Included exclusively with the Personal Finance Course.</div>
+      <div class="tool-tags">
+        <span class="tool-tag">Monthly Log</span>
+        <span class="tool-tag">Charts</span>
+        <span class="tool-tag" style="background:rgba(45,122,58,0.12);color:#2d7a3a;border-color:rgba(45,122,58,0.2)">Tracker</span>
+        <span class="tool-tag" style="background:rgba(201,168,76,0.15);color:#8a6d20;border:1px solid rgba(201,168,76,0.35)">With Course</span>
+      </div>
+      <div class="tool-action">
+        <button class="tool-open-btn">Open Tracker →</button>
+        <div class="tool-arrow">↗</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ═══════════════ MODALS ═══════════════ -->
+
+<!-- NET WORTH MODAL -->
+<div class="modal-overlay" id="modal-networth">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('networth')">×</button>
+    <div class="modal-label">Tool 01</div>
+    <div class="modal-title">Net Worth Calculator</div>
+    <div class="modal-subtitle">Fill in your assets and liabilities to see your true financial position</div>
+
+    <div class="divider-label">Assets</div>
+    <div class="form-row">
+      <div class="form-group"><label class="form-label">Savings & FD</label><input class="form-input" type="number" onwheel="this.blur()" step="any" min="0" inputmode="decimal" placeholder="₹0" id="nw-savings" oninput="document.getElementById('nw-result').classList.remove('show')"></div>
+      <div class="form-group"><label class="form-label">Mutual Funds</label><input class="form-input" type="number" onwheel="this.blur()" step="any" min="0" inputmode="decimal" placeholder="₹0" id="nw-mf" oninput="document.getElementById('nw-result').classList.remove('show')"></div>
+    </div>
+    <div class="form-row">
+      <div class="form-group"><label class="form-label">Stocks / ETFs</label><input class="form-input" type="number" onwheel="this.blur()" step="any" min="0" inputmode="decimal" placeholder="₹0" id="nw-stocks" oninput="document.getElementById('nw-result').classList.remove('show')"></div>
+      <div class="form-group"><label class="form-label">Real Estate</label><input class="form-input" type="number" onwheel="this.blur()" step="any" min="0" inputmode="decimal" placeholder="₹0" id="nw-property" oninput="document.getElementById('nw-result').classList.remove('show')"></div>
+    </div>
+    <div class="form-row">
+      <div class="form-group"><label class="form-label">Gold / Jewellery</label><input class="form-input" type="number" onwheel="this.blur()" step="any" min="0" inputmode="decimal" placeholder="₹0" id="nw-gold" oninput="document.getElementById('nw-result').classList.remove('show')"></div>
+      <div class="form-group"><label class="form-label">Other Assets</label><input class="form-input" type="number" onwheel="this.blur()" step="any" min="0" inputmode="decimal" placeholder="₹0" id="nw-other" oninput="document.getElementById('nw-result').classList.remove('show')"></div>
+    </div>
+
+    <div class="divider-label">Liabilities</div>
+    <div class="form-row">
+      <div class="form-group"><label class="form-label">Home Loan</label><input class="form-input" type="number" onwheel="this.blur()" step="any" min="0" inputmode="decimal" placeholder="₹0" id="nw-homeloan" oninput="document.getElementById('nw-result').classList.remove('show')"></div>
+      <div class="form-group"><label class="form-label">Car Loan</label><input class="form-input" type="number" onwheel="this.blur()" step="any" min="0" inputmode="decimal" placeholder="₹0" id="nw-carloan" oninput="document.getElementById('nw-result').classList.remove('show')"></div>
+    </div>
+    <div class="form-row">
+      <div class="form-group"><label class="form-label">Personal Loan</label><input class="form-input" type="number" onwheel="this.blur()" step="any" min="0" inputmode="decimal" placeholder="₹0" id="nw-personalloan" oninput="document.getElementById('nw-result').classList.remove('show')"></div>
+      <div class="form-group"><label class="form-label">Credit Card Dues</label><input class="form-input" type="number" onwheel="this.blur()" step="any" min="0" inputmode="decimal" placeholder="₹0" id="nw-cc" oninput="document.getElementById('nw-result').classList.remove('show')"></div>
+    </div>
+
+    <button class="calc-btn" onclick="calcNetWorth()">Calculate My Net Worth</button>
+    <div class="result-box" id="nw-result">
+      <div class="result-box-title">Your Financial Position</div>
+      <div class="result-row"><span class="result-label">Total Assets</span><span class="result-value" id="nw-assets">—</span></div>
+      <div class="result-row"><span class="result-label">Total Liabilities</span><span class="result-value" id="nw-liabilities">—</span></div>
+      <div class="result-row"><span class="result-label">Net Worth</span><span class="result-value big" id="nw-net">—</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- SIP MODAL -->
+<div class="modal-overlay" id="modal-sip">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('sip')">×</button>
+    <div class="modal-label">Tool 02</div>
+    <div class="modal-title">SIP Calculator</div>
+    <div class="modal-subtitle">Calculate your mutual fund SIP returns, with optional step-up</div>
+    <div class="form-group"><label class="form-label">Monthly SIP Amount (₹)</label><input class="form-input" type="number" onwheel="this.blur()" step="any" min="0" inputmode="decimal" placeholder="5,000" id="sip-amount" oninput="document.getElementById('sip-result').classList.remove('show')"></div>
+    <div class="form-row">
+      <div class="form-group"><label class="form-label">Expected Return (% p.a.)</label><input class="form-input" type="number" onwheel="this.blur()" step="any" min="0" inputmode="decimal" placeholder="12" id="sip-rate" oninput="if(this.value!=='' && parseFloat(this.value)<0)this.value=0;document.getElementById('sip-result').classList.remove('show')"></div>
+      <div class="form-group"><label class="form-label">Investment Period (Years)</label><input class="form-input" type="number" onwheel="this.blur()" step="any" min="0" inputmode="decimal" placeholder="10" id="sip-years" oninput="if(this.value!=='' && parseFloat(this.value)<0)this.value=0;document.getElementById('sip-result').classList.remove('show')"></div>
+    </div>
+    <div class="toggle-row">
+      <span class="toggle-label">Enable Annual Step-Up</span>
+      <button class="toggle" id="stepup-toggle" onclick="toggleStepUp()"></button>
+    </div>
+    <div class="form-group" id="stepup-field" style="display:none">
+      <label class="form-label">Step-Up % Per Year</label>
+      <input class="form-input" type="number" onwheel="this.blur()" step="any" min="0" inputmode="decimal" placeholder="10" id="sip-stepup" oninput="if(this.value!=='' && parseFloat(this.value)<0)this.value=0">
+    </div>
+    <button class="calc-btn" onclick="calcSIP()">Calculate Returns</button>
+    <div class="result-box" id="sip-result">
+      <div class="result-box-title">Projected Returns</div>
+      <div class="result-row"><span class="result-label">Total Amount Invested</span><span class="result-value" id="sip-invested">—</span></div>
+      <div class="result-row"><span class="result-label">Estimated Gains</span><span class="result-value" id="sip-gains">—</span></div>
+      <div class="result-row"><span class="result-label">Maturity Value</span><span class="result-value big" id="sip-maturity">—</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- BUDGET MODAL -->
+<div class="modal-overlay" id="modal-budget">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('budget')">×</button>
+    <div class="modal-label">Tool 03</div>
+    <div class="modal-title">Budget Planner</div>
+    <div class="modal-subtitle">Allocate your income using the 50/30/20 framework</div>
+    <div class="form-group"><label class="form-label">Monthly Take-Home Income (₹)</label><input class="form-input" type="number" onwheel="this.blur()" step="any" min="0" inputmode="decimal" placeholder="80,000" id="b-income" oninput="document.getElementById('budget-result').classList.remove('show')"></div>
+    <div class="form-row">
+      <div class="form-group"><label class="form-label">Needs % (Default: 50)</label><input class="form-input" type="number" onwheel="this.blur()" step="any" min="0" inputmode="decimal" placeholder="50" id="b-needs" oninput="if(this.value!=='' && parseFloat(this.value)<0)this.value=0;budgetPctCheck();document.getElementById('budget-result').classList.remove('show')"></div>
+      <div class="form-group"><label class="form-label">Wants % (Default: 30)</label><input class="form-input" type="number" onwheel="this.blur()" step="any" min="0" inputmode="decimal" placeholder="30" id="b-wants" oninput="if(this.value!=='' && parseFloat(this.value)<0)this.value=0;budgetPctCheck();document.getElementById('budget-result').classList.remove('show')"></div>
+    </div>
+    <div class="form-group"><label class="form-label">Savings & Investments % (Default: 20)</label><input class="form-input" type="number" onwheel="this.blur()" step="any" min="0" inputmode="decimal" placeholder="20" id="b-savings" oninput="if(this.value!=='' && parseFloat(this.value)<0)this.value=0;budgetPctCheck();document.getElementById('budget-result').classList.remove('show')">
+    <div id="budget-pct-check" style="font-size:12px;font-weight:500;padding:6px 10px;border-radius:6px;margin-bottom:12px;display:none"></div></div>
+
+    <!-- SIP allocation lever -->
+    <div style="background:rgba(201,168,76,0.06);border:1px solid rgba(201,168,76,0.2);border-radius:10px;padding:14px 16px;margin-bottom:18px">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px">
+        <div>
+          <div style="font-size:13px;font-weight:500;color:var(--ink)">SIP % of Savings</div>
+          <div style="font-size:11px;color:#999;font-weight:300;margin-top:2px">Rest goes to emergency fund &amp; liquid buffer. Adjust to your preference.</div>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px;flex-shrink:0">
+          <span style="font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:var(--gold);min-width:40px;text-align:right" id="b-sip-pct-display">70%</span>
+        </div>
+      </div>
+      <input type="range" id="b-sip-pct" min="10" max="100" step="5" value="70"
+        oninput="document.getElementById('b-sip-pct-display').textContent=this.value+'%'"
+        style="width:100%;accent-color:var(--gold);cursor:pointer;margin-top:4px">
+      <div style="display:flex;justify-content:space-between;margin-top:4px">
+        <span style="font-size:10px;color:#ccc">10% — mostly buffer</span>
+        <span style="font-size:10px;color:#ccc">100% — all into SIP</span>
+      </div>
+    </div>
+
+    <button class="calc-btn" onclick="calcBudget()">Plan My Budget</button>
+    <div class="result-box" id="budget-result">
+      <div class="result-box-title">Monthly Allocation</div>
+      <div class="result-row"><span class="result-label">Needs — Rent, Food, Bills</span><span class="result-value" id="br-needs">—</span></div>
+      <div class="result-row"><span class="result-label">Wants — Dining, Travel, Lifestyle</span><span class="result-value" id="br-wants">—</span></div>
+      <div class="result-row"><span class="result-label">Savings & Investments</span><span class="result-value" id="br-savings">—</span></div>
+      <div class="result-row" id="br-sip-row"><span class="result-label" id="br-sip-label">Suggested Monthly SIP</span><span class="result-value big" id="br-sip">—</span></div>
+      <div style="padding:10px 0 2px"><span style="font-size:11px;color:#bbb;font-weight:300" id="br-sip-note">—</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- GOAL SIP MODAL -->
+<div class="modal-overlay" id="modal-goalsip">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('goalsip')">×</button>
+    <div class="modal-label">Tool 04</div>
+    <div class="modal-title">Goal-Based SIP Planner</div>
+    <div class="modal-subtitle">Find the exact monthly SIP needed to reach your financial goal</div>
+
+    <div class="form-group"><label class="form-label">Target Amount (₹)</label><input class="form-input" type="number" onwheel="this.blur()" step="any" min="0" inputmode="decimal" placeholder="25,00,000" id="goal-target" oninput="document.getElementById('goal-result').classList.remove('show')"></div>
+    <div class="form-row">
+      <div class="form-group"><label class="form-label">Time Horizon (Years)</label><input class="form-input" type="number" onwheel="this.blur()" step="any" min="0" inputmode="decimal" placeholder="10" id="goal-years" oninput="if(this.value!=='' && parseFloat(this.value)<0)this.value=0;document.getElementById('goal-result').classList.remove('show')"></div>
+      <div class="form-group"><label class="form-label">Expected Return (% p.a.)</label><input class="form-input" type="number" onwheel="this.blur()" step="any" min="0" inputmode="decimal" placeholder="12" id="goal-rate" oninput="if(this.value!=='' && parseFloat(this.value)<0)this.value=0;document.getElementById('goal-result').classList.remove('show')"></div>
+    </div>
+    <div class="form-group"><label class="form-label">Current Value of Existing Savings for This Goal (₹) <span style="font-size:10px;color:#aaa">enter 0 if starting fresh</span></label><input class="form-input" type="number" onwheel="this.blur()" step="any" min="0" inputmode="decimal" placeholder="0" id="goal-existing" oninput="document.getElementById('goal-result').classList.remove('show')"></div>
+    <button class="calc-btn" onclick="calcGoalSIP()">Calculate Required SIP</button>
+    <div class="result-box" id="goal-result">
+      <div class="result-box-title">SIP Requirement</div>
+      <div class="result-row"><span class="result-label">Future Value of Existing Savings</span><span class="result-value" id="g-fv">—</span></div>
+      <div class="result-row"><span class="result-label">Remaining Gap to Fund via SIP</span><span class="result-value" id="g-gap">—</span></div>
+      <div class="result-row"><span class="result-label">Monthly SIP Required</span><span class="result-value big" id="g-sip">—</span></div>
+      <div style="padding:8px 0 2px"><span style="font-size:11px;color:#2d7a3a;font-weight:400" id="g-sip-note"></span></div>
+      <div style="border-top:1px solid rgba(0,0,0,0.06);margin-top:8px;padding-top:8px">
+        <div class="result-row"><span class="result-label" style="color:#888">Total SIP Amount Invested</span><span class="result-value" style="font-size:13px" id="g-invested">—</span></div>
+        <div class="result-row"><span class="result-label" style="color:#888">SIP Corpus at Goal Date</span><span class="result-value" style="font-size:13px" id="g-corpus">—</span></div>
+        <div class="result-row"><span class="result-label" style="font-weight:500;color:var(--ink)">Total Corpus (SIP + Existing)</span><span class="result-value" style="font-size:15px;font-weight:600" id="g-total">—</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- TAX TRACKER MODAL -->
+<div class="modal-overlay" id="modal-tax">
+  <div class="modal" style="max-width:600px">
+    <button class="modal-close" onclick="closeModal('tax')">×</button>
+    <div class="modal-label">Tool 05</div>
+    <div class="modal-title">Tax Estimator</div>
+    <div class="modal-subtitle">FY 2025–26 · New Tax Regime · Includes cess, surcharge & marginal relief</div>
+
+    <!-- Regime note -->
+    <div style="background:rgba(201,168,76,0.08);border:1px solid rgba(201,168,76,0.22);border-radius:8px;padding:11px 14px;margin-bottom:22px;font-size:12px;color:#7a6020;line-height:1.6">
+      <strong>New Regime slabs (FY 2025–26):</strong> ₹0–4L → 0% · ₹4–8L → 5% · ₹8–12L → 10% · ₹12–16L → 15% · ₹16–20L → 20% · ₹20–24L → 25% · Above ₹24L → 30%. Standard deduction ₹75,000 on salary applied automatically. Rebate u/s 87A (up to ₹60,000 on taxable income ≤ ₹12L — effectively zero tax up to ₹12L) applied where eligible. 4% Health &amp; Education Cess. Surcharge &amp; marginal relief applied on high incomes.
+    </div>
+
+    <!-- HEAD 1: SALARY -->
+    <div class="divider-label">Head 1 — Salaries</div>
+    <div class="form-group">
+      <label class="form-label">Gross Salary (Annual ₹) <span style="font-size:10px;color:#aaa">Standard deduction ₹75,000 applied automatically</span></label>
+      <input class="form-input" type="number" onwheel="this.blur()" step="any" min="0" inputmode="decimal" placeholder="0" id="tax-salary" oninput="document.getElementById('tax-result').classList.remove('show')">
+    </div>
+
+    <!-- HEAD 2: BUSINESS / PROFESSION -->
+    <div class="divider-label">Head 2 — Business or Profession</div>
+    <div style="background:rgba(201,168,76,0.05);border:1px solid rgba(201,168,76,0.15);border-radius:8px;padding:10px 13px;margin-bottom:12px;font-size:11px;color:#888;line-height:1.6">
+      Enter your <strong>net taxable profit</strong> here. If you use presumptive taxation — 44AD (business: 6–8% of turnover) or 44ADA (profession: 50% of receipts) — enter the presumptive profit amount.
+    </div>
+    <div class="form-group">
+      <label class="form-label">Net Business / Professional Income (₹)</label>
+      <input class="form-input" type="number" onwheel="this.blur()" step="any" min="0" inputmode="decimal" placeholder="0" id="tax-business" oninput="document.getElementById('tax-result').classList.remove('show')">
+    </div>
+
+    <!-- HEAD 3: HOUSE PROPERTY -->
+    <div class="divider-label">Head 3 — House Property (Let-Out / Rented Property Only)</div>
+    <div style="background:var(--cream);border-radius:10px;padding:14px 16px;margin-bottom:18px">
+      <div style="font-size:11px;color:#888;margin-bottom:12px;line-height:1.6"><strong>New Regime rules:</strong> Only two deductions apply — 30% standard deduction on NAV (Sec 24a) and home loan interest on let-out property (Sec 24b). However, interest deduction is <strong>capped at NAV after 30% deduction</strong> — it cannot create a loss. No set-off against other heads, no carry-forward of any HP loss. No 80C principal, 80EEA or 80EE. Self-occupied property income is always NIL — enter details here only for rented-out property.</div>
+      <div class="form-row" style="align-items:flex-end">
+        <div class="form-group" style="margin-bottom:12px">
+          <label class="form-label">Annual Gross Rent Received (₹)</label>
+          <input class="form-input" type="number" onwheel="this.blur()" step="any" min="0" inputmode="decimal" placeholder="0" id="tax-rent-gross" oninput="taxRentalPreview();document.getElementById('tax-result').classList.remove('show')">
+        </div>
+        <div class="form-group" style="margin-bottom:12px">
+          <label class="form-label">Municipal / Property Taxes Paid (₹) <span style="font-size:10px;color:#aaa">only if paid by owner during the year</span></label>
+          <input class="form-input" type="number" onwheel="this.blur()" step="any" min="0" inputmode="decimal" placeholder="0" id="tax-rent-muni" oninput="taxRentalPreview();document.getElementById('tax-result').classList.remove('show')">
+        </div>
+      </div>
+      <div class="form-group" style="margin-bottom:6px">
+        <label class="form-label">Home Loan Interest on Let-Out Property (₹) <span style="font-size:10px;color:#aaa">Sec 24b — no cap for let-out</span></label>
+        <input class="form-input" type="number" onwheel="this.blur()" step="any" min="0" inputmode="decimal" placeholder="0" id="tax-rent-interest" oninput="taxRentalPreview();document.getElementById('tax-result').classList.remove('show')">
+      </div>
+      <!-- Live rental income preview -->
+      <div id="tax-rental-preview" style="display:none;margin-top:10px;padding:10px 12px;background:rgba(255,255,255,0.7);border-radius:7px;font-size:11px;color:#666;line-height:1.9">
+        <div style="display:flex;justify-content:space-between"><span>Gross Annual Rent</span><span id="trp-gross" style="font-weight:500;color:var(--ink)">—</span></div>
+        <div style="display:flex;justify-content:space-between"><span>Less: Municipal Taxes</span><span id="trp-muni" style="color:#b85c38">—</span></div>
+        <div style="display:flex;justify-content:space-between"><span>Net Annual Value (NAV)</span><span id="trp-nav" style="font-weight:500;color:var(--ink)">—</span></div>
+        <div style="display:flex;justify-content:space-between"><span>Less: 30% Std Deduction (Sec 24a)</span><span id="trp-30pct" style="color:#b85c38">—</span></div>
+        <div style="display:flex;justify-content:space-between"><span>Less: Home Loan Interest (Sec 24b)</span><span id="trp-int" style="color:#b85c38">—</span></div>
+        <div style="display:flex;justify-content:space-between;border-top:1px solid rgba(0,0,0,0.08);margin-top:4px;padding-top:4px"><span style="font-weight:500;color:var(--ink)">Taxable House Property Income</span><span id="trp-taxable" style="font-weight:600;color:var(--ink)">—</span></div>
+        <div id="trp-capped-note" style="display:none;margin-top:5px;font-size:10px;color:#b85c38">⚠ Under New Regime, interest deduction cannot exceed NAV after 30% deduction — excess interest is disallowed (no loss creation, no set-off, no carry-forward).</div>
+      </div>
+    </div>
+
+    <!-- HEAD 4: CAPITAL GAINS -->
+    <div class="divider-label">Head 4 — Capital Gains</div>
+    <div style="background:var(--cream);border-radius:10px;padding:14px 16px;margin-bottom:10px">
+      <div style="font-size:12px;font-weight:500;color:var(--ink);margin-bottom:10px">Short-Term Capital Gains (STCG)</div>
+      <div class="form-row" style="margin-bottom:0;align-items:flex-end">
+        <div class="form-group" style="margin-bottom:0">
+          <label class="form-label">Equity / Eq. MF (₹) <span style="font-size:10px;color:#aaa">taxed @ 20%</span></label>
+          <input class="form-input" type="number" onwheel="this.blur()" step="any" min="0" inputmode="decimal" placeholder="0" id="tax-stcg-eq" oninput="document.getElementById('tax-result').classList.remove('show')">
+        </div>
+        <div class="form-group" style="margin-bottom:0">
+          <label class="form-label">Debt / Other (₹) <span style="font-size:10px;color:#aaa">added to slab income</span></label>
+          <input class="form-input" type="number" onwheel="this.blur()" step="any" min="0" inputmode="decimal" placeholder="0" id="tax-stcg-debt" oninput="document.getElementById('tax-result').classList.remove('show')">
+        </div>
+      </div>
+    </div>
+    <div style="background:var(--cream);border-radius:10px;padding:14px 16px;margin-bottom:22px">
+      <div style="font-size:12px;font-weight:500;color:var(--ink);margin-bottom:10px">Long-Term Capital Gains (LTCG)</div>
+      <div class="form-row" style="margin-bottom:12px;align-items:flex-end">
+        <div class="form-group" style="margin-bottom:0">
+          <label class="form-label">Equity / Eq. MF (₹) <span style="font-size:10px;color:#aaa">12.5% above ₹1.25L exemption</span></label>
+          <input class="form-input" type="number" onwheel="this.blur()" step="any" min="0" inputmode="decimal" placeholder="0" id="tax-ltcg-eq" oninput="document.getElementById('tax-result').classList.remove('show')">
+        </div>
+        <div class="form-group" style="margin-bottom:0">
+          <label class="form-label">Debt — Bought <strong>before</strong> Apr 2023 (₹) <span style="font-size:10px;color:#aaa">12.5%, held &gt;24 months</span></label>
+          <input class="form-input" type="number" onwheel="this.blur()" step="any" min="0" inputmode="decimal" placeholder="0" id="tax-ltcg-debt-pre" oninput="document.getElementById('tax-result').classList.remove('show')">
+        </div>
+      </div>
+      <div class="form-group" style="margin-bottom:0">
+        <label class="form-label">Debt — Bought <strong>on/after</strong> Apr 2023 (₹) <span style="font-size:10px;color:#aaa">Always taxed at slab rate (Sec 50AA) — enter here regardless of holding period</span></label>
+        <input class="form-input" type="number" onwheel="this.blur()" step="any" min="0" inputmode="decimal" placeholder="0" id="tax-ltcg-debt-post" oninput="document.getElementById('tax-result').classList.remove('show')">
+      </div>
+    </div>
+
+    <!-- HEAD 5: OTHER SOURCES -->
+    <div class="divider-label">Head 5 — Other Sources</div>
+    <div class="form-row">
+      <div class="form-group">
+        <label class="form-label">Interest Income (₹) <span style="font-size:10px;color:#aaa">FD, savings, bonds</span></label>
+        <input class="form-input" type="number" onwheel="this.blur()" step="any" min="0" inputmode="decimal" placeholder="0" id="tax-interest" oninput="document.getElementById('tax-result').classList.remove('show')">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Dividend Income (₹)</label>
+        <input class="form-input" type="number" onwheel="this.blur()" step="any" min="0" inputmode="decimal" placeholder="0" id="tax-div" oninput="document.getElementById('tax-result').classList.remove('show')">
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Other Income (₹) <span style="font-size:10px;color:#aaa">gifts, winnings, miscellaneous</span></label>
+      <input class="form-input" type="number" onwheel="this.blur()" step="any" min="0" inputmode="decimal" placeholder="0" id="tax-other" oninput="document.getElementById('tax-result').classList.remove('show')">
+    </div>
+
+    <button class="calc-btn" onclick="calcTax()">Calculate My Tax Liability</button>
+
+    <div class="result-box" id="tax-result" style="padding:0;overflow:hidden">
+      <div style="padding:18px 24px;border-bottom:1px solid rgba(0,0,0,0.07)">
+        <div class="result-box-title" style="margin:0">Tax Estimate — FY 2025–26</div>
+      </div>
+
+      <!-- income summary -->
+      <div style="padding:14px 24px;border-bottom:1px solid rgba(0,0,0,0.06)">
+        <div style="font-size:10px;text-transform:uppercase;letter-spacing:1px;color:#aaa;margin-bottom:10px">Income Summary</div>
+        <div class="result-row" style="padding:4px 0"><span class="result-label" style="color:#888">Salary (after std deduction)</span><span class="result-value" style="font-size:13px" id="t-sal-net">—</span></div>
+        <div class="result-row" style="padding:4px 0"><span class="result-label" style="color:#888">Business / Professional</span><span class="result-value" style="font-size:13px" id="t-biz-net">—</span></div>
+        <div class="result-row" style="padding:4px 0"><span class="result-label" style="color:#888">House Property — Let-Out (after deductions)</span><span class="result-value" style="font-size:13px" id="t-hp-net">—</span></div>
+        <div class="result-row" style="padding:4px 0"><span class="result-label" style="color:#888">Other Sources</span><span class="result-value" style="font-size:13px" id="t-other-net">—</span></div>
+        <div class="result-row" style="padding:6px 0;border-top:1px solid rgba(0,0,0,0.06);margin-top:4px"><span class="result-label" style="font-weight:500;color:var(--ink)">Total Taxable Income (Slab)</span><span class="result-value" id="t-income">—</span></div>
+        <div class="result-row" style="padding:4px 0"><span class="result-label" style="color:#888">Applicable Top Slab</span><span class="result-value" style="font-size:13px" id="t-slab">—</span></div>
+      </div>
+
+      <!-- income tax -->
+      <div style="padding:14px 24px;border-bottom:1px solid rgba(0,0,0,0.06)">
+        <div style="font-size:10px;text-transform:uppercase;letter-spacing:1px;color:#aaa;margin-bottom:10px">Income Tax (New Regime)</div>
+        <div class="result-row" style="padding:6px 0"><span class="result-label">Income Tax on Slab Income</span><span class="result-value" id="t-income-tax">—</span></div>
+        <div class="result-row" style="padding:6px 0"><span class="result-label">Surcharge</span><span class="result-value" id="t-surcharge">—</span></div>
+        <div class="result-row" style="padding:6px 0"><span class="result-label">87A Rebate</span><span class="result-value" id="t-rebate" style="color:#2d7a3a">—</span></div>
+        <div class="result-row" style="padding:6px 0"><span class="result-label">Marginal Relief</span><span class="result-value" id="t-marginal-relief" style="color:#2d7a3a">—</span></div>
+      </div>
+
+      <!-- capital gains breakdown -->
+      <div style="padding:14px 24px;border-bottom:1px solid rgba(0,0,0,0.06)">
+        <div style="font-size:10px;text-transform:uppercase;letter-spacing:1px;color:#aaa;margin-bottom:10px">Capital Gains Tax</div>
+        <div class="result-row" style="padding:6px 0"><span class="result-label">STCG Tax — Equity (20%)</span><span class="result-value" id="t-stcg-tax">—</span></div>
+        <div class="result-row" style="padding:6px 0"><span class="result-label">LTCG Tax — Equity (12.5%)</span><span class="result-value" id="t-ltcg-eq-tax">—</span></div>
+        <div class="result-row" style="padding:6px 0"><span class="result-label">LTCG Tax — Debt pre-Apr 2023 (12.5%)</span><span class="result-value" id="t-ltcg-debt-pre-tax">—</span></div>
+        <div class="result-row" style="padding:6px 0"><span class="result-label">Debt post-Apr 2023 (slab — added to income)</span><span class="result-value" id="t-ltcg-debt-post-note">—</span></div>
+      </div>
+
+      <!-- totals -->
+      <div style="padding:14px 24px;border-bottom:1px solid rgba(0,0,0,0.06)">
+        <div class="result-row" style="padding:6px 0"><span class="result-label">Subtotal Tax</span><span class="result-value" id="t-subtotal">—</span></div>
+        <div class="result-row" style="padding:6px 0"><span class="result-label">Health &amp; Education Cess (4%)</span><span class="result-value" id="t-cess">—</span></div>
+        <div class="result-row" style="padding:8px 0;border-top:1px solid rgba(0,0,0,0.08);margin-top:4px">
+          <span class="result-label" style="font-weight:500;color:var(--ink)">Total Tax Payable</span>
+          <span class="result-value big" id="t-total">—</span>
+        </div>
+        <div class="result-row" style="padding:6px 0"><span class="result-label">Effective Rate on Gross Income</span><span class="result-value" id="t-effective">—</span></div>
+      </div>
+
+      <div style="padding:12px 24px;background:rgba(201,168,76,0.05)">
+        <p style="font-size:11px;color:#999;line-height:1.6;font-weight:300">Estimate for planning purposes only. Consult a CA for filing. Does not account for TDS already deducted or advance tax paid.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- REBALANCING MODAL -->
+<div class="modal-overlay" id="modal-rebalance">
+  <div class="modal" style="max-width:600px">
+    <button class="modal-close" onclick="closeModal('rebalance')">×</button>
+    <div class="modal-label">Tool 06</div>
+    <div class="modal-title">Rebalancing Calculator</div>
+    <div class="modal-subtitle">Enter what you currently hold and what you're aiming for — we'll tell you exactly what to buy or sell.</div>
+
+    <div class="divider-label">Current Holdings — Enter ₹ values</div>
+
+    <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:18px">
+      <!-- Equity -->
+      <div style="background:var(--cream);border-radius:10px;padding:14px 16px;display:flex;align-items:center;gap:12px">
+        <div style="width:10px;height:10px;border-radius:50%;background:#2d7a3a;flex-shrink:0"></div>
+        <div style="flex:1;font-size:13px;font-weight:500;color:var(--ink)">Equity <span style="font-size:11px;color:#999;font-weight:300">(Stocks, Mutual Funds, ETFs)</span></div>
+        <input class="form-input" type="number" onwheel="this.blur()" step="any" min="0" inputmode="decimal" placeholder="₹0" id="reb-eq-val" oninput="rebLiveUpdate();document.getElementById('reb-result').classList.remove('show')" style="width:140px;margin:0;text-align:right" style="width:140px;margin:0;text-align:right">
+      </div>
+      <!-- Debt -->
+      <div style="background:var(--cream);border-radius:10px;padding:14px 16px;display:flex;align-items:center;gap:12px">
+        <div style="width:10px;height:10px;border-radius:50%;background:#3a6bcc;flex-shrink:0"></div>
+        <div style="flex:1;font-size:13px;font-weight:500;color:var(--ink)">Debt <span style="font-size:11px;color:#999;font-weight:300">(FD, Debt Funds, Bonds, PPF)</span></div>
+        <input class="form-input" type="number" onwheel="this.blur()" step="any" min="0" inputmode="decimal" placeholder="₹0" id="reb-debt-val" oninput="rebLiveUpdate();document.getElementById('reb-result').classList.remove('show')" style="width:140px;margin:0;text-align:right" style="width:140px;margin:0;text-align:right">
+      </div>
+      <!-- Jewellery -->
+      <div style="background:var(--cream);border-radius:10px;padding:14px 16px;display:flex;align-items:center;gap:12px">
+        <div style="width:10px;height:10px;border-radius:50%;background:#c9a84c;flex-shrink:0"></div>
+        <div style="flex:1;font-size:13px;font-weight:500;color:var(--ink)">Jewellery <span style="font-size:11px;color:#999;font-weight:300">(Gold, Silver, etc.)</span></div>
+        <input class="form-input" type="number" onwheel="this.blur()" step="any" min="0" inputmode="decimal" placeholder="₹0" id="reb-gold-val" oninput="rebLiveUpdate();document.getElementById('reb-result').classList.remove('show')" style="width:140px;margin:0;text-align:right" style="width:140px;margin:0;text-align:right">
+      </div>
+      <!-- Real Estate -->
+      <div style="background:var(--cream);border-radius:10px;padding:14px 16px;display:flex;align-items:center;gap:12px">
+        <div style="width:10px;height:10px;border-radius:50%;background:#a0785a;flex-shrink:0"></div>
+        <div style="flex:1;font-size:13px;font-weight:500;color:var(--ink)">Real Estate <span style="font-size:11px;color:#999;font-weight:300">(Property, REITs)</span></div>
+        <input class="form-input" type="number" onwheel="this.blur()" step="any" min="0" inputmode="decimal" placeholder="₹0" id="reb-re-val" oninput="rebLiveUpdate();document.getElementById('reb-result').classList.remove('show')" style="width:140px;margin:0;text-align:right" style="width:140px;margin:0;text-align:right">
+      </div>
+      <!-- Cash -->
+      <div style="background:var(--cream);border-radius:10px;padding:14px 16px;display:flex;align-items:center;gap:12px">
+        <div style="width:10px;height:10px;border-radius:50%;background:#aaa;flex-shrink:0"></div>
+        <div style="flex:1;font-size:13px;font-weight:500;color:var(--ink)">Cash / Liquid <span style="font-size:11px;color:#999;font-weight:300">(Savings, Liquid Funds)</span></div>
+        <input class="form-input" type="number" onwheel="this.blur()" step="any" min="0" inputmode="decimal" placeholder="₹0" id="reb-cash-val" oninput="rebLiveUpdate();document.getElementById('reb-result').classList.remove('show')" style="width:140px;margin:0;text-align:right" style="width:140px;margin:0;text-align:right">
+      </div>
+      <!-- Other Assets -->
+      <div style="background:var(--cream);border-radius:10px;padding:14px 16px;display:flex;align-items:center;gap:12px">
+        <div style="width:10px;height:10px;border-radius:50%;background:#9b87c4;flex-shrink:0"></div>
+        <div style="flex:1;font-size:13px;font-weight:500;color:var(--ink)">Other Assets <span style="font-size:11px;color:#999;font-weight:300">(Crypto, Commodities, etc.)</span></div>
+        <input class="form-input" type="number" onwheel="this.blur()" step="any" min="0" inputmode="decimal" placeholder="₹0" id="reb-other-val" oninput="rebLiveUpdate();document.getElementById('reb-result').classList.remove('show')" style="width:140px;margin:0;text-align:right" style="width:140px;margin:0;text-align:right">
+      </div>
+    </div>
+
+    <!-- Live portfolio total -->
+    <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 14px;background:rgba(201,168,76,0.07);border:1px solid rgba(201,168,76,0.2);border-radius:8px;margin-bottom:22px">
+      <span style="font-size:12px;color:#888;letter-spacing:0.3px">Total Portfolio Value</span>
+      <span style="font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:var(--ink)" id="reb-live-total">₹0</span>
+    </div>
+
+    <div class="divider-label">Your Target Allocation (%)</div>
+    <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:22px">
+      <div style="display:grid;grid-template-columns:16px 1fr 80px 52px;align-items:center;gap:12px">
+        <div style="width:10px;height:10px;border-radius:50%;background:#2d7a3a"></div>
+        <span style="font-size:13px;font-weight:500">Equity</span>
+        <input class="form-input" type="number" onwheel="this.blur()" step="any" min="0" inputmode="decimal" placeholder="60" id="reb-eq-target" oninput="if(this.value!=='' && parseFloat(this.value)<0)this.value=0;rebTargetCheck();document.getElementById('reb-result').classList.remove('show')" style="margin:0;text-align:center" style="margin:0;text-align:center">
+        <span style="font-size:13px;color:#888">%</span>
+      </div>
+      <div style="display:grid;grid-template-columns:16px 1fr 80px 52px;align-items:center;gap:12px">
+        <div style="width:10px;height:10px;border-radius:50%;background:#3a6bcc"></div>
+        <span style="font-size:13px;font-weight:500">Debt</span>
+        <input class="form-input" type="number" onwheel="this.blur()" step="any" min="0" inputmode="decimal" placeholder="25" id="reb-debt-target" oninput="if(this.value!=='' && parseFloat(this.value)<0)this.value=0;rebTargetCheck();document.getElementById('reb-result').classList.remove('show')" style="margin:0;text-align:center" style="margin:0;text-align:center">
+        <span style="font-size:13px;color:#888">%</span>
+      </div>
+      <div style="display:grid;grid-template-columns:16px 1fr 80px 52px;align-items:center;gap:12px">
+        <div style="width:10px;height:10px;border-radius:50%;background:#c9a84c"></div>
+        <span style="font-size:13px;font-weight:500">Jewellery <span style="font-size:11px;color:#aaa;font-weight:300">(Gold, Silver, etc.)</span></span>
+        <input class="form-input" type="number" onwheel="this.blur()" step="any" min="0" inputmode="decimal" placeholder="10" id="reb-gold-target" oninput="if(this.value!=='' && parseFloat(this.value)<0)this.value=0;rebTargetCheck();document.getElementById('reb-result').classList.remove('show')" style="margin:0;text-align:center" style="margin:0;text-align:center">
+        <span style="font-size:13px;color:#888">%</span>
+      </div>
+      <div style="display:grid;grid-template-columns:16px 1fr 80px 52px;align-items:center;gap:12px">
+        <div style="width:10px;height:10px;border-radius:50%;background:#a0785a"></div>
+        <span style="font-size:13px;font-weight:500">Real Estate</span>
+        <input class="form-input" type="number" onwheel="this.blur()" step="any" min="0" inputmode="decimal" placeholder="0" id="reb-re-target" oninput="if(this.value!=='' && parseFloat(this.value)<0)this.value=0;rebTargetCheck();document.getElementById('reb-result').classList.remove('show')" style="margin:0;text-align:center" style="margin:0;text-align:center">
+        <span style="font-size:13px;color:#888">%</span>
+      </div>
+      <div style="display:grid;grid-template-columns:16px 1fr 80px 52px;align-items:center;gap:12px">
+        <div style="width:10px;height:10px;border-radius:50%;background:#aaa"></div>
+        <span style="font-size:13px;font-weight:500">Cash</span>
+        <input class="form-input" type="number" onwheel="this.blur()" step="any" min="0" inputmode="decimal" placeholder="5" id="reb-cash-target" oninput="if(this.value!=='' && parseFloat(this.value)<0)this.value=0;rebTargetCheck();document.getElementById('reb-result').classList.remove('show')" style="margin:0;text-align:center" style="margin:0;text-align:center">
+        <span style="font-size:13px;color:#888">%</span>
+      </div>
+      <div style="display:grid;grid-template-columns:16px 1fr 80px 52px;align-items:center;gap:12px">
+        <div style="width:10px;height:10px;border-radius:50%;background:#9b87c4"></div>
+        <span style="font-size:13px;font-weight:500">Other Assets</span>
+        <input class="form-input" type="number" onwheel="this.blur()" step="any" min="0" inputmode="decimal" placeholder="0" id="reb-other-target" oninput="if(this.value!=='' && parseFloat(this.value)<0)this.value=0;rebTargetCheck();document.getElementById('reb-result').classList.remove('show')" style="margin:0;text-align:center" style="margin:0;text-align:center">
+        <span style="font-size:13px;color:#888">%</span>
+      </div>
+      <div id="reb-target-warning" style="font-size:12px;color:#b85c38;display:none;padding:6px 10px;background:rgba(184,92,56,0.08);border-radius:6px">
+        ⚠ Targets must add up to 100%
+      </div>
+    </div>
+
+    <button class="calc-btn" onclick="calcRebalance()">Calculate Rebalancing Plan</button>
+
+    <div class="result-box" id="reb-result" style="padding:0;overflow:hidden">
+      <div style="padding:20px 24px;border-bottom:1px solid rgba(0,0,0,0.07)">
+        <div class="result-box-title" style="margin:0">Rebalancing Plan</div>
+      </div>
+
+      <!-- Summary bar -->
+      <div style="padding:16px 24px;border-bottom:1px solid rgba(0,0,0,0.07);display:flex;gap:24px;flex-wrap:wrap">
+        <div><div style="font-size:11px;color:#888;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:4px">Portfolio Value</div><div style="font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:var(--ink)" id="r-total">—</div></div>
+        <div><div style="font-size:11px;color:#888;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:4px">Assets to Sell</div><div style="font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:#b85c38" id="r-sell-total">—</div></div>
+        <div><div style="font-size:11px;color:#888;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:4px">Assets to Buy</div><div style="font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:#2d7a3a" id="r-buy-total">—</div></div>
+      </div>
+
+      <!-- Per-asset breakdown -->
+      <div id="reb-breakdown" style="padding:8px 0"></div>
+
+      <div style="padding:14px 24px;background:rgba(201,168,76,0.05);border-top:1px solid rgba(201,168,76,0.15)">
+        <p style="font-size:12px;color:#999;line-height:1.6;font-weight:300">Tip: Consider selling overweight assets first, then using proceeds to buy underweight ones. This minimises cash drag and transaction costs.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- NET WORTH TRACKER MODAL -->
+<div class="modal-overlay" id="modal-nwtracker" style="align-items:stretch;padding:0">
+  <div class="modal" style="max-width:100%;width:100%;height:100vh;border-radius:0;margin:0;display:flex;flex-direction:column;overflow:hidden">
+
+    <!-- Header -->
+    <div style="display:flex;align-items:center;justify-content:space-between;padding:20px 32px;border-bottom:1px solid rgba(0,0,0,0.08);flex-shrink:0">
+      <div>
+        <div style="font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:4px">Tool 07</div>
+        <div style="font-family:'Playfair Display',serif;font-size:22px;font-weight:700;letter-spacing:-0.5px">Net Worth Tracker</div>
+      </div>
+      <button class="modal-close" style="position:static;transform:none" onclick="closeModal('nwtracker')">×</button>
+    </div>
+
+    <!-- Body: two-pane -->
+    <div style="display:grid;grid-template-columns:340px 1fr;flex:1;overflow:hidden;min-height:0">
+
+      <!-- LEFT: Login + entry form -->
+      <div id="nwt-left" style="border-right:1px solid rgba(0,0,0,0.08);overflow-y:auto;padding:28px 28px 40px">
+
+        <!-- User login panel -->
+        <div id="nwt-login-panel">
+          <div style="font-size:13px;font-weight:500;margin-bottom:16px;color:#555">Sign in to your tracker</div>
+          <div class="form-group" style="margin-bottom:12px">
+            <label class="form-label">Your Name</label>
+            <input class="form-input" type="text" id="nwt-name" placeholder="e.g. Arjun Sharma" style="margin:0">
+          </div>
+          <div class="form-group" style="margin-bottom:16px">
+            <label class="form-label">PIN (4 digits)</label>
+            <input class="form-input" type="password" id="nwt-pin" placeholder="****" maxlength="4" inputmode="numeric" style="margin:0">
+          </div>
+          <button class="calc-btn" style="margin:0;font-size:13px;padding:12px 0" onclick="nwtLogin()">Continue →</button>
+          <p style="font-size:11px;color:#bbb;margin-top:10px;line-height:1.5">New user? Just enter a name and PIN — your tracker will be created automatically. Data is stored locally in your browser.</p>
+        </div>
+
+        <!-- Entry form (shown after login) -->
+        <div id="nwt-entry-panel" style="display:none">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px">
+            <div>
+              <div style="font-size:13px;font-weight:500" id="nwt-welcome">Welcome back</div>
+              <div style="font-size:11px;color:#aaa;margin-top:2px">Log your monthly snapshot</div>
+            </div>
+            <button onclick="nwtLogout()" style="font-size:11px;color:#bbb;background:none;border:none;cursor:pointer;text-decoration:underline">Sign out</button>
+          </div>
+
+          <!-- Month picker -->
+          <div class="form-group" style="margin-bottom:14px">
+            <label class="form-label">Month</label>
+            <input class="form-input" type="month" id="nwt-month" style="margin:0">
+          </div>
+
+          <div style="font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:1.5px;color:#4a7fcb;margin:16px 0 10px;display:flex;align-items:center;gap:8px"><span style="display:inline-block;width:18px;height:1.5px;background:#4a7fcb"></span>Equity</div>
+          <div class="form-group" style="margin-bottom:10px"><label class="form-label">Stocks / ETFs (&#8377;)</label><input class="form-input" type="number" onwheel="this.blur()" step="any" id="nwt-stocks" placeholder="0" style="margin:0"></div>
+          <div class="form-group" style="margin-bottom:10px"><label class="form-label">Equity Mutual Funds (&#8377;)</label><input class="form-input" type="number" onwheel="this.blur()" step="any" id="nwt-mf-equity" placeholder="0" style="margin:0"></div>
+
+          <div style="font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:1.5px;color:#6a8fc8;margin:16px 0 10px;display:flex;align-items:center;gap:8px"><span style="display:inline-block;width:18px;height:1.5px;background:#6a8fc8"></span>Debt</div>
+          <div class="form-group" style="margin-bottom:10px"><label class="form-label">Debt Mutual Funds (&#8377;)</label><input class="form-input" type="number" onwheel="this.blur()" step="any" id="nwt-mf-debt" placeholder="0" style="margin:0"></div>
+          <div class="form-group" style="margin-bottom:10px"><label class="form-label">Fixed Deposits (&#8377;)</label><input class="form-input" type="number" onwheel="this.blur()" step="any" id="nwt-fd" placeholder="0" style="margin:0"></div>
+          <div class="form-group" style="margin-bottom:10px"><label class="form-label">PPF / Bonds / NPS (&#8377;)</label><input class="form-input" type="number" onwheel="this.blur()" step="any" id="nwt-bonds" placeholder="0" style="margin:0"></div>
+
+          <div style="font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:1.5px;color:#c9a84c;margin:16px 0 10px;display:flex;align-items:center;gap:8px"><span style="display:inline-block;width:18px;height:1.5px;background:#c9a84c"></span>Gold &amp; Silver</div>
+          <div class="form-group" style="margin-bottom:10px"><label class="form-label">Physical Gold / Jewellery (&#8377;)</label><input class="form-input" type="number" onwheel="this.blur()" step="any" id="nwt-gold" placeholder="0" style="margin:0"></div>
+          <div class="form-group" style="margin-bottom:10px"><label class="form-label">SGB / Digital Gold / Silver (&#8377;)</label><input class="form-input" type="number" onwheel="this.blur()" step="any" id="nwt-sgb" placeholder="0" style="margin:0"></div>
+
+          <div style="font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:1.5px;color:#a0785a;margin:16px 0 10px;display:flex;align-items:center;gap:8px"><span style="display:inline-block;width:18px;height:1.5px;background:#a0785a"></span>Real Estate</div>
+          <div class="form-group" style="margin-bottom:10px"><label class="form-label">Property Value (&#8377;)</label><input class="form-input" type="number" onwheel="this.blur()" step="any" id="nwt-property" placeholder="0" style="margin:0"></div>
+
+          <div style="font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:1.5px;color:#6abf7a;margin:16px 0 10px;display:flex;align-items:center;gap:8px"><span style="display:inline-block;width:18px;height:1.5px;background:#6abf7a"></span>Cash &amp; Other</div>
+          <div class="form-group" style="margin-bottom:10px"><label class="form-label">Savings Account (&#8377;)</label><input class="form-input" type="number" onwheel="this.blur()" step="any" id="nwt-savings" placeholder="0" style="margin:0"></div>
+          <div class="form-group" style="margin-bottom:10px"><label class="form-label">Other Assets (&#8377;)</label><input class="form-input" type="number" onwheel="this.blur()" step="any" id="nwt-other-asset" placeholder="0" style="margin:0"></div>
+
+          <div style="font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:1.5px;color:#b85c38;margin:16px 0 10px;display:flex;align-items:center;gap:8px"><span style="display:inline-block;width:18px;height:1.5px;background:#b85c38"></span>Liabilities</div>
+          <div class="form-group" style="margin-bottom:10px"><label class="form-label">Home Loan (&#8377;)</label><input class="form-input" type="number" onwheel="this.blur()" step="any" id="nwt-homeloan" placeholder="0" style="margin:0"></div>
+          <div class="form-group" style="margin-bottom:10px"><label class="form-label">Car Loan (&#8377;)</label><input class="form-input" type="number" onwheel="this.blur()" step="any" id="nwt-carloan" placeholder="0" style="margin:0"></div>
+          <div class="form-group" style="margin-bottom:10px"><label class="form-label">Personal Loan (&#8377;)</label><input class="form-input" type="number" onwheel="this.blur()" step="any" id="nwt-personalloan" placeholder="0" style="margin:0"></div>
+          <div class="form-group" style="margin-bottom:16px"><label class="form-label">Credit Card Dues (&#8377;)</label><input class="form-input" type="number" onwheel="this.blur()" step="any" id="nwt-cc" placeholder="0" style="margin:0"></div>
+
+          <button class="calc-btn" style="margin:0;font-size:13px;padding:12px 0;background:var(--gold);color:var(--ink)" onclick="nwtSave()">Save This Month →</button>
+          <div id="nwt-save-msg" style="display:none;margin-top:10px;padding:10px 14px;background:rgba(45,122,58,0.1);border-radius:8px;font-size:12px;color:#2d7a3a;font-weight:500">✓ Saved! Charts updated.</div>
+        </div>
+      </div>
+
+      <!-- RIGHT: Charts + history -->
+      <div id="nwt-right" style="overflow-y:auto;padding:28px 32px 40px;background:#fafaf8">
+
+        <!-- Empty state -->
+        <div id="nwt-empty" style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;opacity:0.45;text-align:center">
+          <div style="font-size:48px;margin-bottom:14px">📊</div>
+          <div style="font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:var(--ink)">Your charts will appear here</div>
+          <div style="font-size:13px;color:#999;margin-top:6px">Sign in and log your first month to get started</div>
+        </div>
+
+        <!-- Charts area -->
+        <div id="nwt-charts" style="display:none">
+
+          <!-- Summary strip -->
+          <div id="nwt-summary" style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:28px"></div>
+
+          <!-- Charts: 3 columns — trend, breakdown, allocation -->
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-bottom:20px">
+            <div style="background:var(--white);border:1px solid rgba(0,0,0,0.08);border-radius:16px;padding:18px 20px">
+              <div style="font-family:'Playfair Display',serif;font-size:14px;font-weight:700;margin-bottom:2px">Net Worth Over Time</div>
+              <div style="font-size:11px;color:#aaa;margin-bottom:12px">Monthly trend (₹)</div>
+              <div style="position:relative;height:200px"><canvas id="nwt-line-chart"></canvas></div>
+            </div>
+            <div style="background:var(--white);border:1px solid rgba(0,0,0,0.08);border-radius:16px;padding:18px 20px">
+              <div style="font-family:'Playfair Display',serif;font-size:14px;font-weight:700;margin-bottom:2px">Monthly Breakdown</div>
+              <div style="font-size:11px;color:#aaa;margin-bottom:12px">Green = positive · Red = negative</div>
+              <div style="position:relative;height:200px"><canvas id="nwt-bar-chart"></canvas></div>
+            </div>
+            <div id="nwt-alloc-wrap" style="background:var(--white);border:1px solid rgba(0,0,0,0.08);border-radius:16px;padding:18px 20px;display:none">
+              <div style="font-family:'Playfair Display',serif;font-size:14px;font-weight:700;margin-bottom:2px">Asset Allocation</div>
+              <div style="font-size:11px;color:#aaa;margin-bottom:12px">Latest month · by category</div>
+              <div style="position:relative;height:160px"><canvas id="nwt-donut-chart"></canvas></div>
+              <div id="nwt-alloc-legend" style="display:flex;flex-direction:column;gap:5px;margin-top:12px"></div>
+            </div>
+          </div>
+
+          <!-- Log table -->
+          <div style="margin-top:20px;background:var(--white);border:1px solid rgba(0,0,0,0.08);border-radius:16px;overflow:hidden">
+            <div style="padding:18px 24px;border-bottom:1px solid rgba(0,0,0,0.07);display:flex;align-items:center;justify-content:space-between">
+              <div style="font-family:'Playfair Display',serif;font-size:15px;font-weight:700">Entry Log</div>
+            </div>
+            <div id="nwt-log-table" style="overflow-x:auto"></div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- SIGNUP MODAL (for waitlist) -->
+<div class="modal-overlay" id="modal-signup">
+  <div class="modal" style="max-width:440px">
+    <button class="modal-close" onclick="closeModal('signup')">×</button>
+    <div class="modal-label">Stay in the loop</div>
+    <div class="modal-title">Join the Waitlist</div>
+    <div class="modal-subtitle">We're always building. Get early access to new tools as they launch.</div>
+    <div class="form-group"><label class="form-label">Full Name</label><input class="form-input" type="text" placeholder="Arjun Sharma"></div>
+    <div class="form-group"><label class="form-label">Email Address</label><input class="form-input" type="email" placeholder="arjun@example.com"></div>
+    <button class="calc-btn" style="background:var(--gold);color:var(--ink)" onclick="closeModal('signup')">Join The Club →</button>
+  </div>
+</div>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<script>
+
+  function getRaw(id) {
+    const el = document.getElementById(id);
+    if (!el) return 0;
+    // Prefer stored raw value (kept in sync by live formatter)
+    // Fall back to .value stripped of commas (handles untouched fields)
+    const raw = (el.dataset.rawValue !== undefined && el.dataset.rawValue !== '')
+      ? el.dataset.rawValue
+      : el.value.replace(/,/g, '');
+    return parseFloat(raw) || 0;
+  }
+
+  // ── HELPERS ──
+  const fmt = n => '₹' + Math.abs(Math.round(n)).toLocaleString('en-IN');
+  const fmtSign = n => (n >= 0 ? '+ ' : '– ') + fmt(n);
+
+  function openModal(id) {
+    document.getElementById('modal-' + id).classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeModal(id) {
+    document.getElementById('modal-' + id).classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  function openSignup() { openModal('signup'); }
+
+  // Block pasted negative values on all min=0 inputs
+  document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('input[type="number"][min="0"]').forEach(inp => {
+      inp.addEventListener('paste', function() {
+        setTimeout(() => { if (parseFloat(this.value) < 0) this.value = 0; }, 0);
+      });
+    });
+  });
+
+  document.querySelectorAll('.modal-overlay').forEach(el => {
+    el.addEventListener('click', e => {
+      if (e.target === el) closeModal(el.id.replace('modal-', ''));
+    });
+  });
+
+  // ── NET WORTH ──
+  function calcNetWorth() {
+    const assets = ['nw-savings','nw-mf','nw-stocks','nw-property','nw-gold','nw-other']
+      .reduce((s,id) => s + getRaw(id), 0);
+    const liabs = ['nw-homeloan','nw-carloan','nw-personalloan','nw-cc']
+      .reduce((s,id) => s + getRaw(id), 0);
+    const net = assets - liabs;
+    document.getElementById('nw-assets').textContent = fmt(assets);
+    document.getElementById('nw-liabilities').textContent = fmt(liabs);
+    const el = document.getElementById('nw-net');
+    el.textContent = (net >= 0 ? '' : '–') + fmt(net);
+    el.className = 'result-value big' + (net < 0 ? ' negative' : '');
+    document.getElementById('nw-result').classList.add('show');
+  }
+
+  // ── SIP ──
+  let stepUpOn = false;
+  function toggleStepUp() {
+    stepUpOn = !stepUpOn;
+    document.getElementById('stepup-toggle').classList.toggle('on', stepUpOn);
+    document.getElementById('stepup-field').style.display = stepUpOn ? 'block' : 'none';
+  }
+  function calcSIP() {
+    const P = getRaw('sip-amount') || 0;
+    const annualRate = (parseFloat(document.getElementById('sip-rate').value) || 0) / 100;
+    const yrs = parseFloat(document.getElementById('sip-years').value) || 0;
+    const su = stepUpOn ? (parseFloat(document.getElementById('sip-stepup').value)||0)/100 : 0;
+    if (P <= 0)         { alert('Please enter a monthly SIP amount greater than ₹0.'); return; }
+    if (annualRate <= 0){ alert('Please enter an expected return rate greater than 0%.'); return; }
+    if (yrs <= 0)       { alert('Please enter an investment period greater than 0 years.'); return; }
+    if (su > 1)         { alert('Step-up above 100% per year is not realistic. Please check your input.'); return; }
+    const r = Math.pow(1 + annualRate, 1/12) - 1;
+    const n = yrs * 12;
+    let mat = 0, inv = 0, monthly = P;
+    if (su === 0) {
+      mat = P * ((Math.pow(1+r, n) - 1) / r) * (1+r);
+      inv = P * n;
+    } else {
+      for (let yr = 0; yr < yrs; yr++) {
+        for (let mo = 0; mo < 12; mo++) {
+          const monthIndex = yr * 12 + mo;
+          const monthsRemaining = n - monthIndex;
+          mat += monthly * Math.pow(1 + r, monthsRemaining);
+          inv += monthly;
+        }
+        monthly *= (1 + su);
+      }
+    }
+    document.getElementById('sip-invested').textContent = fmt(inv);
+    document.getElementById('sip-gains').textContent = fmt(mat - inv);
+    document.getElementById('sip-maturity').textContent = fmt(mat);
+    document.getElementById('sip-result').classList.add('show');
+  }
+
+  // ── BUDGET ──
+  function budgetPctCheck() {
+    const np = parseFloat(document.getElementById('b-needs').value) || 0;
+    const wp = parseFloat(document.getElementById('b-wants').value) || 0;
+    const sp = parseFloat(document.getElementById('b-savings').value) || 0;
+    const total = np + wp + sp;
+    const el = document.getElementById('budget-pct-check');
+    if (np === 0 && wp === 0 && sp === 0) { el.style.display='none'; return; }
+    el.style.display = 'block';
+    if (Math.abs(total - 100) <= 0.5) {
+      el.style.background = 'rgba(45,122,58,0.08)';
+      el.style.color = '#2d7a3a';
+      el.textContent = '✓ Percentages add up to 100%';
+    } else {
+      el.style.background = 'rgba(184,92,56,0.08)';
+      el.style.color = '#b85c38';
+      el.textContent = 'Totals ' + Math.round(total*10)/10 + '% — needs to equal 100%';
+    }
+    document.getElementById('budget-result').classList.remove('show');
+  }
+  function calcBudget() {
+    const inc = getRaw('b-income') || 0;
+    const np  = parseFloat(document.getElementById('b-needs').value)   || 50;
+    const wp  = parseFloat(document.getElementById('b-wants').value)   || 30;
+    const sp  = parseFloat(document.getElementById('b-savings').value) || 20;
+    const pctTotal = np + wp + sp;
+    if (Math.abs(pctTotal - 100) > 0.5) {
+      alert('Your percentages add up to ' + pctTotal + '% — they must total 100%. Please adjust your inputs.');
+      return;
+    }
+    if (inc <= 0) { alert('Please enter your monthly income.'); return; }
+    document.getElementById('br-needs').textContent   = fmt(inc * np / 100);
+    document.getElementById('br-wants').textContent   = fmt(inc * wp / 100);
+    document.getElementById('br-savings').textContent = fmt(inc * sp / 100);
+    const sipPct = (parseFloat(document.getElementById('b-sip-pct').value) || 70) / 100;
+    const sipAmt = inc * sp / 100 * sipPct;
+    const bufferAmt = inc * sp / 100 * (1 - sipPct);
+    document.getElementById('br-sip').textContent     = fmt(sipAmt);
+    document.getElementById('br-sip-label').textContent = 'Suggested Monthly SIP (' + Math.round(sipPct*100) + '% of savings)';
+    document.getElementById('br-sip-note').textContent  = bufferAmt > 0
+      ? '₹' + Math.round(bufferAmt).toLocaleString('en-IN') + ' kept as emergency fund / liquid buffer (' + Math.round((1-sipPct)*100) + '% of savings)'
+      : 'Full savings amount going into SIP — consider keeping some as a liquid buffer.';
+    document.getElementById('budget-result').classList.add('show');
+  }
+
+  // ── GOAL SIP ──
+  function calcGoalSIP() {
+    const target   = getRaw('goal-target') || 0;
+    const yrs      = parseFloat(document.getElementById('goal-years').value)  || 0;
+    const rate     = (parseFloat(document.getElementById('goal-rate').value)  || 0) / 100;
+    const existing = getRaw('goal-existing') || 0;
+    if (target <= 0) { alert('Please enter a target amount greater than ₹0.'); return; }
+    if (yrs    <= 0) { alert('Please enter a time horizon greater than 0 years.'); return; }
+    if (rate   <= 0) { alert('Please enter an expected return rate greater than 0%.'); return; }
+    const n = yrs * 12;
+    const r = Math.pow(1 + rate, 1/12) - 1;    // effective monthly rate
+
+    // Future value of existing lump-sum savings
+    const fvEx = existing * Math.pow(1 + r, n);
+
+    // Gap = how much the SIP stream needs to accumulate
+    const gap  = Math.max(0, target - fvEx);
+
+    // SIP required — annuity-due (invested at start of each month)
+    // Derived from: FV = SIP x [(1+r)^n - 1]/r x (1+r)
+    const sip  = gap > 0 ? gap * r / ((Math.pow(1+r, n) - 1) * (1+r)) : 0;
+
+    // Supporting figures
+    const totalInvested = sip * n;
+    const sipCorpus     = sip > 0 ? sip * ((Math.pow(1+r, n) - 1) / r) * (1+r) : 0;
+    const totalCorpus   = fvEx + sipCorpus;
+
+    document.getElementById('g-fv').textContent  = fmt(fvEx);
+    document.getElementById('g-gap').textContent = fmt(gap);
+
+    const sipEl = document.getElementById('g-sip');
+    if (gap === 0) {
+      sipEl.textContent = '₹0';
+      sipEl.title = 'Your existing savings will grow to cover the full goal — no additional SIP needed.';
+    } else {
+      sipEl.textContent = fmt(sip);
+      sipEl.title = '';
+    }
+
+    const noteEl = document.getElementById('g-sip-note');
+    if (noteEl) noteEl.textContent = gap === 0
+      ? '✓ Your existing savings will grow to cover this goal — no additional SIP needed.' : '';
+
+    document.getElementById('g-invested').textContent = sip > 0 ? fmt(totalInvested) : '—';
+    document.getElementById('g-corpus').textContent   = sip > 0 ? fmt(sipCorpus)     : '—';
+    document.getElementById('g-total').textContent    = fmt(totalCorpus);
+
+    document.getElementById('goal-result').classList.add('show');
+  }
+
+  // ── TAX TRACKER (FY 2025-26, New Regime) ──
+
+  // Live rental income preview (called on input change)
+  function taxRentalPreview() {
+    const gross = getRaw('tax-rent-gross')    || 0;
+    const muni  = getRaw('tax-rent-muni')     || 0;
+    const int   = getRaw('tax-rent-interest') || 0;
+    const preview = document.getElementById('tax-rental-preview');
+    if (gross === 0 && muni === 0 && int === 0) { preview.style.display = 'none'; return; }
+    preview.style.display = 'block';
+    const nav      = Math.max(0, gross - muni);
+    const stdDed30 = nav * 0.30;
+    const raw      = nav - stdDed30 - int;
+    const taxableHP = Math.max(0, raw);
+    const fmt2 = n => '₹' + Math.round(n).toLocaleString('en-IN');
+    document.getElementById('trp-gross').textContent   = fmt2(gross);
+    document.getElementById('trp-muni').textContent    = muni > 0 ? '– ' + fmt2(muni) : '—';
+    document.getElementById('trp-nav').textContent     = fmt2(nav);
+    document.getElementById('trp-30pct').textContent   = '– ' + fmt2(stdDed30);
+    document.getElementById('trp-int').textContent     = int > 0 ? '– ' + fmt2(int) : '—';
+    document.getElementById('trp-taxable').textContent = fmt2(taxableHP);
+    document.getElementById('trp-capped-note').style.display = raw < 0 ? 'block' : 'none';
+  }
+
+  function calcTax() {
+    // ── HEAD 1: SALARY ──
+    const salary   = getRaw('tax-salary')       || 0;
+    // ── HEAD 2: BUSINESS / PROFESSION ──
+    const business = getRaw('tax-business')     || 0;
+    // ── HEAD 3: HOUSE PROPERTY ──
+    const rentGross = getRaw('tax-rent-gross')    || 0;
+    const rentMuni  = getRaw('tax-rent-muni')     || 0;
+    const rentInt   = getRaw('tax-rent-interest') || 0;
+    // ── HEAD 4: CAPITAL GAINS ──
+    const stcgEq       = getRaw('tax-stcg-eq')         || 0;
+    const stcgDebt     = getRaw('tax-stcg-debt')       || 0;
+    const ltcgEq       = getRaw('tax-ltcg-eq')         || 0;
+    const ltcgDebtPre  = getRaw('tax-ltcg-debt-pre')   || 0; // bought before Apr 2023 → 12.5%
+    const ltcgDebtPost = getRaw('tax-ltcg-debt-post')  || 0; // bought on/after Apr 2023 → slab (Sec 50AA)
+    // ── HEAD 5: OTHER SOURCES ──
+    const interest = getRaw('tax-interest')     || 0;
+    const divInc   = getRaw('tax-div')          || 0;
+    const other    = getRaw('tax-other')        || 0;
+
+    const totalGross = salary + business + rentGross + stcgEq + stcgDebt + ltcgEq + ltcgDebtPre + ltcgDebtPost + interest + divInc + other;
+    if (totalGross <= 0) { alert('Please enter at least one income figure.'); return; }
+
+    // ── HEAD 1: Salary after standard deduction ──
+    const stdDed   = Math.min(75000, salary);
+    const salaryNet = Math.max(0, salary - stdDed);
+
+    // ── HEAD 3: House Property ──
+    // NAV = Gross Rent − Municipal Taxes (capped at 0)
+    // Taxable HP = NAV − 30% std deduction (Sec 24a) − Home Loan Interest (Sec 24b)
+    // Under New Regime: interest deduction capped at (nav - hp30), cannot create a loss → floor at 0
+    const nav      = Math.max(0, rentGross - rentMuni);
+    const hp30     = nav * 0.30;
+    const hpNet    = Math.max(0, nav - hp30 - rentInt);   // capped at 0; no set-off
+
+    // ── Ordinary income taxed at slab: salary + business + HP + STCG-debt + post-Apr-2023 debt LTCG + other sources ──
+    const ordinaryIncome = salaryNet + business + hpNet + stcgDebt + ltcgDebtPost + interest + divInc + other;
+
+    // ── New Regime slab calculation ──
+    // Slabs: 0-4L=0%, 4-8L=5%, 8-12L=10%, 12-16L=15%, 16-20L=20%, 20-24L=25%, >24L=30%
+    function newRegimeTax(income) {
+      if (income <= 0) return 0;
+      const slabs = [
+        { limit: 400000,  rate: 0.00 },
+        { limit: 800000,  rate: 0.05 },
+        { limit: 1200000, rate: 0.10 },
+        { limit: 1600000, rate: 0.15 },
+        { limit: 2000000, rate: 0.20 },
+        { limit: 2400000, rate: 0.25 },
+        { limit: Infinity, rate: 0.30 },
+      ];
+      let tax = 0, prev = 0;
+      for (const s of slabs) {
+        if (income <= prev) break;
+        const taxable = Math.min(income, s.limit) - prev;
+        tax += taxable * s.rate;
+        prev = s.limit;
+      }
+      return tax;
+    }
+
+    function topSlabLabel(income) {
+      if (income <= 400000)  return '0% (up to ₹4L)';
+      if (income <= 800000)  return '5% (₹4L–₹8L)';
+      if (income <= 1200000) return '10% (₹8L–₹12L)';
+      if (income <= 1600000) return '15% (₹12L–₹16L)';
+      if (income <= 2000000) return '20% (₹16L–₹20L)';
+      if (income <= 2400000) return '25% (₹20L–₹24L)';
+      return '30% (above ₹24L)';
+    }
+
+    const incomeTaxBeforeRebate = newRegimeTax(ordinaryIncome);
+
+    // ── Surcharge (new regime: 10% >50L, 15% >1Cr, 25% >2Cr) ──
+    function surchargeRate(income) {
+      if (income > 20000000) return 0.25;
+      if (income > 10000000) return 0.15;
+      if (income >  5000000) return 0.10;
+      return 0;
+    }
+    function prevSurchargeThreshold(income) {
+      if (income > 20000000) return 20000000;
+      if (income > 10000000) return 10000000;
+      if (income >  5000000) return 5000000;
+      return 0;
+    }
+    const rawSurcharge = incomeTaxBeforeRebate * surchargeRate(ordinaryIncome);
+
+    // ── Marginal Relief on Surcharge ──
+    // Ensures tax + surcharge on income just above a threshold doesn't exceed
+    // tax at threshold + (income − threshold).
+    // Applicable at: ₹50L, ₹1Cr, ₹2Cr thresholds.
+    let surcharge = rawSurcharge;
+    let surchargeMarginRelief = 0;
+    const surchThreshold = prevSurchargeThreshold(ordinaryIncome);
+    if (surchThreshold > 0) {
+      const taxAtThreshold     = newRegimeTax(surchThreshold); // no surcharge at threshold
+      const normalTaxPlusSurch = incomeTaxBeforeRebate + rawSurcharge;
+      const maxTaxAllowed      = taxAtThreshold + (ordinaryIncome - surchThreshold);
+      if (normalTaxPlusSurch > maxTaxAllowed) {
+        surchargeMarginRelief = normalTaxPlusSurch - maxTaxAllowed;
+        surcharge = Math.max(0, rawSurcharge - surchargeMarginRelief);
+      }
+    }
+    const incomeTaxAfterSurcharge = incomeTaxBeforeRebate + surcharge;
+
+    // ── 87A Rebate (income ≤ ₹12L → rebate up to ₹60,000) ──
+    const rebate = (ordinaryIncome <= 1200000 && incomeTaxAfterSurcharge > 0)
+      ? Math.min(incomeTaxAfterSurcharge, 60000) : 0;
+    let incomeTaxAfterRebate = Math.max(0, incomeTaxAfterSurcharge - rebate);
+
+    // ── Marginal Relief on 87A Rebate ──
+    // For income between ₹12L and ₹12.75L: tax is capped at (income − ₹12,00,000).
+    // i.e. you never pay more tax than the extra income you earned above ₹12L.
+    let rebateMarginalRelief = 0;
+    if (ordinaryIncome > 1200000 && ordinaryIncome <= 1275000) {
+      const taxWithoutRelief = incomeTaxAfterRebate; // rebate = 0 here since income > 12L
+      const maxTax = ordinaryIncome - 1200000;       // extra income above ₹12L
+      if (taxWithoutRelief > maxTax) {
+        rebateMarginalRelief = taxWithoutRelief - maxTax;
+        incomeTaxAfterRebate = maxTax;
+      }
+    }
+    const incomeTaxFinal = incomeTaxAfterRebate;
+    const totalMarginalRelief = surchargeMarginRelief + rebateMarginalRelief;
+
+    // ── Capital Gains Tax ──
+    const stcgTax         = stcgEq * 0.20;
+    const ltcgEqTaxable   = Math.max(0, ltcgEq - 125000);
+    const ltcgEqTax       = ltcgEqTaxable * 0.125;
+    const ltcgDebtPreTax  = ltcgDebtPre * 0.125;  // pre-Apr 2023: 12.5% flat
+    // ltcgDebtPost is already in ordinaryIncome → taxed at slab via incomeTaxFinal; no separate line needed
+
+    // ── Subtotal & Cess ──
+    const subtotal = incomeTaxFinal + stcgTax + ltcgEqTax + ltcgDebtPreTax;
+    const cess     = subtotal * 0.04;
+    const total    = subtotal + cess;
+
+    const grossTotal    = salary + business + rentGross + stcgEq + stcgDebt + ltcgEq + ltcgDebtPre + ltcgDebtPost + interest + divInc + other;
+    const effectiveRate = grossTotal > 0 ? (total / grossTotal * 100).toFixed(2) : '0.00';
+
+    // ── Render ──
+    const fmtR = n => n > 0 ? '₹' + Math.round(n).toLocaleString('en-IN') : '—';
+    const fmtZ = n => '₹' + Math.round(n).toLocaleString('en-IN'); // always show, even 0
+
+    // Income summary
+    document.getElementById('t-sal-net').textContent   = salary > 0 ? fmtZ(salaryNet) + (stdDed > 0 ? ' (std ded –₹' + Math.round(stdDed).toLocaleString('en-IN') + ')' : '') : '—';
+    document.getElementById('t-biz-net').textContent   = business > 0 ? fmtZ(business) : '—';
+    document.getElementById('t-hp-net').textContent    = rentGross > 0 ? fmtZ(hpNet) : '—';
+    document.getElementById('t-other-net').textContent = (interest + divInc + other + stcgDebt + ltcgDebtPost) > 0
+      ? fmtZ(interest + divInc + other + stcgDebt + ltcgDebtPost) : '—';
+
+    document.getElementById('t-income').textContent       = fmtZ(ordinaryIncome);
+    document.getElementById('t-slab').textContent         = topSlabLabel(ordinaryIncome);
+    document.getElementById('t-income-tax').textContent   = fmtR(incomeTaxBeforeRebate);
+    document.getElementById('t-surcharge').textContent    = surcharge > 0 ? fmtR(surcharge) + ' (' + (surchargeRate(ordinaryIncome)*100).toFixed(0) + '%)' : 'Nil';
+    document.getElementById('t-rebate').textContent       = rebate > 0 ? '– ₹' + Math.round(rebate).toLocaleString('en-IN') + ' (87A)' : 'Not applicable';
+    const mrEl = document.getElementById('t-marginal-relief');
+    if (mrEl) {
+      if (totalMarginalRelief > 0) {
+        mrEl.textContent = '– ₹' + Math.round(totalMarginalRelief).toLocaleString('en-IN') +
+          (rebateMarginalRelief > 0 && surchargeMarginRelief > 0 ? ' (87A + surcharge)' :
+           rebateMarginalRelief > 0 ? ' (87A rebate band)' : ' (surcharge threshold)');
+        mrEl.parentElement.style.display = '';
+      } else {
+        mrEl.parentElement.style.display = 'none';
+      }
+    }
+    document.getElementById('t-stcg-tax').textContent          = fmtR(stcgTax);
+    document.getElementById('t-ltcg-eq-tax').textContent       = fmtR(ltcgEqTax);
+    document.getElementById('t-ltcg-debt-pre-tax').textContent = fmtR(ltcgDebtPreTax);
+    const postEl = document.getElementById('t-ltcg-debt-post-note');
+    if (postEl) postEl.textContent = ltcgDebtPost > 0
+      ? 'Included in slab income above (' + fmtZ(ltcgDebtPost) + ')' : '—';
+    document.getElementById('t-subtotal').textContent     = fmtR(subtotal);
+    document.getElementById('t-cess').textContent         = fmtR(cess);
+    document.getElementById('t-total').textContent        = total > 0 ? '₹' + Math.round(total).toLocaleString('en-IN') : '₹0';
+    document.getElementById('t-effective').textContent    = effectiveRate + '%';
+    document.getElementById('tax-result').classList.add('show');
+  }
+
+  // ── REBALANCING ──
+  const rebAssets = [
+    { key: 'eq',    label: 'Equity',              color: '#2d7a3a' },
+    { key: 'debt',  label: 'Debt',                color: '#3a6bcc' },
+    { key: 'gold',  label: 'Jewellery (Gold, Silver, etc.)', color: '#c9a84c' },
+    { key: 're',    label: 'Real Estate',          color: '#a0785a' },
+    { key: 'cash',  label: 'Cash',                color: '#aaa'    },
+    { key: 'other', label: 'Other Assets',         color: '#9b87c4' },
+  ];
+
+  function rebLiveUpdate() {
+    const total = rebAssets.reduce((s, a) =>
+      s + getRaw('reb-'+a.key+'-val'), 0);
+    document.getElementById('reb-live-total').textContent = '₹' + Math.round(total).toLocaleString('en-IN');
+  }
+
+  function rebTargetCheck() {
+    const sum = rebAssets.reduce((s, a) =>
+      s + (parseFloat(document.getElementById('reb-'+a.key+'-target').value) || 0), 0);
+    document.getElementById('reb-target-warning').style.display =
+      (sum > 0 && Math.abs(sum - 100) > 2) ? 'block' : 'none';
+  }
+
+  function calcRebalance() {
+    const values  = rebAssets.map(a => getRaw('reb-'+a.key+'-val'));
+    const targets = rebAssets.map(a => (parseFloat(document.getElementById('reb-'+a.key+'-target').value) || 0) / 100);
+    const total      = values.reduce((a, b) => a + b, 0);
+    const targetSum  = targets.reduce((a, b) => a + b, 0);
+    const anyTargets = targets.some(t => t > 0);
+
+    if (total === 0) { alert('Please enter your current holdings first.'); return; }
+    if (!anyTargets) { alert('Please enter your target allocation percentages.'); return; }
+    if (Math.abs(targetSum - 1) > 0.02) {
+      alert('Target allocations add up to ' + (targetSum * 100).toFixed(1) + '% — they must total 100%. Please adjust.');
+      return;
+    }
+
+    const currentPct = values.map(v => v / total);
+    const diffs = rebAssets.map((a, i) => ({
+      ...a,
+      currentVal: values[i],
+      currentPct: currentPct[i],
+      targetPct:  targets[i],
+      targetVal:  targets[i] * total,
+      diff:       (targets[i] - currentPct[i]) * total,   // +ve = buy, -ve = sell
+      driftPct:   (currentPct[i] - targets[i]) * 100,     // signed drift in percentage points
+    }));
+
+    // Threshold: act on drift >1 percentage point OR >₹500 — whichever is larger signal
+    const needsAction = d => Math.abs(d.driftPct) > 1 || Math.abs(d.diff) > 500;
+    const totalSell = diffs.filter(d => d.diff < 0 && needsAction(d)).reduce((s, d) => s + Math.abs(d.diff), 0);
+    const totalBuy  = diffs.filter(d => d.diff > 0 && needsAction(d)).reduce((s, d) => s + d.diff, 0);
+
+    document.getElementById('r-total').textContent      = '₹' + Math.round(total).toLocaleString('en-IN');
+    document.getElementById('r-sell-total').textContent = totalSell > 0 ? '₹' + Math.round(totalSell).toLocaleString('en-IN') : '—';
+    document.getElementById('r-buy-total').textContent  = totalBuy  > 0 ? '₹' + Math.round(totalBuy).toLocaleString('en-IN')  : '—';
+
+    const breakdown = document.getElementById('reb-breakdown');
+    breakdown.innerHTML = diffs.map(d => {
+      const act = needsAction(d);
+      const action = (d.diff > 0 && act)  ? `<span style="color:#2d7a3a;font-weight:600">BUY ₹${Math.round(d.diff).toLocaleString('en-IN')}</span>`
+                   : (d.diff < 0 && act)  ? `<span style="color:#b85c38;font-weight:600">SELL ₹${Math.round(Math.abs(d.diff)).toLocaleString('en-IN')}</span>`
+                   : `<span style="color:#888">On target ✓</span>`;
+
+      const driftAbs  = Math.abs(d.driftPct);
+      const overweight  = d.driftPct >  1;
+      const underweight = d.driftPct < -1;
+
+      // Bar: scale relative to target so both bars meet at the same reference point
+      // Show current as % of target: 100% wide = exactly on target
+      const scale = d.targetPct > 0
+        ? Math.min(200, (d.currentPct / d.targetPct) * 100)  // cap at 2× target
+        : 0;
+      const barColor = overweight ? '#b85c38' : underweight ? '#3a6bcc' : d.color;
+
+      return `
+        <div style="padding:16px 24px;border-bottom:1px solid rgba(0,0,0,0.06)">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
+            <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+              <div style="width:8px;height:8px;border-radius:50%;background:${d.color};flex-shrink:0"></div>
+              <span style="font-size:14px;font-weight:500;color:var(--ink)">${d.label}</span>
+              ${overweight  ? `<span style="font-size:10px;background:rgba(184,92,56,0.1);color:#b85c38;padding:2px 7px;border-radius:100px">OVERWEIGHT</span>`  : ''}
+              ${underweight ? `<span style="font-size:10px;background:rgba(45,122,58,0.1);color:#2d7a3a;padding:2px 7px;border-radius:100px">UNDERWEIGHT</span>` : ''}
+            </div>
+            <div style="font-size:13px;flex-shrink:0">${action}</div>
+          </div>
+          <div style="display:flex;gap:16px;margin-bottom:10px">
+            <div style="flex:1">
+              <div style="font-size:10px;color:#aaa;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:2px">Current</div>
+              <div style="font-size:13px;font-weight:500">₹${Math.round(d.currentVal).toLocaleString('en-IN')} <span style="color:#888;font-weight:300">(${(d.currentPct*100).toFixed(1)}%)</span></div>
+            </div>
+            <div style="flex:1">
+              <div style="font-size:10px;color:#aaa;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:2px">Target</div>
+              <div style="font-size:13px;font-weight:500">₹${Math.round(d.targetVal).toLocaleString('en-IN')} <span style="color:#888;font-weight:300">(${(d.targetPct*100).toFixed(1)}%)</span></div>
+            </div>
+            <div style="flex:1">
+              <div style="font-size:10px;color:#aaa;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:2px">Drift</div>
+              <div style="font-size:13px;font-weight:500;color:${driftAbs > 5 ? '#b85c38' : driftAbs > 1 ? '#e0922a' : '#2d7a3a'}">${d.driftPct > 0 ? '+' : ''}${d.driftPct.toFixed(1)}%</div>
+            </div>
+          </div>
+          <!-- Bar: 100% mark = target; bar fill shows current relative to target -->
+          <div style="height:6px;background:rgba(0,0,0,0.07);border-radius:3px;position:relative;overflow:hidden">
+            <div style="position:absolute;top:0;left:0;height:100%;width:50%;background:rgba(0,0,0,0.12);border-radius:3px"></div>
+            <div style="position:absolute;top:0;left:0;height:100%;width:${scale/2}%;background:${barColor};border-radius:3px;transition:width 0.4s ease;max-width:100%"></div>
+          </div>
+          <div style="display:flex;justify-content:space-between;margin-top:4px">
+            <span style="font-size:10px;color:#ccc">0%</span>
+            <span style="font-size:10px;color:#bbb">▾ Target (${(d.targetPct*100).toFixed(0)}%)</span>
+            <span style="font-size:10px;color:#ccc">2× target</span>
+          </div>
+        </div>`;
+    }).join('');
+
+    document.getElementById('reb-result').classList.add('show');
+  }
+
+  // ── SCROLL REVEAL ──
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) entry.target.classList.add('visible');
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -30px 0px' });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+
+  // ════════════════════════════════════════════
+  //  NET WORTH TRACKER
+  // ════════════════════════════════════════════
+
+  let nwtUser = null;
+  let nwtLineChart  = null;
+  let nwtBarChart   = null;
+  let nwtDonutChart = null;
+
+  // ── Storage helpers ──
+  function nwtKey(name) { return 'nwt_' + name.trim().toLowerCase().replace(/\s+/g,'_'); }
+  function nwtLoad(name) {
+    try { return JSON.parse(localStorage.getItem(nwtKey(name))) || []; }
+    catch(e) { return []; }
+  }
+  function nwtSaveData(name, data) {
+    localStorage.setItem(nwtKey(name), JSON.stringify(data));
+  }
+
+  // ── Login ──
+  function nwtLogin() {
+    const name = document.getElementById('nwt-name').value.trim();
+    const pin  = document.getElementById('nwt-pin').value.trim();
+    if (!name || pin.length !== 4 || !/^\d{4}$/.test(pin)) {
+      alert('Please enter your name and a 4-digit numeric PIN.'); return;
+    }
+    const key = nwtKey(name);
+    const existing = localStorage.getItem(key + '_pin');
+    if (existing && existing !== pin) {
+      alert('Incorrect PIN. Please try again.'); return;
+    }
+    if (!existing) localStorage.setItem(key + '_pin', pin);
+
+    nwtUser = name;
+    document.getElementById('nwt-login-panel').style.display = 'none';
+    document.getElementById('nwt-entry-panel').style.display = 'block';
+    document.getElementById('nwt-welcome').textContent = 'Welcome, ' + name + ' 👋';
+
+    // Set default month to current
+    const now = new Date();
+    const mm = String(now.getMonth()+1).padStart(2,'0');
+    document.getElementById('nwt-month').value = now.getFullYear() + '-' + mm;
+
+    nwtRender();
+  }
+
+  function nwtLogout() {
+    nwtUser = null;
+    document.getElementById('nwt-login-panel').style.display = 'block';
+    document.getElementById('nwt-entry-panel').style.display = 'none';
+    document.getElementById('nwt-name').value = '';
+    document.getElementById('nwt-pin').value = '';
+    document.getElementById('nwt-charts').style.display = 'none';
+    document.getElementById('nwt-empty').style.display = 'flex';
+    if (nwtLineChart)  { nwtLineChart.destroy();  nwtLineChart  = null; }
+    if (nwtBarChart)   { nwtBarChart.destroy();   nwtBarChart   = null; }
+    if (nwtDonutChart) { nwtDonutChart.destroy(); nwtDonutChart = null; }
+  }
+
+  // ── Save entry ──
+  function nwtSave() {
+    if (!nwtUser) return;
+    const month = document.getElementById('nwt-month').value;
+    if (!month) { alert('Please select a month.'); return; }
+
+    const g = id => getRaw(id);
+    const equity     = g('nwt-stocks') + g('nwt-mf-equity');
+    const debt       = g('nwt-mf-debt') + g('nwt-fd') + g('nwt-bonds');
+    const gold       = g('nwt-gold') + g('nwt-sgb');
+    const realestate = g('nwt-property');
+    const cash       = g('nwt-savings') + g('nwt-other-asset');
+    const assets     = equity + debt + gold + realestate + cash;
+    const liabs      = g('nwt-homeloan') + g('nwt-carloan') + g('nwt-personalloan') + g('nwt-cc');
+    const nw         = assets - liabs;
+    const alloc      = { equity, debt, gold, realestate, cash };
+
+    let data = nwtLoad(nwtUser);
+    const idx = data.findIndex(d => d.month === month);
+    const entry = { month, assets, liabs, nw, alloc };
+    if (idx >= 0) data[idx] = entry; else data.push(entry);
+    data.sort((a,b) => a.month.localeCompare(b.month));
+    nwtSaveData(nwtUser, data);
+
+    // Show confirmation
+    const msg = document.getElementById('nwt-save-msg');
+    msg.style.display = 'block';
+    setTimeout(() => msg.style.display = 'none', 3000);
+
+    // Clear form
+    ['nwt-stocks','nwt-mf-equity','nwt-mf-debt','nwt-fd','nwt-bonds',
+     'nwt-gold','nwt-sgb','nwt-savings','nwt-property','nwt-other-asset',
+     'nwt-homeloan','nwt-carloan','nwt-personalloan','nwt-cc'].forEach(id => {
+      document.getElementById(id).value = '';
+    });
+
+    nwtRender();
+  }
+
+  function nwtClearAll() {
+    if (!nwtUser) return;
+    if (!confirm('Clear all entries for ' + nwtUser + '? This cannot be undone.')) return;
+    localStorage.removeItem(nwtKey(nwtUser));
+    nwtRender();
+  }
+
+  // ── Render ──
+  function nwtRender() {
+    const data = nwtLoad(nwtUser);
+    if (!data.length) {
+      document.getElementById('nwt-charts').style.display = 'none';
+      document.getElementById('nwt-empty').style.display  = 'flex';
+      return;
+    }
+    document.getElementById('nwt-charts').style.display = 'block';
+    document.getElementById('nwt-empty').style.display  = 'none';
+
+    const labels = data.map(d => {
+      const [y,m] = d.month.split('-');
+      return new Date(+y, +m-1, 1).toLocaleString('en-IN',{month:'short', year:'2-digit'});
+    });
+    const nwValues = data.map(d => d.nw);
+
+    nwtRenderSummary(data, labels);
+    nwtRenderLine(labels, nwValues);
+    nwtRenderBar(labels, nwValues);
+    nwtRenderDonut(data);
+    nwtRenderTable(data);
+  }
+
+  function nwtRenderSummary(data, labels) {
+    const latest = data[data.length-1];
+    const prev   = data.length > 1 ? data[data.length-2] : null;
+    const change = prev ? latest.nw - prev.nw : null;
+    const fmtC   = v => (v >= 0 ? '+' : '') + fmt(v);
+
+    document.getElementById('nwt-summary').innerHTML = `
+      <div style="background:var(--white);border:1px solid rgba(0,0,0,0.08);border-radius:12px;padding:16px 18px">
+        <div style="font-size:11px;color:#aaa;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px">Latest Net Worth</div>
+        <div style="font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:${latest.nw>=0?'var(--ink)':'#b85c38'}">${fmt(latest.nw)}</div>
+        <div style="font-size:11px;color:#bbb;margin-top:4px">${labels[data.length-1]}</div>
+      </div>
+      <div style="background:var(--white);border:1px solid rgba(0,0,0,0.08);border-radius:12px;padding:16px 18px">
+        <div style="font-size:11px;color:#aaa;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px">Month-on-Month Change</div>
+        <div style="font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:${change===null?'#aaa':change>=0?'#2d7a3a':'#b85c38'}">${change===null?'—':fmtC(change)}</div>
+        <div style="font-size:11px;color:#bbb;margin-top:4px">${change===null?'First entry':'vs prev month'}</div>
+      </div>
+      <div style="background:var(--white);border:1px solid rgba(0,0,0,0.08);border-radius:12px;padding:16px 18px">
+        <div style="font-size:11px;color:#aaa;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px">Total Entries</div>
+        <div style="font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:var(--ink)">${data.length}</div>
+        <div style="font-size:11px;color:#bbb;margin-top:4px">months tracked</div>
+      </div>`;
+  }
+
+  function nwtRenderLine(labels, values) {
+    const ctx = document.getElementById('nwt-line-chart').getContext('2d');
+    if (nwtLineChart) nwtLineChart.destroy();
+
+    const isPos = v => v >= 0;
+    nwtLineChart = new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels,
+        datasets: [{
+          label: 'Net Worth',
+          data: values,
+          borderColor: '#c9a84c',
+          backgroundColor: 'rgba(201,168,76,0.08)',
+          borderWidth: 2.5,
+          pointBackgroundColor: values.map(v => isPos(v) ? '#c9a84c' : '#b85c38'),
+          pointRadius: 5,
+          pointHoverRadius: 7,
+          tension: 0.35,
+          fill: true,
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: { display: false },
+          tooltip: {
+            callbacks: {
+              label: ctx => ' ' + fmt(ctx.parsed.y)
+            }
+          }
+        },
+        scales: {
+          x: { grid: { color: 'rgba(0,0,0,0.05)' }, ticks: { font: { size: 11 }, color: '#aaa' } },
+          y: {
+            beginAtZero: false,
+            grid: { color: 'rgba(0,0,0,0.05)' },
+            ticks: {
+              font: { size: 11 }, color: '#aaa',
+              callback: v => {
+                if (Math.abs(v) >= 1e7) return '₹' + (v/1e7).toFixed(1) + 'Cr';
+                if (Math.abs(v) >= 1e5) return '₹' + (v/1e5).toFixed(1) + 'L';
+                return '₹' + v.toLocaleString('en-IN');
+              }
+            }
+          }
+        }
+      }
+    });
+  }
+
+  function nwtRenderBar(labels, values) {
+    const ctx = document.getElementById('nwt-bar-chart').getContext('2d');
+    if (nwtBarChart) nwtBarChart.destroy();
+
+    const colors = values.map(v => v >= 0 ? 'rgba(45,122,58,0.75)' : 'rgba(184,92,56,0.75)');
+    const borderColors = values.map(v => v >= 0 ? '#2d7a3a' : '#b85c38');
+
+    nwtBarChart = new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels,
+        datasets: [{
+          label: 'Net Worth',
+          data: values,
+          backgroundColor: colors,
+          borderColor: borderColors,
+          borderWidth: 1.5,
+          borderRadius: 4,
+          borderSkipped: false,
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: { display: false },
+          tooltip: {
+            callbacks: { label: ctx => ' ' + fmt(ctx.parsed.y) }
+          }
+        },
+        scales: {
+          x: {
+            grid: { display: false },
+            ticks: { font: { size: 10 }, color: '#aaa', maxRotation: 45 }
+          },
+          y: {
+            beginAtZero: false,
+            grid: { color: 'rgba(0,0,0,0.05)', drawBorder: false },
+            ticks: {
+              font: { size: 10 }, color: '#aaa',
+              callback: v => {
+                if (Math.abs(v) >= 1e7) return '₹' + (v/1e7).toFixed(1) + 'Cr';
+                if (Math.abs(v) >= 1e5) return '₹' + (v/1e5).toFixed(1) + 'L';
+                return '₹' + v.toLocaleString('en-IN');
+              }
+            }
+          }
+        }
+      }
+    });
+  }
+
+  function nwtRenderDonut(data) {
+    const latest = data[data.length - 1];
+    const alloc  = latest.alloc || {};
+    const equity     = alloc.equity     || 0;
+    const debt       = alloc.debt       || 0;
+    const gold       = alloc.gold       || 0;
+    const cash       = alloc.cash       || 0;
+    const realestate = alloc.realestate || 0;
+    const total      = equity + debt + gold + cash + realestate;
+
+    const wrap = document.getElementById('nwt-alloc-wrap');
+    if (!total) { wrap.style.display = 'none'; return; }
+    wrap.style.display = 'block';
+
+    const ctx = document.getElementById('nwt-donut-chart').getContext('2d');
+    if (nwtDonutChart) nwtDonutChart.destroy();
+
+    const labels  = ['Equity', 'Debt', 'Gold & Silver', 'Real Estate', 'Cash & Other'];
+    const values  = [equity, debt, gold, realestate, cash];
+    const colors  = ['#4a7fcb', '#6a8fc8', '#e8c35a', '#a0785a', '#6abf7a'];
+    const borders = ['#3a6ab8', '#4a7ab5', '#d4a832', '#8a6040', '#4fa860'];
+
+    nwtDonutChart = new Chart(ctx, {
+      type: 'pie',
+      data: {
+        labels,
+        datasets: [{ data: values, backgroundColor: colors, borderColor: borders, borderWidth: 1.5, hoverOffset: 6 }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: { display: false },
+          tooltip: {
+            callbacks: {
+              label: ctx => {
+                const pct = ((ctx.parsed / total) * 100).toFixed(1);
+                return ' ' + fmt(ctx.parsed) + '  (' + pct + '%)';
+              }
+            }
+          }
+        }
+      }
+    });
+
+    // Custom legend
+    var legend = document.getElementById('nwt-alloc-legend');
+    legend.innerHTML = labels.map(function(l, i) {
+      if (!values[i]) return '';
+      var pct = ((values[i] / total) * 100).toFixed(1);
+      return '<div style="display:flex;align-items:center;gap:8px">'
+        + '<div style="width:10px;height:10px;border-radius:50%;background:' + colors[i] + ';flex-shrink:0"></div>'
+        + '<div>'
+        + '<div style="font-size:12px;font-weight:500;color:var(--ink)">' + l + '</div>'
+        + '<div style="font-size:11px;color:#aaa">' + fmt(values[i]) + ' &middot; ' + pct + '%</div>'
+        + '</div></div>';
+    }).join('');
+  }
+
+  function nwtRenderTable(data) {
+    const rows = [...data].reverse().map(d => {
+      const color = d.nw >= 0 ? '#2d7a3a' : '#b85c38';
+      const [y,m] = d.month.split('-');
+      const label = new Date(+y,+m-1,1).toLocaleString('en-IN',{month:'long',year:'numeric'});
+      return `<tr style="border-bottom:1px solid rgba(0,0,0,0.06)">
+        <td style="padding:11px 24px;font-size:13px;font-weight:500">${label}</td>
+        <td style="padding:11px 16px;font-size:13px;color:#2d7a3a">${fmt(d.assets)}</td>
+        <td style="padding:11px 16px;font-size:13px;color:#b85c38">${fmt(d.liabs)}</td>
+        <td style="padding:11px 24px;font-size:13px;font-weight:700;color:${color}">${fmt(d.nw)}</td>
+      </tr>`;
+    }).join('');
+
+    document.getElementById('nwt-log-table').innerHTML = `
+      <table style="width:100%;border-collapse:collapse">
+        <thead>
+          <tr style="border-bottom:2px solid rgba(0,0,0,0.08)">
+            <th style="padding:10px 24px;text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:1px;color:#bbb;font-weight:500">Month</th>
+            <th style="padding:10px 16px;text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:1px;color:#bbb;font-weight:500">Assets</th>
+            <th style="padding:10px 16px;text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:1px;color:#bbb;font-weight:500">Liabilities</th>
+            <th style="padding:10px 24px;text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:1px;color:#bbb;font-weight:500">Net Worth</th>
+          </tr>
+        </thead>
+        <tbody>${rows}</tbody>
+      </table>`;
+  }
+
+
+
+  // ── INDIAN COMMA FORMATTING — LIVE (type="text" with caret preservation) ──
+  (function() {
+    const MONEY_IDS = ['nw-savings','nw-mf','nw-stocks','nw-property','nw-gold','nw-other',
+      'nw-homeloan','nw-carloan','nw-personalloan','nw-cc','sip-amount','b-income',
+      'goal-target','goal-existing','tax-salary','tax-business','tax-rent-gross',
+      'tax-rent-muni','tax-rent-interest','tax-stcg-eq','tax-stcg-debt','tax-ltcg-eq',
+      'tax-ltcg-debt-pre','tax-ltcg-debt-post','tax-interest','tax-div','tax-other',
+      'reb-eq-val','reb-debt-val','reb-gold-val','reb-re-val','reb-cash-val','reb-other-val',
+      'nwt-stocks','nwt-mf-equity','nwt-mf-debt','nwt-fd','nwt-bonds','nwt-gold',
+      'nwt-sgb','nwt-property','nwt-savings','nwt-other-asset',
+      'nwt-homeloan','nwt-carloan','nwt-personalloan','nwt-cc'];
+
+    // Indian number format: 1,23,45,678 style
+    function indianFmt(str) {
+      // Strip everything except digits and one decimal point
+      let clean = str.replace(/[^0-9.]/g, '');
+      // Allow only one decimal point
+      const dotIdx = clean.indexOf('.');
+      if (dotIdx !== -1) {
+        clean = clean.slice(0, dotIdx + 1) + clean.slice(dotIdx + 1).replace(/\./g, '');
+      }
+      const parts = clean.split('.');
+      let intPart = parts[0];
+      const decPart = parts.length > 1 ? '.' + parts[1] : '';
+
+      if (!intPart) return decPart || '';
+
+      // Indian grouping: last 3 digits, then groups of 2
+      if (intPart.length <= 3) return intPart + decPart;
+      const last3 = intPart.slice(-3);
+      let rem = intPart.slice(0, -3);
+      const chunks = [];
+      while (rem.length > 2) { chunks.unshift(rem.slice(-2)); rem = rem.slice(0, -2); }
+      if (rem) chunks.unshift(rem);
+      return chunks.join(',') + ',' + last3 + decPart;
+    }
+
+    // Count digits+dot to the left of caret (ignores commas)
+    function rawCaretPos(formatted, caretPos) {
+      let count = 0;
+      for (let i = 0; i < caretPos; i++) {
+        if (formatted[i] !== ',') count++;
+      }
+      return count;
+    }
+
+    // Find caret position in new formatted string given raw char count to the left
+    function fmtCaretPos(formatted, rawCount) {
+      let count = 0;
+      for (let i = 0; i < formatted.length; i++) {
+        if (count === rawCount) return i;
+        if (formatted[i] !== ',') count++;
+      }
+      return formatted.length;
+    }
+
+    function attachFormatting(el) {
+      if (!el || el.dataset.fmtAttached) return;
+      el.dataset.fmtAttached = '1';
+
+      // Switch to text input — but keep inputmode for mobile keyboard
+      el.type = 'text';
+      el.inputMode = 'decimal';
+
+      el.addEventListener('input', function() {
+        const caret  = this.selectionStart;
+        const before = this.value.slice(0, caret);
+        const rawPos = rawCaretPos(this.value, caret);
+
+        const formatted = indianFmt(this.value);
+        this.value = formatted;
+
+        // Restore caret
+        const newCaret = fmtCaretPos(formatted, rawPos);
+        this.setSelectionRange(newCaret, newCaret);
+
+        // Store raw numeric value for getRaw()
+        this.dataset.rawValue = formatted.replace(/,/g, '');
+      });
+
+      // On paste: strip commas then let input event handle formatting
+      el.addEventListener('paste', function(e) {
+        e.preventDefault();
+        const pasted = (e.clipboardData || window.clipboardData).getData('text');
+        const raw = pasted.replace(/[^0-9.]/g, '');
+        // Insert at caret
+        const start = this.selectionStart, end = this.selectionEnd;
+        const cur = this.value.replace(/,/g, '');
+        const next = cur.slice(0, start) + raw + cur.slice(end);
+        this.value = next;
+        this.dispatchEvent(new Event('input'));
+      });
+
+      // Prevent non-numeric keys (allow: 0-9, ., Backspace, Delete, arrows, Tab, Ctrl+*)
+      el.addEventListener('keydown', function(e) {
+        const allowed = ['Backspace','Delete','ArrowLeft','ArrowRight','ArrowUp','ArrowDown',
+                         'Tab','Home','End','Enter'];
+        if (allowed.includes(e.key)) return;
+        if (e.ctrlKey || e.metaKey) return; // allow Ctrl+A, Ctrl+C, etc.
+        if (e.key === '.' && !this.value.replace(/,/g,'').includes('.')) return;
+        if (!/^[0-9]$/.test(e.key)) e.preventDefault();
+      });
+    }
+
+    function initAll() {
+      MONEY_IDS.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) attachFormatting(el);
+      });
+    }
+
+    document.addEventListener('DOMContentLoaded', initAll);
+    setTimeout(initAll, 500);
+  })();
+</script>
+</body>
+</html>

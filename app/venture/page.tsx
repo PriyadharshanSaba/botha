@@ -5,7 +5,6 @@ import "../landing.css";
 import "../about/about.css";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
-import { useLanguage } from "../context/LanguageContext";
 import TermsModal from "../components/TermsModal";
 import PrivacyModal from "../components/PrivacyModal";
 
@@ -14,7 +13,6 @@ export default function VenturePage() {
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const formRef = useRef<HTMLFormElement>(null);
-  const { lang, setLang, t } = useLanguage();
   const [showTerms, setShowTerms] = useState(false);
   const [showPrivacy, setShowPrivacy] = useState(false);
 

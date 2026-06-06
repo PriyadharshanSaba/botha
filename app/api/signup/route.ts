@@ -53,7 +53,9 @@ export async function POST(req: Request) {
   }
 
   // Reuse unverified account or create new
-  const user = existing ?? (await db.createUser({ firstName, lastName, email }));
+  if (!existing) {
+    await db.createUser({ firstName, lastName, email });
+  }
 
   const otp = generateOTP(email);
   const expiry = Date.now() + 5 * 60 * 1000;

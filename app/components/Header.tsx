@@ -4,27 +4,48 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState, useRef, useEffect } from "react";
 import { useLanguage } from "../context/LanguageContext";
+import { clearAllNetworthKeys } from "@/app/lib/networth/cache";
 import "./header.css";
 
-export default function Header() {
+export default function Header({
+  loggedIn,
+  onLoggedOut,
+}: {
+  loggedIn: boolean;
+  onLoggedOut?: () => void;
+}) {
   const router = useRouter();
   const { lang, setLang, t } = useLanguage();
   const [open, setOpen] = useState(false);
-  const [loggedIn, setLoggedIn] = useState(false);
   const [accountOpen, setAccountOpen] = useState(false);
+  const [canRefer, setCanRefer] = useState(false);
+  const [referralCode, setReferralCode] = useState<string | null>(null);
   const accountRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    fetch("/api/me")
-      .then(r => r.json())
-      .then(d => setLoggedIn(d.loggedIn === true))
-      .catch(() => {});
-  }, []);
+    if (!loggedIn) {
+      setCanRefer(false);
+      setReferralCode(null);
+      return;
+    }
+    let cancelled = false;
+    fetch("/api/me", { credentials: "include" })
+      .then((r) => r.ok ? r.json() : null)
+      .then((data) => {
+        if (cancelled || !data?.loggedIn) return;
+        setCanRefer(!!data.canRefer);
+        setReferralCode(data.referralCode ?? null);
+      })
+      .catch(() => { /* non-fatal */ });
+    return () => { cancelled = true; };
+  }, [loggedIn]);
 
   async function handleLogout() {
     await fetch("/api/logout", { method: "POST" });
+    try { clearAllNetworthKeys(); } catch { /* localStorage unavailable */ }
+    onLoggedOut?.();
     router.push("/");
-    router.refresh();
+    router.refresh(); // re-read uid cookie absence in RSC
   }
 
   useEffect(() => {
@@ -39,6 +60,18 @@ export default function Header() {
 
   return (
     <header className="header">
+      <style>{`
+        @media (max-width: 768px) {
+          .header { justify-content: flex-start; }
+          .header-logo { margin-right: auto; }
+          .hamburger { margin-left: 8px !important; }
+          .nav-links { display: none !important; }
+          .nav-cta { display: none !important; }
+          .desktop-nav { display: none !important; }
+          .mobile-signin-btn { display: inline !important; }
+        }
+        .mobile-signin-btn { display: none; }
+      `}</style>
       <Link href="/" className="header-logo">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src="/logo.PNG" alt="Bodha" style={{ height: "64px", width: "auto", display: "block" }} />
@@ -61,10 +94,18 @@ export default function Header() {
               </button>
               {accountOpen && (
                 <div className="account-dropdown">
+                  {canRefer && referralCode && (
+                    <div className="dropdown-referral">
+                      <span className="dropdown-referral-label">{t("referralCode")}</span>
+                      <span className="dropdown-referral-code">{referralCode}</span>
+                    </div>
+                  )}
+                  <Link href="/account" className="dropdown-item" onClick={() => setAccountOpen(false)}>
+                    {t("account")}
+                  </Link>
                   <button className="dropdown-item" onClick={() => { setLang(lang === "en" ? "kn" : "en"); setAccountOpen(false); }}>
                     {lang === "en" ? "ಕನ್ನಡ" : "English"}
                   </button>
-                  <Link href="#" className="dropdown-item" onClick={() => setAccountOpen(false)}>{t("settings")}</Link>
                   <button className="dropdown-item dropdown-logout" onClick={() => { setAccountOpen(false); handleLogout(); }}>
                     {t("logout")}
                   </button>
@@ -85,11 +126,16 @@ export default function Header() {
               <Link href="/tools" className="mobile-link" onClick={() => setOpen(false)}>{t("tools")}</Link>
               <Link href="/blogs" className="mobile-link" onClick={() => setOpen(false)}>{t("insights")}</Link>
               <Link href="/about" className="mobile-link" onClick={() => setOpen(false)}>{t("aboutUs")}</Link>
+              {canRefer && referralCode && (
+                <div className="mobile-referral">
+                  {t("referralCode")}: <strong>{referralCode}</strong>
+                </div>
+              )}
+              <Link href="/account" className="mobile-link" onClick={() => setOpen(false)}>{t("account")}</Link>
               <button className="mobile-link" style={{ background: "none", border: "none", cursor: "pointer", font: "inherit" }} onClick={() => { setLang(lang === "en" ? "kn" : "en"); setOpen(false); }}>
                 {lang === "en" ? "ಕನ್ನಡ" : "English"}
               </button>
-              <Link href="#" className="mobile-link" onClick={() => setOpen(false)}>{t("settings")}</Link>
-              <button className="mobile-logout" onClick={handleLogout}>{t("logout")}</button>
+              <button className="mobile-logout" onClick={() => { setOpen(false); handleLogout(); }}>{t("logout")}</button>
             </nav>
           )}
         </>
@@ -112,6 +158,7 @@ export default function Header() {
             <span style={{ color: "rgba(0,0,0,0.15)", fontSize: 18 }}>|</span>
             <Link href="/signin?mode=signup" className="btn-primary">Sign Up</Link>
           </div>
+          <Link href="/signin" className="btn-ghost mobile-signin-btn">Sign In</Link>
           <button className="hamburger" onClick={() => setOpen(!open)} aria-label="Toggle menu">
             <div className={open ? "bar open bar1" : "bar bar1"}></div>
             <div className={open ? "bar open bar2" : "bar bar2"}></div>
@@ -124,8 +171,10 @@ export default function Header() {
               <Link href="/tools" className="mobile-link" onClick={() => setOpen(false)}>{t("tools")}</Link>
               <Link href="/blogs" className="mobile-link" onClick={() => setOpen(false)}>{t("insights")}</Link>
               <Link href="/about" className="mobile-link" onClick={() => setOpen(false)}>{t("aboutUs")}</Link>
+              <button className="mobile-link" style={{ background: "none", border: "none", cursor: "pointer", font: "inherit", width: "100%" }} onClick={() => { setLang(lang === "en" ? "kn" : "en"); setOpen(false); }}>
+                {lang === "en" ? "ಕನ್ನಡ" : "English"}
+              </button>
               <Link href="/signin" className="mobile-link" onClick={() => setOpen(false)}>Sign In</Link>
-              <Link href="/signin?mode=signup" className="mobile-link" onClick={() => setOpen(false)}>Sign Up</Link>
             </nav>
           )}
         </>

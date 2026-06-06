@@ -1,3 +1,46 @@
+/* ── Finalizing overlay (post-Razorpay, pre-/billing) ── */
+.plans-finalizing {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: rgba(13, 13, 13, 0.72);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+.plans-finalizing-card {
+  background: var(--white, #fdfcf9);
+  border-radius: 14px;
+  padding: 32px 36px;
+  max-width: 360px;
+  width: 100%;
+  text-align: center;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
+}
+.plans-finalizing-spinner {
+  width: 44px;
+  height: 44px;
+  margin: 0 auto 18px;
+  border: 3px solid rgba(201, 168, 76, 0.25);
+  border-top-color: var(--gold, #c9a84c);
+  border-radius: 50%;
+  animation: plans-spin 0.9s linear infinite;
+}
+@keyframes plans-spin { to { transform: rotate(360deg); } }
+.plans-finalizing-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--ink, #0d0d0d);
+  margin-bottom: 6px;
+}
+.plans-finalizing-sub {
+  font-size: 13px;
+  color: #6b7280;
+  line-height: 1.5;
+}
+
 /* ── Plans page ── */
 .plans-page {
   min-height: 100vh;
@@ -34,6 +77,12 @@
   font-size: 15px;
   color: #64748b;
   line-height: 1.6;
+}
+
+/* Plan-agnostic referral input below the grid */
+.plans-referral {
+  max-width: 420px;
+  margin: 28px auto 0;
 }
 
 /* Grid */
@@ -148,6 +197,12 @@
   font-size: 11px;
   color: #94a3b8;
   margin-bottom: 18px;
+}
+
+/* Invisible spacer to align divider across cards without seat bar.
+   Total = bar (4px) + bar mb (5px) + txt (11px * 1.5 ≈ 17px) + txt mb (18px) ≈ 44px */
+.plan-seats-spacer {
+  height: 44px;
 }
 
 /* Divider */
@@ -411,4 +466,68 @@
 @media (max-width: 480px) {
   .bf-row { grid-template-columns: 1fr; }
   .bf-form { padding: 20px 16px 24px; }
+}
+
+.plan-gst-note {
+  margin: 4px 0 0;
+  font-size: 13px;
+  color: #6b7280;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.plan-gst-incl {
+  font-size: 11px;
+  color: #9ca3af;
+}
+
+.bf-tax-breakdown {
+  margin: 16px 0 8px;
+  padding: 14px 16px;
+  background: #f9fafb;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  font-size: 13px;
+}
+.bf-tax-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 4px 0;
+  color: #374151;
+}
+.bf-tax-muted { color: #9ca3af; font-style: italic; }
+.bf-tax-total {
+  margin-top: 6px;
+  padding-top: 8px;
+  border-top: 1px solid #e5e7eb;
+  font-weight: 600;
+  color: #111827;
+}
+
+/* ── Referral input (plans → step 2) ── */
+.bf-referral-row {
+  display: flex;
+  gap: 8px;
+  margin: 4px 0 12px;
+}
+.bf-referral-row .plan-btn {
+  width: auto;
+  margin-top: 0;
+  padding: 0 16px;
+  height: 42px;
+  flex-shrink: 0;
+}
+.bf-referral-applied {
+  font-size: 13px;
+  color: #047857;
+  background: #ecfdf5;
+  border: 1px solid #a7f3d0;
+  border-radius: 8px;
+  padding: 8px 12px;
+  margin-bottom: 12px;
+}
+.bf-referral-error {
+  font-size: 12px;
+  color: #ef4444;
+  margin: -6px 0 12px;
 }

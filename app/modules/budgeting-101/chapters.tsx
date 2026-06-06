@@ -12,7 +12,7 @@ export const chapters = [
   {
     title: {
       en: "Chapter 1: Why Budgeting Matters",
-      kn: "ಅಧ್ಯಾಯ 1: ಬಜೆಟ್ ರಚನೆ ಏಕೆ ಮುಖ್ಯ?",
+      kn: "ಅಧ್ಯಾಯ ೧: ಬಜೆಟ್ ರಚನೆ ಏಕೆ ಮುಖ್ಯ?",
     },
     content: {
       en: (
@@ -88,7 +88,7 @@ export const chapters = [
   {
     title: {
       en: "Chapter 2: Track Before You Tweak",
-      kn: "ಅಧ್ಯಾಯ 2: ಬದಲಾವಣೆ ಮಾಡುವ ಮೊದಲು ಲೆಕ್ಕ ಇಡಿ",
+      kn: "ಅಧ್ಯಾಯ ೨: ಬದಲಾವಣೆ ಮಾಡುವ ಮೊದಲು ಲೆಕ್ಕ ಇಡಿ",
     },
     content: {
       en: (
@@ -134,7 +134,7 @@ export const chapters = [
             ಎಲ್ಲವನ್ನೂ ತಕ್ಷಣವೇ ಸರಿಪಡಿಸಲು ಆತುರ ಪಡಬೇಡಿ. ಲೆಕ್ಕ ಇಡುವುದು ಅಲ್ಲ — ಅವಲೋಕನಕ್ಕಾಗಿ – ತೀರ್ಮಾನಕ್ಕಾಗಿ ಅಲ್ಲ, ಸೋರಿಕೆ ಎಲ್ಲಿದೆ ಎಂದು ತಿಳಿಯದ ಹೊರತು ಅದನ್ನು ಮುಚ್ಚಲು ಸಾಧ್ಯವಿಲ್ಲ.
           </p>
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/budgeting-101/image6.png" alt="ಅಧ್ಯಾಯ 2 ಚಿತ್ರಣ" style={imgStyle} />
+          <img src="/budgeting-101/image6.png" alt="ಅಧ್ಯಾಯ ೨ ಚಿತ್ರಣ" style={imgStyle} />
         </>
       ),
     },
@@ -143,7 +143,7 @@ export const chapters = [
   {
     title: {
       en: "Chapter 3: The 50-30-20 Rule (and Beyond)",
-      kn: "ಅಧ್ಯಾಯ 3: ೫೦-೩೦-೨೦ ನಿಯಮ (ಮತ್ತು ಅದರಾಚೆ)",
+      kn: "ಅಧ್ಯಾಯ ೩: ೫೦-೩೦-೨೦ ನಿಯಮ (ಮತ್ತು ಅದರಾಚೆ)",
     },
     content: {
       en: (
@@ -186,7 +186,7 @@ export const chapters = [
           <p>ಯಾವುದೇ ಪರಿಪೂರ್ಣವಾದ ಅನುಪಾತ ಇಲ್ಲ — ನಿಮಗೆ ನಿರಂತರತೆ ಉಳಿಸಿಕೊಳ್ಳಲು ಸಹಾಯ ಮಾಡುವ ಅನುಪಾತವೇ ಸರಿಯಾದದ್ದು.</p>
           <div className="pull-quote">ಬಜೆಟ್ ರಚನೆ ಎಂದರೆ ಕಟ್ಟುನಿಟ್ಟಾದ ನಿಯಮಗಳಲ್ಲ — ಉದ್ದೇಶದೊಂದಿಗೆ ಸಮತೋಲನ ಕಾಪಾಡುವುದು.</div>
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/budgeting-101/image5.png" alt="ಅಧ್ಯಾಯ 3 ಚಿತ್ರಣ" style={imgStyle} />
+          <img src="/budgeting-101/image5.png" alt="ಅಧ್ಯಾಯ ೩ ಚಿತ್ರಣ" style={imgStyle} />
         </>
       ),
     },
@@ -195,7 +195,7 @@ export const chapters = [
   {
     title: {
       en: "Chapter 4: Smart Saving & Spending Hacks",
-      kn: "ಅಧ್ಯಾಯ 4: ಬುದ್ಧಿವಂತ ಉಳಿತಾಯ ಮತ್ತು ಖರ್ಚಿನ ಸಲಹೆಗಳು",
+      kn: "ಅಧ್ಯಾಯ ೪: ಬುದ್ಧಿವಂತ ಉಳಿತಾಯ ಮತ್ತು ಖರ್ಚಿನ ಸಲಹೆಗಳು",
     },
     content: {
       en: (
@@ -244,7 +244,7 @@ export const chapters = [
           <p>ನೀವು ಇಷ್ಟ ಪಡುವುದರ ಮೇಲೆ ಖರ್ಚು ಮಾಡಿ. ಮುಖ್ಯವಲ್ಲದ್ದರ ಮೇಲೆ ಉಳಿಸಿ.</p>
           <div className="pull-quote">ನೀವು ಉದ್ದೇಶಪೂರ್ವಕವಾಗಿ ನಿರ್ಧರಿಸಿದಾಗ, ಪ್ರತಿಯೊಂದು ಖರ್ಚು ನಿಮ್ಮ ಆದ್ಯತೆಗಳಲ್ಲಿನ ಹೂಡಿಕೆಯಂತೆ ಭಾಸವಾಗತೊಡಗುತ್ತದೆ.</div>
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/budgeting-101/image3.png" alt="ಅಧ್ಯಾಯ 4 ಚಿತ್ರಣ" style={imgStyle} />
+          <img src="/budgeting-101/image3.png" alt="ಅಧ್ಯಾಯ ೪ ಚಿತ್ರಣ" style={imgStyle} />
         </>
       ),
     },
@@ -253,7 +253,7 @@ export const chapters = [
   {
     title: {
       en: "Chapter 5: Build Your Emergency Fund — Your First Line of Defense",
-      kn: "ಅಧ್ಯಾಯ 5: ನಿಮ್ಮ ತುರ್ತು ನಿಧಿ ನಿರ್ಮಿಸಿ — ನಿಮ್ಮ ಮೊದಲ ರಕ್ಷಣಾ ಸಾಲು",
+      kn: "ಅಧ್ಯಾಯ ೫: ನಿಮ್ಮ ತುರ್ತು ನಿಧಿ ನಿರ್ಮಿಸಿ — ನಿಮ್ಮ ಮೊದಲ ರಕ್ಷಣಾ ಸಾಲು",
     },
     content: {
       en: (
@@ -337,7 +337,7 @@ export const chapters = [
             <strong>💡 ಗಮನಿಸಿ:</strong> ಮ್ಯೂಚುವಲ್ ಫಂಡ್‌ಗಳನ್ನು ಅರ್ಥಮಾಡಿಕೊಳ್ಳಲು ಒಂದು ಪ್ರತ್ಯೇಕ ಮಾಡ್ಯೂಲ್ ಕೂಡ ಲಭ್ಯವಿದೆ — ಹೂಡಿಕೆಗೆ ಸಿದ್ಧರಾದಾಗ, ನೀವು ಆತ್ಮವಿಶ್ವಾಸ ಮತ್ತು ವಿವೇಕದಿಂದ ಮುನ್ನಡೆಯಬಹುದು.
           </div>
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/budgeting-101/image1.png" alt="ಅಧ್ಯಾಯ 5 ಚಿತ್ರಣ" style={imgStyle} />
+          <img src="/budgeting-101/image1.png" alt="ಅಧ್ಯಾಯ ೫ ಚಿತ್ರಣ" style={imgStyle} />
         </>
       ),
     },
@@ -346,7 +346,7 @@ export const chapters = [
   {
     title: {
       en: "Chapter 6: Automate & Simplify",
-      kn: "ಅಧ್ಯಾಯ 6: ಸ್ವಯಂಚಾಲಿತಗೊಳಿಸಿ ಮತ್ತು ಸರಳಗೊಳಿಸಿ",
+      kn: "ಅಧ್ಯಾಯ ೬: ಸ್ವಯಂಚಾಲಿತಗೊಳಿಸಿ ಮತ್ತು ಸರಳಗೊಳಿಸಿ",
     },
     content: {
       en: (
@@ -389,7 +389,7 @@ export const chapters = [
           <p>ಆಲಸಿ ದಿನಗಳಲ್ಲಿ ಅಥವಾ ಒತ್ತಡದ ದಿನಗಳಲ್ಲಿಯೂ ಸ್ವಯಂಚಾಲಿತ ವ್ಯವಸ್ಥೆ ನಿಮ್ಮನ್ನು ನಿರಂತರವಾಗಿ ಮುನ್ನಡೆಸುತ್ತದೆ.</p>
           <div className="pull-quote">ಪ್ರತಿಯೊಂದು ರೂಪಾಯಿಯನ್ನೂ ನಿಯಂತ್ರಿಸುವ ಅಗತ್ಯವಿಲ್ಲ. ಅದಕ್ಕೆ ಸರಿಯಾದ ದಿಕ್ಕು ತೋರಿಸಿದರೆ ಸಾಕು.</div>
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/budgeting-101/image7.png" alt="ಅಧ್ಯಾಯ 6 ಚಿತ್ರಣ" style={imgStyle} />
+          <img src="/budgeting-101/image7.png" alt="ಅಧ್ಯಾಯ ೬ ಚಿತ್ರಣ" style={imgStyle} />
         </>
       ),
     },
@@ -398,7 +398,7 @@ export const chapters = [
   {
     title: {
       en: "Chapter 7: Your Finances, Your Control",
-      kn: "ಅಧ್ಯಾಯ 7: ನಿಮ್ಮ ಆರ್ಥಿಕತೆ, ನಿಮ್ಮ ನಿಯಂತ್ರಣ",
+      kn: "ಅಧ್ಯಾಯ ೭: ನಿಮ್ಮ ಆರ್ಥಿಕತೆ, ನಿಮ್ಮ ನಿಯಂತ್ರಣ",
     },
     content: {
       en: (
@@ -433,7 +433,7 @@ export const chapters = [
           <p>ಈಗ, ಮುಂದಿನ ಹೆಜ್ಜೆ ಇಡುವ ಸಮಯ ಬಂದಿದೆ. ಏಕೆಂದರೆ ಹಣವನ್ನು ನಿರ್ವಹಿಸಲು ಕಲಿತ ನಂತರ, ಅದನ್ನು ಬೆಳೆಸಲು ಕಲಿತಾಗ ನಿಜವಾದ ಇಂದ್ರಜಾಲ ಆರಂಭವಾಗುತ್ತದೆ.</p>
           <div className="pull-quote">ಇಂದು ವಿವೇಕದಿಂದ ಬಜೆಟ್ ರಚಿಸಿ — ನಾಳೆ ಧೈರ್ಯದಿಂದ ಹೂಡಿಕೆ ಮಾಡಬಹುದು.</div>
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/budgeting-101/image4.png" alt="ಅಧ್ಯಾಯ 7 ಚಿತ್ರಣ" style={imgStyle} />
+          <img src="/budgeting-101/image4.png" alt="ಅಧ್ಯಾಯ ೭ ಚಿತ್ರಣ" style={imgStyle} />
         </>
       ),
     },

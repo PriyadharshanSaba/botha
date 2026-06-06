@@ -16,6 +16,8 @@ export type User = {
   email: string;
   verified: boolean;
   billingInfo?: BillingInfo | null;
+  canRefer: boolean;
+  referralCode: string | null;
 };
 
 export type UserWithOTP = User & {
@@ -41,10 +43,10 @@ export type Subscription = {
   razorpayOrderId: string | null;
   razorpayPaymentId: string | null;
   amountPaise: number;
-  gstPaise: number;
-  invoiceNumber: string | null;
   createdAt: Date;
   activatedAt: Date | null;
+  referralCode: string | null;
+  originalAmountPaise: number | null;
 };
 
 export type CreateSubscriptionInput = {
@@ -52,7 +54,122 @@ export type CreateSubscriptionInput = {
   planId: string;
   razorpayOrderId: string;
   amountPaise: number;
-  gstPaise: number;
+  referralCode?: string | null;
+  originalAmountPaise?: number | null;
+};
+
+export type ReferralOffer = {
+  code: string;
+  ownerUserId: string;
+  discountPercent: number | null;
+  discountFlatPaise: number | null;
+  description: string | null;
+  active: boolean;
+  createdAt: Date;
+  expiresAt: Date | null;
+};
+
+export type ReferralIdentity = {
+  canRefer: boolean;
+  referralCode: string | null;
+  offer: ReferralOffer | null;
+};
+
+export type ReferralStats = {
+  count: number;
+  totalDiscountPaise: number;
+};
+
+/* ──────────────────────────────────────────────────────────────────────── */
+/* Invoice — immutable per-transaction record                              */
+/* See: docs/superpowers/specs/2026-05-25-billing-invoice-design.md         */
+/* ──────────────────────────────────────────────────────────────────────── */
+
+export type InvoiceStatus = "draft" | "issued" | "paid" | "void";
+
+/** Frozen at issue time. Independent of mutable users.billing_info. */
+export type BuyerSnapshot = {
+  name: string;
+  email: string;
+  phone?: string;
+  address?: {
+    line1: string;
+    line2?: string;
+    city: string;
+    state: string;
+    pincode: string;
+    country: string;
+  };
+  gstin?: string;
+  pan?: string;
+  stateCode?: string;     // GST state code, e.g. "29" for Karnataka
+};
+
+/** Frozen at issue time. Captures CURRENT_SUPPLIER at moment of issue. */
+export type SupplierSnapshot = {
+  legalName: string;
+  address: {
+    line1: string;
+    line2?: string;
+    city: string;
+    state: string;
+    pincode: string;
+    country: string;
+  };
+  email: string;
+  pan: string;
+  gstin?: string;          // undefined in pre-GST regime
+  stateCode: string;
+};
+
+export type InvoiceLineItem = {
+  description: string;
+  hsnSac: string;          // e.g. "999293" for commercial training
+  qty: number;
+  unit: string;            // unit of measure, e.g. "Nos"
+  unitPriceRs: number;     // pre-tax per unit (rupees, display only)
+  taxableRs: number;       // qty * unitPriceRs (rupees, display only)
+};
+
+/** Freeform bookkeeping notes — narration, reverse-charge flag, etc. */
+export type InvoiceNotes = {
+  narration?: string;
+  reverseCharge?: boolean;
+  legacyBackfill?: boolean;
+  missingBillingInfo?: boolean;
+  [key: string]: unknown;
+};
+
+export type Invoice = {
+  id: string;
+  invoiceNumber: string | null;          // null while status='draft'
+  userId: string;
+  subscriptionId: string | null;
+  invoiceDate: Date;
+  status: InvoiceStatus;
+
+  buyerSnapshot: BuyerSnapshot;
+  supplierSnapshot: SupplierSnapshot;
+  lineItems: InvoiceLineItem[];
+
+  placeOfSupply: string;
+  taxableTotalPaise: number;
+  cgstPaise: number;
+  sgstPaise: number;
+  igstPaise: number;
+  totalPaise: number;
+
+  razorpayOrderId: string | null;
+  razorpayPaymentId: string | null;
+
+  notes: InvoiceNotes | null;
+  voidedAt: Date | null;
+  voidReason: string | null;
+
+  pdfObjectKey: string | null;
+
+  createdAt: Date;
+  issuedAt: Date | null;
 };
 
 export type CookieConsent = {
@@ -92,8 +209,18 @@ export interface DBDriver {
   withdrawConsent(userId: string, policyVersion: string): Promise<void>;
   saveBillingInfo(userId: string, info: BillingInfo): Promise<void>;
   createSubscription(input: CreateSubscriptionInput): Promise<Subscription>;
-  activateSubscription(razorpayOrderId: string, razorpayPaymentId: string): Promise<string>;
+  activateSubscription(razorpayOrderId: string, razorpayPaymentId: string): Promise<void>;
   getUserSubscription(userId: string): Promise<Subscription | null>;
   getSubscriptionByOrderId(razorpayOrderId: string): Promise<Subscription | null>;
   getSubscriptionCount(planId: string): Promise<number>;
+  getReferralOffer(code: string): Promise<ReferralOffer | null>;
+  getReferralIdentity(userId: string): Promise<ReferralIdentity>;
+  recordRedemption(input: {
+    code: string;
+    referrerUserId: string;
+    refereeUserId: string;
+    razorpayOrderId: string;
+    appliedDiscountPaise: number;
+  }): Promise<void>;
+  getReferralStats(referrerUserId: string): Promise<ReferralStats>;
 }

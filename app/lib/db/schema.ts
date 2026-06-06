@@ -1,5 +1,7 @@
-import { pgTable, text, timestamp, integer, primaryKey, serial, boolean, unique, jsonb } from "drizzle-orm/pg-core";
-import type { BillingInfo } from "./types";
+import { pgTable, text, timestamp, integer, primaryKey, serial, boolean, unique, jsonb, index, uniqueIndex } from "drizzle-orm/pg-core";
+import { sql } from "drizzle-orm";
+import type { BillingInfo, BuyerSnapshot, SupplierSnapshot, InvoiceLineItem, InvoiceNotes } from "./types";
+import type { NwtEntry } from "@/app/lib/networth/types";
 
 export const users = pgTable("users", {
   id: text("id").primaryKey(),
@@ -11,6 +13,11 @@ export const users = pgTable("users", {
   otpExpiry: timestamp("otp_expiry"),
   verified: boolean("verified").default(false).notNull(),
   billingInfo: jsonb("billing_info").$type<BillingInfo | null>(),
+
+  canRefer: boolean("can_refer").notNull().default(false),
+  referralCode: text("referral_code"),
+
+  createdAt: timestamp("created_at").defaultNow().notNull(),
 });
 
 export const otpAttempts = pgTable("otp_attempts", {
@@ -26,11 +33,70 @@ export const subscriptions = pgTable("subscriptions", {
   status: text("status").notNull().default("pending"),  // 'pending' | 'active'
   razorpayOrderId: text("razorpay_order_id").unique(),
   razorpayPaymentId: text("razorpay_payment_id"),
-  amountPaise: integer("amount_paise").notNull(),       // total incl. GST
-  gstPaise: integer("gst_paise").notNull(),
-  invoiceNumber: text("invoice_number"),
+  amountPaise: integer("amount_paise").notNull(),       // total charged (incl. tax if any)
+  invoiceId: text("invoice_id").references(() => invoices.id, { onDelete: "set null" }),
   createdAt: timestamp("created_at").defaultNow().notNull(),
   activatedAt: timestamp("activated_at"),
+
+  referralCode: text("referral_code"),
+  originalAmountPaise: integer("original_amount_paise"),
+});
+
+/**
+ * invoices — immutable per-transaction record.
+ * Source-of-truth for buyer + supplier + line items + tax + invoice number.
+ * Once status='issued', no field except status/voidedAt/voidReason may change.
+ */
+export const invoices = pgTable(
+  "invoices",
+  {
+    id: text("id").primaryKey(),
+    invoiceNumber: text("invoice_number"),                                                     // NULL while draft; assigned at issue
+    userId: text("user_id").notNull().references(() => users.id, { onDelete: "restrict" }),
+    subscriptionId: text("subscription_id"),                                                   // FK declared at DB level (avoids TS circular)
+
+    invoiceDate: timestamp("invoice_date").notNull(),
+    status: text("status").notNull(),                                                          // 'draft' | 'issued' | 'paid' | 'void'
+
+    buyerSnapshot:    jsonb("buyer_snapshot").$type<BuyerSnapshot>().notNull(),
+    supplierSnapshot: jsonb("supplier_snapshot").$type<SupplierSnapshot>().notNull(),
+    lineItems:        jsonb("line_items").$type<InvoiceLineItem[]>().notNull(),
+
+    placeOfSupply:     text("place_of_supply").notNull(),                                      // GST state code, e.g. "29"
+    taxableTotalPaise: integer("taxable_total_paise").notNull(),
+    cgstPaise:         integer("cgst_paise").notNull().default(0),
+    sgstPaise:         integer("sgst_paise").notNull().default(0),
+    igstPaise:         integer("igst_paise").notNull().default(0),
+    totalPaise:        integer("total_paise").notNull(),
+
+    razorpayOrderId:   text("razorpay_order_id"),
+    razorpayPaymentId: text("razorpay_payment_id"),
+
+    notes:      jsonb("notes").$type<InvoiceNotes>(),
+    voidedAt:   timestamp("voided_at"),
+    voidReason: text("void_reason"),
+
+    pdfObjectKey: text("pdf_object_key"),                                                      // R2 object key; NULL if generation failed
+
+    createdAt: timestamp("created_at").defaultNow().notNull(),
+    issuedAt:  timestamp("issued_at"),
+  },
+  (table) => ({
+    invoiceNumberUq:  uniqueIndex("idx_invoices_invoice_number")
+                        .on(table.invoiceNumber)
+                        .where(sql`${table.invoiceNumber} IS NOT NULL`),
+    userDateIdx:      index("idx_invoices_user_date").on(table.userId, table.invoiceDate),
+    razorpayOrderIdx: index("idx_invoices_razorpay_order").on(table.razorpayOrderId),
+  })
+);
+
+/**
+ * invoice_counters — race-safe sequential invoice numbering per Indian FY.
+ * Read/write via INSERT ... ON CONFLICT DO UPDATE inside the issueInvoice() transaction.
+ */
+export const invoiceCounters = pgTable("invoice_counters", {
+  fy:      text("fy").primaryKey(),       // e.g. "2026-27"
+  lastSeq: integer("last_seq").notNull(),
 });
 
 export const cookieConsents = pgTable(
@@ -74,3 +140,44 @@ export const userProgress = pgTable(
     pk: primaryKey(table.userId),
   })
 );
+
+export const networthData = pgTable("networth_data", {
+  userId: text("user_id")
+    .primaryKey()
+    .references(() => users.id, { onDelete: "cascade" }),
+  entries: jsonb("entries")
+    .$type<NwtEntry[]>()
+    .notNull()
+    .default(sql`'[]'::jsonb`),
+  schemaVersion: integer("schema_version").notNull().default(1),
+  updatedAt: timestamp("updated_at").defaultNow().notNull(),
+  importUsedAt: timestamp("import_used_at"),
+});
+
+export const referralOffers = pgTable("referral_offers", {
+  code: text("code").primaryKey(),
+  ownerUserId: text("owner_user_id")
+    .notNull()
+    .references(() => users.id, { onDelete: "cascade" }),
+  discountPercent: integer("discount_percent"),
+  discountFlatPaise: integer("discount_flat_paise"),
+  description: text("description"),
+  active: boolean("active").notNull().default(true),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  expiresAt: timestamp("expires_at"),
+}, (table) => ({
+  ownerIdx: index("idx_referral_offers_owner").on(table.ownerUserId),
+}));
+
+export const referralRedemptions = pgTable("referral_redemptions", {
+  id: serial("id").primaryKey(),
+  code: text("code").notNull().references(() => referralOffers.code, { onDelete: "restrict" }),
+  referrerUserId: text("referrer_user_id").notNull().references(() => users.id, { onDelete: "restrict" }),
+  refereeUserId: text("referee_user_id").notNull().references(() => users.id, { onDelete: "restrict" }),
+  razorpayOrderId: text("razorpay_order_id").notNull().unique(),
+  appliedDiscountPaise: integer("applied_discount_paise").notNull(),
+  redeemedAt: timestamp("redeemed_at").defaultNow().notNull(),
+}, (table) => ({
+  referrerIdx: index("idx_redemptions_referrer").on(table.referrerUserId),
+  refereeIdx: index("idx_redemptions_referee").on(table.refereeUserId),
+}));

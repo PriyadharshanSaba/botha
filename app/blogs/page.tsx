@@ -4,11 +4,34 @@ import "./blogs.css";
 import "../landing.css";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
-import { useLanguage } from "../context/LanguageContext";
 import TermsModal from "../components/TermsModal";
 import PrivacyModal from "../components/PrivacyModal";
 
 const posts = [
+  {
+    slug: "india-finance-jun5-2026",
+    kicker: "Markets · Macro · India",
+    title: "The Week Everything Landed at Once",
+    deck: "RBI held, FY26 GDP printed at 7.7%, BTA talks reached \"99% done\", and the government abolished FPI capital gains tax on G-Secs by ordinance — all on the same Friday. Seven dense days that left markets suspended between two competing narratives.",
+    date: "June 5, 2026",
+    readTime: "16 min read",
+  },
+  {
+    slug: "rupee-descent",
+    kicker: "Currency · Macroeconomics · India",
+    title: "The Rupee's Long Descent",
+    deck: "From ₹45 to ₹95 in two decades — and the slide accelerating. A deep investigation into why India's currency keeps losing ground, how it compares to the rest of the world, and why the official reassurances no longer fully hold.",
+    date: "June 2026",
+    readTime: "11 min read",
+  },
+  {
+    slug: "india-finance-may29-2026",
+    kicker: "Markets · Macro · India",
+    title: "Hormuz, Rubio, and a Nifty That Gave It All Back",
+    deck: "A week that looked like a breakout and ended as a retreat. The Iran ceasefire MoU pushed markets to weekly highs, only for Friday's selloff to erase every gain. Trade deal advanced, Coal India OFS launched, GDP release pushed to June 5.",
+    date: "May 29, 2026",
+    readTime: "14 min read",
+  },
   {
     slug: "india-finance-may2026",
     kicker: "Markets · Macro · India",
@@ -45,7 +68,6 @@ const posts = [
 
 export default function BlogsPage() {
   const revealRefs = useRef<HTMLElement[]>([]);
-  const { lang, setLang, t } = useLanguage();
   const [showTerms, setShowTerms] = useState(false);
   const [showPrivacy, setShowPrivacy] = useState(false);
 

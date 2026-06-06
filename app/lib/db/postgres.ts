@@ -1,6 +1,6 @@
-import { DBDriver, CreateUserInput, User, SaveConsentInput, CookieConsent, Subscription, CreateSubscriptionInput, BillingInfo } from "./types";
+import { DBDriver, CreateUserInput, User, SaveConsentInput, CookieConsent, Subscription, CreateSubscriptionInput, BillingInfo, ReferralOffer, ReferralIdentity, ReferralStats } from "./types";
 import { db } from "./connection";
-import { users, userProgress, otpAttempts, cookieConsents, subscriptions } from "./schema";
+import { users, userProgress, otpAttempts, cookieConsents, subscriptions, referralOffers, referralRedemptions } from "./schema";
 import { eq, and, gte, count, sql } from "drizzle-orm";
 import crypto from "crypto";
 
@@ -20,7 +20,7 @@ export const PostgresDB: DBDriver = {
       email: data.email,
     });
 
-    return { id, ...data, verified: false };
+    return { id, ...data, verified: false, canRefer: false, referralCode: null };
   },
 
   /* --------------------------------
@@ -229,7 +229,8 @@ export const PostgresDB: DBDriver = {
       status: "pending",
       razorpayOrderId: input.razorpayOrderId,
       amountPaise: input.amountPaise,
-      gstPaise: input.gstPaise,
+      referralCode: input.referralCode ?? null,
+      originalAmountPaise: input.originalAmountPaise ?? null,
       createdAt: new Date(),
     });
     return (await db.select().from(subscriptions).where(eq(subscriptions.id, id)).limit(1))[0] as Subscription;
@@ -237,40 +238,25 @@ export const PostgresDB: DBDriver = {
 
   /* --------------------------------
      SUBSCRIPTION: Activate on payment
-     Generates sequential invoice number: YYYYMMDD00001
+     Flips status to 'active' on the matching pending sub.
+     Invoice number now lives on invoices.invoice_number (assigned by
+     issueInvoice in app/lib/billing/issue.ts).
   ----------------------------------*/
-  async activateSubscription(razorpayOrderId: string, razorpayPaymentId: string): Promise<string> {
-    const now = new Date();
-    const datePrefix = now.getFullYear().toString()
-      + String(now.getMonth() + 1).padStart(2, "0")
-      + String(now.getDate()).padStart(2, "0");
-
+  async activateSubscription(razorpayOrderId: string, razorpayPaymentId: string): Promise<void> {
     // Only activate pending subscriptions (idempotency + race condition guard)
-    const result = await db.execute(sql`
-      UPDATE subscriptions
-      SET status = 'active',
-          razorpay_payment_id = ${razorpayPaymentId},
-          activated_at = ${now},
-          invoice_number = ${datePrefix} || LPAD(
-            (
-              SELECT COALESCE(COUNT(*), 0) + 1
-              FROM subscriptions
-              WHERE invoice_number LIKE ${datePrefix + "%"}
-            )::text, 5, '0'
-          )
-      WHERE razorpay_order_id = ${razorpayOrderId}
-        AND status = 'pending'
-      RETURNING invoice_number
-    `);
-
-    // Already activated (replay or race) — return existing invoice number
-    if (!result.rows[0]) {
-      const existing = await db.select().from(subscriptions)
-        .where(eq(subscriptions.razorpayOrderId, razorpayOrderId)).limit(1);
-      return (existing[0] as { invoiceNumber: string }).invoiceNumber;
-    }
-
-    return (result.rows[0] as { invoice_number: string }).invoice_number;
+    await db
+      .update(subscriptions)
+      .set({
+        status: "active",
+        razorpayPaymentId,
+        activatedAt: new Date(),
+      })
+      .where(
+        and(
+          eq(subscriptions.razorpayOrderId, razorpayOrderId),
+          eq(subscriptions.status, "pending")
+        )
+      );
   },
 
   /* --------------------------------
@@ -386,6 +372,79 @@ export const PostgresDB: DBDriver = {
           eq(cookieConsents.policyVersion, policyVersion)
         )
       );
+  },
+
+  /* --------------------------------
+     REFERRAL: Get offer by code
+  ----------------------------------*/
+  async getReferralOffer(code: string): Promise<ReferralOffer | null> {
+    const rows = await db
+      .select()
+      .from(referralOffers)
+      .where(eq(referralOffers.code, code))
+      .limit(1);
+    if (rows.length === 0) return null;
+    const r = rows[0];
+    return {
+      code: r.code,
+      ownerUserId: r.ownerUserId,
+      discountPercent: r.discountPercent,
+      discountFlatPaise: r.discountFlatPaise,
+      description: r.description,
+      active: r.active,
+      createdAt: r.createdAt,
+      expiresAt: r.expiresAt,
+    };
+  },
+
+  /* --------------------------------
+     REFERRAL: Get user's referral identity
+  ----------------------------------*/
+  async getReferralIdentity(userId: string): Promise<ReferralIdentity> {
+    const user = await this.getUserById(userId);
+    if (!user) return { canRefer: false, referralCode: null, offer: null };
+    const offer = user.referralCode ? await this.getReferralOffer(user.referralCode) : null;
+    return { canRefer: user.canRefer, referralCode: user.referralCode, offer };
+  },
+
+  /* --------------------------------
+     REFERRAL: Record a redemption (idempotent per razorpay_order_id)
+  ----------------------------------*/
+  async recordRedemption(input: {
+    code: string;
+    referrerUserId: string;
+    refereeUserId: string;
+    razorpayOrderId: string;
+    appliedDiscountPaise: number;
+  }): Promise<void> {
+    await db
+      .insert(referralRedemptions)
+      .values({
+        code: input.code,
+        referrerUserId: input.referrerUserId,
+        refereeUserId: input.refereeUserId,
+        razorpayOrderId: input.razorpayOrderId,
+        appliedDiscountPaise: input.appliedDiscountPaise,
+      })
+      .onConflictDoNothing();
+  },
+
+  /* --------------------------------
+     REFERRAL STATS — count + total discount given by this referrer
+  ----------------------------------*/
+  async getReferralStats(referrerUserId: string): Promise<ReferralStats> {
+    const result = await db
+      .select({
+        count: count(),
+        total: sql<number>`COALESCE(SUM(${referralRedemptions.appliedDiscountPaise}), 0)`,
+      })
+      .from(referralRedemptions)
+      .where(eq(referralRedemptions.referrerUserId, referrerUserId));
+    const row = result[0];
+    return {
+      count: Number(row?.count ?? 0),
+      totalDiscountPaise: Number(row?.total ?? 0),
+    };
   },
 };
 

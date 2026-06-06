@@ -462,8 +462,50 @@
   transition: background 0.2s;
 }
 
-.billing-btn-primary:hover {
+.billing-btn-primary:hover:not(:disabled) {
   background: #2a2d35;
+}
+
+.billing-btn-primary:disabled {
+  cursor: not-allowed;
+  opacity: 0.9;
+}
+
+.billing-btn-primary[aria-busy="true"] {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.billing-btn-spinner {
+  width: 14px;
+  height: 14px;
+  border: 2px solid rgba(255, 255, 255, 0.35);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: billing-spin 0.8s linear infinite;
+}
+
+@keyframes billing-spin { to { transform: rotate(360deg); } }
+
+.billing-btn-secondary {
+  display: block;
+  width: 100%;
+  padding: 12px;
+  background: #fff;
+  color: #0d0d0d;
+  border: 1px solid #0d0d0d;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  transition: background 0.2s;
+}
+.billing-btn-secondary:hover {
+  background: #f3f4f6;
 }
 
 .billing-support {

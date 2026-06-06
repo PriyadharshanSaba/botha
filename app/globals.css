@@ -183,6 +183,8 @@ ul {
 .otp-box {
   width: 48px;
   height: 48px;
+  flex-shrink: 1;
+  min-width: 0;
   border: 1px solid #e2e0d8;
   border-radius: 8px;
   text-align: center;
@@ -495,6 +497,10 @@ ul {
   body {
     padding: 0;
     margin: 0;
+  }
+
+  .otp-container {
+    gap: 6px;
   }
 
   .card {

@@ -1,9 +1,14 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import crypto from "crypto";
+import { eq } from "drizzle-orm";
 import { db } from "@/app/lib/db";
+import { db as drizzle } from "@/app/lib/db/connection";
+import { invoices } from "@/app/lib/db/schema";
 import { getPlan, type PlanId } from "@/app/lib/plans";
 import { sendInvoiceEmail } from "@/app/lib/email/send";
+import { issueInvoice } from "@/app/lib/billing/issue";
+import { recordRedemptionForSubscription } from "@/app/lib/referral/server";
 
 export async function POST(req: NextRequest) {
   const userId = req.cookies.get("uid")?.value;
@@ -49,25 +54,61 @@ export async function POST(req: NextRequest) {
     return response;
   }
 
-  // Activate subscription — returns sequential invoice number
-  const invoiceNumber = await db.activateSubscription(razorpay_order_id, razorpay_payment_id);
+  // Issue invoice (assigns BV/FY/NNNN number, flips status to 'issued').
+  const issued = await issueInvoice(razorpay_order_id, razorpay_payment_id);
+  const invoiceNumber = issued?.invoiceNumber ?? null;
+  if (!issued) {
+    console.warn("[orders/verify] no draft invoice for order:", razorpay_order_id);
+  }
 
-  // Fire invoice email — non-blocking, failure doesn't affect payment response
-  db.getUserById(userId).then((user) => {
-    if (!user) return;
-    const plan = getPlan(sub.planId as PlanId);
-    return sendInvoiceEmail(user.email, {
-      firstName: user.firstName,
-      lastName: user.lastName,
-      email: user.email,
-      planName: plan.name,
-      orderId: razorpay_order_id,
-      paymentId: razorpay_payment_id,
-      totalRs: sub.amountPaise / 100,
-      activatedAt: new Date().toISOString(),
-      invoiceNumber,
-    });
-  }).catch((e) => console.error("[invoice] send failed:", e));
+  // Flip subscription status to 'active'.
+  await db.activateSubscription(razorpay_order_id, razorpay_payment_id);
+
+  // Record referral redemption if a code was attached. Idempotent — webhook may
+  // race with this path; UNIQUE(razorpay_order_id) keeps only one row alive.
+  try {
+    await recordRedemptionForSubscription(sub);
+  } catch (e) {
+    console.error("[orders/verify] redemption insert failed:", e);
+  }
+
+  // Fire invoice email — non-blocking, failure doesn't affect payment response.
+  // Only the path that actually flipped draft→issued sends the email.
+  // If the webhook beat us to it (alreadyIssued=true), it already sent the email.
+  // Skip if invoice issuance somehow returned no number (legacy edge case).
+  if (invoiceNumber && issued && !issued.alreadyIssued) {
+    (async () => {
+      const user = await db.getUserById(userId);
+      if (!user) return;
+      const invRows = await drizzle
+        .select()
+        .from(invoices)
+        .where(eq(invoices.id, issued.invoiceId))
+        .limit(1);
+      const inv = invRows[0];
+      if (!inv) return;
+      const plan = getPlan(sub.planId as PlanId);
+      await sendInvoiceEmail(user.email, {
+        firstName: user.firstName,
+        lastName: user.lastName,
+        email: user.email,
+        planName: plan.name,
+        orderId: razorpay_order_id,
+        paymentId: razorpay_payment_id,
+        totalRs:    inv.totalPaise / 100,
+        taxableRs:  inv.taxableTotalPaise / 100,
+        cgstRs:     inv.cgstPaise / 100,
+        sgstRs:     inv.sgstPaise / 100,
+        igstRs:     inv.igstPaise / 100,
+        placeOfSupply: inv.placeOfSupply,
+        activatedAt: new Date().toISOString(),
+        invoiceNumber,
+        pdfObjectKey: inv.pdfObjectKey,
+      });
+    })().catch((e) => console.error("[invoice] send failed:", e));
+  } else {
+    console.warn("[orders/verify] skipped invoice email — no invoiceNumber for order:", razorpay_order_id);
+  }
 
   const response = NextResponse.json({ success: true, orderId: razorpay_order_id });
 

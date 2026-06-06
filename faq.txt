@@ -1,0 +1,37 @@
+do we get to know if a subscription from backend is via referral or not                                                                                               
+  ⎿  UserPromptSubmit hook error                                          
+                                                                                                                                                                        
+⏺ Yes — two places:                         
+                                                                                                                                                                        
+  1. subscriptions row (set on order create, even if payment never completes):                                                                                          
+  SELECT id, user_id, plan_id, status, amount_paise, original_amount_paise, referral_code                                                                               
+  FROM subscriptions                                                                                                                                                    
+  WHERE referral_code IS NOT NULL;                                                                                                                                      
+  - referral_code = the code used
+  - original_amount_paise = pre-discount amount                                                                                                                         
+  - amount_paise = what they actually paid                  
+  - discount = original_amount_paise - amount_paise                                                                                                                     
+                                                                                                                                                                        
+  2. referral_redemptions row (inserted only on successful payment — verify or webhook path):
+  SELECT r.code, r.referrer_user_id, r.referee_user_id, r.razorpay_order_id,                                                                                            
+         r.applied_discount_paise, r.redeemed_at,                           
+         ru.email AS referrer_email, fu.email AS referee_email                                                                                                          
+  FROM referral_redemptions r                                                                                                                                           
+  JOIN users ru ON ru.id = r.referrer_user_id                                                                                                                           
+  JOIN users fu ON fu.id = r.referee_user_id                                                                                                                            
+  ORDER BY r.redeemed_at DESC;                                                                                                                                          
+                                                            
+  Key distinction:                                                                                                                                                      
+  - subscriptions.referral_code exists from order creation onward (incl. pending/abandoned).
+  - referral_redemptions only exists for paid subscriptions (status='active'). Source of truth for "who gave whom a real discount."                                     
+                                                            
+  All paid subs with referral context:                                                                                                                                  
+  SELECT s.id, s.user_id, s.plan_id, s.status,              
+         s.amount_paise, s.original_amount_paise, s.referral_code,                                                                                                      
+         r.referrer_user_id, r.applied_discount_paise                                                                                                                   
+  FROM subscriptions s                               
+  LEFT JOIN referral_redemptions r ON r.razorpay_order_id = s.razorpay_order_id                                                                                         
+  WHERE s.status = 'active' AND s.referral_code IS NOT NULL;  
+
+
+  

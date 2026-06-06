@@ -1,7 +1,6 @@
 "use client";
 
 import "./landing.css";
-import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import TermsModal from "@/app/components/TermsModal";
@@ -12,7 +11,7 @@ export default function LandingPage() {
   const revealRefs = useRef<HTMLElement[]>([]);
   const [showTerms, setShowTerms] = useState(false);
   const [showPrivacy, setShowPrivacy] = useState(false);
-  const { lang, setLang } = useLanguage();
+  const { lang } = useLanguage();
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -78,11 +77,14 @@ export default function LandingPage() {
         </div>
 
         <div className="course-manifesto reveal" ref={addRevealRef}>
+          <Link href="/waitlist" className="btn-primary manifesto-cta">
+            {isKn ? "ಕ್ಲಬ್‌ಗೆ ಸೇರಿ" : "Join The Club"}
+          </Link>
           <div className="manifesto-accent">&#10022;</div>
           <div className="manifesto-body">
             {isKn ? (
               <>
-                <h3>ಈ ಪ್ರೋಗ್ರಾಂ ತಮ್ಮ ಹಣದಿಂದ <span className="strikeout">ಜೂಜಾಡಲು</span> ಬಯಸುವವರಿಗಾಗಿ ಅಲ್ಲ.</h3>
+                <h3>ಈ ಪ್ರೋಗ್ರಾಂ ತಮ್ಮ ಹಣದಿಂದ ಜೂಜಾಡಲು ಬಯಸುವವರಿಗಾಗಿ ಅಲ್ಲ.</h3>
                 <p>ನೀವು ಹಾಟ್ ಟಿಪ್ಸ್, ರಾತ್ರೋರಾತ್ರಿ ಲಾಭ ಅಥವಾ ಮುಂದಿನ &quot;೧೦೦x ಸ್ಟಾಕ್&quot; ಹುಡುಕುತ್ತಿದ್ದರೆ — ಇದು ನಿಮ್ಮ ಜಾಗವಲ್ಲ. ನಮ್ಮ ಪ್ರೋಗ್ರಾಂ ನಿಜವಾದ, ಶಾಶ್ವತವಾದ ಸಂಪತ್ತನ್ನು ನಿರ್ಮಿಸಲು ಬಯಸುವವರಿಗಾಗಿ ತಯಾರಿಸಲಾಗಿದೆ — ತಾಳ್ಮೆಯಿಂದ, ಬುದ್ಧಿವಂತಿಕೆಯಿಂದ ಮತ್ತು ಗಟ್ಟಿಯಾದ ಅಡಿಪಾಯದ ಮೇಲೆ.</p>
               </>
             ) : (
@@ -281,7 +283,7 @@ export default function LandingPage() {
             <div style={{ fontFamily: "'Playfair Display', serif", fontSize: 42, marginBottom: 16 }}>&#10022;</div>
             <div style={{ fontFamily: "'Playfair Display', serif", fontSize: 20, fontWeight: 700, marginBottom: 10, color: "var(--ink)" }}>{isKn ? "ಇನ್ನಷ್ಟು ಶೀಘ್ರದಲ್ಲಿ" : "More coming soon"}</div>
             <div style={{ fontSize: 14, color: "#888", lineHeight: 1.6 }}>{isKn ? "ನಾವು ಯಾವಾಗಲೂ ನಿರ್ಮಿಸುತ್ತಿದ್ದೇವೆ. ಹೊಸ ಅರ್ಪಣೆಗಳಿಗೆ ಆರಂಭಿಕ ಪ್ರವೇಶಕ್ಕಾಗಿ ಸಂಚಿಗೆ ಸೇರಿ." : "We're always building. Join the waitlist for early access to new offerings."}</div>
-            <Link href="/signin?mode=signup" className="btn-primary" style={{ marginTop: 20 }}>{isKn ? "ಪ್ರತೀಕ್ಷಾ ಪಟ್ಟಿಗೆ ಸೇರಿ" : "Join Waitlist"}</Link>
+            <Link href="/waitlist" className="btn-primary" style={{ marginTop: 20 }}>{isKn ? "ಪ್ರತೀಕ್ಷಾ ಪಟ್ಟಿಗೆ ಸೇರಿ" : "Join The Club"}</Link>
           </div>
         </div>
       </section>

@@ -38,10 +38,16 @@ export default function CookieBanner({ onSave, onSaveAnon, isLoggedIn }: Props) 
 
   return (
     <div style={s.root}>
+      <style>{`
+        @media (max-width: 600px) {
+          .cookie-main-row { flex-direction: column !important; align-items: stretch !important; gap: 12px !important; }
+          .cookie-cta-group { flex-shrink: 1 !important; }
+        }
+      `}</style>
       <div style={s.banner}>
 
         {/* ── Main row ── */}
-        <div style={s.mainRow}>
+        <div style={s.mainRow} className="cookie-main-row">
           {/* Text block */}
           <div style={s.textBlock}>
             <p style={s.title}>🍪 We use cookies</p>
@@ -52,7 +58,7 @@ export default function CookieBanner({ onSave, onSaveAnon, isLoggedIn }: Props) 
           </div>
 
           {/* CTA buttons */}
-          <div style={s.ctaGroup}>
+          <div style={s.ctaGroup} className="cookie-cta-group">
             <button
               style={s.btnGhost}
               onClick={() => persist({ analytics: false, marketing: false })}

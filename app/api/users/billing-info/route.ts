@@ -26,6 +26,14 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "Invalid phone number" }, { status: 400 });
   }
 
+  if (gstin && !/^\d{2}[A-Z]{5}\d{4}[A-Z][1-9A-Z]Z[0-9A-Z]$/.test(gstin)) {
+    return NextResponse.json({ error: "Invalid GSTIN" }, { status: 400 });
+  }
+
+  if (pan && !/^[A-Z]{5}\d{4}[A-Z]$/.test(pan)) {
+    return NextResponse.json({ error: "Invalid PAN" }, { status: 400 });
+  }
+
   const info: BillingInfo = {
     phone,
     addressLine1,

@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tax Invoice — Bodha Ventures LLP</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --ink: #0d0d0d;
+      --cream: #f5f0e8;
+      --gold: #c9a84c;
+      --gold-light: #e8d08a;
+      --slate: #2a2d35;
+      --mist: #e8e4dc;
+      --rust: #b85c38;
+      --white: #fdfcf9;
+      --green: #2d7a3a;
+
+      /* Mapped to invoice layout roles */
+      --teal: var(--gold);
+      --teal-light: #fdf6e3;
+      --teal-mid: var(--gold-light);
+      --dark: var(--ink);
+      --mid: var(--slate);
+      --muted: #7a7a6e;
+      --border: var(--mist);
+      --bg: var(--cream);
+    }
+
+    @media print {
+      body { background: white; }
+      .no-print { display: none; }
+      .invoice-wrap { box-shadow: none; margin: 0; max-width: 100%; }
+    }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--dark);
+      padding: 2rem 1rem;
+      min-height: 100vh;
+    }
+
+    .invoice-wrap {
+      max-width: 820px;
+      margin: 0 auto;
+      background: var(--white);
+      box-shadow: 0 4px 40px rgba(15,110,86,0.08);
+    }
+
+    /* Header */
+    .inv-header {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      background: var(--dark);
+      padding: 2.5rem 2.5rem 2rem;
+      gap: 1rem;
+    }
+
+    .brand-block {}
+    .brand-name {
+      font-family: 'DM Serif Display', serif;
+      font-size: 26px;
+      color: var(--white);
+      letter-spacing: -0.02em;
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+    .brand-tag {
+      font-size: 11px;
+      color: var(--teal-mid);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      font-weight: 500;
+    }
+
+    .inv-title-block { text-align: right; }
+    .inv-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: 22px;
+      color: var(--white);
+      margin-bottom: 6px;
+    }
+    .inv-num {
+      font-size: 13px;
+      color: var(--teal-mid);
+      font-weight: 500;
+      letter-spacing: 0.05em;
+    }
+
+    /* Green accent bar */
+    .accent-bar {
+      height: 4px;
+      background: var(--teal-mid);
+    }
+
+    /* Supplier + Recipient */
+    .parties {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      padding: 2rem 2.5rem;
+      gap: 2rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .party-block {}
+    .party-label {
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--teal);
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .party-label::before {
+      content: '';
+      display: inline-block;
+      width: 16px;
+      height: 2px;
+      background: var(--teal-mid);
+    }
+    .party-name {
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--dark);
+      margin-bottom: 4px;
+    }
+    .party-detail {
+      font-size: 12.5px;
+      color: var(--mid);
+      line-height: 1.7;
+    }
+    .gstin {
+      display: inline-block;
+      margin-top: 8px;
+      font-size: 11px;
+      font-weight: 500;
+      background: var(--teal-light);
+      color: var(--teal);
+      padding: 3px 10px;
+      border-radius: 4px;
+      letter-spacing: 0.05em;
+    }
+
+    /* Invoice meta */
+    .inv-meta {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      padding: 1.25rem 2.5rem;
+      background: var(--bg);
+      border-bottom: 1px solid var(--border);
+      gap: 1rem;
+    }
+    .meta-item {}
+    .meta-label {
+      font-size: 10px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+      margin-bottom: 4px;
+    }
+    .meta-value {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--dark);
+    }
+
+    /* Line items */
+    .items-section { padding: 0 2.5rem; }
+
+    .items-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1.5rem 0;
+    }
+    .items-table thead tr {
+      border-bottom: 2px solid var(--teal);
+    }
+    .items-table thead th {
+      font-size: 10px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--teal);
+      padding: 0 8px 10px;
+      text-align: left;
+    }
+    .items-table thead th:not(:first-child) { text-align: right; }
+
+    .items-table tbody tr {
+      border-bottom: 1px solid var(--border);
+    }
+    .items-table tbody tr:last-child { border-bottom: none; }
+    .items-table tbody td {
+      padding: 14px 8px;
+      font-size: 13px;
+      color: var(--mid);
+      vertical-align: top;
+    }
+    .items-table tbody td:not(:first-child) { text-align: right; }
+
+    .item-name { font-weight: 500; color: var(--dark); margin-bottom: 3px; }
+    .item-desc { font-size: 11.5px; color: var(--muted); line-height: 1.5; }
+    .item-hsn {
+      display: inline-block;
+      margin-top: 4px;
+      font-size: 10px;
+      background: var(--teal-light);
+      color: var(--teal);
+      padding: 2px 7px;
+      border-radius: 3px;
+      font-weight: 500;
+    }
+
+    /* Totals */
+    .totals-wrap {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      padding: 1.5rem 2.5rem 2rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .tax-breakdown {}
+    .tax-title {
+      font-size: 10px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+      margin-bottom: 10px;
+    }
+    .tax-table { width: 100%; border-collapse: collapse; }
+    .tax-table td {
+      font-size: 12px;
+      color: var(--mid);
+      padding: 5px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .tax-table td:last-child { text-align: right; }
+    .tax-table tr:last-child td { border-bottom: none; }
+
+    .amounts { text-align: right; }
+    .amount-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 13px;
+      color: var(--mid);
+      padding: 5px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .amount-row:last-child { border-bottom: none; }
+    .amount-row.total {
+      font-size: 16px;
+      font-weight: 500;
+      color: var(--dark);
+      padding-top: 12px;
+      margin-top: 4px;
+      border-bottom: none;
+    }
+
+    /* Total in words */
+    .amount-words {
+      margin: 0 2.5rem 1.5rem;
+      background: var(--teal-light);
+      border-radius: 6px;
+      padding: 12px 16px;
+      font-size: 12.5px;
+      color: var(--teal);
+    }
+    .amount-words strong { font-weight: 500; }
+
+    /* Payment & Bank */
+    .info-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      padding: 1.5rem 2.5rem;
+      border-top: 1px solid var(--border);
+    }
+    .info-block {}
+    .info-title {
+      font-size: 10px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--teal);
+      margin-bottom: 10px;
+    }
+    .info-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 12px;
+      padding: 4px 0;
+      border-bottom: 1px solid var(--border);
+      gap: 1rem;
+    }
+    .info-row:last-child { border-bottom: none; }
+    .info-row span:first-child { color: var(--muted); }
+    .info-row span:last-child { color: var(--dark); font-weight: 500; text-align: right; }
+
+    /* Notes & Declaration */
+    .notes-section {
+      padding: 1.5rem 2.5rem;
+      border-top: 1px solid var(--border);
+    }
+    .notes-title {
+      font-size: 10px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+    .notes-text {
+      font-size: 12px;
+      color: var(--mid);
+      line-height: 1.7;
+    }
+
+    /* Signature */
+    .signature-section {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      padding: 1.5rem 2.5rem 2rem;
+      border-top: 1px solid var(--border);
+      gap: 2rem;
+      align-items: end;
+    }
+    .sig-note {
+      font-size: 11.5px;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+    .sig-block { text-align: right; }
+    .sig-line {
+      width: 160px;
+      border-bottom: 1.5px solid var(--dark);
+      margin: 0 0 6px auto;
+      height: 40px;
+    }
+    .sig-label { font-size: 11px; color: var(--muted); }
+    .sig-name { font-size: 13px; font-weight: 500; color: var(--dark); }
+
+    /* Footer */
+    .inv-footer {
+      background: var(--dark);
+      padding: 1rem 2.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .footer-brand {
+      font-family: 'DM Serif Display', serif;
+      font-size: 14px;
+      color: var(--teal-mid);
+    }
+    .footer-note {
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    /* Print button */
+    .print-btn {
+      display: block;
+      max-width: 820px;
+      margin: 1.5rem auto 0;
+      text-align: center;
+    }
+    .print-btn button {
+      background: var(--teal);
+      color: white;
+      border: none;
+      padding: 10px 28px;
+      border-radius: 6px;
+      font-size: 14px;
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 500;
+      cursor: pointer;
+      letter-spacing: 0.02em;
+    }
+    .print-btn button:hover { background: var(--teal-mid); }
+  </style>
+</head>
+<body>
+
+<div class="invoice-wrap">
+
+  <!-- Header -->
+  <div class="inv-header">
+    <div class="brand-block">
+      <div class="brand-name">Bodha Ventures</div>
+      <div class="brand-tag">LLP &nbsp;·&nbsp; Personal Finance & Virtual CFO</div>
+    </div>
+    <div class="inv-title-block">
+      <div class="inv-title">Tax Invoice</div>
+      <div class="inv-num">INV / 2026-27 / 001</div>
+    </div>
+  </div>
+  <div class="accent-bar"></div>
+
+  <!-- Supplier + Recipient -->
+  <div class="parties">
+    <div class="party-block">
+      <div class="party-label">Supplier</div>
+      <div class="party-name">Bodha Ventures LLP</div>
+      <div class="party-detail">
+        29, 6th Cross, 9th Main,<br>
+        Jalahalli Village,<br>
+        Bengaluru — 560013<br>
+        Karnataka, India<br>
+        Email: info@bodhaventures.in<br>
+        Phone: +91 83108 23361
+      </div>
+      <span class="gstin">GSTIN: [Your GSTIN]</span><br>
+      <span class="gstin" style="margin-top:4px;">PAN: ABGFB6431R</span>
+    </div>
+    <div class="party-block">
+      <div class="party-label">Bill To</div>
+      <div class="party-name">[Customer Full Name]</div>
+      <div class="party-detail">
+        [Address Line 1]<br>
+        [City, State — PIN Code]<br>
+        Email: [<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="9efdebedeaf1f3fbecdefbf3fff7f2b0fdf1f3">[email&#160;protected]</a>]<br>
+        Phone: [+91 XXXXX XXXXX]
+      </div>
+      <span class="gstin">GSTIN: [Customer GSTIN / N.A.]</span>
+    </div>
+  </div>
+
+  <!-- Invoice Meta -->
+  <div class="inv-meta" style="grid-template-columns: repeat(5, 1fr);">
+    <div class="meta-item">
+      <div class="meta-label">Invoice No.</div>
+      <div class="meta-value">INV/2026-27/001</div>
+    </div>
+    <div class="meta-item">
+      <div class="meta-label">Invoice Date</div>
+      <div class="meta-value">13 April 2025</div>
+    </div>
+    <div class="meta-item">
+      <div class="meta-label">Place of Supply</div>
+      <div class="meta-value">Karnataka (29)</div>
+    </div>
+    <div class="meta-item">
+      <div class="meta-label">Supply Type</div>
+      <div class="meta-value">Intra-state</div>
+    </div>
+    <div class="meta-item">
+      <div class="meta-label">Reverse Charge</div>
+      <div class="meta-value" style="color: #0F6E56;">No</div>
+    </div>
+  </div>
+
+  <!-- Line Items -->
+  <div class="items-section">
+    <table class="items-table">
+      <thead>
+        <tr>
+          <th style="width:40%">Description of goods / services</th>
+          <th>HSN / SAC</th>
+          <th>Qty</th>
+          <th>Rate (₹)</th>
+          <th>Taxable Value (₹)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            <div class="item-name">Bodha Personal Finance Program</div>
+            <div class="item-desc">Written course — English + Kannada. Lifetime access. Includes access to all tools. WhatsApp community & doubt support for 1 year.</div>
+            <span class="item-hsn">SAC: 999293</span>
+          </td>
+          <td>999293</td>
+          <td>1</td>
+          <td>999.00</td>
+          <td>999.00</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Totals -->
+  <div class="totals-wrap">
+    <div class="tax-breakdown">
+      <div class="tax-title">GST Breakup</div>
+      <table class="tax-table">
+        <tr>
+          <td>Taxable Value</td>
+          <td>₹999.00</td>
+        </tr>
+        <tr>
+          <td>CGST @ 9%</td>
+          <td>₹89.91</td>
+        </tr>
+        <tr>
+          <td>SGST @ 9%</td>
+          <td>₹89.91</td>
+        </tr>
+        <tr style="font-weight:500; color: #0D1F1A;">
+          <td>Total GST</td>
+          <td>₹179.82</td>
+        </tr>
+      </table>
+      <div style="font-size:11px; color:#7A8E88; margin-top:10px; line-height:1.6;">
+        * IGST @ 18% applicable for inter-state supply.<br>
+        * CGST + SGST applicable for intra-state supply.<br>
+        * Tax is payable on <strong>forward charge</strong> basis. Reverse charge is <strong>not applicable</strong> on this supply [Sec. 9(3) &amp; 9(4) of CGST Act, 2017].
+      </div>
+    </div>
+
+    <div class="amounts">
+      <div class="amount-row"><span>Subtotal</span><span>₹999.00</span></div>
+      <div class="amount-row"><span>CGST (9%)</span><span>₹89.91</span></div>
+      <div class="amount-row"><span>SGST (9%)</span><span>₹89.91</span></div>
+      <div class="amount-row"><span>Discount</span><span>₹0.00</span></div>
+      <div class="amount-row"><span>Round Off</span><span>₹0.18</span></div>
+      <div class="amount-row total"><span>Total Amount</span><span>₹1,179.00</span></div>
+    </div>
+  </div>
+
+  <!-- Amount in words -->
+  <div class="amount-words">
+    <strong>Amount in words:</strong> Rupees One Thousand One Hundred Seventy Nine Only
+  </div>
+
+  <!-- Payment & Bank Details -->
+  <div class="info-grid">
+    <div class="info-block">
+      <div class="info-title">Bank Details</div>
+      <div class="info-row"><span>Bank Name</span><span>[Bank Name]</span></div>
+      <div class="info-row"><span>Account Name</span><span>Bodha Ventures LLP</span></div>
+      <div class="info-row"><span>Account No.</span><span>[Account Number]</span></div>
+      <div class="info-row"><span>IFSC Code</span><span>[IFSC Code]</span></div>
+      <div class="info-row"><span>Account Type</span><span>Current</span></div>
+    </div>
+    <div class="info-block">
+      <div class="info-title">Payment Details</div>
+      <div class="info-row"><span>Payment Mode</span><span>Online / UPI / NEFT</span></div>
+      <div class="info-row"><span>Due Date</span><span>Immediate</span></div>
+      <div class="info-row"><span>UPI ID</span><span>[upi@bodhaventures]</span></div>
+      <div class="info-row"><span>Transaction Ref.</span><span>[Ref. No. if paid]</span></div>
+      <div class="info-row"><span>Payment Status</span><span>Paid</span></div>
+    </div>
+  </div>
+
+  <!-- Notes & Declaration -->
+  <div class="notes-section">
+    <div class="notes-title">Declaration</div>
+    <div class="notes-text">
+      We declare that this invoice shows the actual price of the goods / services described and that all particulars are true and correct. This is a computer-generated invoice and does not require a physical signature unless specified. All sales are final — course purchases are non-refundable under any circumstances.
+    </div>
+  </div>
+
+  <!-- Reverse Charge Declaration -->
+  <div class="notes-section" style="padding-top: 0;">
+    <div class="notes-title">Reverse Charge Declaration</div>
+    <div class="notes-text" style="background: #E1F5EE; border-left: 3px solid #0F6E56; padding: 10px 14px; border-radius: 4px; color: #0D1F1A;">
+      <strong>Whether tax is payable under Reverse Charge:</strong> <span style="color:#0F6E56; font-weight:500;">No</span><br>
+      <span style="font-size:11.5px; color:#3A4A45;">
+        GST on this supply is payable by the supplier (Bodha Ventures LLP) under the <em>forward charge mechanism</em>. The recipient is not liable to pay tax under reverse charge as per Section 9(3) or Section 9(4) of the Central Goods and Services Tax Act, 2017 read with applicable notifications.
+      </span>
+    </div>
+  </div>
+
+  <!-- Signature -->
+  <div class="signature-section">
+    <div class="sig-note">
+      Subject to Karnataka jurisdiction.<br>
+      E. &amp; O.E. (Errors and Omissions Excepted).<br>
+      This invoice is valid without a physical seal.
+    </div>
+    <div class="sig-block">
+      <div class="sig-line"></div>
+      <div class="sig-label">Authorised Signatory for</div>
+      <div class="sig-name">Bodha Ventures LLP</div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="inv-footer">
+    <div class="footer-brand">Bodha Ventures LLP</div>
+    <div class="footer-note">Thank you for your trust &amp; business.</div>
+  </div>
+
+</div><!-- /.invoice-wrap -->
+
+<div class="print-btn no-print">
+  <button onclick="window.print()">Print / Save as PDF</button>
+</div>
+
+</body>
+</html>

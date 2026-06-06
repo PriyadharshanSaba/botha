@@ -20,7 +20,7 @@ export const chapters: {
   {
     title: {
       en: "Chapter 1: What Is a Mutual Fund?",
-      kn: "ಅಧ್ಯಾಯ 1: ಮ್ಯೂಚುವಲ್ ಫಂಡ್ ಎಂದರೇನು?",
+      kn: "ಅಧ್ಯಾಯ ೧: ಮ್ಯೂಚುವಲ್ ಫಂಡ್ ಎಂದರೇನು?",
     },
     content: {
       en: (
@@ -203,7 +203,7 @@ export const chapters: {
   {
     title: {
       en: "Chapter 2: Why Mutual Funds Matter (Even More Than Stocks for Beginners)",
-      kn: "ಅಧ್ಯಾಯ 2: ಮ್ಯೂಚುವಲ್ ಫಂಡ್‌ಗಳು ಏಕೆ ಮುಖ್ಯ?",
+      kn: "ಅಧ್ಯಾಯ ೨: ಮ್ಯೂಚುವಲ್ ಫಂಡ್‌ಗಳು ಏಕೆ ಮುಖ್ಯ?",
     },
     content: {
       en: (
@@ -264,7 +264,7 @@ export const chapters: {
   {
     title: {
       en: "Chapter 3: The Different Types of Mutual Funds",
-      kn: "ಅಧ್ಯಾಯ 3: ಮ್ಯೂಚುವಲ್ ಫಂಡ್‌ಗಳ ವಿವಿಧ ವಿಧಗಳು",
+      kn: "ಅಧ್ಯಾಯ ೩: ಮ್ಯೂಚುವಲ್ ಫಂಡ್‌ಗಳ ವಿವಿಧ ವಿಧಗಳು",
     },
     content: {
       en: (
@@ -548,7 +548,7 @@ export const chapters: {
   {
     title: {
       en: "Chapter 4: What Are SIPs & Why Everyone Talks About Them?",
-      kn: "ಅಧ್ಯಾಯ 4: SIP ಎಂದರೇನು ಮತ್ತು ಎಲ್ಲರೂ ಅದರ ಬಗ್ಗೆ ಏಕೆ ಮಾತನಾಡುತ್ತಾರೆ?",
+      kn: "ಅಧ್ಯಾಯ ೪: SIP ಎಂದರೇನು ಮತ್ತು ಎಲ್ಲರೂ ಅದರ ಬಗ್ಗೆ ಏಕೆ ಮಾತನಾಡುತ್ತಾರೆ?",
     },
     content: {
       en: (
@@ -676,7 +676,7 @@ export const chapters: {
   {
     title: {
       en: "Chapter 5: From Understanding to Action",
-      kn: "ಅಧ್ಯಾಯ 5: ತಿಳಿವಳಿಕೆಯಿಂದ ಕ್ರಿಯೆಗೆ",
+      kn: "ಅಧ್ಯಾಯ ೫: ತಿಳಿವಳಿಕೆಯಿಂದ ಕ್ರಿಯೆಗೆ",
     },
     content: {
       en: (
