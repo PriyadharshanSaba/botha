@@ -9,6 +9,14 @@ import PrivacyModal from "../components/PrivacyModal";
 
 const posts = [
   {
+    slug: "india-finance-jun5-2026",
+    kicker: "Markets · Macro · India",
+    title: "The Week Everything Landed at Once",
+    deck: "RBI held, FY26 GDP printed at 7.7%, BTA talks reached \"99% done\", and the government abolished FPI capital gains tax on G-Secs by ordinance — all on the same Friday. Seven dense days that left markets suspended between two competing narratives.",
+    date: "June 5, 2026",
+    readTime: "16 min read",
+  },
+  {
     slug: "rupee-descent",
     kicker: "Currency · Macroeconomics · India",
     title: "The Rupee's Long Descent",
