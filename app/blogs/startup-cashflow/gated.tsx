@@ -1,0 +1,199 @@
+import "server-only";
+import "../guide-article.css";
+import "../../landing.css";
+import Link from "next/link";
+import SketchIcon from "@/app/components/SketchIcon";
+
+export function Gated() {
+  return (
+    <>
+      {/* SECTION 4 */}
+      <div className="section-tag">04 &nbsp; The 13-Week Cashflow Forecast</div>
+      <h2>The most practical financial tool a founder can build.</h2>
+
+      <p>
+        A 13-week (quarterly) cashflow forecast is the operational backbone of good financial management. Unlike a P&amp;L, it works on actual cash dates: when money moves, not when it is earned or owed. Here is how to build one.
+      </p>
+
+      <div className="steps">
+        <div className="step">
+          <div className="step-num-wrap"><div className="step-num">1</div><div className="step-line"></div></div>
+          <div className="step-body">
+            <h4>List every expected cash inflow by date <span className="step-badge">Receipts</span></h4>
+            <p>Customer payments (use actual expected payment dates, not invoice dates), advance payments, refunds, interest on deposits. If a customer has a 45-day payment cycle, count from invoice date, not delivery date. Be conservative: if uncertain, push it a week later.</p>
+          </div>
+        </div>
+        <div className="step">
+          <div className="step-num-wrap"><div className="step-num">2</div><div className="step-line"></div></div>
+          <div className="step-body">
+            <h4>List every expected cash outflow by date <span className="step-badge">Payments</span></h4>
+            <p>Salaries (date of payment, not month end), vendor payments, rent, EMIs, advance tax, GST payments, professional fees, SaaS subscriptions. Include annual expenses (insurance, audit fees) broken into when they actually get paid.</p>
+          </div>
+        </div>
+        <div className="step">
+          <div className="step-num-wrap"><div className="step-num">3</div><div className="step-line"></div></div>
+          <div className="step-body">
+            <h4>Calculate the opening and closing balance for each week</h4>
+            <p>Opening balance + inflows &minus; outflows = closing balance. The closing balance of week N is the opening balance of week N+1. Any week where closing balance drops below your minimum cash floor (typically 4&ndash;6 weeks of burn) is a warning you need to act on now, not then.</p>
+          </div>
+        </div>
+        <div className="step">
+          <div className="step-num-wrap"><div className="step-num">4</div><div className="step-line"></div></div>
+          <div className="step-body">
+            <h4>Update it every Monday morning <span className="step-badge">Weekly habit</span></h4>
+            <p>Replace the previous week&apos;s forecasts with actuals. Shift anything that didn&apos;t arrive. Revise assumptions. A forecast you built three months ago and never updated is useless: a forecast updated weekly becomes one of the most reliable tools in the business.</p>
+          </div>
+        </div>
+        <div className="step">
+          <div className="step-num-wrap"><div className="step-num">5</div><div className="step-line"></div></div>
+          <div className="step-body">
+            <h4>Build a scenario column: base case and stress case</h4>
+            <p>Your base case is what you expect. Your stress case assumes your two largest customers pay 30 days late and one expected payment doesn&apos;t come at all. If the stress case still keeps you above the floor, you are in a healthy position. If it doesn&apos;t, you have work to do before the crisis hits.</p>
+          </div>
+        </div>
+      </div>
+
+      {/* SECTION 5 */}
+      <div className="section-tag">05 &nbsp; The Levers You Can Pull</div>
+      <h2>When cash gets tight, these are your options: in order.</h2>
+
+      <p>Every startup faces a cashflow squeeze at some point. The founders who survive are the ones who pull the right lever at the right time, not the ones who panic and pull the wrong one. Here is the hierarchy.</p>
+
+      <div className="principle-list">
+        <div className="principle-item">
+          <div className="p-icon" style={{ background: "rgba(46,125,69,0.1)" }}>&#9889;</div>
+          <div className="p-content">
+            <h4>Accelerate Collections First</h4>
+            <p>Before cutting anything, call your top 3 customers and ask if they can pay early in exchange for a 1&ndash;2% discount. For many startups, this alone solves a short-term crunch. Also review every outstanding invoice and escalate anything over 30 days.</p>
+          </div>
+          <span className="p-pill pill-green">Fast</span>
+        </div>
+
+        <div className="principle-item">
+          <div className="p-icon" style={{ background: "rgba(200,154,46,0.12)" }}><SketchIcon name="refresh" size={24} /></div>
+          <div className="p-content">
+            <h4>Extend Payables Without Damaging Relationships</h4>
+            <p>Call your key vendors and ask for 15&ndash;30 extra days. Most will say yes if you ask before missing a payment rather than after. Negotiate extended terms at contract renewal. Do not do this silently: transparency maintains trust and keeps the relationship intact.</p>
+          </div>
+          <span className="p-pill pill-gold">Negotiate</span>
+        </div>
+
+        <div className="principle-item">
+          <div className="p-icon" style={{ background: "rgba(200,154,46,0.1)" }}>&#9986;&#65039;</div>
+          <div className="p-content">
+            <h4>Cut Discretionary Spend</h4>
+            <p>Audit every subscription, tool, and recurring cost. Pause non-essential marketing spend. Delay capital purchases. Renegotiate office rent or move to a shorter lease. These cuts should happen before touching team or core operations.</p>
+          </div>
+          <span className="p-pill pill-gold">Trim</span>
+        </div>
+
+        <div className="principle-item">
+          <div className="p-icon" style={{ background: "rgba(200,154,46,0.12)" }}><SketchIcon name="hard-hat" size={24} /></div>
+          <div className="p-content">
+            <h4>Draw on a Credit Line or OD Facility</h4>
+            <p>If you have an overdraft or working capital limit with your bank, this is the right moment to use it, for genuine short-term timing gaps, not to fund operating losses. DPIIT-recognised startups may access collateral-free credit under the CGSS (up to &#8377;20 crore). Note: CGSS requires demonstrated stable revenue verified by 12 months of audited statements; it is not available to pre-revenue startups.</p>
+          </div>
+          <span className="p-pill pill-gold">Borrow</span>
+        </div>
+
+        <div className="principle-item">
+          <div className="p-icon" style={{ background: "rgba(160,56,10,0.08)" }}><SketchIcon name="siren" size={24} /></div>
+          <div className="p-content">
+            <h4>Restructure the Cost Base</h4>
+            <p>If the above do not resolve the gap and it is structural, not a timing issue, you need to make harder decisions. This means rightsizing the team, exiting leases, or pausing non-core product lines. Do this early and decisively. Late restructuring always costs more.</p>
+          </div>
+          <span className="p-pill pill-red">Last resort</span>
+        </div>
+      </div>
+
+      {/* SECTION 6 */}
+      <div className="section-tag">06 &nbsp; The Most Expensive Mistakes</div>
+      <h2>Four cashflow errors that finish companies.</h2>
+
+      <div className="mistake-list">
+        <div className="mistake-item">
+          <span className="m-x">&#10005;</span>
+          <p><strong style={{ color: "#A0380A" }}>Confusing revenue with cash.</strong> Booking a &#8377;50 lakh order feels like having &#8377;50 lakh. It is not. Until the customer pays, it is a receivable: an asset that requires working capital to service. Founders who spend based on booked revenue rather than collected cash run out of money on large contracts.</p>
+        </div>
+        <div className="mistake-item">
+          <span className="m-x">&#10005;</span>
+          <p><strong style={{ color: "#A0380A" }}>Not separating GST from operating cash.</strong> GST collected from customers is not your money. It belongs to the government. Founders who treat the GST portion of their invoices as operating cash find themselves in deficit every quarter when the filing is due.</p>
+        </div>
+        <div className="mistake-item">
+          <span className="m-x">&#10005;</span>
+          <p><strong style={{ color: "#A0380A" }}>Ignoring advance tax until it is too late.</strong> If your startup is profitable, advance tax is due in four instalments across the financial year. Missing these instalments triggers interest under Section 234B and 234C of the Income Tax Act. Many founders discover this liability only at year-end when the CA files returns.</p>
+        </div>
+        <div className="mistake-item">
+          <span className="m-x">&#10005;</span>
+          <p><strong style={{ color: "#A0380A" }}>Starting the fundraise too late.</strong> In today&apos;s market, a fundraise from first conversation to money in the bank typically takes 6&ndash;9 months. If you start when you have 2 months of runway, you are negotiating from desperation. The rule: start your next fundraise when you have 15&ndash;18 months of runway remaining.</p>
+        </div>
+      </div>
+
+      {/* SECTION 7 */}
+      <div className="section-tag">07 &nbsp; Deeper Thinking &mdash; What Most Guides Miss</div>
+      <h2>Non-obvious cashflow dynamics that separate informed founders from the rest.</h2>
+
+      <p>The basics matter, but the founders who truly avoid cashflow crises understand a layer beneath the basics. These are the structural realities rarely discussed in standard financial advice.</p>
+
+      <div className="principle-list">
+        <div className="principle-item">
+          <div className="p-icon" style={{ background: "rgba(46,125,69,0.1)" }}><SketchIcon name="refresh" size={24} /></div>
+          <div className="p-content">
+            <h4>The Deferred Revenue Trap in SaaS</h4>
+            <p>If you collect &#8377;12L upfront for an annual subscription, your P&amp;L recognises only &#8377;1L/month: but the cash already arrived. The trap: founders over-invest during the contract year, then hit a wall at renewal time when no new cash arrives. Track renewal dates as cashflow events, not just sales milestones.</p>
+          </div>
+          <span className="p-pill pill-green">SaaS-specific</span>
+        </div>
+
+        <div className="principle-item">
+          <div className="p-icon" style={{ background: "rgba(200,154,46,0.12)" }}><SketchIcon name="bar-chart" size={24} /></div>
+          <div className="p-content">
+            <h4>Cash Conversion Cycle: The Metric Most Founders Ignore</h4>
+            <p>Your business model determines whether growth is a cashflow <em>tailwind</em> or a <em>headwind</em>. Cash Conversion Cycle (CCC) = Days Sales Outstanding + Days Inventory Outstanding &minus; Days Payable Outstanding. A negative CCC means growth generates cash. A positive CCC means you must finance growth with working capital.</p>
+          </div>
+          <span className="p-pill pill-gold">Model this</span>
+        </div>
+
+        <div className="principle-item">
+          <div className="p-icon" style={{ background: "rgba(46,125,69,0.1)" }}><SketchIcon name="scissors" size={24} /></div>
+          <div className="p-content">
+            <h4>GST Input Tax Credit Is a Hidden Cash Asset</h4>
+            <p>GST you <em>pay</em> on vendor invoices generates Input Tax Credit (ITC) that offsets your output liability. Many founders don&apos;t claim ITC systematically. A disciplined ITC reconciliation process (matching 2B before filing) can meaningfully reduce your monthly GST cash outflow.</p>
+          </div>
+          <span className="p-pill pill-green">India-specific</span>
+        </div>
+
+        <div className="principle-item">
+          <div className="p-icon" style={{ background: "rgba(200,154,46,0.1)" }}><SketchIcon name="coins" size={24} /></div>
+          <div className="p-content">
+            <h4>Payroll Is the Most Underestimated Cashflow Cliff</h4>
+            <p>Going from 10 to 25 employees in 6 months creates a compounding effect: gross salaries, PF (employer + employee), ESI, TDS deductions, and the advance tax impact of higher profitability. Most founders model headcount additions but not their total cost-to-company impact on weekly cashflow. Budget per new hire at 1.2&ndash;1.3&times; CTC from day one.</p>
+          </div>
+          <span className="p-pill pill-gold">Scale-up trap</span>
+        </div>
+
+        <div className="principle-item">
+          <div className="p-icon" style={{ background: "rgba(160,56,10,0.08)" }}><SketchIcon name="brain" size={24} /></div>
+          <div className="p-content">
+            <h4>The Zombie Runway Problem</h4>
+            <p>Counterintuitively, excess runway can destroy discipline. Founders with 24+ months of runway sometimes delay hard decisions because the cushion creates psychological safety. &ldquo;Default alive&rdquo; thinking &mdash; can you reach profitability on current cash, even without new revenue? &mdash; should be run as a quarterly scenario regardless of how much runway you have.</p>
+          </div>
+          <span className="p-pill pill-red">Contrarian</span>
+        </div>
+      </div>
+
+      {/* CTA */}
+      <div className="cta-block">
+        <span className="cta-eye">Bodha Ventures &mdash; We Handle This For You</span>
+        <h2>Get your cashflow under control.</h2>
+        <p>From building your 13-week forecast to managing advance tax, GST, and financial reporting, Bodha Ventures acts as your Virtual CFO so your numbers work as hard as you do.</p>
+        <Link href="/vcfo" className="cta-btn">Talk to Bodha Ventures &rarr;</Link>
+        <span className="cta-note">Free initial consultation &nbsp;&middot;&nbsp; No hidden fees &nbsp;&middot;&nbsp; Trusted by founders across India</span>
+      </div>
+
+      <div className="footnote">
+        <strong>Sources:</strong> CB Insights Startup Failure Analysis (2026, n=431 VC-backed shutdowns) &nbsp;&middot;&nbsp; DPIIT Credit Guarantee Scheme for Startups (CGSS, revised May 2025) &nbsp;&middot;&nbsp; RBI Working Capital Guidelines &nbsp;&middot;&nbsp; Income Tax Act, 1961 (Sections 234B, 234C) &nbsp;&middot;&nbsp; GST Act, 2017. This article is for informational purposes. For advice specific to your startup, consult Bodha Ventures directly.
+      </div>
+    </>
+  );
+}
