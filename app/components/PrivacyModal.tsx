@@ -14,7 +14,7 @@ export default function PrivacyModal({ onClose }: PrivacyModalProps) {
           <div>
             <div className="terms-eyebrow">Legal · DPDP Act 2023 Compliant</div>
             <h2 className="terms-title">Privacy Policy</h2>
-            <p className="terms-subtitle">Bodha Ventures LLP · Effective 01 April 2026</p>
+            <p className="terms-subtitle">Bodha Ventures LLP · Effective 01 April 2026 · Last Updated 08 June 2026</p>
           </div>
           <button className="terms-close" onClick={onClose} aria-label="Close">✕</button>
         </div>
@@ -50,6 +50,7 @@ export default function PrivacyModal({ onClose }: PrivacyModalProps) {
               <strong>Sensitive Data Notice —</strong> Financial and business data shared in the context of vCFO engagements is treated with the highest level of confidentiality. It is governed by a separate engagement agreement and is never used for marketing, analytics, or shared with any third party absent a legal obligation.
             </div>
             <p><strong>D. Automatically Collected Technical Data</strong> — IP address and approximate geographic location, browser type and device information, pages visited and time spent, referral URLs, and cookie data (see Section 8).</p>
+            <p><strong>E. Content Access &amp; Security Audit Logs</strong> — For logged-in course users, we maintain an append-only audit log of chapter views capturing account identifier, module, chapter, timestamp, originating IP address, and user-agent. Used strictly for security, fraud prevention, and protection of paid course content against unauthorised redistribution. Not used for marketing, profiling, or behavioural analytics.</p>
           </section>
 
           <section className="ts">
@@ -107,6 +108,7 @@ export default function PrivacyModal({ onClose }: PrivacyModalProps) {
               <li>Financial records and invoices — Minimum 7 years (as required under Indian tax law)</li>
               <li>vCFO engagement records — As specified in the engagement agreement</li>
               <li>Technical/analytics data — Anonymised and retained for up to 24 months</li>
+              <li>Content-access audit logs (chapter views, IP, user-agent) — 24 months from date of access, then securely deleted</li>
               <li>Support and correspondence records — 3 years from last interaction</li>
             </ul>
             <p>Upon expiry of the applicable retention period, data is securely deleted or anonymised.</p>
