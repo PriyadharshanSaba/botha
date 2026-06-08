@@ -6,6 +6,7 @@ import Link from "next/link";
 import { useState } from "react";
 import TermsModal from "../../components/TermsModal";
 import PrivacyModal from "../../components/PrivacyModal";
+import SketchIcon from "../../components/SketchIcon";
 
 export default function DpiitArticlePage() {
   const [showTerms, setShowTerms] = useState(false);
@@ -116,7 +117,7 @@ export default function DpiitArticlePage() {
 
         <div className="benefit-list">
           <div className="benefit-item">
-            <div className="b-icon" style={{ background: "rgba(200,154,46,0.12)" }}>&#128176;</div>
+            <div className="b-icon" style={{ background: "rgba(200,154,46,0.12)" }}><SketchIcon name="coins" size={24} /></div>
             <div className="b-content">
               <h4>3-Year Income Tax Holiday</h4>
               <p>100% deduction on profits for any 3 consecutive years within your first 10 years. Requires a separate 80-IAC application to the Inter-Ministerial Board after DPIIT recognition. Not automatic. Startups incorporated before 31 March 2030 are eligible.</p>
@@ -134,7 +135,7 @@ export default function DpiitArticlePage() {
           </div>
 
           <div className="benefit-item">
-            <div className="b-icon" style={{ background: "rgba(200,154,46,0.1)" }}>&#128300;</div>
+            <div className="b-icon" style={{ background: "rgba(200,154,46,0.1)" }}><SketchIcon name="magnifier" size={24} /></div>
             <div className="b-content">
               <h4>80% Patent Fee Rebate + Fast-Track Examination</h4>
               <p>Patents are expensive and slow. DPIIT recognition gives you an 80% rebate on patent filing fees and access to expedited examination. Trademark applications get a 50% fee rebate. Empanelled facilitators help you file.</p>
@@ -143,7 +144,7 @@ export default function DpiitArticlePage() {
           </div>
 
           <div className="benefit-item">
-            <div className="b-icon" style={{ background: "rgba(200,154,46,0.12)" }}>&#128203;</div>
+            <div className="b-icon" style={{ background: "rgba(200,154,46,0.12)" }}><SketchIcon name="clipboard" size={24} /></div>
             <div className="b-content">
               <h4>Self-Certification Under Labour and Environmental Laws</h4>
               <p>Self-certify compliance under 6 labour laws (including EPF, ESI, Gratuity Act) and 3 environmental laws for 5 years. Eliminates routine government inspections, a major operational relief for early-stage companies.</p>
@@ -152,7 +153,7 @@ export default function DpiitArticlePage() {
           </div>
 
           <div className="benefit-item">
-            <div className="b-icon" style={{ background: "rgba(46,125,69,0.1)" }}>&#127963;&#65039;</div>
+            <div className="b-icon" style={{ background: "rgba(46,125,69,0.1)" }}><SketchIcon name="factory" size={24} /></div>
             <div className="b-content">
               <h4>Government Procurement &mdash; No Prior Experience Required</h4>
               <p>DPIIT-recognised startups can bid for government tenders without the experience or turnover requirements that normally disqualify new companies. Direct access to GeM (Government e-Marketplace).</p>
@@ -161,7 +162,7 @@ export default function DpiitArticlePage() {
           </div>
 
           <div className="benefit-item">
-            <div className="b-icon" style={{ background: "rgba(200,154,46,0.1)" }}>&#127807;</div>
+            <div className="b-icon" style={{ background: "rgba(200,154,46,0.1)" }}><SketchIcon name="sprout" size={24} /></div>
             <div className="b-content">
               <h4>Government Funding Schemes</h4>
               <p>Access to Startup India Seed Fund Scheme (up to &#8377;20 lakh grant + &#8377;50 lakh debt for scaling), Credit Guarantee Scheme (up to &#8377;20 crore, revised May 2025), and Fund of Funds 2.0 (&#8377;10,000 crore via SIDBI). DPIIT recognition is the prerequisite for all of these.</p>

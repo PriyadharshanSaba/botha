@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import SketchIcon from "./SketchIcon";
 
 interface Props {
   onSave?: (prefs: { analytics: boolean; marketing: boolean }) => void;
@@ -50,7 +51,7 @@ export default function CookieBanner({ onSave, onSaveAnon, isLoggedIn }: Props) 
         <div style={s.mainRow} className="cookie-main-row">
           {/* Text block */}
           <div style={s.textBlock}>
-            <p style={s.title}>🍪 We use cookies</p>
+            <p style={s.title}><span style={{ display: "inline-flex", verticalAlign: "middle", marginRight: 8, color: "var(--ink)", lineHeight: 0 }}><SketchIcon name="cookie" size={18} /></span>We use cookies</p>
             <p style={s.body}>
               We use cookies to keep you signed in and to understand how people
               use Bodha — so we can keep making it better. We never sell your data.

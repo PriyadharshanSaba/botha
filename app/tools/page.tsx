@@ -7,6 +7,7 @@ import Link from "next/link";
 import { useEffect, useMemo, useRef, useState } from "react";
 import TermsModal from "../components/TermsModal";
 import PrivacyModal from "../components/PrivacyModal";
+import SketchIcon from "../components/SketchIcon";
 import { Chart as ChartJS, registerables } from "chart.js";
 import type { NwtEntry } from "@/app/lib/networth/types";
 import {
@@ -29,13 +30,13 @@ const monthNw = (d: NwtEntry) => sumValues(d.assets) - sumValues(d.liabs);
 
 /* ── tool card data ── */
 const tools = [
-  { id: "networth", num: "01", icon: "\uD83C\uDFE6", name: "Net Worth Calculator", desc: "Add up everything you own and owe \u2014 see where you truly stand.", tags: ["Assets", "Liabilities"], free: true },
-  { id: "sip", num: "02", icon: "\uD83D\uDCC8", name: "SIP Calculator", desc: "Project your mutual fund SIP corpus with optional annual step-up.", tags: ["Compounding", "Step-Up"], free: true },
-  { id: "budget", num: "03", icon: "\uD83D\uDCCA", name: "Budget Planner", desc: "Split your income into Needs, Wants and Savings with a suggested SIP.", tags: ["50/30/20", "Monthly Plan"], free: true },
-  { id: "goal", num: "04", icon: "\uD83C\uDFAF", name: "Goal-Based SIP Planner", desc: "Work backwards from a target amount to find the SIP you need.", tags: ["Goal Planning", "Timeline"], free: true },
-  { id: "tax", num: "05", icon: "\uD83E\uDDFE", name: "Tax Estimator", desc: "Estimate income tax under the New Regime for FY 2025-26.", tags: ["New Regime", "LTCG/STCG"], free: true },
-  { id: "rebalance", num: "06", icon: "\u2696\uFE0F", name: "Rebalancing Calculator", desc: "Compare your current allocation to targets and see what to buy or sell.", tags: ["Allocation", "Drift"], free: true },
-  { id: "tracker", num: "07", icon: "\uD83D\uDCC5", name: "Net Worth Tracker", desc: "Log your net worth monthly and track progress over time with charts.", tags: ["Monthly Log", "Charts"], free: false },
+  { id: "networth", num: "01", icon: "building" as const, name: "Net Worth Calculator", desc: "Add up everything you own and owe \u2014 see where you truly stand.", tags: ["Assets", "Liabilities"], free: true },
+  { id: "sip", num: "02", icon: "chart-up" as const, name: "SIP Calculator", desc: "Project your mutual fund SIP corpus with optional annual step-up.", tags: ["Compounding", "Step-Up"], free: true },
+  { id: "budget", num: "03", icon: "bar-chart" as const, name: "Budget Planner", desc: "Split your income into Needs, Wants and Savings with a suggested SIP.", tags: ["50/30/20", "Monthly Plan"], free: true },
+  { id: "goal", num: "04", icon: "target" as const, name: "Goal-Based SIP Planner", desc: "Work backwards from a target amount to find the SIP you need.", tags: ["Goal Planning", "Timeline"], free: true },
+  { id: "tax", num: "05", icon: "receipt" as const, name: "Tax Estimator", desc: "Estimate income tax under the New Regime for FY 2025-26.", tags: ["New Regime", "LTCG/STCG"], free: true },
+  { id: "rebalance", num: "06", icon: "scales" as const, name: "Rebalancing Calculator", desc: "Compare your current allocation to targets and see what to buy or sell.", tags: ["Allocation", "Drift"], free: true },
+  { id: "tracker", num: "07", icon: "calendar" as const, name: "Net Worth Tracker", desc: "Log your net worth monthly and track progress over time with charts.", tags: ["Monthly Log", "Charts"], free: false },
 ];
 
 export default function ToolsPage() {
@@ -580,10 +581,10 @@ export default function ToolsPage() {
                 style={{ transitionDelay: `${0.05 * (i + 1)}s` }}
                 onClick={() => !locked && setActiveModal(tool.id)}
               >
-                {locked && <div className="ft-lock-badge">&#128274;</div>}
+                {locked && <div className="ft-lock-badge"><SketchIcon name="lock" size={18} /></div>}
                 <div className="ft-tool-top">
                   <div className="ft-tool-num">{tool.num} --</div>
-                  <div className="ft-tool-icon">{tool.icon}</div>
+                  <div className="ft-tool-icon"><SketchIcon name={tool.icon} size={22} /></div>
                 </div>
                 <div className="ft-tool-name">{tool.name}</div>
                 <div className="ft-tool-desc">{tool.desc}</div>
@@ -621,7 +622,7 @@ export default function ToolsPage() {
             >
               <div className="ft-tool-top">
                 <div className="ft-tool-num">08 --</div>
-                <div className="ft-tool-icon">📥</div>
+                <div className="ft-tool-icon"><SketchIcon name="download" size={26} /></div>
               </div>
               <div className="ft-tool-name">Mutual Fund Comparing Tool</div>
               <div className="ft-tool-desc">Compare mutual funds side-by-side using this ready-to-use Excel sheet. Analyse returns, expense ratios, and more.</div>
@@ -640,10 +641,10 @@ export default function ToolsPage() {
               ref={addRevealRef}
               style={{ transitionDelay: `${0.05 * (tools.length + 1)}s` }}
             >
-              <div className="ft-lock-badge">&#128274;</div>
+              <div className="ft-lock-badge"><SketchIcon name="lock" size={18} /></div>
               <div className="ft-tool-top">
                 <div className="ft-tool-num">08 --</div>
-                <div className="ft-tool-icon">📥</div>
+                <div className="ft-tool-icon"><SketchIcon name="download" size={26} /></div>
               </div>
               <div className="ft-tool-name">Mutual Fund Comparing Tool</div>
               <div className="ft-tool-desc">Compare mutual funds side-by-side using this ready-to-use Excel sheet. Analyse returns, expense ratios, and more.</div>
@@ -666,7 +667,7 @@ export default function ToolsPage() {
             >
               <div className="ft-tool-top">
                 <div className="ft-tool-num">09 --</div>
-                <div className="ft-tool-icon">📥</div>
+                <div className="ft-tool-icon"><SketchIcon name="download" size={26} /></div>
               </div>
               <div className="ft-tool-name">Indian Stock Valuation Dashboard</div>
               <div className="ft-tool-desc">Evaluate Indian stocks with key valuation metrics — PE, PB, and more — in one structured Excel dashboard.</div>
@@ -685,10 +686,10 @@ export default function ToolsPage() {
               ref={addRevealRef}
               style={{ transitionDelay: `${0.05 * (tools.length + 2)}s` }}
             >
-              <div className="ft-lock-badge">&#128274;</div>
+              <div className="ft-lock-badge"><SketchIcon name="lock" size={18} /></div>
               <div className="ft-tool-top">
                 <div className="ft-tool-num">09 --</div>
-                <div className="ft-tool-icon">📥</div>
+                <div className="ft-tool-icon"><SketchIcon name="download" size={26} /></div>
               </div>
               <div className="ft-tool-name">Indian Stock Valuation Dashboard</div>
               <div className="ft-tool-desc">Evaluate Indian stocks with key valuation metrics — PE, PB, and more — in one structured Excel dashboard.</div>
@@ -1411,7 +1412,7 @@ export default function ToolsPage() {
             <div style={{ overflowY: "auto", padding: "28px 32px 40px", background: "#fafaf8" }}>
               {!sortedData.length ? (
                 <div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", height: "100%", opacity: 0.45, textAlign: "center" }}>
-                  <div style={{ fontSize: 48, marginBottom: 14 }}>📊</div>
+                  <div style={{ marginBottom: 14, color: "var(--ink)", lineHeight: 0 }}><SketchIcon name="bar-chart" size={48} /></div>
                   <div style={{ fontFamily: "'Playfair Display', serif", fontSize: 18, fontWeight: 700, color: "var(--ink)" }}>Your charts will appear here</div>
                   <div style={{ fontSize: 13, color: "#999", marginTop: 6 }}>Log your first month to get started</div>
                 </div>

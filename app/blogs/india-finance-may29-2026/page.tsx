@@ -6,6 +6,7 @@ import Link from "next/link";
 import { useState } from "react";
 import TermsModal from "../../components/TermsModal";
 import PrivacyModal from "../../components/PrivacyModal";
+import SketchIcon from "../../components/SketchIcon";
 
 export default function IndiaFinanceMay29Page() {
   const [showTerms, setShowTerms] = useState(false);
@@ -141,7 +142,7 @@ export default function IndiaFinanceMay29Page() {
 
         <div className="principle-list">
           <div className="principle-item">
-            <div className="p-icon" style={{ background: "rgba(46,125,69,0.1)" }}>🤝</div>
+            <div className="p-icon" style={{ background: "rgba(46,125,69,0.1)" }}><SketchIcon name="partnership" size={24} /></div>
             <div className="p-content">
               <h4>Next Round of Trade Talks: June 5–6, New Delhi</h4>
               <p>A US team will visit India on June 5–6 to discuss the Bilateral Trade Agreement, per government sources confirmed today (May 29). The Ministry of Commerce and Industry confirmed both sides are working to finalise the Interim Agreement and carry forward broader BTA negotiations covering market access, non-tariff measures, customs facilitation, investment promotion, and economic security. The first tranche is expected before July.</p>
@@ -149,7 +150,7 @@ export default function IndiaFinanceMay29Page() {
             <span className="p-pill pill-green">Confirmed</span>
           </div>
           <div className="principle-item">
-            <div className="p-icon" style={{ background: "rgba(200,154,46,0.12)" }}>🎯</div>
+            <div className="p-icon" style={{ background: "rgba(200,154,46,0.12)" }}><SketchIcon name="target" size={24} /></div>
             <div className="p-content">
               <h4>Mission 500: The Bilateral Ambition</h4>
               <p>Both governments have set a goal of more than doubling bilateral trade to $500 billion by 2030 — up from roughly $190 billion currently. Indian companies have committed over $20 billion in US investments as a goodwill gesture. Ambassador Gor has called the pace of progress &ldquo;historic.&rdquo;</p>
@@ -157,7 +158,7 @@ export default function IndiaFinanceMay29Page() {
             <span className="p-pill pill-gold">In Progress</span>
           </div>
           <div className="principle-item">
-            <div className="p-icon" style={{ background: "rgba(160,56,10,0.08)" }}>⚠️</div>
+            <div className="p-icon" style={{ background: "rgba(160,56,10,0.08)" }}><SketchIcon name="warn" size={24} /></div>
             <div className="p-content">
               <h4>The Relationship Reset Dimension</h4>
               <p>The visit carried a diplomatic repair function beyond trade. Relations had cooled after Modi publicly downplayed Trump&apos;s mediation role in the India-Pakistan ceasefire, while Pakistan simultaneously nominated Trump for the Nobel Peace Prize — a visible asymmetry that the Trump administration noted. A four-city, four-day visit by the Secretary of State is not standard diplomatic protocol; it was structured to visibly demonstrate the depth of the relationship before trade talks enter their most sensitive final phase.</p>
@@ -211,7 +212,7 @@ export default function IndiaFinanceMay29Page() {
 
         <div className="principle-list">
           <div className="principle-item">
-            <div className="p-icon" style={{ background: "rgba(46,125,69,0.1)" }}>💰</div>
+            <div className="p-icon" style={{ background: "rgba(46,125,69,0.1)" }}><SketchIcon name="coins" size={24} /></div>
             <div className="p-content">
               <h4>Coal India&apos;s Financials: The Case for the OFS</h4>
               <p>Coal India&apos;s revenue grew 22.91% year-on-year to ₹46,490 crore in March 2026, while net profit rose from ₹9,593 crore to ₹10,908 crore in the same period. The company maintains an ROCE of 35.3%, ROE of 28.5%, and a near-zero debt-to-equity ratio of 0.12. It is the world&apos;s largest coal producer and one of India&apos;s most consistent dividend-paying PSUs — making the 10% discount a genuine incentive for investors.</p>
@@ -219,7 +220,7 @@ export default function IndiaFinanceMay29Page() {
             <span className="p-pill pill-green">Strong Fundamentals</span>
           </div>
           <div className="principle-item">
-            <div className="p-icon" style={{ background: "rgba(200,154,46,0.12)" }}>🏛️</div>
+            <div className="p-icon" style={{ background: "rgba(200,154,46,0.12)" }}><SketchIcon name="building" size={24} /></div>
             <div className="p-content">
               <h4>Disinvestment Context: FY27 Programme Underway</h4>
               <p>This is the second PSU OFS of the current fiscal year. Last week the government sold an 8.08% stake in Central Bank of India via OFS, raising ₹2,266 crore. The government&apos;s Coal India stake will fall from 63.13% to 61.13% post-OFS. The DIPAM Secretary framed this as part of the broader FY27 disinvestment programme to improve public float and aid fiscal receipts.</p>
@@ -227,7 +228,7 @@ export default function IndiaFinanceMay29Page() {
             <span className="p-pill pill-gold">Policy Signal</span>
           </div>
           <div className="principle-item">
-            <div className="p-icon" style={{ background: "rgba(160,56,10,0.08)" }}>📉</div>
+            <div className="p-icon" style={{ background: "rgba(160,56,10,0.08)" }}><SketchIcon name="chart-down" size={24} /></div>
             <div className="p-content">
               <h4>Market Impact: Coal India Fell 6% on OFS Day</h4>
               <p>Coal India shares dropped more than 6% when the OFS opened on May 27, consistent with typical arbitrage behaviour around discounted PSU stake sales. By mid-session May 27, the stock was at ₹446.20 — down 2.61% — having opened at ₹429 against a previous close of ₹458.15. The discount floor effectively sets a ceiling on the open market price during the OFS window. This is mechanical, not fundamental.</p>

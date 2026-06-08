@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import { useLanguage } from "@/app/context/LanguageContext";
+import SketchIcon from "@/app/components/SketchIcon";
 
 type Props = {
   moduleId: string;
@@ -101,7 +102,7 @@ export default function ModuleViewer({
         </div>
         <div className="complete-body">
           <div className="complete-inner">
-            <div className="complete-icon">&#127891;</div>
+            <div className="complete-icon"><SketchIcon name="grad-cap" size={52} /></div>
             <div className="complete-title">
               Module {moduleNumber}
               <br />

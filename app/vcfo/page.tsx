@@ -6,6 +6,7 @@ import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import TermsModal from "../components/TermsModal";
 import PrivacyModal from "../components/PrivacyModal";
+import SketchIcon, { type SketchIconName } from "../components/SketchIcon";
 
 export default function VcfoPage() {
   const revealRefs = useRef<HTMLElement[]>([]);
@@ -70,15 +71,15 @@ export default function VcfoPage() {
     }
   }
 
-  const services = [
-    { num: "01", icon: "\u{1F4CB}", name: "MIS & Financial Reporting", desc: "Accurate, board-ready financial reports every month \u2014 P&L, balance sheet, cash flow, and KPI dashboards customised to your business.", bullets: ["Monthly P&L and balance sheet", "Custom KPI dashboard", "Budget vs actuals variance", "Board deck support"], tag: "Monthly" },
-    { num: "02", icon: "\u{1F4B8}", name: "Cash Flow Management", desc: "We model your runway, identify cash leaks, and build rolling forecasts so you\u2019re never caught off guard by a surprise shortfall.", bullets: ["13-week rolling cash forecast", "Working capital optimisation", "Vendor & receivables management", "Burn rate monitoring"], tag: "Ongoing" },
-    { num: "03", icon: "\u{1F680}", name: "Fundraise Support", desc: "We prepare you end-to-end for investor conversations \u2014 from financial models and data rooms to term sheet reviews and due diligence.", bullets: ["Investor-grade financial model", "Data room preparation", "Due diligence support", "Term sheet & cap table review"], tag: "Milestone-based" },
-    { num: "04", icon: "\u{1F4D0}", name: "Budgeting & Forecasting", desc: "Annual operating plans, scenario models, and rolling forecasts that align your team to the numbers that actually matter.", bullets: ["Annual operating budget", "3-scenario financial model", "Department-level budgets", "Quarterly reforecast"], tag: "Quarterly" },
-    { num: "05", icon: "\u{1F9FE}", name: "Compliance & Statutory", desc: "We track every deadline \u2014 GST filings, TDS returns, ROC compliance, audit coordination and tax planning \u2014 nothing slips through.", bullets: ["GST & TDS filing oversight", "ROC annual filings", "Statutory audit coordination", "Direct & indirect tax planning"], tag: "Ongoing" },
-    { num: "06", icon: "\u{1F3D7}\uFE0F", name: "Finance Function Setup", desc: "For early-stage companies that need to build from scratch \u2014 we design your accounting stack, SOP, and processes to scale cleanly.", bullets: ["Accounting software setup", "Financial SOPs & controls", "Chart of accounts design", "Finance team hiring support"], tag: "One-time" },
-    { num: "07", icon: "\u{1F310}", name: "Outsourced Accounting for Global Companies", desc: "End-to-end bookkeeping and financial statement preparation for global companies \u2014 accurate books, on time, every month.", bullets: ["Day-to-day bookkeeping & ledger maintenance", "Preparation of financial statements (P&L, balance sheet, cash flow)", "Month-end & year-end close process", "Bank reconciliation & accounts payable / receivable", "Audit-ready books & statutory reporting support"], tag: "Ongoing" },
-    { num: "08", icon: "\u{1F4DD}", name: "LLP & Company Registrations", desc: "We handle the complete registration process for LLPs and private limited companies \u2014 from name approval to certificate of incorporation.", bullets: ["Private Limited Company incorporation", "LLP formation & LLP agreement drafting", "DIN, DSC & MCA filing", "MOA, AOA & statutory documentation", "PAN, TAN & GST registration post-incorporation"], tag: "One-time" },
+  const services: { num: string; icon: SketchIconName; name: string; desc: string; bullets: string[]; tag: string }[] = [
+    { num: "01", icon: "bar-chart", name: "MIS & Financial Reporting", desc: "Accurate, board-ready financial reports every month \u2014 P&L, balance sheet, cash flow, and KPI dashboards customised to your business.", bullets: ["Monthly P&L and balance sheet", "Custom KPI dashboard", "Budget vs actuals variance", "Board deck support"], tag: "Monthly" },
+    { num: "02", icon: "chart-up", name: "Cash Flow Management", desc: "We model your runway, identify cash leaks, and build rolling forecasts so you\u2019re never caught off guard by a surprise shortfall.", bullets: ["13-week rolling cash forecast", "Working capital optimisation", "Vendor & receivables management", "Burn rate monitoring"], tag: "Ongoing" },
+    { num: "03", icon: "rocket", name: "Fundraise Support", desc: "We prepare you end-to-end for investor conversations \u2014 from financial models and data rooms to term sheet reviews and due diligence.", bullets: ["Investor-grade financial model", "Data room preparation", "Due diligence support", "Term sheet & cap table review"], tag: "Milestone-based" },
+    { num: "04", icon: "target", name: "Budgeting & Forecasting", desc: "Annual operating plans, scenario models, and rolling forecasts that align your team to the numbers that actually matter.", bullets: ["Annual operating budget", "3-scenario financial model", "Department-level budgets", "Quarterly reforecast"], tag: "Quarterly" },
+    { num: "05", icon: "shield-check", name: "Compliance & Statutory", desc: "We track every deadline \u2014 GST filings, TDS returns, ROC compliance, audit coordination and tax planning \u2014 nothing slips through.", bullets: ["GST & TDS filing oversight", "ROC annual filings", "Statutory audit coordination", "Direct & indirect tax planning"], tag: "Ongoing" },
+    { num: "06", icon: "hard-hat", name: "Finance Function Setup", desc: "For early-stage companies that need to build from scratch \u2014 we design your accounting stack, SOP, and processes to scale cleanly.", bullets: ["Accounting software setup", "Financial SOPs & controls", "Chart of accounts design", "Finance team hiring support"], tag: "One-time" },
+    { num: "07", icon: "building", name: "Outsourced Accounting for Global Companies", desc: "End-to-end bookkeeping and financial statement preparation for global companies \u2014 accurate books, on time, every month.", bullets: ["Day-to-day bookkeeping & ledger maintenance", "Preparation of financial statements (P&L, balance sheet, cash flow)", "Month-end & year-end close process", "Bank reconciliation & accounts payable / receivable", "Audit-ready books & statutory reporting support"], tag: "Ongoing" },
+    { num: "08", icon: "pencil", name: "LLP & Company Registrations", desc: "We handle the complete registration process for LLPs and private limited companies \u2014 from name approval to certificate of incorporation.", bullets: ["Private Limited Company incorporation", "LLP formation & LLP agreement drafting", "DIN, DSC & MCA filing", "MOA, AOA & statutory documentation", "PAN, TAN & GST registration post-incorporation"], tag: "One-time" },
   ];
 
   const testimonials = [
@@ -127,22 +128,22 @@ export default function VcfoPage() {
         <div className="vcfo-hero-right">
           <div className="vcfo-hero-cards">
             <div className="vcfo-hc">
-              <div className="vcfo-hc-icon">&#128202;</div>
+              <div className="vcfo-hc-icon"><SketchIcon name="bar-chart" size={22} /></div>
               <div><div className="vcfo-hc-title">Monthly MIS Report</div><div className="vcfo-hc-sub">Delivered by 5th of every month</div></div>
               <div className="vcfo-hc-val">↗</div>
             </div>
             <div className="vcfo-hc">
-              <div className="vcfo-hc-icon">&#127974;</div>
+              <div className="vcfo-hc-icon"><SketchIcon name="building" size={22} /></div>
               <div><div className="vcfo-hc-title">Runway Extended</div><div className="vcfo-hc-sub">Avg. 4.2 months through cash optimisation</div></div>
               <div className="vcfo-hc-val">+4.2mo</div>
             </div>
             <div className="vcfo-hc">
-              <div className="vcfo-hc-icon">&#129309;</div>
+              <div className="vcfo-hc-icon"><SketchIcon name="partnership" size={22} /></div>
               <div><div className="vcfo-hc-title">Fundraise Readiness</div><div className="vcfo-hc-sub">Decks, data rooms &amp; investor Q&amp;A prep</div></div>
               <div className="vcfo-hc-val">Ready</div>
             </div>
             <div className="vcfo-hc">
-              <div className="vcfo-hc-icon">&#9989;</div>
+              <div className="vcfo-hc-icon"><SketchIcon name="check-circle" size={22} /></div>
               <div><div className="vcfo-hc-title">Compliance On Track</div><div className="vcfo-hc-sub">GST, TDS, ROC - zero missed deadlines</div></div>
               <div className="vcfo-hc-val" style={{ color: "#2d7a3a" }}>100%</div>
             </div>
@@ -163,7 +164,7 @@ export default function VcfoPage() {
           {services.map((svc, i) => (
             <div key={i} className="vcfo-svc-card vcfo-reveal" ref={addRevealRef} style={{ transitionDelay: `${0.05 * (i + 1)}s` }}>
               <div className="vcfo-svc-num">{svc.num} --</div>
-              <div className="vcfo-svc-icon">{svc.icon}</div>
+              <div className="vcfo-svc-icon"><SketchIcon name={svc.icon} size={26} strokeWidth={1.4} /></div>
               <div className="vcfo-svc-name">{svc.name}</div>
               <div className="vcfo-svc-desc">{svc.desc}</div>
               <ul className="vcfo-svc-bullets">
@@ -205,14 +206,14 @@ export default function VcfoPage() {
             <div className="vcfo-section-title">Finance that actually<br />moves the needle.</div>
             <p>Most Virtual CFO services give you a part-time accountant with a fancy title. We give you qualified finance professionals with serious pedigree, trained at the right institutions, tested in the real world and invested in your growth.</p>
             <div className="vcfo-why-values">
-              {[
-                { icon: "\u26A1", title: "Always-on, not intermittent", desc: "Dedicated point of contact available within hours, not days. You get a finance team, not a consultant who bills per email." },
-                { icon: "\u{1FAF1}\u{1F3FD}", title: "Built around founders", desc: "We know what it\u2019s like to be resource-constrained and time-poor. Our work is designed to give you maximum clarity with minimum back-and-forth." },
-                { icon: "\u{1F512}", title: "No conflicts, full confidentiality", desc: "NDAs on day one. Your financials stay inside your walls, always." },
-                { icon: "\u{1F4C8}", title: "Investor-grade output", desc: "Every report and model we produce is built to withstand due diligence scrutiny \u2014 because it might need to." },
-              ].map((v, i) => (
+              {([
+                { icon: "bolt", title: "Always-on, not intermittent", desc: "Dedicated point of contact available within hours, not days. You get a finance team, not a consultant who bills per email." },
+                { icon: "partnership", title: "Built around founders", desc: "We know what it\u2019s like to be resource-constrained and time-poor. Our work is designed to give you maximum clarity with minimum back-and-forth." },
+                { icon: "lock", title: "No conflicts, full confidentiality", desc: "NDAs on day one. Your financials stay inside your walls, always." },
+                { icon: "chart-up", title: "Investor-grade output", desc: "Every report and model we produce is built to withstand due diligence scrutiny \u2014 because it might need to." },
+              ] as { icon: SketchIconName; title: string; desc: string }[]).map((v, i) => (
                 <div key={i} className="vcfo-value-item">
-                  <div className="vcfo-value-icon">{v.icon}</div>
+                  <div className="vcfo-value-icon"><SketchIcon name={v.icon} size={20} /></div>
                   <div className="vcfo-value-text">
                     <h4>{v.title}</h4>
                     <p>{v.desc}</p>
@@ -394,7 +395,7 @@ export default function VcfoPage() {
               </form>
             ) : (
               <div className="vcfo-success-state show">
-                <div className="vcfo-success-icon">&#9989;</div>
+                <div className="vcfo-success-icon"><SketchIcon name="check-circle" size={48} /></div>
                 <h3>Request received!</h3>
                 <p>Thank you - we&apos;ll review your details and reach out within <strong>24 hours</strong> to schedule your discovery call. Check your inbox for a confirmation.</p>
               </div>

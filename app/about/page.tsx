@@ -6,6 +6,7 @@ import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import TermsModal from "../components/TermsModal";
 import PrivacyModal from "../components/PrivacyModal";
+import SketchIcon, { type SketchIconName } from "../components/SketchIcon";
 
 export default function AboutPage() {
   const revealRefs = useRef<HTMLElement[]>([]);
@@ -184,15 +185,15 @@ export default function AboutPage() {
         </div>
         <div className="about-values-grid">
           {[
-            { icon: "\u{1F91D}", title: "Direct accountability", desc: "You always know who is responsible for your work. No layers, no handoffs to juniors. The partner who signs off on the proposal is the same person doing the work." },
-            { icon: "\u{1F50D}", title: "Honesty over comfort", desc: "We'll tell you what you need to hear, not what you want to hear. If your numbers are concerning, your model is wrong, or your plan has a flaw \u2014 you'll hear it from us first." },
-            { icon: "\u2699\uFE0F", title: "Craft in every detail", desc: "We care about how the work looks, not just what it says. A well-crafted report, a clean model, a polished tool \u2014 quality signals are everywhere if you're paying attention." },
-            { icon: "\u{1F3D7}\uFE0F", title: "Built for the long term", desc: "We're not interested in one-off engagements. We want to be the firm you call when something big happens \u2014 good or bad \u2014 and trust us to help you navigate it." },
-            { icon: "\u{1F331}", title: "We grow with our clients", desc: "Some of our best work happens when we've watched a client go from early chaos to confident scale. That journey matters to us \u2014 and we invest in it genuinely." },
-            { icon: "\u{1F512}", title: "Confidentiality, always", desc: "Your financials, your strategies, and your internal challenges stay inside our walls. We never discuss one client's business with another, ever." },
+            { icon: "partnership" as SketchIconName, title: "Direct accountability", desc: "You always know who is responsible for your work. No layers, no handoffs to juniors. The partner who signs off on the proposal is the same person doing the work." },
+            { icon: "magnifier" as SketchIconName, title: "Honesty over comfort", desc: "We'll tell you what you need to hear, not what you want to hear. If your numbers are concerning, your model is wrong, or your plan has a flaw \u2014 you'll hear it from us first." },
+            { icon: "gear" as SketchIconName, title: "Craft in every detail", desc: "We care about how the work looks, not just what it says. A well-crafted report, a clean model, a polished tool \u2014 quality signals are everywhere if you're paying attention." },
+            { icon: "hard-hat" as SketchIconName, title: "Built for the long term", desc: "We're not interested in one-off engagements. We want to be the firm you call when something big happens \u2014 good or bad \u2014 and trust us to help you navigate it." },
+            { icon: "sprout" as SketchIconName, title: "We grow with our clients", desc: "Some of our best work happens when we've watched a client go from early chaos to confident scale. That journey matters to us \u2014 and we invest in it genuinely." },
+            { icon: "lock" as SketchIconName, title: "Confidentiality, always", desc: "Your financials, your strategies, and your internal challenges stay inside our walls. We never discuss one client's business with another, ever." },
           ].map((v, i) => (
             <div key={i} className="about-value-card about-reveal" ref={addRevealRef} style={{ transitionDelay: `${0.05 * (i + 1)}s` }}>
-              <div className="about-value-icon">{v.icon}</div>
+              <div className="about-value-icon"><SketchIcon name={v.icon} size={28} /></div>
               <div className="about-value-title">{v.title}</div>
               <div className="about-value-desc">{v.desc}</div>
             </div>
@@ -212,14 +213,14 @@ export default function AboutPage() {
           </p>
         </div>
         <div className="about-edge-grid">
-          {[
-            { icon: "\u{1F4D0}", title: "Financial depth you can rely on", desc: "Big 4 finance background. CA and CFA qualification. Deep sector knowledge across Financial Services, Consumer, and Life Sciences. Your numbers are in the most capable hands." },
-            { icon: "\u{1F393}", title: "Education that actually changes things", desc: "Our Finance Course is built by a Chartered Accountant and CFA Program graduate with real-world experience \u2014 not generic content. We teach the things that matter, in the way they actually work in practice." },
-            { icon: "\u{1F3AF}", title: "Operator mindset, not just advisor mindset", desc: "Our team has worked inside companies, not just beside them. We understand urgency, constraints, and the reality of building. <strong>We give advice we'd take ourselves.</strong>" },
-            { icon: "\u{1F91D}", title: "Personal. Not a large firm.", desc: "We are not a large consultancy. Every client and every student matters to us personally \u2014 you get real attention, not a ticketing system or a junior associate. <strong>That's the way we want to work.</strong>" },
-          ].map((card, i) => (
+          {([
+            { icon: "chart-up", title: "Financial depth you can rely on", desc: "Big 4 finance background. CA and CFA qualification. Deep sector knowledge across Financial Services, Consumer, and Life Sciences. Your numbers are in the most capable hands." },
+            { icon: "grad-cap", title: "Education that actually changes things", desc: "Our Finance Course is built by a Chartered Accountant and CFA Program graduate with real-world experience \u2014 not generic content. We teach the things that matter, in the way they actually work in practice." },
+            { icon: "target", title: "Operator mindset, not just advisor mindset", desc: "Our team has worked inside companies, not just beside them. We understand urgency, constraints, and the reality of building. <strong>We give advice we'd take ourselves.</strong>" },
+            { icon: "partnership", title: "Personal. Not a large firm.", desc: "We are not a large consultancy. Every client and every student matters to us personally \u2014 you get real attention, not a ticketing system or a junior associate. <strong>That's the way we want to work.</strong>" },
+          ] as { icon: SketchIconName; title: string; desc: string }[]).map((card, i) => (
             <div key={i} className="about-edge-card about-reveal" ref={addRevealRef} style={{ transitionDelay: `${0.05 * (i + 1)}s` }}>
-              <div className="about-edge-card-icon">{card.icon}</div>
+              <div className="about-edge-card-icon"><SketchIcon name={card.icon} size={28} /></div>
               <div className="about-edge-card-title">{card.title}</div>
               <div className="about-edge-card-desc" dangerouslySetInnerHTML={{ __html: card.desc }} />
             </div>
@@ -289,7 +290,7 @@ export default function AboutPage() {
             <button onClick={() => setShowContact(false)} style={{ position: "absolute", top: 16, right: 18, background: "none", border: "none", fontSize: 22, cursor: "pointer", color: "#999", lineHeight: 1 }}>&times;</button>
             {contactDone ? (
               <div style={{ textAlign: "center", padding: "24px 0" }}>
-                <div style={{ fontSize: 36, marginBottom: 16 }}>&#10003;</div>
+                <div style={{ marginBottom: 16, color: "var(--gold)", lineHeight: 0, display: "flex", justifyContent: "center" }}><SketchIcon name="check-circle" size={40} /></div>
                 <div style={{ fontFamily: "'Playfair Display', serif", fontSize: 22, fontWeight: 700, marginBottom: 10 }}>Message received.</div>
                 <p style={{ color: "#666", fontSize: 14, lineHeight: 1.7 }}>We&apos;ll be in touch shortly. Thank you for reaching out.</p>
               </div>

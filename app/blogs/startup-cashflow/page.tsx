@@ -6,6 +6,7 @@ import Link from "next/link";
 import { useState } from "react";
 import TermsModal from "../../components/TermsModal";
 import PrivacyModal from "../../components/PrivacyModal";
+import SketchIcon from "../../components/SketchIcon";
 
 export default function CashflowArticlePage() {
   const [showTerms, setShowTerms] = useState(false);
@@ -124,7 +125,7 @@ export default function CashflowArticlePage() {
 
         <div className="principle-list">
           <div className="principle-item">
-            <div className="p-icon" style={{ background: "rgba(200,154,46,0.12)" }}>&#127807;</div>
+            <div className="p-icon" style={{ background: "rgba(200,154,46,0.12)" }}><SketchIcon name="sprout" size={24} /></div>
             <div className="p-content">
               <h4>Pre-Revenue: Control Burn Obsessively</h4>
               <p>Every rupee out is a month of runway lost. Keep fixed costs near zero. Delay hiring. Use freelancers over full-time employees. Avoid long-term leases. Your only cashflow job is to extend the runway long enough to find product-market fit.</p>
@@ -133,7 +134,7 @@ export default function CashflowArticlePage() {
           </div>
 
           <div className="principle-item">
-            <div className="p-icon" style={{ background: "rgba(46,125,69,0.1)" }}>&#128200;</div>
+            <div className="p-icon" style={{ background: "rgba(46,125,69,0.1)" }}><SketchIcon name="chart-up" size={24} /></div>
             <div className="p-content">
               <h4>Early Revenue (below &#8377;1 crore): Fix Your Collections</h4>
               <p>The moment you have customers, your biggest cashflow risk shifts to receivables. Invoice immediately. Follow up systematically. Offer small discounts for early payment. Never let a receivable go past 60 days without escalation. Revenue on paper means nothing until it hits your account.</p>
@@ -151,7 +152,7 @@ export default function CashflowArticlePage() {
           </div>
 
           <div className="principle-item">
-            <div className="p-icon" style={{ background: "rgba(46,125,69,0.1)" }}>&#127963;&#65039;</div>
+            <div className="p-icon" style={{ background: "rgba(46,125,69,0.1)" }}><SketchIcon name="factory" size={24} /></div>
             <div className="p-content">
               <h4>Funded Startup: Separate Operating Cash from Reserves</h4>
               <p>Once you have raised capital, the danger is spending it as if it were revenue. Keep your funding corpus in a separate account or liquid instrument. Operate from a current account funded by transfers from the corpus. This forces discipline and gives you a real-time view of burn.</p>
@@ -223,7 +224,7 @@ export default function CashflowArticlePage() {
           </div>
 
           <div className="principle-item">
-            <div className="p-icon" style={{ background: "rgba(200,154,46,0.12)" }}>&#128260;</div>
+            <div className="p-icon" style={{ background: "rgba(200,154,46,0.12)" }}><SketchIcon name="refresh" size={24} /></div>
             <div className="p-content">
               <h4>Extend Payables Without Damaging Relationships</h4>
               <p>Call your key vendors and ask for 15&ndash;30 extra days. Most will say yes if you ask before missing a payment rather than after. Negotiate extended terms at contract renewal. Do not do this silently: transparency maintains trust and keeps the relationship intact.</p>
@@ -241,7 +242,7 @@ export default function CashflowArticlePage() {
           </div>
 
           <div className="principle-item">
-            <div className="p-icon" style={{ background: "rgba(200,154,46,0.12)" }}>&#127974;</div>
+            <div className="p-icon" style={{ background: "rgba(200,154,46,0.12)" }}><SketchIcon name="hard-hat" size={24} /></div>
             <div className="p-content">
               <h4>Draw on a Credit Line or OD Facility</h4>
               <p>If you have an overdraft or working capital limit with your bank, this is the right moment to use it, for genuine short-term timing gaps, not to fund operating losses. DPIIT-recognised startups may access collateral-free credit under the CGSS (up to &#8377;20 crore). Note: CGSS requires demonstrated stable revenue verified by 12 months of audited statements; it is not available to pre-revenue startups.</p>
@@ -250,7 +251,7 @@ export default function CashflowArticlePage() {
           </div>
 
           <div className="principle-item">
-            <div className="p-icon" style={{ background: "rgba(160,56,10,0.08)" }}>&#128680;</div>
+            <div className="p-icon" style={{ background: "rgba(160,56,10,0.08)" }}><SketchIcon name="siren" size={24} /></div>
             <div className="p-content">
               <h4>Restructure the Cost Base</h4>
               <p>If the above do not resolve the gap and it is structural, not a timing issue, you need to make harder decisions. This means rightsizing the team, exiting leases, or pausing non-core product lines. Do this early and decisively. Late restructuring always costs more.</p>
@@ -290,7 +291,7 @@ export default function CashflowArticlePage() {
 
         <div className="principle-list">
           <div className="principle-item">
-            <div className="p-icon" style={{ background: "rgba(46,125,69,0.1)" }}>&#128260;</div>
+            <div className="p-icon" style={{ background: "rgba(46,125,69,0.1)" }}><SketchIcon name="refresh" size={24} /></div>
             <div className="p-content">
               <h4>The Deferred Revenue Trap in SaaS</h4>
               <p>If you collect &#8377;12L upfront for an annual subscription, your P&amp;L recognises only &#8377;1L/month: but the cash already arrived. The trap: founders over-invest during the contract year, then hit a wall at renewal time when no new cash arrives. Track renewal dates as cashflow events, not just sales milestones.</p>
@@ -299,7 +300,7 @@ export default function CashflowArticlePage() {
           </div>
 
           <div className="principle-item">
-            <div className="p-icon" style={{ background: "rgba(200,154,46,0.12)" }}>&#128202;</div>
+            <div className="p-icon" style={{ background: "rgba(200,154,46,0.12)" }}><SketchIcon name="bar-chart" size={24} /></div>
             <div className="p-content">
               <h4>Cash Conversion Cycle: The Metric Most Founders Ignore</h4>
               <p>Your business model determines whether growth is a cashflow <em>tailwind</em> or a <em>headwind</em>. Cash Conversion Cycle (CCC) = Days Sales Outstanding + Days Inventory Outstanding &minus; Days Payable Outstanding. A negative CCC means growth generates cash. A positive CCC means you must finance growth with working capital.</p>
@@ -308,7 +309,7 @@ export default function CashflowArticlePage() {
           </div>
 
           <div className="principle-item">
-            <div className="p-icon" style={{ background: "rgba(46,125,69,0.1)" }}>&#129534;</div>
+            <div className="p-icon" style={{ background: "rgba(46,125,69,0.1)" }}><SketchIcon name="scissors" size={24} /></div>
             <div className="p-content">
               <h4>GST Input Tax Credit Is a Hidden Cash Asset</h4>
               <p>GST you <em>pay</em> on vendor invoices generates Input Tax Credit (ITC) that offsets your output liability. Many founders don&apos;t claim ITC systematically. A disciplined ITC reconciliation process (matching 2B before filing) can meaningfully reduce your monthly GST cash outflow.</p>
@@ -317,7 +318,7 @@ export default function CashflowArticlePage() {
           </div>
 
           <div className="principle-item">
-            <div className="p-icon" style={{ background: "rgba(200,154,46,0.1)" }}>&#128184;</div>
+            <div className="p-icon" style={{ background: "rgba(200,154,46,0.1)" }}><SketchIcon name="coins" size={24} /></div>
             <div className="p-content">
               <h4>Payroll Is the Most Underestimated Cashflow Cliff</h4>
               <p>Going from 10 to 25 employees in 6 months creates a compounding effect: gross salaries, PF (employer + employee), ESI, TDS deductions, and the advance tax impact of higher profitability. Most founders model headcount additions but not their total cost-to-company impact on weekly cashflow. Budget per new hire at 1.2&ndash;1.3&times; CTC from day one.</p>
@@ -326,7 +327,7 @@ export default function CashflowArticlePage() {
           </div>
 
           <div className="principle-item">
-            <div className="p-icon" style={{ background: "rgba(160,56,10,0.08)" }}>&#129504;</div>
+            <div className="p-icon" style={{ background: "rgba(160,56,10,0.08)" }}><SketchIcon name="brain" size={24} /></div>
             <div className="p-content">
               <h4>The Zombie Runway Problem</h4>
               <p>Counterintuitively, excess runway can destroy discipline. Founders with 24+ months of runway sometimes delay hard decisions because the cushion creates psychological safety. &ldquo;Default alive&rdquo; thinking &mdash; can you reach profitability on current cash, even without new revenue? &mdash; should be run as a quarterly scenario regardless of how much runway you have.</p>

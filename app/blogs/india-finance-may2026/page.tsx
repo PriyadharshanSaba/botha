@@ -6,6 +6,7 @@ import Link from "next/link";
 import { useState } from "react";
 import TermsModal from "../../components/TermsModal";
 import PrivacyModal from "../../components/PrivacyModal";
+import SketchIcon from "../../components/SketchIcon";
 
 export default function IndiaFinanceMay2026Page() {
   const [showTerms, setShowTerms] = useState(false);
@@ -68,7 +69,7 @@ export default function IndiaFinanceMay2026Page() {
 
         <div className="principle-list">
           <div className="principle-item">
-            <div className="p-icon" style={{ background: "rgba(160,56,10,0.08)" }}>⚠️</div>
+            <div className="p-icon" style={{ background: "rgba(160,56,10,0.08)" }}><SketchIcon name="warn" size={24} /></div>
             <div className="p-content">
               <h4>The Core Fear: Value-Chain Displacement</h4>
               <p>AI-native ecosystems could capture the higher-margin strategic transformation work, pushing traditional outsourcing firms toward lower-margin execution roles. The IT industry carries significant weight in both Nifty 50 and Nifty IT indices, and Indian IT firms derive a substantial share of revenues from US and European enterprises.</p>
@@ -76,7 +77,7 @@ export default function IndiaFinanceMay2026Page() {
             <span className="p-pill pill-red">Structural</span>
           </div>
           <div className="principle-item">
-            <div className="p-icon" style={{ background: "rgba(200,154,46,0.12)" }}>📉</div>
+            <div className="p-icon" style={{ background: "rgba(200,154,46,0.12)" }}><SketchIcon name="chart-down" size={24} /></div>
             <div className="p-content">
               <h4>TCS Is Down 36% Over the Past Year</h4>
               <p>This week, IT stocks bounced on relief buying at multi-year lows — which explains the partial positive on Nifty — but the structural question hasn&apos;t gone away. Infosys is trading at levels not seen since 2020. These are not valuation discounts waiting to be corrected; they represent a genuine market reassessment of the long-term earnings power of India&apos;s largest export industry.</p>
@@ -208,7 +209,7 @@ export default function IndiaFinanceMay2026Page() {
 
         <div className="principle-list">
           <div className="principle-item">
-            <div className="p-icon" style={{ background: "rgba(46,125,69,0.1)" }}>📡</div>
+            <div className="p-icon" style={{ background: "rgba(46,125,69,0.1)" }}><SketchIcon name="satellite" size={24} /></div>
             <div className="p-content">
               <h4>The AI Infrastructure Boom Is Real and Broadening</h4>
               <p>Nvidia&apos;s numbers confirm the AI infrastructure boom is real, accelerating, and broadening beyond the hyperscalers to enterprise and sovereign deployments. The share of revenue from enterprises and sovereign AI deployments is now roughly equal to hyperscaler spending.</p>
@@ -216,7 +217,7 @@ export default function IndiaFinanceMay2026Page() {
             <span className="p-pill pill-green">Confirmed</span>
           </div>
           <div className="principle-item">
-            <div className="p-icon" style={{ background: "rgba(160,56,10,0.08)" }}>⚡</div>
+            <div className="p-icon" style={{ background: "rgba(160,56,10,0.08)" }}><SketchIcon name="bolt" size={24} /></div>
             <div className="p-content">
               <h4>The Wider It Gets, the Worse It Is for Legacy IT</h4>
               <p>That same boom is precisely what funds the OpenAI Deployment Company and the Anthropic enterprise JV that are threatening the Indian IT services model. The wider the demand base gets, the more enterprises have direct access to AI capabilities without routing through traditional IT service providers.</p>
@@ -238,7 +239,7 @@ export default function IndiaFinanceMay2026Page() {
 
         <div className="principle-list">
           <div className="principle-item">
-            <div className="p-icon" style={{ background: "rgba(46,125,69,0.1)" }}>🏛️</div>
+            <div className="p-icon" style={{ background: "rgba(46,125,69,0.1)" }}><SketchIcon name="building" size={24} /></div>
             <div className="p-content">
               <h4>LIC: +23.2% Net Profit Jump</h4>
               <p>LIC reported a 23.2% jump in net profit to ₹23,420 crore for Q4FY26, with net premium income growing 11.6% to ₹1.65 trillion. The board declared a ₹10 per share final dividend and a 1:1 bonus issue with record date May 29. Insurance premium growth at 11.6% confirms that India&apos;s financial savings culture is deepening — structurally positive and partially explains why DII flows remain strong.</p>
@@ -246,7 +247,7 @@ export default function IndiaFinanceMay2026Page() {
             <span className="p-pill pill-green">Positive</span>
           </div>
           <div className="principle-item">
-            <div className="p-icon" style={{ background: "rgba(200,154,46,0.12)" }}>🚬</div>
+            <div className="p-icon" style={{ background: "rgba(200,154,46,0.12)" }}><SketchIcon name="cigarette" size={24} /></div>
             <div className="p-content">
               <h4>ITC: Steady but Not Accelerating</h4>
               <p>ITC reported a 4.9% rise in net profit to ₹5,113 crore for Q4FY26, with revenue down 7% year-on-year to ₹16,050 crore. The cigarette segment grew well; the broader FMCG business was muted. A reasonable proxy for urban consumption: steady but not accelerating.</p>
@@ -254,7 +255,7 @@ export default function IndiaFinanceMay2026Page() {
             <span className="p-pill pill-gold">Muted</span>
           </div>
           <div className="principle-item">
-            <div className="p-icon" style={{ background: "rgba(160,56,10,0.08)" }}>🚗</div>
+            <div className="p-icon" style={{ background: "rgba(160,56,10,0.08)" }}><SketchIcon name="car" size={24} /></div>
             <div className="p-content">
               <h4>Maruti: Price Hike of Up to ₹30,000 Across Every Model</h4>
               <p>Maruti Suzuki announced a price hike of up to ₹30,000 across its entire vehicle portfolio from June 2026, citing persistent inflationary pressures. India&apos;s largest carmaker with a 40%+ market share raising prices across every model is direct transmission of the oil and commodity shock into the consumer economy. It will feed into CPI and slow the consumption recovery the government and RBI have been counting on.</p>

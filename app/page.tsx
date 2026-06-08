@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import TermsModal from "@/app/components/TermsModal";
 import PrivacyModal from "@/app/components/PrivacyModal";
+import SketchIcon from "@/app/components/SketchIcon";
 import { useLanguage } from "@/app/context/LanguageContext";
 
 export default function LandingPage() {
@@ -139,7 +140,7 @@ export default function LandingPage() {
         </div>
 
         <div className="learn-first-banner reveal" ref={addRevealRef}>
-          <div className="lfb-icon">&#128218;</div>
+          <div className="lfb-icon"><SketchIcon name="books" size={48} /></div>
           <div className="lfb-body">
             <div className="lfb-tag">{isKn ? "ಜೀವನದ ಮಾರ್ಗದರ್ಶಿ ನುಡಿಗಳು" : "Words to live by"}</div>
             <blockquote className="lfb-quote">
@@ -171,21 +172,21 @@ export default function LandingPage() {
             {isKn ? (
               <>
                 <div className="value-item">
-                  <div className="value-icon">&#127919;</div>
+                  <div className="value-icon"><SketchIcon name="target" size={20} strokeWidth={1.4} /></div>
                   <div className="value-text">
                     <h4>ನಿಮ್ಮ ಬೆಳವಣಿಗೆ, ನಮ್ಮದೂ ಕೂಡ.</h4>
                     <p>ನಿಮ್ಮ ಗೆಲುವು ನಮ್ಮ ಗೆಲುವು. ನಾವು ನಿಜವಾದ ಪಾಲುದಾರರಾಗಿ ನಿಮ್ಮ ಪಕ್ಕದಲ್ಲಿರುತ್ತೇವೆ, ಕೇವಲ ಮುಂದಿನ ಮೈಲಿಗಲ್ಲಿಗಾಗಿ ಅಲ್ಲ, ನಿಮ್ಮ ಇಡೀ ಪ್ರಯಾಣದಲ್ಲಿ.</p>
                   </div>
                 </div>
                 <div className="value-item">
-                  <div className="value-icon">&#129309;</div>
+                  <div className="value-icon"><SketchIcon name="shield-check" size={20} strokeWidth={1.4} /></div>
                   <div className="value-text">
                     <h4>ಯಾವಾಗಲೂ ನಿಮ್ಮ ಪರವಾಗಿ.</h4>
                     <p>ನೀವು ಇನ್ನೊಬ್ಬ ಗ್ರಾಹಕರಂತೆ ಎಂದಿಗೂ ಅನಿಸಿಕೊಳ್ಳುವುದಿಲ್ಲ. ಕಾಯುವಿಕೆ ಇಲ್ಲ, ಅಲೆದಾಡುವಿಕೆ ಇಲ್ಲ. ನಿಮ್ಮ ಭವಿಷ್ಯದ ಬಗ್ಗೆ ಮನಃಪೂರ್ವಕವಾಗಿ ಕಾಳಜಿ ವಹಿಸುವ ನಿಜವಾದ ಮನುಷ್ಯರು ಮಾತ್ರ.</p>
                   </div>
                 </div>
                 <div className="value-item">
-                  <div className="value-icon">&#128200;</div>
+                  <div className="value-icon"><SketchIcon name="chart-up" size={20} strokeWidth={1.4} /></div>
                   <div className="value-text">
                     <h4>ಎಂದಿಗೂ ರಾಜಿ ಮಾಡಿಕೊಳ್ಳುವುದಿಲ್ಲ.</h4>
                     <p>ಶ್ರೇಷ್ಠತೆ ಎಂಬುದು ದೊಡ್ಡ ಗ್ರಾಹಕರಿಗಾಗಿ ಮಾತ್ರ ಆನ್ ಮಾಡುವ ಸ್ವಿಚ್ ಅಲ್ಲ. ಪ್ರತಿಯೊಬ್ಬರಿಗೂ, ಪ್ರತಿ ಬಾರಿಯೂ, ಅದು ನಾವು ಕಾಣಿಸಿಕೊಳ್ಳುವ ರೀತಿ.</p>
@@ -195,21 +196,21 @@ export default function LandingPage() {
             ) : (
               <>
                 <div className="value-item">
-                  <div className="value-icon">&#127919;</div>
+                  <div className="value-icon"><SketchIcon name="target" size={20} strokeWidth={1.4} /></div>
                   <div className="value-text">
                     <h4>Your Growth, Ours Too.</h4>
                     <p>Your wins are our wins. We show up as true partners, invested in your journey, not just your next milestone.</p>
                   </div>
                 </div>
                 <div className="value-item">
-                  <div className="value-icon">&#129309;</div>
+                  <div className="value-icon"><SketchIcon name="shield-check" size={20} strokeWidth={1.4} /></div>
                   <div className="value-text">
                     <h4>Always In Your Corner.</h4>
                     <p>You will never feel like just another client. No waiting, no chasing, no being passed around. Just real people who genuinely care about where you&apos;re headed.</p>
                   </div>
                 </div>
                 <div className="value-item">
-                  <div className="value-icon">&#128200;</div>
+                  <div className="value-icon"><SketchIcon name="chart-up" size={20} strokeWidth={1.4} /></div>
                   <div className="value-text">
                     <h4>Never Cutting Corners.</h4>
                     <p>Excellence isn&apos;t something we switch on for big clients. It&apos;s how we show up for everyone, every single time.</p>
@@ -241,7 +242,7 @@ export default function LandingPage() {
         <div className="services-grid">
           <div className="service-card featured reveal" ref={addRevealRef}>
             <div className="service-num">01 — {isKn ? "ಪ್ರಮುಖ" : "Flagship"}</div>
-            <div className="service-icon">&#127942;</div>
+            <div className="service-icon"><SketchIcon name="trophy" size={34} strokeWidth={1.4} /></div>
             <div className="service-name">{isKn ? "ಪರ್ಸನಲ್ ಫೈನಾನ್ಸ್ ಪ್ರೋಗ್ರಾಂ" : "Personal Finance Program"}</div>
             <div className="service-desc">{isKn ? "ನಮ್ಮ ಮೂಲಾಧಾರ ಕಾರ್ಯಕ್ರಮ. ಬಜೆಟ್ ರಚನೆ, ಹೂಡಿಕೆ, ತೆರಿಗೆ ಯೋಜನೆ ಮತ್ತು ಬಹು ತಲೆಮಾರಿನ ಸಂಪತ್ತು ನಿರ್ಮಾಣವನ್ನು ಒಳಗೊಂಡ ಮಾಡ್ಯೂಲ್‌ಗಳು." : "Our cornerstone program. Modules covering budgeting, investing, tax planning and building multi-generational wealth."}</div>
             <div className="service-tag">{isKn ? "ಅತ್ಯಂತ ಜನಪ್ರಿಯ" : "Most Popular"}</div>
@@ -249,7 +250,7 @@ export default function LandingPage() {
           </div>
           <div className="service-card reveal" ref={addRevealRef} style={{ transitionDelay: "0.1s" }}>
             <div className="service-num">02</div>
-            <div className="service-icon">&#128188;</div>
+            <div className="service-icon"><SketchIcon name="briefcase" size={34} strokeWidth={1.4} /></div>
             <div className="service-name">{isKn ? "ವರ್ಚುವಲ್ CFO" : "Virtual CFO"}</div>
             <div className="service-desc">{isKn ? "ಸಂಸ್ಥಾಪಕರು ಮತ್ತು ವ್ಯವಹಾರಗಳಿಗಾಗಿ ಅಗತ್ಯಾನುಸಾರ CFO ತಜ್ಞತೆ. ನಗದು ಹರಿವು, ಆರ್ಥಿಕ ಕಾರ್ಯತಂತ್ರ, MIS ವರದಿಗಳು ಮತ್ತು ಬೋರ್ಡ್ ಮಟ್ಟದ ನಿರ್ಧಾರಗಳು." : "On-demand CFO expertise for founders and businesses. Cash flow, financial strategy, MIS Reports and board-level decisions."}</div>
             <div className="service-tag">{isKn ? "ಸಂಸ್ಥಾಪಕರಿಗೆ" : "For Founders"}</div>
@@ -257,7 +258,7 @@ export default function LandingPage() {
           </div>
           <div className="service-card reveal" ref={addRevealRef} style={{ transitionDelay: "0.2s" }}>
             <div className="service-num">03</div>
-            <div className="service-icon">&#128640;</div>
+            <div className="service-icon"><SketchIcon name="rocket" size={34} strokeWidth={1.4} /></div>
             <div className="service-name">{isKn ? "ವೆಂಚರ್ ಕ್ಯಾಪಿಟಲ್" : "Venture Capital"}</div>
             <div className="service-desc">{isKn ? "ಆರಂಭಿಕ ಹಂತದ ಹೂಡಿಕೆ ಅವಕಾಶಗಳು ಮತ್ತು ಕ್ಯುರೇಟೆಡ್ ಡೀಲ್ ಫ್ಲೋ — ಭಾರತದ ಮುಂದಿನ ದೊಡ್ಡ ಕಥೆಯನ್ನು ಬೆಂಬಲಿಸುತ್ತಾ." : "Early-stage funding opportunities and curated deal flow, backing India's next big story."}</div>
             <div className="service-tag">{isKn ? "ಸ್ಟಾರ್ಟಪ್ ಫೋಕಸ್" : "Startup Focus"}</div>
@@ -265,7 +266,7 @@ export default function LandingPage() {
           </div>
           <div className="service-card reveal" ref={addRevealRef} style={{ transitionDelay: "0.3s" }}>
             <div className="service-num">04</div>
-            <div className="service-icon">&#128736;&#65039;</div>
+            <div className="service-icon"><SketchIcon name="wrench" size={34} strokeWidth={1.4} /></div>
             <div className="service-name">{isKn ? "ಹಣಕಾಸು ಸಾಧನಗಳು" : "Finance Tools"}</div>
             <div className="service-desc">{isKn ? "ಕ್ಯಾಲ್ಕುಲೇಟರ್‌ಗಳು, ಟ್ರ್ಯಾಕರ್‌ಗಳು ಮತ್ತು ಪ್ಲ್ಯಾನರ್‌ಗಳು — SIP ಆಪ್ಟಿಮೈಜರ್, ತೆರಿಗೆ ಅಂದಾಜು, ನೆಟ್ ವರ್ತ್ ಟ್ರ್ಯಾಕರ್, ನಿವೃತ್ತಿ ಯೋಜಕ ಮತ್ತು ಇನ್ನೂ ಹೆಚ್ಚು." : "Calculators, trackers and planners — SIP optimizer, tax estimator, net worth tracker, retirement planner and more."}</div>
             <div className="service-tag">{isKn ? "ಪ್ರೋಗ್ರಾಂನ ಭಾಗ" : "Part of the program"}</div>
@@ -273,7 +274,7 @@ export default function LandingPage() {
           </div>
           <div className="service-card reveal" ref={addRevealRef} style={{ transitionDelay: "0.4s" }}>
             <div className="service-num">05</div>
-            <div className="service-icon">&#9997;&#65039;</div>
+            <div className="service-icon"><SketchIcon name="pencil" size={34} strokeWidth={1.4} /></div>
             <div className="service-name">{isKn ? "ಬ್ಲಾಗ್‌ಗಳು ಮತ್ತು ಒಳನೋಟಗಳು" : "Blog & Insights"}</div>
             <div className="service-desc">{isKn ? "ಮಾರುಕಟ್ಟೆ, ವೈಯಕ್ತಿಕ ಹಣಕಾಸು, ನೀತಿ ಮತ್ತು ವ್ಯವಹಾರದ ಕುರಿತು ಸಾಪ್ತಾಹಿಕ ಆಳವಾದ ವಿಶ್ಲೇಷಣೆ — ಪಠ್ಯಪುಸ್ತಕಗಳಿಗಾಗಿ ಅಲ್ಲ, ಮನುಷ್ಯರಿಗಾಗಿ ಬರೆಯಲಾಗಿದೆ." : "Weekly deep dives on markets, personal finance, policy and business — written for humans, not textbooks."}</div>
             <div className="service-tag">{isKn ? "ಸಾಪ್ತಾಹಿಕ" : "Weekly Content"}</div>
@@ -282,7 +283,7 @@ export default function LandingPage() {
           <div className="service-card reveal" ref={addRevealRef} style={{ transitionDelay: "0.5s", background: "var(--cream)", borderColor: "transparent", display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", textAlign: "center" as const }}>
             <div style={{ fontFamily: "'Playfair Display', serif", fontSize: 42, marginBottom: 16 }}>&#10022;</div>
             <div style={{ fontFamily: "'Playfair Display', serif", fontSize: 20, fontWeight: 700, marginBottom: 10, color: "var(--ink)" }}>{isKn ? "ಇನ್ನಷ್ಟು ಶೀಘ್ರದಲ್ಲಿ" : "More coming soon"}</div>
-            <div style={{ fontSize: 14, color: "#888", lineHeight: 1.6 }}>{isKn ? "ನಾವು ಯಾವಾಗಲೂ ನಿರ್ಮಿಸುತ್ತಿದ್ದೇವೆ. ಹೊಸ ಅರ್ಪಣೆಗಳಿಗೆ ಆರಂಭಿಕ ಪ್ರವೇಶಕ್ಕಾಗಿ ಸಂಚಿಗೆ ಸೇರಿ." : "We're always building. Join the waitlist for early access to new offerings."}</div>
+            <div style={{ fontSize: 14, color: "#888", lineHeight: 1.6 }}>{isKn ? "ನಾವು ಯಾವಾಗಲೂ ನಿರ್ಮಿಸುತ್ತಿದ್ದೇವೆ. ಹೊಸ ಅರ್ಪಣೆಗಳಿಗೆ ಆರಂಭಿಕ ಪ್ರವೇಶಕ್ಕಾಗಿ ಸಂಚಿಗೆ ಸೇರಿ." : "We're always building. Join The Club for early access to new offerings."}</div>
             <Link href="/waitlist" className="btn-primary" style={{ marginTop: 20 }}>{isKn ? "ಪ್ರತೀಕ್ಷಾ ಪಟ್ಟಿಗೆ ಸೇರಿ" : "Join The Club"}</Link>
           </div>
         </div>

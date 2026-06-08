@@ -6,6 +6,7 @@ import Link from "next/link";
 import { useState } from "react";
 import TermsModal from "../../components/TermsModal";
 import PrivacyModal from "../../components/PrivacyModal";
+import SketchIcon from "../../components/SketchIcon";
 
 export default function IndiaFinanceJun5Page() {
   const [showTerms, setShowTerms] = useState(false);
@@ -147,7 +148,7 @@ export default function IndiaFinanceJun5Page() {
 
         <div className="principle-list">
           <div className="principle-item">
-            <div className="p-icon" style={{ background: "rgba(160,56,10,0.08)" }}>📈</div>
+            <div className="p-icon" style={{ background: "rgba(160,56,10,0.08)" }}><SketchIcon name="chart-up" size={24} /></div>
             <div className="p-content">
               <h4>FY27 CPI Inflation Revised Up 50 bps to 5.1%</h4>
               <p>The quarterly path — Q1 (Apr–Jun 2026): 4.2%, Q2 (Jul–Sep 2026): 5.1%, Q3 (Oct–Dec 2026): 5.9% (peak), Q4 (Jan–Mar 2027): 5.4% — reflects elevated energy prices from the Middle East conflict, supply chain disruptions, rupee weakness, and El Niño monsoon risk. Core inflation is pegged at 4.7%. The Q3 (Oct–Dec 2026) peak of 5.9% is the danger zone: if it breaches 6%, the MPC&apos;s stated tolerance band is effectively blown and a rate hike conversation becomes unavoidable.</p>
@@ -155,7 +156,7 @@ export default function IndiaFinanceJun5Page() {
             <span className="p-pill pill-red">Hawkish Signal</span>
           </div>
           <div className="principle-item">
-            <div className="p-icon" style={{ background: "rgba(160,56,10,0.08)" }}>📉</div>
+            <div className="p-icon" style={{ background: "rgba(160,56,10,0.08)" }}><SketchIcon name="chart-down" size={24} /></div>
             <div className="p-content">
               <h4>FY27 GDP Forecast Cut to 6.6% from 6.9%</h4>
               <p>Quarterly breakdown: Q1 (Apr–Jun 2026) 6.6%, Q2 (Jul–Sep 2026) 6.3% (the soft spot), Q3 (Oct–Dec 2026) 6.5%, Q4 (Jan–Mar 2027) 6.8%. The Q2 (Jul–Sep 2026) trough is when the monsoon effect, energy cost pass-through, and any Iran escalation would all peak simultaneously. A Q2 miss below 6% would reopen fiscal deficit arithmetic and force the RBI&apos;s hand. Private consumption and fixed investment described as &ldquo;resilient,&rdquo; but merchandise export growth in April 2026 already facing elevated freight and insurance costs.</p>
@@ -163,7 +164,7 @@ export default function IndiaFinanceJun5Page() {
             <span className="p-pill pill-red">Growth Concern</span>
           </div>
           <div className="principle-item">
-            <div className="p-icon" style={{ background: "rgba(200,154,46,0.12)" }}>☁️</div>
+            <div className="p-icon" style={{ background: "rgba(200,154,46,0.12)" }}><SketchIcon name="cloud" size={24} /></div>
             <div className="p-content">
               <h4>Monsoon Named as the Biggest Domestic Risk</h4>
               <p>Governor Malhotra explicitly identified the south-west monsoon as the single largest domestic risk to the RBI&apos;s projections. El Niño conditions raise the probability of a sub-normal season. The RBI&apos;s 5.1% inflation forecast assumes &ldquo;broadly adequate&rdquo; rainfall — a below-normal monsoon hitting Kharif sowing in July–August 2026 would blow the Q3 (Oct–Dec 2026) ceiling of 5.9% and potentially force a hawkish pivot in October.</p>
@@ -171,7 +172,7 @@ export default function IndiaFinanceJun5Page() {
             <span className="p-pill pill-gold">Watch Closely</span>
           </div>
           <div className="principle-item">
-            <div className="p-icon" style={{ background: "rgba(46,125,69,0.1)" }}>🏛️</div>
+            <div className="p-icon" style={{ background: "rgba(46,125,69,0.1)" }}><SketchIcon name="building" size={24} /></div>
             <div className="p-content">
               <h4>Neutral Stance Preserved — Optionality by Design</h4>
               <p>The MPC retained neutral rather than signalling accommodation withdrawal. This is deliberate: if oil stabilises and Iran de-escalates, an August cut remains possible. If inflation prints above 5.5% or the rupee breaches ₹98, tightening becomes viable. A pre-committed stance removes that flexibility. The neutral stance is the RBI&apos;s most honest signal: they genuinely do not know what August will demand, and they are not pretending otherwise.</p>
