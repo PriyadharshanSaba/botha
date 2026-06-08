@@ -25,7 +25,7 @@ export default async function SignupsLedgerPage() {
 
   return (
     <main>
-      <h1 className="admin-h1">Signups ledger</h1>
+      <h1 className="admin-h1">Subscribers ledger</h1>
       <p className="admin-sub">
         Latest {rows.length} paid signups · test emails excluded.
       </p>
