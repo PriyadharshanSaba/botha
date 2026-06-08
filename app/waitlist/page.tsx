@@ -60,7 +60,7 @@ export default function WaitlistPage() {
     <div className="page">
       <main className="card">
         <form onSubmit={handleSubmit} className="form">
-          <h1 className="title">{submitted ? "You're on the list" : "Join the waitlist"}</h1>
+          <h1 className="title">{submitted ? "You're on the list" : "Join The Club"}</h1>
 
           <p className="hint" style={{ textAlign: "center", margin: "0 0 6px" }}>
             {submitted
