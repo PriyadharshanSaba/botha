@@ -1,6 +1,5 @@
 import "../guide-article.css";
 import "../../landing.css";
-import SketchIcon from "@/app/components/SketchIcon";
 
 export function Preview() {
   return (
@@ -86,72 +85,6 @@ export function Preview() {
         <span className="e-icon">05 &middot; Innovation</span>
         <h3>Demonstrable innovation or scalability</h3>
         <p style={{ margin: 0, fontSize: "13px", color: "var(--muted, #6B6460)", lineHeight: 1.6 }}>Your business must work towards innovation, development, or improvement of a product, process, or service, or demonstrate a scalable business model with high potential for employment or wealth creation. Pre-revenue startups qualify if they can articulate this through a pitch deck or concept note. A vague description (&ldquo;we use the latest technology&rdquo;) is the single most common reason for rejection.</p>
-      </div>
-
-      <div className="deep-tech">
-        <span className="dt-label">New in 2026 &mdash; Deep Tech Category</span>
-        <h3>AI, biotech, quantum, space, robotics? You get a wider window.</h3>
-        <p>The 2026 notification created a separate Deep Tech startup category with a 20-year recognition window and &#8377;300 crore turnover ceiling, recognising that R&amp;D-intensive ventures have longer gestation periods. Sectors typically qualifying include AI, biotech, quantum computing, space tech, robotics, and advanced materials. Deep Tech classification is determined by DPIIT at their discretion.</p>
-      </div>
-
-      {/* SECTION 3 */}
-      <div className="section-tag">03 &nbsp; What You Unlock</div>
-      <h2>Six categories of benefit &mdash; most founders only know one.</h2>
-
-      <div className="benefit-list">
-        <div className="benefit-item">
-          <div className="b-icon" style={{ background: "rgba(200,154,46,0.12)" }}><SketchIcon name="coins" size={24} /></div>
-          <div className="b-content">
-            <h4>3-Year Income Tax Holiday</h4>
-            <p>100% deduction on profits for any 3 consecutive years within your first 10 years. Requires a separate 80-IAC application to the Inter-Ministerial Board after DPIIT recognition. Not automatic. Startups incorporated before 31 March 2030 are eligible.</p>
-          </div>
-          <span className="b-pill pill-gold">Sec 80-IAC</span>
-        </div>
-
-        <div className="benefit-item">
-          <div className="b-icon" style={{ background: "rgba(46,125,69,0.1)" }}>&#9878;&#65039;</div>
-          <div className="b-content">
-            <h4>Angel Tax &mdash; Abolished</h4>
-            <p>Section 56(2)(viib), which used to tax funding raised above fair market value, was repealed from FY 2025-26 for all companies via the Union Budget 2024. Angel tax no longer exists for any startup, DPIIT recognition or not.</p>
-          </div>
-          <span className="b-pill pill-green">Repealed</span>
-        </div>
-
-        <div className="benefit-item">
-          <div className="b-icon" style={{ background: "rgba(200,154,46,0.1)" }}><SketchIcon name="magnifier" size={24} /></div>
-          <div className="b-content">
-            <h4>80% Patent Fee Rebate + Fast-Track Examination</h4>
-            <p>Patents are expensive and slow. DPIIT recognition gives you an 80% rebate on patent filing fees and access to expedited examination. Trademark applications get a 50% fee rebate. Empanelled facilitators help you file.</p>
-          </div>
-          <span className="b-pill pill-purple">IPR</span>
-        </div>
-
-        <div className="benefit-item">
-          <div className="b-icon" style={{ background: "rgba(200,154,46,0.12)" }}><SketchIcon name="clipboard" size={24} /></div>
-          <div className="b-content">
-            <h4>Self-Certification Under Labour and Environmental Laws</h4>
-            <p>Self-certify compliance under 6 labour laws (including EPF, ESI, Gratuity Act) and 3 environmental laws for 5 years. Eliminates routine government inspections, a major operational relief for early-stage companies.</p>
-          </div>
-          <span className="b-pill pill-gold">Compliance</span>
-        </div>
-
-        <div className="benefit-item">
-          <div className="b-icon" style={{ background: "rgba(46,125,69,0.1)" }}><SketchIcon name="factory" size={24} /></div>
-          <div className="b-content">
-            <h4>Government Procurement &mdash; No Prior Experience Required</h4>
-            <p>DPIIT-recognised startups can bid for government tenders without the experience or turnover requirements that normally disqualify new companies. Direct access to GeM (Government e-Marketplace).</p>
-          </div>
-          <span className="b-pill pill-green">GeM Access</span>
-        </div>
-
-        <div className="benefit-item">
-          <div className="b-icon" style={{ background: "rgba(200,154,46,0.1)" }}><SketchIcon name="sprout" size={24} /></div>
-          <div className="b-content">
-            <h4>Government Funding Schemes</h4>
-            <p>Access to Startup India Seed Fund Scheme (up to &#8377;20 lakh grant + &#8377;50 lakh debt for scaling), Credit Guarantee Scheme (up to &#8377;20 crore, revised May 2025), and Fund of Funds 2.0 (&#8377;10,000 crore via SIDBI). DPIIT recognition is the prerequisite for all of these.</p>
-          </div>
-          <span className="b-pill pill-purple">Funding</span>
-        </div>
       </div>
     </>
   );

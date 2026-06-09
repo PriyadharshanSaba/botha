@@ -14,7 +14,6 @@ type Mode = "email" | "otp-login" | "name" | "otp-signup";
 
 export default function PaywallGate({ slug }: Props) {
   const router = useRouter();
-  const [visible, setVisible] = useState(false);
   const [mode, setMode] = useState<Mode>("email");
   const [email, setEmail] = useState("");
   const [first, setFirst] = useState("");
@@ -25,38 +24,15 @@ export default function PaywallGate({ slug }: Props) {
   const [loading, setLoading] = useState(false);
 
   const otp = useOtpInput();
-  const sentinelRef = useRef<HTMLDivElement>(null);
-  const emailInputRef = useRef<HTMLInputElement>(null);
   const firstNameRef = useRef<HTMLInputElement>(null);
 
-  // Trigger slide-up when sentinel becomes 70% visible.
+  // Move focus into the appropriate input on mode changes.
   useEffect(() => {
-    const sentinel = sentinelRef.current;
-    if (!sentinel) return;
-    const observer = new IntersectionObserver(
-      (entries) => {
-        if (entries.some((e) => e.intersectionRatio >= 0.7)) {
-          setVisible(true);
-          observer.disconnect();
-        }
-      },
-      { threshold: [0, 0.7, 1] }
-    );
-    observer.observe(sentinel);
-    return () => observer.disconnect();
-  }, []);
-
-  // Move focus into the appropriate input when the gate becomes visible or mode changes.
-  useEffect(() => {
-    if (!visible) return;
-    if (mode === "email") emailInputRef.current?.focus();
-    else if (mode === "name") firstNameRef.current?.focus();
-    // OTP modes auto-focus the first box via inputProps (its `id` is set; we
-    // explicitly focus the first OTP box below).
+    if (mode === "name") firstNameRef.current?.focus();
     else if (mode === "otp-login" || mode === "otp-signup") {
       document.getElementById("paywall-otp-0")?.focus();
     }
-  }, [visible, mode]);
+  }, [mode]);
 
   async function submitEmail(e: FormEvent) {
     e.preventDefault();
@@ -169,16 +145,15 @@ export default function PaywallGate({ slug }: Props) {
 
   return (
     <>
-      <div ref={sentinelRef} className="paywall-sentinel" aria-hidden="true" data-slug={slug} />
-      <div
-        className={`paywall-gate${visible ? " is-visible" : ""}`}
-        role="dialog"
-        aria-modal={visible ? "true" : "false"}
-        aria-labelledby="paywall-gate-title"
-        aria-hidden={!visible}
-      >
-        <div className="paywall-gate-gradient" />
-        <div className="paywall-gate-card">
+      <div className="paywall-inline" data-slug={slug}>
+        <div className="paywall-ghost" aria-hidden="true">
+          <span /><span /><span /><span /><span /><span /><span />
+        </div>
+        <div
+          className="paywall-gate-card"
+          role="dialog"
+          aria-labelledby="paywall-gate-title"
+        >
           {mode === "email" && (
             <form onSubmit={submitEmail} className="paywall-gate-form paywall-gate-mode">
               <h2 id="paywall-gate-title" className="paywall-gate-title">Keep reading</h2>
@@ -193,7 +168,6 @@ export default function PaywallGate({ slug }: Props) {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
-                ref={emailInputRef}
               />
               {error && <div className="error">{error}</div>}
               <button className="btn" disabled={loading}>

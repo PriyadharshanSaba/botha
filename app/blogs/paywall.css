@@ -1,69 +1,163 @@
 /* app/blogs/paywall.css */
 
-.paywall-gate {
-  position: fixed;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  z-index: 1010;
-  display: flex;
-  justify-content: center;
-  pointer-events: none;
-  transform: translateY(100%);
-  transition: transform 0.4s ease-out;
+/*
+ * Inline paywall — sits in document flow after the 500-word preview boundary.
+ * A decorative "ghost" strip of blurred horizontal bars above the card
+ * suggests hidden article content. No fixed positioning, no slide-up modal.
+ */
+
+.paywall-inline {
+  position: relative;
+  margin: 36px auto 56px;
+  padding: 0 16px;
+  max-width: 720px;
 }
 
-.paywall-gate.is-visible {
-  transform: translateY(0);
-}
-
-.paywall-gate-gradient {
+/* Decorative ghost-text strip: blurred horizontal bars hinting at hidden text. */
+.paywall-ghost {
   position: absolute;
-  top: -120px;
+  top: 0;
   left: 0;
   right: 0;
-  height: 120px;
-  background: linear-gradient(
-    to bottom,
-    rgba(245, 240, 232, 0) 0%,
-    var(--cream) 100%
-  );
+  height: 220px;
   pointer-events: none;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 24px 24px 0;
+  filter: blur(4px);
+  mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.55) 0%, rgba(0, 0, 0, 0) 100%);
+  -webkit-mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.55) 0%, rgba(0, 0, 0, 0) 100%);
 }
+
+.paywall-ghost span {
+  display: block;
+  height: 12px;
+  border-radius: 4px;
+  background: var(--ink);
+  opacity: 0.42;
+}
+
+.paywall-ghost span:nth-child(1) { width: 96%; }
+.paywall-ghost span:nth-child(2) { width: 88%; }
+.paywall-ghost span:nth-child(3) { width: 93%; }
+.paywall-ghost span:nth-child(4) { width: 76%; }
+.paywall-ghost span:nth-child(5) { width: 90%; }
+.paywall-ghost span:nth-child(6) { width: 84%; }
+.paywall-ghost span:nth-child(7) { width: 70%; }
 
 .paywall-gate-card {
   position: relative;
+  z-index: 1;
   width: 100%;
-  max-width: 480px;
-  background: #fff;
-  border-radius: 14px 14px 0 0;
-  box-shadow: 0 -4px 6px -1px rgba(0, 0, 0, 0.05),
-              0 -20px 48px -8px rgba(0, 0, 0, 0.12);
-  padding: 24px 28px 28px;
-  margin: 0 16px;
-  pointer-events: all;
+  max-width: 460px;
+  margin: 180px auto 0;
+  background: var(--white);
+  border: 1px solid #e8e2d3;
+  border-top: 3px solid var(--gold);
+  border-radius: 14px;
+  box-shadow: 0 8px 30px rgba(20, 30, 60, 0.08),
+              0 2px 8px rgba(20, 30, 60, 0.04);
+  padding: 28px 28px 24px;
 }
 
 .paywall-gate-title {
-  font-family: 'Playfair Display', serif;
-  font-size: 22px;
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 24px;
   font-weight: 700;
   color: var(--ink);
   margin: 0 0 6px;
-  letter-spacing: -0.01em;
+  letter-spacing: -0.015em;
+  line-height: 1.2;
 }
 
 .paywall-gate-sub {
-  font-size: 13px;
-  color: #71717a;
-  margin: 0 0 16px;
+  font-size: 13.5px;
+  color: var(--slate);
+  margin: 0 0 18px;
   line-height: 1.55;
+  opacity: 0.78;
 }
 
 .paywall-gate-form {
   display: flex;
   flex-direction: column;
   gap: 10px;
+}
+
+.paywall-gate-form label {
+  font-size: 12.5px;
+  color: var(--ink);
+  opacity: 0.7;
+  font-weight: 500;
+  margin-bottom: -4px;
+}
+
+.paywall-gate-form input[type="email"],
+.paywall-gate-form input[type="text"] {
+  height: 44px;
+  padding: 8px 14px;
+  border: 1px solid #e2e0d8;
+  border-radius: 10px;
+  font-size: 14px;
+  color: var(--ink);
+  background: #fff;
+  transition: box-shadow 0.15s, border-color 0.15s;
+}
+
+.paywall-gate-form input[type="email"]:focus,
+.paywall-gate-form input[type="text"]:focus {
+  outline: none;
+  border-color: var(--gold);
+  box-shadow: 0 0 0 4px rgba(201, 168, 76, 0.12);
+}
+
+.paywall-gate-form .btn {
+  margin-top: 8px;
+  height: 46px;
+  border-radius: 10px;
+  border: 0;
+  background: var(--ink);
+  color: #fff;
+  font-weight: 600;
+  font-size: 14px;
+  letter-spacing: 0.01em;
+  cursor: pointer;
+  transition: background 0.18s;
+}
+
+.paywall-gate-form .btn:hover:not(:disabled) {
+  background: var(--slate);
+}
+
+.paywall-gate-form .btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.paywall-gate-form .otp-container {
+  display: flex;
+  gap: 8px;
+  justify-content: space-between;
+  margin: 4px 0 2px;
+}
+
+.paywall-gate-form .otp-box {
+  width: 44px;
+  height: 50px;
+  border: 1px solid #e2e0d8;
+  border-radius: 10px;
+  text-align: center;
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--ink);
+  background: #fff;
+}
+
+.paywall-gate-form .otp-box:focus {
+  outline: none;
+  border-color: var(--gold);
+  box-shadow: 0 0 0 4px rgba(201, 168, 76, 0.12);
 }
 
 .paywall-gate-mode {
@@ -78,21 +172,35 @@
 .paywall-gate-back {
   background: none;
   border: none;
-  padding: 0;
-  margin-top: 8px;
-  font-size: 12px;
-  color: #71717a;
+  padding: 4px 0 0;
+  margin-top: 4px;
+  font-size: 12.5px;
+  color: var(--slate);
+  opacity: 0.7;
   cursor: pointer;
   text-align: center;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.paywall-gate-back:hover {
+  opacity: 1;
 }
 
 .paywall-terms-row {
   display: flex;
   align-items: flex-start;
-  gap: 8px;
-  font-size: 12px;
-  color: #52525b;
-  margin-top: 4px;
+  gap: 10px;
+  font-size: 12.5px;
+  color: var(--ink);
+  opacity: 0.85;
+  margin: 6px 0 2px;
+  line-height: 1.5;
+}
+
+.paywall-terms-row input[type="checkbox"] {
+  margin-top: 3px;
+  accent-color: var(--ink);
 }
 
 .paywall-terms-row button {
@@ -102,19 +210,24 @@
   color: var(--ink);
   font-weight: 600;
   text-decoration: underline;
+  text-underline-offset: 3px;
   cursor: pointer;
 }
 
-/* Sentinel placed at end of preview to trigger IntersectionObserver. */
-.paywall-sentinel {
-  height: 1px;
-  width: 100%;
-}
-
 @media (max-width: 480px) {
+  .paywall-inline {
+    margin: 28px auto 40px;
+    padding: 0 12px;
+  }
   .paywall-gate-card {
-    margin: 0;
-    border-radius: 14px 14px 0 0;
-    padding: 20px 18px 22px;
+    margin-top: 160px;
+    padding: 22px 18px 20px;
+  }
+  .paywall-gate-title {
+    font-size: 21px;
+  }
+  .paywall-ghost {
+    height: 200px;
+    padding: 18px 16px 0;
   }
 }

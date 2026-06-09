@@ -1,10 +1,142 @@
 import "server-only";
 import "../guide-article.css";
 import "../../landing.css";
+import SketchIcon from "@/app/components/SketchIcon";
 
 export function Gated() {
   return (
     <>
+        {/* SECTION 2 */}
+        <div className="section-tag">02 &nbsp; The Dominant Story</div>
+        <h2>The Iran Ceasefire Framework: Closer, But Not Done</h2>
+
+        <p>This was the week&apos;s most important story — and it kept reversing direction. On Sunday May 24, the Washington Post reported that the US and Iran had developed a framework extending the ceasefire 60 days, with the Strait of Hormuz to be de-mined and reopened in the interim, as two sides worked toward a final deal. Oil fell sharply: Brent dropped toward $98.76 on Sunday evening, a 4.62% decline from Friday&apos;s close, as markets priced in an imminent resolution.</p>
+
+        <p>Then it got complicated. Iran&apos;s state television claimed Tehran had agreed a draft MOU with the US — with Iran and Oman jointly managing Strait traffic. The White House immediately dismissed this as a &ldquo;complete fabrication.&rdquo; Trump said no nation would control Strait shipping. By Thursday May 28, US and Iranian forces had exchanged fresh strikes — the Revolutionary Guard targeted a US air base, while US Central Command reported intercepting Iranian ballistic missiles launched toward Kuwait. Brent touched a mid-week low of $93.71 on the MoU optimism, then recovered on the fresh strikes before settling in the <strong>$95–96 range</strong> by week&apos;s end — still meaningfully below the prior week&apos;s $104–105, but not as far down as the mid-week trough suggested.</p>
+
+        <div className="formula-box">
+          <span className="f-label">The Oil Trajectory This Week</span>
+          <span className="formula">$104–105 (May 22) → $98.76 Sunday → $93.71 mid-week low → ~$95–96 weekly close</span>
+          <span className="sub">Negotiators reached a 60-day MoU to extend the ceasefire and begin nuclear programme negotiations. Trump has not yet approved it. Even if the Strait formally reopens, insurance market constraints, tanker positioning, and port backlogs mean full flow normalisation is a multi-month process — not an event.</span>
+        </div>
+
+        <p>The structural oil situation remains severe regardless of this week&apos;s diplomacy. The war removed approximately 14 million barrels per day — about 14% of global supply — from the market. Even with the Strait technically &ldquo;reopening,&rdquo; insurance constraints, tanker availability, and port backlogs mean full flow normalisation is months away. Brent settling near <strong>$95–96</strong> is still roughly 30% above its pre-war level of ~$72 in late February 2026 — a meaningful improvement from last week&apos;s $104–105, but far from resolved.</p>
+
+        <div className="callout">
+          <span className="c-label">Impact on India</span>
+          <p>Every $10 per barrel sustained decline in Brent saves India approximately $12–15 billion annually on its import bill — about 0.3–0.4% of GDP. A move from $105 to ~$95–96 is already a ~$9–10 saving per barrel: it reduces imported inflation, eases the current account deficit, takes pressure off the rupee, and reopens the door for RBI rate cuts. A full normalisation toward $75–80 would be transformative. The partial relief this week is real — but the mid-week dip to $93.71 recovered on fresh strikes, which is the market&apos;s way of saying it believes this conflict is not over.</p>
+        </div>
+
+        {/* SECTION 3 */}
+        <div className="section-tag">03 &nbsp; India-US Relations</div>
+        <h2>Rubio&apos;s Visit: &ldquo;On the Verge&rdquo; of a Trade Deal</h2>
+
+        <p>US Secretary of State Marco Rubio completed his four-day visit to India (May 23–26), traveling to Kolkata, Agra, Jaipur, and New Delhi. He called on Prime Minister Modi, held talks with External Affairs Minister Jaishankar, and attended the Quad Foreign Ministers&apos; meeting on May 26 — bringing together the US, India, Japan, and Australia.</p>
+
+        <p>The headline from the visit: Rubio said at a joint press conference that the US and India are <strong>&ldquo;on the verge&rdquo;</strong> of reaching a trade agreement, adding that both sides have made <strong>&ldquo;tremendous progress&rdquo;</strong> and are working through the &ldquo;very final details.&rdquo; He expressed confidence the deal could be finalised within weeks.</p>
+
+        <div className="principle-list">
+          <div className="principle-item">
+            <div className="p-icon" style={{ background: "rgba(46,125,69,0.1)" }}><SketchIcon name="partnership" size={24} /></div>
+            <div className="p-content">
+              <h4>Next Round of Trade Talks: June 5–6, New Delhi</h4>
+              <p>A US team will visit India on June 5–6 to discuss the Bilateral Trade Agreement, per government sources confirmed today (May 29). The Ministry of Commerce and Industry confirmed both sides are working to finalise the Interim Agreement and carry forward broader BTA negotiations covering market access, non-tariff measures, customs facilitation, investment promotion, and economic security. The first tranche is expected before July.</p>
+            </div>
+            <span className="p-pill pill-green">Confirmed</span>
+          </div>
+          <div className="principle-item">
+            <div className="p-icon" style={{ background: "rgba(200,154,46,0.12)" }}><SketchIcon name="target" size={24} /></div>
+            <div className="p-content">
+              <h4>Mission 500: The Bilateral Ambition</h4>
+              <p>Both governments have set a goal of more than doubling bilateral trade to $500 billion by 2030 — up from roughly $190 billion currently. Indian companies have committed over $20 billion in US investments as a goodwill gesture. Ambassador Gor has called the pace of progress &ldquo;historic.&rdquo;</p>
+            </div>
+            <span className="p-pill pill-gold">In Progress</span>
+          </div>
+          <div className="principle-item">
+            <div className="p-icon" style={{ background: "rgba(160,56,10,0.08)" }}><SketchIcon name="warn" size={24} /></div>
+            <div className="p-content">
+              <h4>The Relationship Reset Dimension</h4>
+              <p>The visit carried a diplomatic repair function beyond trade. Relations had cooled after Modi publicly downplayed Trump&apos;s mediation role in the India-Pakistan ceasefire, while Pakistan simultaneously nominated Trump for the Nobel Peace Prize — a visible asymmetry that the Trump administration noted. A four-city, four-day visit by the Secretary of State is not standard diplomatic protocol; it was structured to visibly demonstrate the depth of the relationship before trade talks enter their most sensitive final phase.</p>
+            </div>
+            <span className="p-pill pill-red">Watch</span>
+          </div>
+        </div>
+
+        <div className="callout">
+          <span className="c-label">Impact</span>
+          <p>The June 5–6 talks are the most important near-term market catalyst on the India-US front. A confirmed Interim BTA before July — covering pharmaceuticals, gems and diamonds, textiles, machinery, and defence goods — would be a significant re-rating event for export-oriented sectors. IT services, pharma exporters, specialty chemicals, and Indian defence manufacturers would benefit most. The risk of disappointment remains: the &ldquo;final details&rdquo; in trade deals have a history of taking longer than officials suggest.</p>
+        </div>
+
+        {/* SECTION 4 */}
+        <div className="section-tag">04 &nbsp; India&apos;s Economy</div>
+        <h2>GDP Data Coming June 5 — And Why the Date Change Matters</h2>
+
+        <p>A correction worth flagging explicitly: the FY26 provisional GDP data is <strong>not releasing today</strong>. On May 12, MoSPI revised the release date from the last working day of May to June 5, 2026 — shifting the schedule permanently to June 7 each year (or the previous working day if it falls on a holiday). The reason is substantive, not bureaucratic: listed companies have 60 days from March 31 to file audited Q4 results, meaning many submissions arrive only in late May. Similarly, critical Central Government fiscal data for March — revenue, capex, taxes, subsidies, interest payments — finalises after a two-month lag. Releasing GDP estimates before that data arrives produces revisions that undermine credibility. The June 5 date produces a better number, not a delayed one.</p>
+
+        <div className="formula-box">
+          <span className="f-label">What the Data Will Show When It Arrives</span>
+          <span className="formula">FY26 full-year GDP: Second Advance Estimate at 7.6% real growth — up from 7.1% in FY25, the sharpest since FY2022.</span>
+          <span className="sub">Quarterly trajectory so far: Q1 FY26 = 7.8% | Q2 FY26 = 8.4% | Q3 FY26 = 7.8%. The Q4 print — the new one on June 5 — will show how much the Iran oil shock (which began in late February) bit into January–March activity.</span>
+        </div>
+
+        <p>Working through the Q4 picture independently: the oil shock hit India hardest in March 2026 — Brent was above $100 for most of that month and manufacturing input costs spiked. However, government capex typically accelerates in Q4 as ministries deploy unspent budgets before March 31, and private consumption held up reasonably well through January and February before the oil effect fed through. A Q4 reading in the 7.0–7.4% range is consistent with the data available — a meaningful slowdown from Q2&apos;s 8.4% peak but not a collapse. Full-year FY26 GDP at the 7.6% advance estimate would still represent India&apos;s strongest year since FY2022 and well ahead of FY25&apos;s 7.1%.</p>
+
+        <div className="stage-grid-2">
+          <div className="stage-card">
+            <span className="s-label">If Q4 Prints Above 7.3%</span>
+            <h3>Economy Absorbed the Oil Shock</h3>
+            <p>Confirms domestic consumption and government capex offset the external headwind. Market-positive on Monday. Gives RBI the macro cover to hold comfortably — and potentially cut if crude stays below $95. Most rate-sensitive sectors catch a bid.</p>
+          </div>
+          <div className="stage-card">
+            <span className="s-label-red">If Q4 Prints Below 6.8%</span>
+            <h3>The Shock Was Deeper Than Assumed</h3>
+            <p>Signals the Hormuz disruption fed through faster into manufacturing and services than the advance estimates captured. RBI in a bind — growth argues for cuts, but the rupee and inflation argue against. Cyclical sectors — autos, industrials, real estate — face selling pressure through June.</p>
+          </div>
+        </div>
+
+        <div className="callout">
+          <span className="c-label">The New Base Year Complication</span>
+          <p>The June 5 data also arrives under the new GDP base year (2022–23, replacing 2011–12 from February 27). The new series produces a smaller nominal GDP, which means the same absolute rupee fiscal deficit becomes a larger percentage of GDP. The FY26 deficit was already pushed from 4.4% to 4.5% by the base revision without a single extra rupee borrowed. For FY27, the 4.3% target set in the Union Budget would require nominal growth of 13–14% to hold on the new base — well above the realistic 10%. The government has restated historical ratios in Parliament but has not yet revised the forward FY27 target. That is the watch item for the June Budget update.</p>
+        </div>
+
+        {/* SECTION 5 */}
+        <div className="section-tag">05 &nbsp; Government Policy</div>
+        <h2>Coal India OFS: Disinvestment Restarts at Scale</h2>
+
+        <p>In one of the week&apos;s most significant policy moves, the Government of India announced on May 26 an Offer for Sale (OFS) in Coal India Limited — divesting up to 2% stake (with 1% base and 1% greenshoe option) at a floor price of ₹412 per share. The total offer size at the floor price was approximately ₹5,078 crore. The OFS opened for non-retail investors on May 27 and for retail investors today, May 29. The floor price of ₹412 represented a discount of 10.1% to Coal India&apos;s closing price of ₹458.15 on NSE on May 26.</p>
+
+        <div className="principle-list">
+          <div className="principle-item">
+            <div className="p-icon" style={{ background: "rgba(46,125,69,0.1)" }}><SketchIcon name="coins" size={24} /></div>
+            <div className="p-content">
+              <h4>Coal India&apos;s Financials: The Case for the OFS</h4>
+              <p>Coal India&apos;s revenue grew 22.91% year-on-year to ₹46,490 crore in March 2026, while net profit rose from ₹9,593 crore to ₹10,908 crore in the same period. The company maintains an ROCE of 35.3%, ROE of 28.5%, and a near-zero debt-to-equity ratio of 0.12. It is the world&apos;s largest coal producer and one of India&apos;s most consistent dividend-paying PSUs — making the 10% discount a genuine incentive for investors.</p>
+            </div>
+            <span className="p-pill pill-green">Strong Fundamentals</span>
+          </div>
+          <div className="principle-item">
+            <div className="p-icon" style={{ background: "rgba(200,154,46,0.12)" }}><SketchIcon name="building" size={24} /></div>
+            <div className="p-content">
+              <h4>Disinvestment Context: FY27 Programme Underway</h4>
+              <p>This is the second PSU OFS of the current fiscal year. Last week the government sold an 8.08% stake in Central Bank of India via OFS, raising ₹2,266 crore. The government&apos;s Coal India stake will fall from 63.13% to 61.13% post-OFS. The DIPAM Secretary framed this as part of the broader FY27 disinvestment programme to improve public float and aid fiscal receipts.</p>
+            </div>
+            <span className="p-pill pill-gold">Policy Signal</span>
+          </div>
+          <div className="principle-item">
+            <div className="p-icon" style={{ background: "rgba(160,56,10,0.08)" }}><SketchIcon name="chart-down" size={24} /></div>
+            <div className="p-content">
+              <h4>Market Impact: Coal India Fell 6% on OFS Day</h4>
+              <p>Coal India shares dropped more than 6% when the OFS opened on May 27, consistent with typical arbitrage behaviour around discounted PSU stake sales. By mid-session May 27, the stock was at ₹446.20 — down 2.61% — having opened at ₹429 against a previous close of ₹458.15. The discount floor effectively sets a ceiling on the open market price during the OFS window. This is mechanical, not fundamental.</p>
+            </div>
+            <span className="p-pill pill-red">Near-Term Drag</span>
+          </div>
+        </div>
+
+        <div className="callout">
+          <span className="c-label">Impact and the Broader Disinvestment Signal</span>
+          <p>The government returning to PSU OFS sales is a meaningful policy signal: it suggests the disinvestment programme, stalled for much of FY26 due to volatile markets, is back on track. For investors, the Coal India OFS at a 10% discount with strong underlying fundamentals is structurally attractive. For the broader market, the PSU overhang from future stake sales (ONGC, NTPC, and others are candidates) is a potential short-term headwind — each OFS depresses the specific stock and channels institutional liquidity away from secondary market buying on those days.</p>
+        </div>
+
         {/* SECTION 6 */}
         <div className="section-tag">06 &nbsp; Foreign Flows</div>
         <h2>The FPI Exodus: What the Data Actually Says</h2>

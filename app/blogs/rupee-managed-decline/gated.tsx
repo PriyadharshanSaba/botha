@@ -5,7 +5,35 @@ import "../../landing.css";
 export function Gated() {
   return (
     <>
-      {/* SECTION 3 */}
+      {/* SECTION 2 */}
+        <div className="section-flag">
+          <span className="num">02</span>
+          <span className="label">The long view</span>
+        </div>
+        <h2>A slow fall that has become a faster one</h2>
+
+        <p>The rupee&apos;s decline against the dollar is not new. Since India liberalised its economy in 1991, the rupee has fallen at roughly 4.5% per year on average, from ₹17 per dollar then to ₹93 today. What&apos;s changed is the pace and the context.</p>
+
+        <div className="timeline-wrap">
+          <div className="timeline-head">Rupee per US Dollar: Historical Rate</div>
+          <div className="tl-row"><span className="tl-year">1991</span><div className="tl-bar-bg"><div className="tl-bar-fill" style={{ width: "18%" }} /></div><span className="tl-val">₹17 / $1</span></div>
+          <div className="tl-row"><span className="tl-year">2000</span><div className="tl-bar-bg"><div className="tl-bar-fill" style={{ width: "47%" }} /></div><span className="tl-val">₹44 / $1</span></div>
+          <div className="tl-row"><span className="tl-year">2010</span><div className="tl-bar-bg"><div className="tl-bar-fill" style={{ width: "48%" }} /></div><span className="tl-val">₹45 / $1</span></div>
+          <div className="tl-row"><span className="tl-year">2015</span><div className="tl-bar-bg"><div className="tl-bar-fill" style={{ width: "67%" }} /></div><span className="tl-val">₹65 / $1</span></div>
+          <div className="tl-row"><span className="tl-year">2020</span><div className="tl-bar-bg"><div className="tl-bar-fill" style={{ width: "78%" }} /></div><span className="tl-val">₹75 / $1</span></div>
+          <div className="tl-row"><span className="tl-year">2024</span><div className="tl-bar-bg"><div className="tl-bar-fill" style={{ width: "87%" }} /></div><span className="tl-val">₹84 / $1</span></div>
+          <div className="tl-row"><span className="tl-year">2026 ▶</span><div className="tl-bar-bg"><div className="tl-bar-fill" style={{ width: "96%" }} /></div><span className="tl-val">₹93 / $1</span></div>
+        </div>
+
+        <p>
+          Notice the steepening. The rupee went from ₹44 to ₹75 — a ₹31 fall — in two decades from 2000 to 2020. But it has since fallen nearly ₹18 more in just six years. The recent depreciation is not merely a continuation of a trend. <strong>It is an acceleration.</strong>
+        </p>
+
+        <p>
+          There is also a consequence many miss: India&apos;s GDP ranking has slipped. The IMF now places India sixth largest in the world by nominal GDP, down from fifth in 2024. Two factors explain this. First, the rupee&apos;s fall: India&apos;s economy expanded about 9% in rupee terms, but that growth shrank when measured in dollars. Second, India revised its GDP methodology in early 2026, updating the base year from 2011-12 to 2022-23 at the IMF&apos;s own urging. The revised, more honest measurement trimmed nominal GDP by roughly 3–4%. The cruel irony is that fixing the ruler made the room look smaller.
+        </p>
+
+        {/* SECTION 3 */}
         <div className="section-flag">
           <span className="num">03</span>
           <span className="label">The causes</span>
