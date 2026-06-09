@@ -23,7 +23,7 @@ const nextConfig: NextConfig = {
               "default-src 'self'",
               "script-src 'self' 'unsafe-inline' https://checkout.razorpay.com",
               "style-src 'self' 'unsafe-inline'",
-              "img-src 'self' data:",
+              "img-src 'self' data: https://api.dicebear.com",
               "connect-src 'self' https://api.razorpay.com https://lumberjack-cx.razorpay.com",
               "frame-src https://api.razorpay.com",
             ].join("; "),

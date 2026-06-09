@@ -6,6 +6,7 @@ import { useEffect, useRef, useState } from "react";
 import TermsModal from "@/app/components/TermsModal";
 import PrivacyModal from "@/app/components/PrivacyModal";
 import SketchIcon from "@/app/components/SketchIcon";
+import TestimonialAvatar from "@/app/components/TestimonialAvatar";
 import { useLanguage } from "@/app/context/LanguageContext";
 
 export default function LandingPage() {
@@ -137,7 +138,10 @@ export default function LandingPage() {
         </div>
 
         <div className="learn-first-banner reveal" ref={addRevealRef}>
-          <div className="lfb-icon"><SketchIcon name="books" size={48} /></div>
+          <div className="lfb-icon">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/warren-buffett.png" alt="Warren Buffett" className="lfb-icon-img" />
+          </div>
           <div className="lfb-body">
             <div className="lfb-tag">{isKn ? "ಜೀವನದ ಮಾರ್ಗದರ್ಶಿ ನುಡಿಗಳು" : "Words to live by"}</div>
             <blockquote className="lfb-quote">
@@ -303,10 +307,9 @@ export default function LandingPage() {
           ].map((t, i) => (
             <div key={i} className="tcard reveal" ref={addRevealRef} style={{ transitionDelay: t.delay }}>
               <div className="tcard-quote">&ldquo;</div>
-              <div className="tcard-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
               <p className="tcard-text">{t.text}</p>
               <div className="tcard-author">
-                <div className="tcard-avatar">{t.initial}</div>
+                <TestimonialAvatar name={t.name} initial={t.initial} className="tcard-avatar" />
                 <div>
                   <div className="tcard-name">{t.name}</div>
                   <div className="tcard-role">{t.role}</div>

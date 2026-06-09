@@ -7,6 +7,7 @@ import { useEffect, useRef, useState } from "react";
 import TermsModal from "../components/TermsModal";
 import PrivacyModal from "../components/PrivacyModal";
 import SketchIcon, { type SketchIconName } from "../components/SketchIcon";
+import TestimonialAvatar from "../components/TestimonialAvatar";
 
 export default function VcfoPage() {
   const revealRefs = useRef<HTMLElement[]>([]);
@@ -250,10 +251,9 @@ export default function VcfoPage() {
           {testimonials.map((tc, i) => (
             <div key={i} className="vcfo-tcard vcfo-reveal" ref={addRevealRef} style={{ transitionDelay: `${0.05 * (i + 1)}s` }}>
               <div className="vcfo-tcard-quote">&ldquo;</div>
-              <div className="vcfo-tcard-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
               <p className="vcfo-tcard-text">{tc.text}</p>
               <div className="vcfo-tcard-author">
-                <div className="vcfo-tcard-avatar">{tc.initial}</div>
+                <TestimonialAvatar name={tc.name} initial={tc.initial} className="vcfo-tcard-avatar" />
                 <div>
                   <div className="vcfo-tcard-name">{tc.name}</div>
                   <div className="vcfo-tcard-role">{tc.role}</div>

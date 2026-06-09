@@ -234,6 +234,7 @@
   background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
   border-radius: 16px; padding: 32px; position: relative;
   transition: background 0.2s, border-color 0.2s;
+  display: flex; flex-direction: column;
 }
 .vcfo-tcard:hover { background: rgba(255,255,255,0.08); border-color: rgba(201,168,76,0.3); }
 .vcfo-tcard-quote {
@@ -245,12 +246,18 @@
   font-size: 14px; color: rgba(255,255,255,0.7); line-height: 1.75;
   font-weight: 300; font-style: italic; margin-bottom: 24px;
 }
-.vcfo-tcard-author { display: flex; align-items: center; gap: 12px; }
+.vcfo-tcard-author { display: flex; align-items: center; gap: 12px; margin-top: auto; }
 .vcfo-tcard-avatar {
   width: 42px; height: 42px; border-radius: 50%; background: var(--gold);
   display: flex; align-items: center; justify-content: center;
   font-family: 'Playfair Display', serif; font-size: 15px; font-weight: 700;
   color: var(--ink); flex-shrink: 0;
+  overflow: hidden;
+}
+.vcfo-tcard-avatar .testimonial-avatar-img {
+  width: 100%; height: 100%;
+  display: block;
+  object-fit: cover;
 }
 .vcfo-tcard-name { font-size: 13px; font-weight: 500; color: var(--white); }
 .vcfo-tcard-role { font-size: 11px; color: rgba(255,255,255,0.38); margin-top: 2px; }
