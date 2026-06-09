@@ -202,7 +202,7 @@ export default function PaywallGate({ slug }: Props) {
           {mode === "name" && (
             <form onSubmit={submitName} className="paywall-gate-form paywall-gate-mode">
               <h2 id="paywall-gate-title" className="paywall-gate-title">Create your account</h2>
-              <p className="paywall-gate-sub">Free, 30 seconds.</p>
+              <p className="paywall-gate-sub">We wont spam you, promise!</p>
               <label htmlFor="paywall-first-name">First name</label>
               <input
                 id="paywall-first-name"
