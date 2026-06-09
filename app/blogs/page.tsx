@@ -9,6 +9,14 @@ import PrivacyModal from "../components/PrivacyModal";
 
 const posts = [
   {
+    slug: "india-e20-deep-dive",
+    kicker: "Energy · Policy · India",
+    title: "The Fuel You Never Chose",
+    deck: "On April 1, 2026, every petrol pump in India quietly switched to E20 — no label, no debate, no choice. A deep dive into what India's ethanol mandate actually means: the engineering damage, the food and water trade-offs, the launches, and the decade ahead.",
+    date: "June 2026",
+    readTime: "18 min read",
+  },
+  {
     slug: "india-finance-jun5-2026",
     kicker: "Markets · Macro · India",
     title: "The Week Everything Landed at Once",
