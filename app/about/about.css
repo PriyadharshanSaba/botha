@@ -206,7 +206,8 @@
   transform: translateY(-5px); box-shadow: 0 16px 36px rgba(0,0,0,0.08);
 }
 .about-value-card:hover::before { transform: scaleX(1); }
-.about-value-icon { font-size: 28px; margin-bottom: 16px; }
+.about-value-icon { margin-bottom: 16px; color: var(--ink); line-height: 0; }
+.about-value-icon svg { display: block; }
 .about-value-title {
   font-family: 'Playfair Display', serif; font-size: 19px;
   font-weight: 700; color: var(--ink); letter-spacing: -0.5px;
@@ -237,7 +238,8 @@
   background: rgba(255,255,255,0.08);
   border-color: rgba(201,168,76,0.3);
 }
-.about-edge-card-icon { font-size: 26px; margin-bottom: 14px; }
+.about-edge-card-icon { margin-bottom: 14px; color: var(--gold); line-height: 0; }
+.about-edge-card-icon svg { display: block; }
 .about-edge-card-title {
   font-family: 'Playfair Display', serif; font-size: 18px;
   font-weight: 700; color: var(--white); letter-spacing: -0.5px;

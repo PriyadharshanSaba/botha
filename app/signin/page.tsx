@@ -4,6 +4,7 @@ import { useState, Suspense, type FormEvent } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import TermsModal from "@/app/components/TermsModal";
 import CookieBanner from "@/app/components/CookieBanner";
+import { useOtpInput } from "@/app/lib/hooks/useOtpInput";
 
 export default function Page() {
   return (
@@ -31,7 +32,7 @@ function SignInContent() {
   const [last, setLast] = useState("");
 
   // --- OTP fields ---
-  const [otp6, setOtp6] = useState(["", "", "", "", "", ""]);
+  const otp = useOtpInput();
 
   // --- Misc ---
   const [loading, setLoading] = useState(false);
@@ -107,7 +108,7 @@ function SignInContent() {
   ----------------------------------*/
   async function handleVerifySignup(e: FormEvent) {
     e.preventDefault();
-    const code = otp6.join("");
+    const code = otp.value;
 
     if (code.length !== 6) return setError("Enter all 6 digits.");
 
@@ -128,7 +129,7 @@ function SignInContent() {
 
   async function handleVerifyLogin(e: FormEvent) {
     e.preventDefault();
-    const code = otp6.join("");
+    const code = otp.value;
 
     if (code.length !== 6) return setError("Enter all 6 digits.");
 
@@ -158,51 +159,6 @@ function SignInContent() {
     }
   }
 
-
-  /* --------------------------------
-    OTP Box Handler
-  ----------------------------------*/
-  function handleOtpKeyDown(e: React.KeyboardEvent<HTMLInputElement>, index: number) {
-    if (e.key === "Backspace" && !otp6[index] && index > 0) {
-      const next = [...otp6];
-      next[index - 1] = "";
-      setOtp6(next);
-      document.getElementById(`otp-${index - 1}`)?.focus();
-    }
-  }
-
-  function handleOtpInput(e: FormEvent<HTMLInputElement>, index: number) {
-    const inputType = (e.nativeEvent as InputEvent).inputType;
-    if (inputType === "deleteContentBackward" && !otp6[index] && index > 0) {
-      const next = [...otp6];
-      next[index - 1] = "";
-      setOtp6(next);
-      document.getElementById(`otp-${index - 1}`)?.focus();
-    }
-  }
-
-  function handleOtpPaste(e: React.ClipboardEvent<HTMLInputElement>, index: number) {
-    e.preventDefault();
-    const digits = e.clipboardData.getData("text").replace(/\D/g, "").slice(0, 6);
-    if (!digits) return;
-    const next = [...otp6];
-    for (let i = 0; i < digits.length; i++) {
-      if (index + i < next.length) next[index + i] = digits[i];
-    }
-    setOtp6(next);
-    document.getElementById(`otp-${Math.min(index + digits.length, next.length - 1)}`)?.focus();
-  }
-
-  function handleOtpChange(index: number, value: string) {
-    if (!/^\d?$/.test(value)) return;
-    const next = [...otp6];
-    next[index] = value;
-    setOtp6(next);
-
-    if (value && index < next.length - 1) {
-      document.getElementById(`otp-${index + 1}`)?.focus();
-    }
-  }
 
   return (
     <div className="page">
@@ -318,20 +274,8 @@ function SignInContent() {
 
               <label>Enter OTP</label>
               <div className="otp-container">
-                {otp6.map((digit, i) => (
-                  <input
-                    key={i}
-                    id={`otp-${i}`}
-                    maxLength={1}
-                    inputMode="numeric"
-                    pattern="[0-9]*"
-                    className="otp-box"
-                    value={digit}
-                    onChange={(e) => handleOtpChange(i, e.target.value)}
-                    onKeyDown={(e) => handleOtpKeyDown(e, i)}
-                    onInput={(e) => handleOtpInput(e, i)}
-                    onPaste={(e) => handleOtpPaste(e, i)}
-                  />
+                {[0, 1, 2, 3, 4, 5].map((i) => (
+                  <input key={i} className="otp-box" {...otp.inputProps(i)} />
                 ))}
               </div>
 
@@ -353,20 +297,8 @@ function SignInContent() {
 
               <label>Enter OTP</label>
               <div className="otp-container">
-                {otp6.map((digit, i) => (
-                  <input
-                    key={i}
-                    id={`otp-${i}`}
-                    maxLength={1}
-                    inputMode="numeric"
-                    pattern="[0-9]*"
-                    className="otp-box"
-                    value={digit}
-                    onChange={(e) => handleOtpChange(i, e.target.value)}
-                    onKeyDown={(e) => handleOtpKeyDown(e, i)}
-                    onInput={(e) => handleOtpInput(e, i)}
-                    onPaste={(e) => handleOtpPaste(e, i)}
-                  />
+                {[0, 1, 2, 3, 4, 5].map((i) => (
+                  <input key={i} className="otp-box" {...otp.inputProps(i)} />
                 ))}
               </div>
 

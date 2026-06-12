@@ -1,4 +1,4 @@
-import { pgTable, text, timestamp, integer, primaryKey, serial, boolean, unique, jsonb, index, uniqueIndex } from "drizzle-orm/pg-core";
+import { pgTable, text, timestamp, integer, primaryKey, serial, bigserial, boolean, unique, jsonb, index, uniqueIndex } from "drizzle-orm/pg-core";
 import { sql } from "drizzle-orm";
 import type { BillingInfo, BuyerSnapshot, SupplierSnapshot, InvoiceLineItem, InvoiceNotes, BlogStatRowCell } from "./types";
 import type { NwtEntry } from "@/app/lib/networth/types";
@@ -138,6 +138,30 @@ export const userProgress = pgTable(
   },
   (table) => ({
     pk: primaryKey(table.userId),
+  })
+);
+
+/**
+ * chapter_views — audit log of every chapter view (one row per POST /api/modules).
+ * Forensic trail only: lets us trace which account viewed what + from where if a
+ * leak is reported. No thresholds, no auto-block — just an append-only log.
+ */
+export const chapterViews = pgTable(
+  "chapter_views",
+  {
+    id: bigserial("id", { mode: "number" }).primaryKey(),
+    userId: text("user_id")
+      .notNull()
+      .references(() => users.id, { onDelete: "cascade" }),
+    moduleId: text("module_id").notNull(),
+    chapterNumber: integer("chapter_number").notNull(),
+    ipAddress: text("ip_address"),
+    userAgent: text("user_agent"),
+    viewedAt: timestamp("viewed_at").defaultNow().notNull(),
+  },
+  (table) => ({
+    userTimeIdx: index("idx_chapter_views_user_time").on(table.userId, table.viewedAt),
+    timeIdx: index("idx_chapter_views_time").on(table.viewedAt),
   })
 );
 

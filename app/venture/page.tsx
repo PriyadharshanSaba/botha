@@ -7,6 +7,7 @@ import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import TermsModal from "../components/TermsModal";
 import PrivacyModal from "../components/PrivacyModal";
+import SketchIcon, { type SketchIconName } from "../components/SketchIcon";
 
 export default function VenturePage() {
   const revealRefs = useRef<HTMLElement[]>([]);
@@ -109,14 +110,14 @@ export default function VenturePage() {
             </div>
           </div>
           <div className="vc-approach-right vc-reveal" ref={addRevealRef} style={{ transitionDelay: "0.15s" }}>
-            {[
-              { icon: "\u{1F3AF}", title: "Conviction-led, not portfolio-led", desc: "We don\u2019t invest in 50 companies hoping a few break out. We invest in a small number of founders we deeply believe in and give them everything we\u2019ve got." },
-              { icon: "\u{1F91D}", title: "Finance expertise as an unfair advantage", desc: "Our team runs Virtual CFO services for various companies in different industries. We bring the same financial rigour, MIS frameworks, and fundraising know-how to every portfolio company." },
-              { icon: "\u{1F331}", title: "Comfortable in the early chaos", desc: "Most investors want traction before they\u2019ll talk. We\u2019re comfortable in the messy early stages \u2014 the whiteboard phase, the pre-revenue phase, the \u2018we\u2019re figuring it out\u2019 phase." },
-              { icon: "\u{1F4DE}", title: "Support beyond the cheque", desc: "We don\u2019t disappear after the wire transfer. The late nights, the hard calls, the moments of doubt \u2014 that\u2019s exactly when we want to hear from you." },
-            ].map((card, i) => (
+            {([
+              { icon: "target", title: "Conviction-led, not portfolio-led", desc: "We don\u2019t invest in 50 companies hoping a few break out. We invest in a small number of founders we deeply believe in and give them everything we\u2019ve got." },
+              { icon: "partnership", title: "Finance expertise as an unfair advantage", desc: "Our team runs Virtual CFO services for various companies in different industries. We bring the same financial rigour, MIS frameworks, and fundraising know-how to every portfolio company." },
+              { icon: "sprout", title: "Comfortable in the early chaos", desc: "Most investors want traction before they\u2019ll talk. We\u2019re comfortable in the messy early stages \u2014 the whiteboard phase, the pre-revenue phase, the \u2018we\u2019re figuring it out\u2019 phase." },
+              { icon: "phone", title: "Support beyond the cheque", desc: "We don\u2019t disappear after the wire transfer. The late nights, the hard calls, the moments of doubt \u2014 that\u2019s exactly when we want to hear from you." },
+            ] as { icon: SketchIconName; title: string; desc: string }[]).map((card, i) => (
               <div key={i} className="vc-approach-card">
-                <div className="vc-approach-card-icon">{card.icon}</div>
+                <div className="vc-approach-card-icon"><SketchIcon name={card.icon} size={26} /></div>
                 <div>
                   <h4>{card.title}</h4>
                   <p>{card.desc}</p>
@@ -137,17 +138,17 @@ export default function VenturePage() {
           <p>We back people first and ideas second. Here&apos;s what makes us lean forward in a conversation.</p>
         </div>
         <div className="vc-criteria-grid">
-          {[
-            { num: "01", icon: "\u{1F9E0}", title: "A problem worth solving", desc: "You\u2019ve identified a real, specific pain point \u2014 not a theoretical one. You can articulate the problem more clearly than anyone else because you\u2019ve lived it, studied it, or built around it." },
-            { num: "02", icon: "\u{1F525}", title: "Founder obsession", desc: "We look for founders who can\u2019t stop thinking about their problem \u2014 who\u2019ve been building, researching, and iterating even before raising a rupee. Passion that\u2019s infectious." },
-            { num: "03", icon: "\u{1F4D0}", title: "Early evidence of traction", desc: "You don\u2019t need a perfect product or a full team. But we want to see something \u2014 a prototype, pilot customers, letters of intent, or early revenue that shows the market is responding." },
-            { num: "04", icon: "\u{1F5FA}\uFE0F", title: "A credible path to scale", desc: "The business model makes sense. The unit economics are defensible or have a clear path there. You understand how capital will translate into growth." },
-            { num: "05", icon: "\u{1F932}", title: "Openness to guidance", desc: "The best founders are self-aware. They know what they know and what they don\u2019t. We want to work closely with you \u2014 that only happens when both sides are genuinely open." },
-            { num: "06", icon: "\u{1F3D7}\uFE0F", title: "Building for India\u2019s next decade", desc: "We\u2019re excited about businesses solving real Indian problems at scale \u2014 across fintech, healthcare, commerce, education, climate, or anything in between. Ambition for India matters to us." },
-          ].map((crit, i) => (
+          {([
+            { num: "01", icon: "brain", title: "A problem worth solving", desc: "You\u2019ve identified a real, specific pain point \u2014 not a theoretical one. You can articulate the problem more clearly than anyone else because you\u2019ve lived it, studied it, or built around it." },
+            { num: "02", icon: "flame", title: "Founder obsession", desc: "We look for founders who can\u2019t stop thinking about their problem \u2014 who\u2019ve been building, researching, and iterating even before raising a rupee. Passion that\u2019s infectious." },
+            { num: "03", icon: "chart-up", title: "Early evidence of traction", desc: "You don\u2019t need a perfect product or a full team. But we want to see something \u2014 a prototype, pilot customers, letters of intent, or early revenue that shows the market is responding." },
+            { num: "04", icon: "map", title: "A credible path to scale", desc: "The business model makes sense. The unit economics are defensible or have a clear path there. You understand how capital will translate into growth." },
+            { num: "05", icon: "partnership", title: "Openness to guidance", desc: "The best founders are self-aware. They know what they know and what they don\u2019t. We want to work closely with you \u2014 that only happens when both sides are genuinely open." },
+            { num: "06", icon: "hard-hat", title: "Building for India\u2019s next decade", desc: "We\u2019re excited about businesses solving real Indian problems at scale \u2014 across fintech, healthcare, commerce, education, climate, or anything in between. Ambition for India matters to us." },
+          ] as { num: string; icon: SketchIconName; title: string; desc: string }[]).map((crit, i) => (
             <div key={i} className="vc-crit-card vc-reveal" ref={addRevealRef} style={{ transitionDelay: `${0.05 * (i + 1)}s` }}>
               <div className="vc-crit-num">{crit.num} --</div>
-              <div className="vc-crit-icon">{crit.icon}</div>
+              <div className="vc-crit-icon"><SketchIcon name={crit.icon} size={30} /></div>
               <div className="vc-crit-title">{crit.title}</div>
               <div className="vc-crit-desc">{crit.desc}</div>
             </div>
@@ -190,13 +191,13 @@ export default function VenturePage() {
             <p>We&apos;ve spent years helping businesses understand their numbers and build financial discipline. Now we want to go further - to back founders from the very beginning, not just advise them on the way up.</p>
           </div>
           <div className="vc-honest-cards vc-reveal" ref={addRevealRef} style={{ transitionDelay: "0.15s" }}>
-            {[
-              { icon: "\u{1F4AC}", title: "We\u2019ll always be straight with you", desc: "If we\u2019re not the right fit, we\u2019ll say so clearly and quickly. We won\u2019t string you along or give vague feedback just to stay in the loop." },
-              { icon: "\u{1F4DA}", title: "We\u2019re learning alongside you", desc: "Being new to VC means we approach every investment with fresh eyes and genuine curiosity \u2014 not pattern-matching from a tired playbook." },
-              { icon: "\u{1FAF1}\u{1F3FD}", title: "We put founders first, always", desc: "Our reputation in this space is being built right now, one relationship at a time. We will always act in your best interest \u2014 because that\u2019s the only way we want to operate." },
-            ].map((card, i) => (
+            {([
+              { icon: "chat", title: "We\u2019ll always be straight with you", desc: "If we\u2019re not the right fit, we\u2019ll say so clearly and quickly. We won\u2019t string you along or give vague feedback just to stay in the loop." },
+              { icon: "books", title: "We\u2019re learning alongside you", desc: "Being new to VC means we approach every investment with fresh eyes and genuine curiosity \u2014 not pattern-matching from a tired playbook." },
+              { icon: "partnership", title: "We put founders first, always", desc: "Our reputation in this space is being built right now, one relationship at a time. We will always act in your best interest \u2014 because that\u2019s the only way we want to operate." },
+            ] as { icon: SketchIconName; title: string; desc: string }[]).map((card, i) => (
               <div key={i} className="vc-hcard">
-                <div className="vc-hcard-icon">{card.icon}</div>
+                <div className="vc-hcard-icon"><SketchIcon name={card.icon} size={28} /></div>
                 <h4>{card.title}</h4>
                 <p>{card.desc}</p>
               </div>
@@ -311,7 +312,7 @@ export default function VenturePage() {
               </form>
             ) : (
               <div className="vc-success-state show">
-                <div className="vc-success-icon">&#128640;</div>
+                <div className="vc-success-icon"><SketchIcon name="rocket" size={48} /></div>
                 <h3>Pitch received!</h3>
                 <p>Thank you for sharing what you&apos;re building. We&apos;ll review your submission and get back to you within <strong>5 business days</strong>. Check your inbox for a confirmation.</p>
               </div>

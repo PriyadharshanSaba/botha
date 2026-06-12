@@ -85,9 +85,10 @@
   width: 40px; height: 40px; border-radius: 10px;
   background: rgba(201,168,76,0.12);
   display: flex; align-items: center; justify-content: center;
-  font-size: 18px; flex-shrink: 0;
+  flex-shrink: 0; color: var(--ink); line-height: 0;
 }
-.vcfo-hc.dark .vcfo-hc-icon { background: rgba(201,168,76,0.2); }
+.vcfo-hc-icon svg { display: block; }
+.vcfo-hc.dark .vcfo-hc-icon { background: rgba(201,168,76,0.2); color: var(--gold); }
 .vcfo-hc-title { font-size: 14px; font-weight: 500; color: var(--ink); margin-bottom: 3px; }
 .vcfo-hc.dark .vcfo-hc-title { color: var(--white); }
 .vcfo-hc-sub { font-size: 12px; color: #999; font-weight: 300; line-height: 1.5; }
@@ -138,7 +139,9 @@
   font-family: 'Playfair Display', serif; font-size: 12px; color: var(--gold);
   letter-spacing: 1px; margin-bottom: 18px;
 }
-.vcfo-svc-icon { font-size: 26px; margin-bottom: 14px; }
+.vcfo-svc-icon { margin-bottom: 14px; color: var(--ink); line-height: 0; }
+.vcfo-svc-icon svg { display: block; }
+.vcfo-svc-card.dark .vcfo-svc-icon { color: var(--gold); }
 .vcfo-svc-name {
   font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 700;
   color: var(--ink); letter-spacing: -0.5px; margin-bottom: 10px; line-height: 1.2;
@@ -196,8 +199,10 @@
 .vcfo-value-icon {
   width: 36px; height: 36px; flex-shrink: 0;
   background: rgba(201,168,76,0.12); border-radius: 8px;
-  display: flex; align-items: center; justify-content: center; font-size: 17px;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--ink); line-height: 0;
 }
+.vcfo-value-icon svg { display: block; }
 .vcfo-value-text h4 { font-size: 14px; font-weight: 500; color: var(--ink); margin-bottom: 4px; }
 .vcfo-value-text p { font-size: 13px; color: #777; line-height: 1.55; font-weight: 300; }
 .vcfo-why-right { position: relative; }
@@ -229,6 +234,7 @@
   background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
   border-radius: 16px; padding: 32px; position: relative;
   transition: background 0.2s, border-color 0.2s;
+  display: flex; flex-direction: column;
 }
 .vcfo-tcard:hover { background: rgba(255,255,255,0.08); border-color: rgba(201,168,76,0.3); }
 .vcfo-tcard-quote {
@@ -240,12 +246,18 @@
   font-size: 14px; color: rgba(255,255,255,0.7); line-height: 1.75;
   font-weight: 300; font-style: italic; margin-bottom: 24px;
 }
-.vcfo-tcard-author { display: flex; align-items: center; gap: 12px; }
+.vcfo-tcard-author { display: flex; align-items: center; gap: 12px; margin-top: auto; }
 .vcfo-tcard-avatar {
   width: 42px; height: 42px; border-radius: 50%; background: var(--gold);
   display: flex; align-items: center; justify-content: center;
   font-family: 'Playfair Display', serif; font-size: 15px; font-weight: 700;
   color: var(--ink); flex-shrink: 0;
+  overflow: hidden;
+}
+.vcfo-tcard-avatar .testimonial-avatar-img {
+  width: 100%; height: 100%;
+  display: block;
+  object-fit: cover;
 }
 .vcfo-tcard-name { font-size: 13px; font-weight: 500; color: var(--white); }
 .vcfo-tcard-role { font-size: 11px; color: rgba(255,255,255,0.38); margin-top: 2px; }
@@ -328,7 +340,8 @@
 
 .vcfo-success-state { display: none; text-align: center; padding: 20px 0; }
 .vcfo-success-state.show { display: block; }
-.vcfo-success-icon { font-size: 48px; margin-bottom: 16px; }
+.vcfo-success-icon { margin-bottom: 16px; color: var(--gold); line-height: 0; display: flex; justify-content: center; }
+.vcfo-success-icon svg { display: block; }
 .vcfo-success-state h3 {
   font-family: 'Playfair Display', serif; font-size: 26px; font-weight: 700;
   color: var(--ink); margin-bottom: 10px;

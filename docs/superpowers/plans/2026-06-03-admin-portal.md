@@ -636,7 +636,7 @@ import { usePathname, useRouter } from "next/navigation";
 
 const links = [
   { href: "/admin", label: "Dashboard" },
-  { href: "/admin/signups", label: "Signups" },
+  { href: "/admin/signups", label: "Subscribers" },
   { href: "/admin/onboard", label: "Onboard" },
   { href: "/admin/referrals", label: "Referrals" },
 ];
@@ -1116,7 +1116,7 @@ git commit -m "feat(admin): dashboard tiles and 10-day graphs"
 
 ---
 
-## Phase 3 — Signups Ledger
+## Phase 3 — Subscribers Ledger
 
 ### Task 3.1: Ledger query
 
@@ -1245,7 +1245,7 @@ export default async function SignupsLedgerPage() {
 
   return (
     <main>
-      <h1 style={{ marginBottom: 16 }}>Signups ledger</h1>
+      <h1 style={{ marginBottom: 16 }}>Subscribers ledger</h1>
       <p style={{ color: "#666", marginBottom: 16 }}>
         Latest {rows.length} paid signups, test emails excluded.
       </p>

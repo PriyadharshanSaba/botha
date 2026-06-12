@@ -6,6 +6,7 @@ import Script from "next/script";
 import { PLANS, type Plan, effectivePrice } from "@/app/lib/plans";
 import type { BillingInfo } from "@/app/lib/db/types";
 import { useLanguage } from "@/app/context/LanguageContext";
+import SketchIcon from "@/app/components/SketchIcon";
 import "./plans.css";
 
 type ReferralStatus =
@@ -515,7 +516,7 @@ export default function PlansPage() {
 
               {isTestUser && (
                 <p style={{ textAlign: "center", fontSize: 12, color: "#92400e", marginTop: 10 }}>
-                  🧪 Test account — ₹10 test payment
+                  <span style={{ display: "inline-flex", verticalAlign: "middle", marginRight: 6, color: "#92400e", lineHeight: 0 }}><SketchIcon name="flask" size={14} /></span>Test account — ₹10 test payment
                 </p>
               )}
             </form>

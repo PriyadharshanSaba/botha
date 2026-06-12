@@ -103,7 +103,7 @@ Both fill zero-count days via `generate_series` in SQL so x-axis is dense.
 
 ---
 
-## 3. Signups Ledger (`/admin/signups`)
+## 3. Subscribers Ledger (`/admin/signups`)
 
 Server component. Single SQL query:
 
