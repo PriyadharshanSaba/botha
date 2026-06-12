@@ -7,6 +7,7 @@
     "build": "next build --webpack",
     "start": "next start",
     "lint": "eslint",
+    "test": "tsx --test app/lib/blogs/*.test.ts",
     "enable-referrer": "tsx scripts/enable-referrer.ts",
     "heal-payment": "tsx scripts/heal-payment.ts"
   },
@@ -16,7 +17,9 @@
     "@sparticuz/chromium": "^148.0.0",
     "chart.js": "^4.5.1",
     "drizzle-orm": "^0.45.2",
+    "isomorphic-dompurify": "^3.16.0",
     "next": "^16.2.6",
+    "node-html-parser": "^7.1.0",
     "pg": "^8.16.3",
     "puppeteer-core": "^25.1.0",
     "razorpay": "^2.9.6",
