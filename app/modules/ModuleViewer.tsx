@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import { useLanguage } from "@/app/context/LanguageContext";
+import SketchIcon from "@/app/components/SketchIcon";
 
 type Props = {
   moduleId: string;
@@ -101,7 +102,7 @@ export default function ModuleViewer({
         </div>
         <div className="complete-body">
           <div className="complete-inner">
-            <div className="complete-icon">&#127891;</div>
+            <div className="complete-icon"><SketchIcon name="grad-cap" size={52} /></div>
             <div className="complete-title">
               Module {moduleNumber}
               <br />
@@ -161,7 +162,19 @@ export default function ModuleViewer({
 
       {/* === Active Chapter === */}
       <section className="chapters-list">
-        <div className="chapter" data-active-lang={lang}>
+        <div
+          className="chapter"
+          data-active-lang={lang}
+          // Content protection (layer 2): block clipboard + context menu + drag.
+          // CSS user-select:none handles selection blocking; these stop the
+          // remaining vectors (right-click → Copy, Ctrl+C, drag-to-clipboard).
+          // Not bulletproof — devtools / screenshots still work — but raises
+          // friction for casual copying.
+          onCopy={(e) => e.preventDefault()}
+          onCut={(e) => e.preventDefault()}
+          onContextMenu={(e) => e.preventDefault()}
+          onDragStart={(e) => e.preventDefault()}
+        >
           {chapterElements[chapterIndex]}
         </div>
       </section>

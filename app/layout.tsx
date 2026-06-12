@@ -2,6 +2,7 @@
 import "./globals.css";
 import React from "react";
 import { cookies } from "next/headers";
+import { Analytics } from "@vercel/analytics/next";
 import AppShell from "./AppShell";
 
 export const metadata = {
@@ -50,6 +51,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <AppShell initialLoggedIn={initialLoggedIn}>
           {children}
         </AppShell>
+        <Analytics />
       </body>
     </html>
   );

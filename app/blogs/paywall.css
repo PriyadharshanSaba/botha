@@ -1,0 +1,245 @@
+/* app/blogs/paywall.css */
+
+/*
+ * Inline paywall — sits in document flow after the 500-word preview boundary.
+ * A decorative "ghost" strip of blurred horizontal bars above the card
+ * suggests hidden article content. No fixed positioning, no slide-up modal.
+ */
+
+.paywall-inline {
+  position: relative;
+  margin: 36px auto 56px;
+  padding: 0 16px;
+  max-width: 720px;
+}
+
+/* Decorative ghost-text strip: blurred horizontal bars hinting at hidden text. */
+.paywall-ghost {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 220px;
+  pointer-events: none;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 24px 24px 0;
+  filter: blur(4px);
+  mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.55) 0%, rgba(0, 0, 0, 0) 100%);
+  -webkit-mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.55) 0%, rgba(0, 0, 0, 0) 100%);
+}
+
+.paywall-ghost span {
+  display: block;
+  height: 12px;
+  border-radius: 4px;
+  background: var(--ink);
+  opacity: 0.42;
+}
+
+.paywall-ghost span:nth-child(1) { width: 96%; }
+.paywall-ghost span:nth-child(2) { width: 88%; }
+.paywall-ghost span:nth-child(3) { width: 93%; }
+.paywall-ghost span:nth-child(4) { width: 76%; }
+.paywall-ghost span:nth-child(5) { width: 90%; }
+.paywall-ghost span:nth-child(6) { width: 84%; }
+.paywall-ghost span:nth-child(7) { width: 70%; }
+
+.paywall-gate-card {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 460px;
+  margin: 180px auto 0;
+  background: var(--white);
+  border: 1px solid #e8e2d3;
+  border-top: 3px solid var(--gold);
+  border-radius: 14px;
+  box-shadow: 0 8px 30px rgba(20, 30, 60, 0.08),
+              0 2px 8px rgba(20, 30, 60, 0.04);
+  padding: 28px 28px 24px;
+}
+
+.paywall-gate-title {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--ink);
+  margin: 0 0 6px;
+  letter-spacing: -0.015em;
+  line-height: 1.2;
+}
+
+.paywall-gate-sub {
+  font-size: 13.5px;
+  color: var(--slate);
+  margin: 0 0 18px;
+  line-height: 1.55;
+  opacity: 0.78;
+}
+
+.paywall-gate-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.paywall-gate-form label {
+  font-size: 12.5px;
+  color: var(--ink);
+  opacity: 0.7;
+  font-weight: 500;
+  margin-bottom: -4px;
+}
+
+.paywall-gate-form input[type="email"],
+.paywall-gate-form input[type="text"] {
+  height: 44px;
+  padding: 8px 14px;
+  border: 1px solid #e2e0d8;
+  border-radius: 10px;
+  font-size: 14px;
+  color: var(--ink);
+  background: #fff;
+  transition: box-shadow 0.15s, border-color 0.15s;
+}
+
+.paywall-gate-form input[type="email"]:focus,
+.paywall-gate-form input[type="text"]:focus {
+  outline: none;
+  border-color: var(--gold);
+  box-shadow: 0 0 0 4px rgba(201, 168, 76, 0.12);
+}
+
+.paywall-gate-form .btn {
+  margin-top: 8px;
+  height: 46px;
+  border-radius: 10px;
+  border: 0;
+  background: var(--ink);
+  color: #fff;
+  font-weight: 600;
+  font-size: 14px;
+  letter-spacing: 0.01em;
+  cursor: pointer;
+  transition: background 0.18s;
+}
+
+.paywall-gate-form .btn:hover:not(:disabled) {
+  background: var(--slate);
+}
+
+.paywall-gate-form .btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.paywall-gate-form .otp-container {
+  display: flex;
+  gap: 8px;
+  justify-content: space-between;
+  margin: 4px 0 2px;
+}
+
+.paywall-gate-form .otp-box {
+  width: 44px;
+  height: 50px;
+  border: 1px solid #e2e0d8;
+  border-radius: 10px;
+  text-align: center;
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--ink);
+  background: #fff;
+}
+
+.paywall-gate-form .otp-box:focus {
+  outline: none;
+  border-color: var(--gold);
+  box-shadow: 0 0 0 4px rgba(201, 168, 76, 0.12);
+}
+
+.paywall-gate-mode {
+  animation: paywallFadeSlide 0.3s ease forwards;
+}
+
+@keyframes paywallFadeSlide {
+  0% { opacity: 0; transform: translateY(6px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+.paywall-gate-back {
+  background: none;
+  border: none;
+  padding: 4px 0 0;
+  margin-top: 4px;
+  font-size: 12.5px;
+  color: var(--slate);
+  opacity: 0.7;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.paywall-gate-back:hover {
+  opacity: 1;
+}
+
+.paywall-terms-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 12.5px;
+  color: var(--ink);
+  opacity: 0.85;
+  margin: 6px 0 2px;
+  line-height: 1.5;
+}
+
+.paywall-terms-row input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  margin: 2px 0 0;
+  flex: 0 0 16px;
+  accent-color: var(--ink);
+}
+
+.paywall-terms-row label {
+  flex: 1;
+  margin-bottom: 0;
+  font-size: 12.5px;
+  color: var(--ink);
+  opacity: 0.85;
+  font-weight: 400;
+}
+
+.paywall-terms-row button {
+  background: none;
+  border: none;
+  padding: 0;
+  color: var(--ink);
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+}
+
+@media (max-width: 480px) {
+  .paywall-inline {
+    margin: 28px auto 40px;
+    padding: 0 12px;
+  }
+  .paywall-gate-card {
+    margin-top: 160px;
+    padding: 22px 18px 20px;
+  }
+  .paywall-gate-title {
+    font-size: 21px;
+  }
+  .paywall-ghost {
+    height: 200px;
+    padding: 18px 16px 0;
+  }
+}

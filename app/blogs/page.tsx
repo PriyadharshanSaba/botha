@@ -9,6 +9,22 @@ import PrivacyModal from "../components/PrivacyModal";
 
 const posts = [
   {
+    slug: "india-finance-jun12-2026",
+    kicker: "Markets · Macro · India",
+    title: "Beneath the Friday Rally, Something Else Changed",
+    deck: "A rate hold, a bond market quietly rewired, ₹2.67 lakh crore in YTD equity exits, IT hit by two forces at once, and a $6 crude swing on a single Washington sentence — followed by the IRGC formally closing the Strait of Hormuz. Friday's rally was real but borrowed.",
+    date: "June 12, 2026",
+    readTime: "15 min read",
+  },
+  {
+    slug: "india-e20-deep-dive",
+    kicker: "Energy · Policy · India",
+    title: "The Fuel You Never Chose",
+    deck: "On April 1, 2026, every petrol pump in India quietly switched to E20 — no label, no debate, no choice. A deep dive into what India's ethanol mandate actually means: the engineering damage, the food and water trade-offs, the launches, and the decade ahead.",
+    date: "June 2026",
+    readTime: "18 min read",
+  },
+  {
     slug: "india-finance-jun5-2026",
     kicker: "Markets · Macro · India",
     title: "The Week Everything Landed at Once",

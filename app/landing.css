@@ -237,7 +237,14 @@ section { padding: 100px 10vw; }
   padding: 44px 48px;
   display: flex; align-items: center; gap: 32px;
 }
-.lfb-icon { font-size: 48px; flex-shrink: 0; }
+.lfb-icon { flex-shrink: 0; color: var(--ink); line-height: 0; }
+.lfb-icon-img {
+  width: 140px;
+  height: 140px;
+  object-fit: contain;
+  display: block;
+  mix-blend-mode: multiply;
+}
 .lfb-body { flex: 1; }
 .lfb-tag {
   font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
@@ -312,8 +319,9 @@ section { padding: 100px 10vw; }
   background: rgba(201,168,76,0.12);
   border-radius: 8px;
   display: flex; align-items: center; justify-content: center;
-  font-size: 18px;
+  color: var(--ink);
 }
+.value-icon svg { display: block; }
 .value-text h4 { font-size: 15px; font-weight: 500; color: var(--ink); margin-bottom: 4px; }
 .value-text p { font-size: 13px; color: #777; line-height: 1.5; }
 
@@ -382,7 +390,13 @@ section { padding: 100px 10vw; }
   font-size: 13px; font-weight: 400; color: var(--gold);
   letter-spacing: 1px; margin-bottom: 20px;
 }
-.service-icon { font-size: 28px; margin-bottom: 16px; }
+.service-icon {
+  margin-bottom: 16px;
+  color: var(--ink);
+  line-height: 0;
+}
+.service-icon svg { display: block; }
+.service-card.featured .service-icon { color: var(--gold); }
 .service-name {
   font-family: 'Playfair Display', serif;
   font-size: 22px; font-weight: 700; color: var(--ink);
@@ -420,6 +434,8 @@ section { padding: 100px 10vw; }
   padding: 32px;
   position: relative;
   transition: background 0.2s, border-color 0.2s;
+  display: flex;
+  flex-direction: column;
 }
 .tcard:hover { background: rgba(255,255,255,0.08); border-color: rgba(201,168,76,0.3); }
 .tcard-quote {
@@ -436,6 +452,7 @@ section { padding: 100px 10vw; }
 }
 .tcard-author {
   display: flex; align-items: center; gap: 12px;
+  margin-top: auto;
 }
 .tcard-avatar {
   width: 44px; height: 44px; border-radius: 50%;
@@ -444,6 +461,12 @@ section { padding: 100px 10vw; }
   font-family: 'Playfair Display', serif;
   font-size: 16px; font-weight: 700; color: var(--ink);
   flex-shrink: 0;
+  overflow: hidden;
+}
+.tcard-avatar .testimonial-avatar-img {
+  width: 100%; height: 100%;
+  display: block;
+  object-fit: cover;
 }
 .tcard-name { font-size: 14px; font-weight: 500; color: var(--white); }
 .tcard-role { font-size: 12px; color: rgba(255,255,255,0.4); }
