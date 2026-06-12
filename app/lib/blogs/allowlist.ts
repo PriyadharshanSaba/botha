@@ -53,7 +53,7 @@ export const ALLOWED_CLASSES = new Set<string>([
 
   // Principles
   "principle-list", "principle-item", "p-icon", "p-content", "p-pill",
-  "pill-red", "pill-gold",
+  "pill-red", "pill-gold", "pill-green",
 
   // Footnote / misc
   "footnote", "open-tag",
