@@ -191,6 +191,77 @@ export type SaveConsentInput = {
   userAgent?: string;
 };
 
+/* ──────────────────────────────────────────────────────────────────────── */
+/* Blogs — DB-backed articles                                              */
+/* ──────────────────────────────────────────────────────────────────────── */
+
+export type BlogStatus = "draft" | "published";
+
+/** One cell of the optional stat-row at the top of an article. */
+export type BlogStatRowCell = {
+  big: string;                              // "5.25%", "₹2.67L Cr", "~15 bps"
+  tone?: "gold" | "red" | "green" | null;   // controls colour of the big number (default gold)
+  label: string;                            // multi-line allowed via \n
+};
+
+export type Blog = {
+  slug: string;
+  kicker: string;
+  title: string;
+  titleHtml: string;
+  deck: string;
+  heroSub: string;
+  heroBadge: string | null;
+  topbarBrand: string;
+  topbarTag: string;
+  dateLabel: string;
+  readTime: string;
+  previewHtml: string;                      // sanitized
+  gatedHtml: string;                        // sanitized
+  statRow: BlogStatRowCell[] | null;
+  status: BlogStatus;
+  authorId: string;
+  createdAt: Date;
+  updatedAt: Date;
+  publishedAt: Date | null;
+};
+
+/** Fields shown on the public listing page — drops the heavy HTML columns. */
+export type BlogListItem = {
+  slug: string;
+  kicker: string;
+  title: string;
+  deck: string;
+  dateLabel: string;
+  readTime: string;
+  publishedAt: Date | null;
+};
+
+/** Admin listing — includes status + drafts. */
+export type BlogAdminListItem = BlogListItem & {
+  status: BlogStatus;
+  updatedAt: Date;
+};
+
+/** Payload to upsert a blog. Slug is the natural key — same slug overwrites. */
+export type BlogUpsertInput = {
+  slug: string;
+  kicker: string;
+  title: string;
+  titleHtml: string;
+  deck: string;
+  heroSub: string;
+  heroBadge?: string | null;
+  topbarBrand?: string;
+  topbarTag: string;
+  dateLabel: string;
+  readTime: string;
+  previewHtml: string;                      // MUST be pre-sanitized
+  gatedHtml: string;                        // MUST be pre-sanitized
+  statRow?: BlogStatRowCell[] | null;
+  authorId: string;
+};
+
 export interface DBDriver {
   createUser(data: CreateUserInput): Promise<User>;
   getUserById(id: string): Promise<User | null>;
@@ -223,4 +294,13 @@ export interface DBDriver {
     appliedDiscountPaise: number;
   }): Promise<void>;
   getReferralStats(referrerUserId: string): Promise<ReferralStats>;
+
+  /* Blogs */
+  listPublishedBlogs(): Promise<BlogListItem[]>;
+  listAllBlogs(): Promise<BlogAdminListItem[]>;
+  getBlogBySlug(slug: string): Promise<Blog | null>;
+  upsertBlog(input: BlogUpsertInput): Promise<Blog>;
+  publishBlog(slug: string): Promise<void>;
+  unpublishBlog(slug: string): Promise<void>;
+  deleteBlog(slug: string): Promise<void>;
 }
