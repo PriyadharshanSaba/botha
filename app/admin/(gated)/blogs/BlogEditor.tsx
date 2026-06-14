@@ -25,6 +25,20 @@ export type EditorInitialValues = {
 
 type DetectedSection = { num: number; title: string; rawText: string };
 
+type ExtractedMeta = {
+  title: string;
+  titleHtml: string;
+  deck: string;
+  heroSub: string;
+  heroBadge: string;
+  topbarBrand: string;
+  topbarTag: string;
+  kicker: string;
+  dateLabel: string;
+  readTime: string;
+  suggestedSlug: string;
+};
+
 type PreviewResp = {
   sanitized: string;
   sections: DetectedSection[];
@@ -32,21 +46,24 @@ type PreviewResp = {
   inlineStylesStripped: number;
   split: { preview: string; gated: string } | null;
   splitError: string | null;
+  extracted: ExtractedMeta;
+  customCss: string;
+  cssRemoved: string[];
 };
 
 const EMPTY_INITIAL: EditorInitialValues = {
   mode: "new",
   slug: "",
-  kicker: "Markets · Macro · India",
+  kicker: "",
   title: "",
   titleHtml: "",
   deck: "",
   heroSub: "",
   heroBadge: "",
-  topbarBrand: "Markets & Macro",
+  topbarBrand: "",
   topbarTag: "",
   dateLabel: "",
-  readTime: "15 min read",
+  readTime: "",
   rawHtml: "",
   afterSection: 1,
   customCss: "",
@@ -55,6 +72,9 @@ const EMPTY_INITIAL: EditorInitialValues = {
 export default function BlogEditor({ initial = EMPTY_INITIAL }: { initial?: EditorInitialValues }) {
   const router = useRouter();
   const isEdit = initial.mode === "edit";
+
+  const [rawHtml, setRawHtml] = useState(initial.rawHtml);
+  const [afterSection, setAfterSection] = useState<number>(initial.afterSection ?? 1);
 
   const [slug, setSlug] = useState(initial.slug);
   const [kicker, setKicker] = useState(initial.kicker);
@@ -67,9 +87,12 @@ export default function BlogEditor({ initial = EMPTY_INITIAL }: { initial?: Edit
   const [topbarTag, setTopbarTag] = useState(initial.topbarTag);
   const [dateLabel, setDateLabel] = useState(initial.dateLabel);
   const [readTime, setReadTime] = useState(initial.readTime);
-  const [rawHtml, setRawHtml] = useState(initial.rawHtml);
-  const [afterSection, setAfterSection] = useState<number>(initial.afterSection ?? 1);
-  const [customCss, setCustomCss] = useState(initial.customCss);
+
+  // Track which fields the user has TOUCHED. We only auto-fill UNTOUCHED
+  // fields when new extracted metadata arrives. So if the partner edits
+  // a field, subsequent autofills won't blow it away.
+  const [touched, setTouched] = useState<Record<string, boolean>>({});
+  const markTouched = (k: string) => setTouched((t) => (t[k] ? t : { ...t, [k]: true }));
 
   const [preview, setPreview] = useState<PreviewResp | null>(null);
   const [previewing, setPreviewing] = useState(false);
@@ -84,6 +107,32 @@ export default function BlogEditor({ initial = EMPTY_INITIAL }: { initial?: Edit
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [rawHtml, afterSection]);
 
+  // When a fresh preview comes back, fill any untouched fields from extracted.
+  useEffect(() => {
+    if (!preview?.extracted) return;
+    const ex = preview.extracted;
+    const fillers: { key: string; cur: string; set: (v: string) => void; val: string }[] = [
+      { key: "slug",        cur: slug,        set: setSlug,        val: ex.suggestedSlug },
+      { key: "kicker",      cur: kicker,      set: setKicker,      val: ex.kicker },
+      { key: "title",       cur: title,       set: setTitle,       val: ex.title },
+      { key: "titleHtml",   cur: titleHtml,   set: setTitleHtml,   val: ex.titleHtml },
+      { key: "deck",        cur: deck,        set: setDeck,        val: ex.deck },
+      { key: "heroSub",     cur: heroSub,     set: setHeroSub,     val: ex.heroSub },
+      { key: "heroBadge",   cur: heroBadge,   set: setHeroBadge,   val: ex.heroBadge },
+      { key: "topbarBrand", cur: topbarBrand, set: setTopbarBrand, val: ex.topbarBrand },
+      { key: "topbarTag",   cur: topbarTag,   set: setTopbarTag,   val: ex.topbarTag },
+      { key: "dateLabel",   cur: dateLabel,   set: setDateLabel,   val: ex.dateLabel },
+      { key: "readTime",    cur: readTime,    set: setReadTime,    val: ex.readTime },
+    ];
+    for (const f of fillers) {
+      if (touched[f.key]) continue;          // user has edited this field; leave alone
+      if (f.cur && f.cur.trim().length > 0) continue;   // already filled
+      if (!f.val) continue;                   // nothing to fill
+      f.set(f.val);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [preview]);
+
   async function runPreview() {
     setPreviewing(true);
     try {
@@ -92,12 +141,7 @@ export default function BlogEditor({ initial = EMPTY_INITIAL }: { initial?: Edit
         headers: { "content-type": "application/json" },
         body: JSON.stringify({ html: rawHtml, afterSection }),
       });
-      if (!res.ok) {
-        const b = await res.json().catch(() => ({}));
-        console.warn("preview failed", b);
-        setPreview(null);
-        return;
-      }
+      if (!res.ok) { setPreview(null); return; }
       setPreview(await res.json());
     } finally {
       setPreviewing(false);
@@ -109,11 +153,10 @@ export default function BlogEditor({ initial = EMPTY_INITIAL }: { initial?: Edit
     setSaveError(null);
     try {
       const payload = {
-        slug, kicker, title, titleHtml: titleHtml || title,
+        slug, kicker, title, titleHtml,
         deck, heroSub, heroBadge: heroBadge || null,
         topbarBrand, topbarTag, dateLabel, readTime,
         rawHtml, afterSection,
-        customCss: customCss || null,
       };
       const res = await fetch(
         isEdit ? `/api/admin/blogs/${initial.slug}` : "/api/admin/blogs",
@@ -138,9 +181,8 @@ export default function BlogEditor({ initial = EMPTY_INITIAL }: { initial?: Edit
   }
 
   const canSave = useMemo(() => {
-    return slug.length >= 3 && title && deck && heroSub && topbarTag &&
-           dateLabel && readTime && rawHtml.trim() && afterSection > 0;
-  }, [slug, title, deck, heroSub, topbarTag, dateLabel, readTime, rawHtml, afterSection]);
+    return slug.length >= 3 && rawHtml.trim() && afterSection > 0;
+  }, [slug, rawHtml, afterSection]);
 
   return (
     <div className="admin-editor">
@@ -148,69 +190,19 @@ export default function BlogEditor({ initial = EMPTY_INITIAL }: { initial?: Edit
         <div>
           <h1 className="admin-h1">{isEdit ? "Edit blog" : "New blog"}</h1>
           <p className="admin-sub">
-            {isEdit ? <>Editing <strong className="mono">{initial.slug}</strong></> : "Paste your HTML, fill metadata, pick the split point."}
+            {isEdit
+              ? <>Editing <strong className="mono">{initial.slug}</strong></>
+              : "Paste your HTML below. Title, slug, date, read-time, and teaser fill in automatically."}
           </p>
         </div>
         <Link href="/admin/blogs" className="admin-btn-link">← Back to list</Link>
       </div>
 
-      {/* METADATA */}
+      {/* HTML PASTE — top */}
       <section className="admin-editor-section">
-        <h2 className="admin-h2">Metadata</h2>
-
-        <div className="admin-editor-grid">
-          <Field label="Slug" hint="lowercase, dashes only (e.g. india-finance-jun19-2026)">
-            <input
-              value={slug}
-              onChange={(e) => setSlug(e.target.value)}
-              placeholder="india-finance-..."
-              className="admin-input mono"
-              disabled={isEdit}
-            />
-          </Field>
-          <Field label="Date label" hint="Free-form, displayed on card">
-            <input value={dateLabel} onChange={(e) => setDateLabel(e.target.value)} placeholder="June 12, 2026" className="admin-input" />
-          </Field>
-          <Field label="Read time">
-            <input value={readTime} onChange={(e) => setReadTime(e.target.value)} placeholder="15 min read" className="admin-input" />
-          </Field>
-          <Field label="Kicker" hint="Category line above title">
-            <input value={kicker} onChange={(e) => setKicker(e.target.value)} className="admin-input" />
-          </Field>
-          <Field label="Topbar brand">
-            <input value={topbarBrand} onChange={(e) => setTopbarBrand(e.target.value)} className="admin-input" />
-          </Field>
-          <Field label="Topbar tag" hint="Right-side label on article">
-            <input value={topbarTag} onChange={(e) => setTopbarTag(e.target.value)} placeholder="India & Global Finance | Week of Jun 12, 2026" className="admin-input" />
-          </Field>
-          <Field label="Hero badge (optional)">
-            <input value={heroBadge} onChange={(e) => setHeroBadge(e.target.value)} placeholder="June 12, 2026" className="admin-input" />
-          </Field>
-        </div>
-
-        <Field label="Title (plain text)" hint="Used in card + page metadata">
-          <input value={title} onChange={(e) => setTitle(e.target.value)} placeholder="Beneath the Friday Rally, Something Else Changed" className="admin-input admin-input-wide" />
-        </Field>
-
-        <Field label="Title HTML (optional)" hint="Inner HTML of <h1> — allows <span> gold accent + <br>. Defaults to plain title.">
-          <input value={titleHtml} onChange={(e) => setTitleHtml(e.target.value)} placeholder='Beneath the Friday Rally,<br /><span>Something Else Changed</span>' className="admin-input admin-input-wide mono" />
-        </Field>
-
-        <Field label="Deck (card teaser)" hint="1-2 sentences shown on listing card">
-          <textarea value={deck} onChange={(e) => setDeck(e.target.value)} className="admin-textarea" rows={3} maxLength={600} />
-        </Field>
-
-        <Field label="Hero subtitle" hint="Paragraph shown below <h1> on the article page">
-          <textarea value={heroSub} onChange={(e) => setHeroSub(e.target.value)} className="admin-textarea" rows={4} maxLength={1500} />
-        </Field>
-      </section>
-
-      {/* BODY */}
-      <section className="admin-editor-section">
-        <h2 className="admin-h2">Article body</h2>
+        <h2 className="admin-h2">1. Paste HTML</h2>
         <p className="admin-sub">
-          Paste the HTML body — everything inside the <code>&lt;article&gt;</code> wrapper. Sanitized live below.
-          Sections marked with <code>&lt;div class=&quot;section-tag&quot;&gt;01 …&lt;/div&gt;</code> are detected automatically.
+          The full file as exported. Anything inside <code>&lt;style&gt;</code> tags is pulled out and stored as this article&apos;s custom styles automatically.
         </p>
 
         <div className="admin-editor-body-grid">
@@ -220,12 +212,12 @@ export default function BlogEditor({ initial = EMPTY_INITIAL }: { initial?: Edit
                 value={rawHtml}
                 onChange={(e) => setRawHtml(e.target.value)}
                 className="admin-textarea mono"
-                rows={24}
-                placeholder='<div class="topbar"> ... </div>'
+                rows={20}
+                placeholder="<!DOCTYPE html><html>...</html>  — or just paste the body content"
               />
             </Field>
 
-            <Field label="Split after section" hint="Preview = up to and including this section. Gated = everything after.">
+            <Field label="Split paywall after section" hint="Free preview = up to and including this section. Gated = everything after.">
               <select
                 value={afterSection}
                 onChange={(e) => setAfterSection(parseInt(e.target.value, 10))}
@@ -246,17 +238,9 @@ export default function BlogEditor({ initial = EMPTY_INITIAL }: { initial?: Edit
 
             {preview && (
               <div className="admin-editor-meta">
-                <p>Detected <strong>{preview.sections.length}</strong> sections.</p>
-                {preview.droppedClasses.length > 0 && (
-                  <p className="admin-editor-warn">
-                    Dropped classes (not in design-system allowlist):{" "}
-                    <span className="mono">{preview.droppedClasses.join(", ")}</span>
-                  </p>
-                )}
-                {preview.inlineStylesStripped > 0 && (
-                  <p className="admin-editor-warn">
-                    Stripped {preview.inlineStylesStripped} inline <code>style</code> attribute(s) (CSS file owns styling).
-                  </p>
+                <p>Detected <strong>{preview.sections.length}</strong> section{preview.sections.length === 1 ? "" : "s"}.</p>
+                {preview.customCss && preview.customCss.length > 0 && (
+                  <p>Pulled <strong>{preview.customCss.length}</strong> chars of custom CSS from <code>&lt;style&gt;</code> blocks.</p>
                 )}
                 {preview.splitError && (
                   <p className="admin-editor-error">Split error: {preview.splitError}</p>
@@ -267,6 +251,9 @@ export default function BlogEditor({ initial = EMPTY_INITIAL }: { initial?: Edit
 
           {/* LIVE PREVIEW PANE */}
           <div className="admin-editor-preview">
+            {preview?.customCss && (
+              <style dangerouslySetInnerHTML={{ __html: preview.customCss }} />
+            )}
             <div className="admin-editor-preview-tabs">
               <span className="admin-editor-preview-label">
                 Live preview {previewing && <em className="admin-editor-spinner">…</em>}
@@ -276,9 +263,7 @@ export default function BlogEditor({ initial = EMPTY_INITIAL }: { initial?: Edit
               {preview?.split ? (
                 <>
                   <div dangerouslySetInnerHTML={{ __html: preview.split.preview }} />
-                  <div className="admin-editor-preview-divider">
-                    ─── Paywall split point ───
-                  </div>
+                  <div className="admin-editor-preview-divider">─── Paywall split point ───</div>
                   <div dangerouslySetInnerHTML={{ __html: preview.split.gated }} />
                 </>
               ) : preview ? (
@@ -291,23 +276,37 @@ export default function BlogEditor({ initial = EMPTY_INITIAL }: { initial?: Edit
         </div>
       </section>
 
-      {/* CUSTOM CSS */}
+      {/* METADATA — pre-filled, editable */}
       <section className="admin-editor-section">
-        <h2 className="admin-h2">Custom CSS (optional)</h2>
-        <p className="admin-sub">
-          Injected as an inline <code>&lt;style&gt;</code> tag at the top of this article only.
-          Scope your selectors to article classes — they apply globally on the page otherwise.
-          Sanitizer blocks <code>@import</code>, <code>expression()</code>, <code>javascript:</code> URIs, and closing-tag injection.
-        </p>
-        <Field label="CSS">
-          <textarea
-            value={customCss}
-            onChange={(e) => setCustomCss(e.target.value)}
-            className="admin-textarea mono"
-            rows={10}
-            placeholder=".numbers-strip { display: grid; ... }"
-            maxLength={50_000}
-          />
+        <h2 className="admin-h2">2. Article info <span className="admin-editor-auto-pill">auto-filled, edit if needed</span></h2>
+
+        <div className="admin-editor-grid">
+          <Field label="Slug" hint="URL path. Lowercase, dashes only.">
+            <input
+              value={slug}
+              onChange={(e) => { setSlug(e.target.value); markTouched("slug"); }}
+              placeholder="auto-generated from title"
+              className="admin-input mono"
+              disabled={isEdit}
+            />
+          </Field>
+          <Field label="Date label" hint="Shown on the article card">
+            <input value={dateLabel} onChange={(e) => { setDateLabel(e.target.value); markTouched("dateLabel"); }} className="admin-input" />
+          </Field>
+          <Field label="Read time">
+            <input value={readTime} onChange={(e) => { setReadTime(e.target.value); markTouched("readTime"); }} className="admin-input" />
+          </Field>
+          <Field label="Kicker" hint="Category line above title on the card">
+            <input value={kicker} onChange={(e) => { setKicker(e.target.value); markTouched("kicker"); }} className="admin-input" />
+          </Field>
+        </div>
+
+        <Field label="Title">
+          <input value={title} onChange={(e) => { setTitle(e.target.value); markTouched("title"); }} className="admin-input admin-input-wide" />
+        </Field>
+
+        <Field label="Teaser (deck)" hint="1-2 sentences shown on the listing card">
+          <textarea value={deck} onChange={(e) => { setDeck(e.target.value); markTouched("deck"); }} className="admin-textarea" rows={3} maxLength={600} />
         </Field>
       </section>
 

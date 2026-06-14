@@ -87,12 +87,18 @@ describe("BlogUpsertSchema", () => {
     assert.doesNotThrow(() => BlogUpsertSchema.parse(rest));
   });
 
-  it("rejects missing required fields", () => {
-    for (const f of ["slug", "kicker", "title", "titleHtml", "deck", "heroSub", "topbarTag", "dateLabel", "readTime", "rawHtml", "afterSection"]) {
+  it("rejects missing required fields (slug, rawHtml, afterSection)", () => {
+    for (const f of ["slug", "rawHtml", "afterSection"]) {
       const { [f as keyof typeof valid]: _omit, ...rest } = valid;
       void _omit;
       assert.throws(() => BlogUpsertSchema.parse(rest), `expected throw when missing ${f}`);
     }
+  });
+
+  it("accepts minimal payload (slug + rawHtml + afterSection only)", () => {
+    assert.doesNotThrow(() =>
+      BlogUpsertSchema.parse({ slug: "test-blog", rawHtml: "<h1>x</h1>", afterSection: 1 })
+    );
   });
 
   it("rejects statRow with >6 cells", () => {

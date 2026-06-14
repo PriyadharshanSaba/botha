@@ -28,23 +28,31 @@ export const PreviewInputSchema = z.object({
   afterSection: z.number().int().positive().optional(),   // omit = preview only, no split
 });
 
-/** Payload for POST /api/admin/blogs and PUT /api/admin/blogs/[slug]. */
+/**
+ * Payload for POST /api/admin/blogs and PUT /api/admin/blogs/[slug].
+ *
+ * Metadata fields are all optional — the server runs extractBlogMetadata on
+ * rawHtml and uses the extracted values as defaults when the form leaves a
+ * field empty. customCss is NOT accepted from the client; the server derives
+ * it from <style> blocks inside rawHtml and runs sanitize-css.ts.
+ */
 export const BlogUpsertSchema = z.object({
   slug:          SlugSchema,
-  kicker:        z.string().min(1).max(120),
-  title:         z.string().min(1).max(200),
-  titleHtml:     z.string().min(1).max(400),               // sanitized inner-<h1>; allows <span> + <br>
-  deck:          z.string().min(1).max(600),               // card teaser
-  heroSub:       z.string().min(1).max(1500),
-  heroBadge:     z.string().max(120).nullish(),
-  topbarBrand:   z.string().min(1).max(80).optional(),     // defaults DB-side to "Markets & Macro"
-  topbarTag:     z.string().min(1).max(200),
-  dateLabel:     z.string().min(1).max(60),
-  readTime:      z.string().min(1).max(40),
-  rawHtml:       z.string().min(1).max(500_000),           // full body — sanitized + split server-side
+  rawHtml:       z.string().min(1).max(500_000),           // full paste — may include <head><style>
   afterSection:  z.number().int().positive(),              // split-point
+
+  // All optional — server falls back to extracted if missing/empty.
+  kicker:        z.string().max(120).optional(),
+  title:         z.string().max(200).optional(),
+  titleHtml:     z.string().max(400).optional(),
+  deck:          z.string().max(600).optional(),
+  heroSub:       z.string().max(1500).optional(),
+  heroBadge:     z.string().max(120).nullish(),
+  topbarBrand:   z.string().max(80).optional(),
+  topbarTag:     z.string().max(200).optional(),
+  dateLabel:     z.string().max(60).optional(),
+  readTime:      z.string().max(40).optional(),
   statRow:       z.array(StatRowCellSchema).max(6).nullish(),
-  customCss:     z.string().max(50_000).nullish(),         // sanitized via sanitize-css.ts in route handler
 });
 
 export const PublishSchema = z.object({});                  // no body

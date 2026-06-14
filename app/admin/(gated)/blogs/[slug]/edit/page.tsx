@@ -13,9 +13,13 @@ export default async function EditBlogPage({
   if (!blog) notFound();
 
   // Reassemble preview + gated into a single raw HTML body for the textarea.
-  // This is approximate — the original section-tag markers survive sanitization,
-  // so re-splitting at the same afterSection on save produces an equivalent doc.
-  const rawHtml = blog.previewHtml + blog.gatedHtml;
+  // Embed customCss in a <style> block at the top so the server's
+  // extractBlogMetadata pulls it back out on save. Without this re-embed the
+  // edit-then-save flow would silently drop the article's custom styles.
+  const styleBlock = blog.customCss
+    ? `<style>${blog.customCss}</style>\n`
+    : "";
+  const rawHtml = styleBlock + blog.previewHtml + blog.gatedHtml;
 
   // Detect the boundary section from the FIRST section-tag in gatedHtml.
   // Fall back to 1 if absent (shouldn't happen — would imply zero gated sections).
