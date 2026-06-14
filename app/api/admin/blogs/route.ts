@@ -10,6 +10,7 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { db } from "@/app/lib/db";
 import { sanitizeBlogHtml } from "@/app/lib/blogs/sanitize";
+import { sanitizeBlogCss, CssSanitizeError } from "@/app/lib/blogs/sanitize-css";
 import { splitAt, SplitError } from "@/app/lib/blogs/split";
 import { BlogUpsertSchema } from "@/app/lib/blogs/validators";
 import { requireAdmin, requireRateLimit, parseJson } from "./_helpers";
@@ -49,6 +50,16 @@ export async function POST(req: NextRequest) {
 
   const titleHtmlSanitized = sanitizeBlogHtml(input.titleHtml).html;
 
+  let cssResult;
+  try {
+    cssResult = sanitizeBlogCss(input.customCss);
+  } catch (err) {
+    if (err instanceof CssSanitizeError) {
+      return NextResponse.json({ error: "CSS sanitize failed", message: err.message }, { status: 400 });
+    }
+    throw err;
+  }
+
   const blog = await db.upsertBlog({
     slug: input.slug,
     kicker: input.kicker,
@@ -63,6 +74,7 @@ export async function POST(req: NextRequest) {
     readTime: input.readTime,
     previewHtml: split.preview,
     gatedHtml: split.gated,
+    customCss: cssResult.css || null,
     statRow: input.statRow ?? null,
     authorId: auth.user.id,
   });
@@ -72,6 +84,7 @@ export async function POST(req: NextRequest) {
     sanitizer: {
       droppedClasses: sanitized.droppedClasses,
       inlineStylesStripped: sanitized.inlineStylesStripped,
+      cssRemoved: cssResult.removed,
     },
   });
 }

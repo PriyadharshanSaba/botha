@@ -218,6 +218,7 @@ export type Blog = {
   readTime: string;
   previewHtml: string;                      // sanitized
   gatedHtml: string;                        // sanitized
+  customCss: string | null;                 // sanitized; injected as <style> on article page
   statRow: BlogStatRowCell[] | null;
   status: BlogStatus;
   authorId: string;
@@ -258,6 +259,7 @@ export type BlogUpsertInput = {
   readTime: string;
   previewHtml: string;                      // MUST be pre-sanitized
   gatedHtml: string;                        // MUST be pre-sanitized
+  customCss?: string | null;                // MUST be pre-sanitized via sanitize-css.ts
   statRow?: BlogStatRowCell[] | null;
   authorId: string;
 };

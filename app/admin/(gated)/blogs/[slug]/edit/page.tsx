@@ -37,6 +37,7 @@ export default async function EditBlogPage({
     readTime: blog.readTime,
     rawHtml,
     afterSection,
+    customCss: blog.customCss ?? "",
     status: blog.status,
   };
 

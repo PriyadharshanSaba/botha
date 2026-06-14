@@ -216,6 +216,7 @@ export const blogs = pgTable("blogs", {
 
   previewHtml:  text("preview_html").notNull(),
   gatedHtml:    text("gated_html").notNull(),
+  customCss:    text("custom_css"),
 
   statRow:      jsonb("stat_row").$type<BlogStatRowCell[] | null>(),
 

@@ -19,6 +19,7 @@ export type EditorInitialValues = {
   readTime: string;
   rawHtml: string;
   afterSection: number | null;
+  customCss: string;
   status?: "draft" | "published";
 };
 
@@ -48,6 +49,7 @@ const EMPTY_INITIAL: EditorInitialValues = {
   readTime: "15 min read",
   rawHtml: "",
   afterSection: 1,
+  customCss: "",
 };
 
 export default function BlogEditor({ initial = EMPTY_INITIAL }: { initial?: EditorInitialValues }) {
@@ -67,6 +69,7 @@ export default function BlogEditor({ initial = EMPTY_INITIAL }: { initial?: Edit
   const [readTime, setReadTime] = useState(initial.readTime);
   const [rawHtml, setRawHtml] = useState(initial.rawHtml);
   const [afterSection, setAfterSection] = useState<number>(initial.afterSection ?? 1);
+  const [customCss, setCustomCss] = useState(initial.customCss);
 
   const [preview, setPreview] = useState<PreviewResp | null>(null);
   const [previewing, setPreviewing] = useState(false);
@@ -110,6 +113,7 @@ export default function BlogEditor({ initial = EMPTY_INITIAL }: { initial?: Edit
         deck, heroSub, heroBadge: heroBadge || null,
         topbarBrand, topbarTag, dateLabel, readTime,
         rawHtml, afterSection,
+        customCss: customCss || null,
       };
       const res = await fetch(
         isEdit ? `/api/admin/blogs/${initial.slug}` : "/api/admin/blogs",
@@ -285,6 +289,26 @@ export default function BlogEditor({ initial = EMPTY_INITIAL }: { initial?: Edit
             </article>
           </div>
         </div>
+      </section>
+
+      {/* CUSTOM CSS */}
+      <section className="admin-editor-section">
+        <h2 className="admin-h2">Custom CSS (optional)</h2>
+        <p className="admin-sub">
+          Injected as an inline <code>&lt;style&gt;</code> tag at the top of this article only.
+          Scope your selectors to article classes — they apply globally on the page otherwise.
+          Sanitizer blocks <code>@import</code>, <code>expression()</code>, <code>javascript:</code> URIs, and closing-tag injection.
+        </p>
+        <Field label="CSS">
+          <textarea
+            value={customCss}
+            onChange={(e) => setCustomCss(e.target.value)}
+            className="admin-textarea mono"
+            rows={10}
+            placeholder=".numbers-strip { display: grid; ... }"
+            maxLength={50_000}
+          />
+        </Field>
       </section>
 
       {/* ACTIONS */}

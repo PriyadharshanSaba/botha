@@ -130,6 +130,7 @@ export const MockDB: DBDriver = {
       readTime: input.readTime,
       previewHtml: input.previewHtml,
       gatedHtml: input.gatedHtml,
+      customCss: input.customCss ?? null,
       statRow: input.statRow ?? null,
       status: "draft",
       authorId: input.authorId,

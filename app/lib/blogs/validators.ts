@@ -44,6 +44,7 @@ export const BlogUpsertSchema = z.object({
   rawHtml:       z.string().min(1).max(500_000),           // full body — sanitized + split server-side
   afterSection:  z.number().int().positive(),              // split-point
   statRow:       z.array(StatRowCellSchema).max(6).nullish(),
+  customCss:     z.string().max(50_000).nullish(),         // sanitized via sanitize-css.ts in route handler
 });
 
 export const PublishSchema = z.object({});                  // no body

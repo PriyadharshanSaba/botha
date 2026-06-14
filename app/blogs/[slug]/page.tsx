@@ -47,6 +47,11 @@ export default async function Page({ params }: Props) {
 
   return (
     <div className="blog-article-page">
+      {post.customCss && (
+        // Sanitized at write time via sanitize-css.ts — blocks @import,
+        // expression(), javascript:, </style> injection, etc.
+        <style dangerouslySetInnerHTML={{ __html: post.customCss }} />
+      )}
       <BackBar />
       <article className="blog-post-body">
         <div dangerouslySetInnerHTML={{ __html: post.previewHtml }} />
