@@ -23,7 +23,13 @@ export type SanitizeResult = {
   inlineStylesStripped: number;
 };
 
-export function sanitizeBlogHtml(raw: string): SanitizeResult {
+export function sanitizeBlogHtml(
+  raw: string,
+  opts?: { extraAllowedClasses?: Iterable<string> }
+): SanitizeResult {
+  const allowedClasses = opts?.extraAllowedClasses
+    ? new Set([...ALLOWED_CLASSES, ...opts.extraAllowedClasses])
+    : ALLOWED_CLASSES;
   // Pass 1 — DOMPurify
   const purified = DOMPurify.sanitize(raw, {
     ALLOWED_TAGS: [...ALLOWED_TAGS],
@@ -59,7 +65,7 @@ export function sanitizeBlogHtml(raw: string): SanitizeResult {
     const tokens = cls.split(/\s+/).filter(Boolean);
     const kept: string[] = [];
     for (const t of tokens) {
-      if (ALLOWED_CLASSES.has(t)) {
+      if (allowedClasses.has(t)) {
         kept.push(t);
       } else {
         droppedClasses.add(t);
