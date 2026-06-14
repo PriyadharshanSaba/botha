@@ -79,6 +79,13 @@ describe("sanitizeBlogHtml", () => {
     assert.deepEqual(droppedClasses, []);
   });
 
+  it("preserves colspan + rowspan attributes on table cells", () => {
+    const input = '<table><tbody><tr><td colspan="2">spanning</td><td rowspan="3">rows</td></tr></tbody></table>';
+    const { html } = sanitizeBlogHtml(input);
+    assert.ok(html.includes('colspan="2"'), `colspan missing in: ${html}`);
+    assert.ok(html.includes('rowspan="3"'), `rowspan missing in: ${html}`);
+  });
+
   it("rejects iframe / embed / object", () => {
     const input = '<iframe src="https://evil"></iframe><embed src="x"/><object data="y"></object><p>ok</p>';
     const { html } = sanitizeBlogHtml(input);

@@ -30,11 +30,15 @@ export function sanitizeBlogHtml(
   const allowedClasses = opts?.extraAllowedClasses
     ? new Set([...ALLOWED_CLASSES, ...opts.extraAllowedClasses])
     : ALLOWED_CLASSES;
-  // Pass 1 — DOMPurify
+  // Pass 1 — DOMPurify.
+  // Note: ALLOWED_URI_REGEXP is intentionally NOT overridden. DOMPurify tests
+  // it against ALL attribute values, not just URI attributes, so a narrow
+  // override like `^https?:|mailto:|\/(?!\/)` strips harmless values like
+  // colspan="2" (the "2" doesn't match). The default URI check still blocks
+  // javascript:, data:, vbscript:, file:, etc. on href/src/action attrs.
   const purified = DOMPurify.sanitize(raw, {
     ALLOWED_TAGS: [...ALLOWED_TAGS],
     ALLOWED_ATTR: [...ALLOWED_ATTR],
-    ALLOWED_URI_REGEXP: /^(?:https?:|mailto:|\/(?!\/))/i,
     FORBID_ATTR: [
       "style",
       "onerror", "onload", "onclick", "onmouseover", "onfocus", "onblur",
