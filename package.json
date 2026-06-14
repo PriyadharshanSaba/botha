@@ -8,7 +8,6 @@
     "start": "next start",
     "lint": "eslint",
     "test": "tsx --test app/lib/blogs/*.test.ts",
-    "migrate-blogs": "tsx --import ./scripts/css-stub-register.mjs scripts/migrate-blogs-to-db.ts",
     "enable-referrer": "tsx scripts/enable-referrer.ts",
     "heal-payment": "tsx scripts/heal-payment.ts"
   },
