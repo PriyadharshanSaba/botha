@@ -72,6 +72,24 @@ describe("extractBlogMetadata", () => {
     assert.ok(r.suggestedSlug.includes("headline-test"));
   });
 
+  it("returns class tokens scraped from customCss selectors", () => {
+    const html = `
+      <style>
+        .comp-table th { padding: 10px; }
+        .comp-table tr.india-row td { color: red; }
+        .num-cell .n.gold { color: gold; }
+      </style>
+      <table class="comp-table"><tr class="india-row"><td>X</td></tr></table>
+    `;
+    const r = extractBlogMetadata(html);
+    assert.ok(r.cssClassTokens.includes("comp-table"));
+    assert.ok(r.cssClassTokens.includes("india-row"));
+    assert.ok(r.cssClassTokens.includes("num-cell"));
+    assert.ok(r.cssClassTokens.includes("gold"));
+    // No duplicates
+    assert.equal(new Set(r.cssClassTokens).size, r.cssClassTokens.length);
+  });
+
   it("handles body-only paste (no <html><body>)", () => {
     const r = extractBlogMetadata('<h1>Bare Title</h1><p>Body content.</p>');
     assert.equal(r.title, "Bare Title");

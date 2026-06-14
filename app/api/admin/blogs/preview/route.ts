@@ -41,7 +41,9 @@ export async function POST(req: NextRequest) {
   const extracted = extractBlogMetadata(html);
 
   // Sanitize the cleaned (style-stripped, body-only) HTML.
-  const sanitized = sanitizeBlogHtml(extracted.cleanedHtml);
+  const sanitized = sanitizeBlogHtml(extracted.cleanedHtml, {
+    extraAllowedClasses: extracted.cssClassTokens,
+  });
   const sections = detectSections(sanitized.html);
 
   // Sanitize the CSS separately (block @import, expression, etc.).

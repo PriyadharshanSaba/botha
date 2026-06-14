@@ -68,7 +68,9 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "Could not derive a title — paste HTML must contain an <h1>" }, { status: 400 });
   }
 
-  const sanitized = sanitizeBlogHtml(extracted.cleanedHtml);
+  const sanitized = sanitizeBlogHtml(extracted.cleanedHtml, {
+    extraAllowedClasses: extracted.cssClassTokens,
+  });
   let split;
   try {
     split = splitAt(sanitized.html, input.afterSection);

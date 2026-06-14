@@ -35,6 +35,14 @@ export type ExtractedBlogMeta = {
   suggestedSlug: string;
   customCss: string;        // raw, not yet sanitized
   cleanedHtml: string;      // body content with <style> stripped, ready for sanitize
+  /**
+   * Class tokens referenced in customCss selectors. The sanitizer would
+   * otherwise strip these from cleanedHtml because they aren't in the
+   * design-system allowlist. Callers should pass them as
+   * extraAllowedClasses to sanitizeBlogHtml so the article's bespoke
+   * elements keep their class hooks and the customCss rules apply.
+   */
+  cssClassTokens: string[];
 };
 
 const DEFAULT_TOPBAR_BRAND = "Markets & Macro";
@@ -49,6 +57,21 @@ export function extractBlogMetadata(rawHtml: string): ExtractedBlogMeta {
   const customCss = styleEls.map((s) => s.text).filter(Boolean).join("\n\n").trim();
   // Remove <style> tags from the tree so they don't leak into body.
   styleEls.forEach((s) => s.remove());
+
+  // Scrape class tokens from CSS selectors so the sanitizer keeps them on
+  // article elements via extraAllowedClasses.
+  const cssClassTokens: string[] = [];
+  if (customCss) {
+    const seen = new Set<string>();
+    const re = /\.([a-zA-Z_][-_a-zA-Z0-9]*)/g;
+    let m;
+    while ((m = re.exec(customCss)) !== null) {
+      if (!seen.has(m[1])) {
+        seen.add(m[1]);
+        cssClassTokens.push(m[1]);
+      }
+    }
+  }
 
   // Body extraction.
   // If the paste is a full document, find <body>. Within that, prefer .page or
@@ -120,6 +143,7 @@ export function extractBlogMetadata(rawHtml: string): ExtractedBlogMeta {
     suggestedSlug,
     customCss,
     cleanedHtml,
+    cssClassTokens,
   };
 }
 
