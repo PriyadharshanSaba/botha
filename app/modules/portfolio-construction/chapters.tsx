@@ -9,7 +9,7 @@ export const chapters = [
   {
     title: {
       en: "Chapter 1: Net Worth Thinking — Assets, Liabilities & Cash Flow",
-      kn: "ಅಧ್ಯಾಯ ೧: ನಿವ್ವಳ ಮೌಲ್ಯ ಚಿಂತನೆ — ಆಸ್ತಿಗಳು, ಹೊಣೆಗಾರಿಕೆಗಳು ಮತ್ತು ನಗದು ಹರಿವು",
+      kn: "ಅಧ್ಯಾಯ ೧: ನಿವ್ವಳ ಮೌಲ್ಯದ ದೃಷ್ಟಿಕೋನ — ಆಸ್ತಿಗಳು, ಹೊಣೆಗಾರಿಕೆಗಳು ಮತ್ತು ನಗದು ಹರಿವು",
     },
     content: {
       en: (
@@ -187,7 +187,7 @@ export const chapters = [
   {
     title: {
       en: "Chapter 3: Risk Appetite vs Risk Capacity",
-      kn: "ಅಧ್ಯಾಯ ೩: ಅಪಾಯದ ಹಸಿವು ಮತ್ತು ಅಪಾಯ ಭರಿಸುವ ಸಾಮರ್ಥ್ಯ",
+      kn: "ಅಧ್ಯಾಯ ೩:  ಅಪಾಯದ ಇಚ್ಛೆ ಮತ್ತು ಅಪಾಯ ಭರಿಸುವ ಸಾಮರ್ಥ್ಯ",
     },
     content: {
       en: (
