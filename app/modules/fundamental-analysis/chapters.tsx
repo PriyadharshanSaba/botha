@@ -5,6 +5,11 @@ const imgStyle: React.CSSProperties = {
   borderRadius: 12, border: "1px solid rgba(201,168,76,0.15)",
 };
 
+const tbl: React.CSSProperties = { width: "100%", borderCollapse: "collapse", margin: "16px 0", fontSize: "0.95em" };
+const th: React.CSSProperties = { background: "#c9a84c", color: "#fdfcf9", padding: "10px 12px", textAlign: "left" };
+const td: React.CSSProperties = { padding: "10px 12px", borderBottom: "1px solid rgba(0,0,0,0.08)" };
+const tdAlt: React.CSSProperties = { ...td, background: "rgba(201,168,76,0.06)" };
+
 /* =================================================================
    CHAPTER COMPONENTS
    ================================================================= */
@@ -1508,6 +1513,26 @@ const ChapterTwelve = () => (
     <h3>The Power of Compounding</h3>
     <p>Growth becomes particularly powerful when sustained over long periods due to the effects of compounding.</p>
     <p>Consider how profits grow over 10 years at different growth rates:</p>
+    <table style={tbl}>
+      <tbody>
+        <tr>
+          <th style={th}>Annual Growth Rate</th>
+          <th style={th}>Profit After 10 Years</th>
+        </tr>
+        <tr>
+          <td style={td}>10%</td>
+          <td style={td}>~ 2.6× (2.6 times of today&rsquo;s profit)</td>
+        </tr>
+        <tr>
+          <td style={tdAlt}>15%</td>
+          <td style={tdAlt}>~ 4× (4 times of today&rsquo;s profit)</td>
+        </tr>
+        <tr>
+          <td style={td}>20%</td>
+          <td style={td}>~ 6× (6 times of today&rsquo;s profit)</td>
+        </tr>
+      </tbody>
+    </table>
     <p>Even small differences in growth rates can lead to dramatically different outcomes over long investment horizons.</p>
     <p>This is why identifying companies capable of sustaining high growth for long periods can significantly influence long-term investment returns.</p>
 
