@@ -36,56 +36,68 @@ export async function POST(req: NextRequest) {
   if (!parsed.ok) return parsed.response;
   const { html, afterSection } = parsed.data;
 
-  // Extract first — pulls <style> out of <head>, finds <body>/.page/.wrapper,
-  // collects metadata suggestions from h1/.hero-sub/.topbar/etc.
-  const extracted = extractBlogMetadata(html);
+  let stage = "init";
+  try {
+    stage = "extract";
+    const extracted = extractBlogMetadata(html);
 
-  // Sanitize the cleaned (style-stripped, body-only) HTML.
-  const sanitized = sanitizeBlogHtml(extracted.cleanedHtml, {
-    extraAllowedClasses: extracted.cssClassTokens,
-  });
-  const sections = detectSections(sanitized.html);
+    stage = "sanitize-html";
+    const sanitized = sanitizeBlogHtml(extracted.cleanedHtml, {
+      extraAllowedClasses: extracted.cssClassTokens,
+    });
 
-  // Sanitize the CSS separately (block @import, expression, etc.).
-  const cssResult = sanitizeBlogCss(extracted.customCss || null);
+    stage = "detect-sections";
+    const sections = detectSections(sanitized.html);
 
-  let split: { preview: string; gated: string } | null = null;
-  let splitError: string | null = null;
-  if (afterSection !== undefined) {
-    try {
-      const r = splitAt(sanitized.html, afterSection);
-      split = { preview: r.preview, gated: r.gated };
-    } catch (err) {
-      if (err instanceof SplitError) {
-        splitError = err.message;
-      } else {
-        throw err;
+    stage = "sanitize-css";
+    const cssResult = sanitizeBlogCss(extracted.customCss || null);
+
+    let split: { preview: string; gated: string } | null = null;
+    let splitError: string | null = null;
+    if (afterSection !== undefined) {
+      stage = "split";
+      try {
+        const r = splitAt(sanitized.html, afterSection);
+        split = { preview: r.preview, gated: r.gated };
+      } catch (err) {
+        if (err instanceof SplitError) {
+          splitError = err.message;
+        } else {
+          throw err;
+        }
       }
     }
-  }
 
-  return NextResponse.json({
-    sanitized: sanitized.html,
-    sections,
-    droppedClasses: sanitized.droppedClasses,
-    inlineStylesStripped: sanitized.inlineStylesStripped,
-    split,
-    splitError,
-    // Metadata suggestions — editor uses these to auto-fill empty fields.
-    extracted: {
-      title: extracted.title,
-      titleHtml: extracted.titleHtml,
-      deck: extracted.deck,
-      heroSub: extracted.heroSub,
-      heroBadge: extracted.heroBadge,
-      topbarBrand: extracted.topbarBrand,
-      topbarTag: extracted.topbarTag,
-      kicker: extracted.kicker,
-      dateLabel: extracted.dateLabel,
-      readTime: extracted.readTime,
-      suggestedSlug: extracted.suggestedSlug,
-    },
-    customCss: cssResult.css,
-    cssRemoved: cssResult.removed,
-  });
+    return NextResponse.json({
+      sanitized: sanitized.html,
+      sections,
+      droppedClasses: sanitized.droppedClasses,
+      inlineStylesStripped: sanitized.inlineStylesStripped,
+      split,
+      splitError,
+      extracted: {
+        title: extracted.title,
+        titleHtml: extracted.titleHtml,
+        deck: extracted.deck,
+        heroSub: extracted.heroSub,
+        heroBadge: extracted.heroBadge,
+        topbarBrand: extracted.topbarBrand,
+        topbarTag: extracted.topbarTag,
+        kicker: extracted.kicker,
+        dateLabel: extracted.dateLabel,
+        readTime: extracted.readTime,
+        suggestedSlug: extracted.suggestedSlug,
+      },
+      customCss: cssResult.css,
+      cssRemoved: cssResult.removed,
+    });
+  } catch (err) {
+    const message = err instanceof Error ? err.message : String(err);
+    const stack = err instanceof Error ? err.stack : undefined;
+    console.error(`[preview] crashed at stage="${stage}":`, message, stack);
+    return NextResponse.json(
+      { error: "Preview crashed", stage, message, stack: stack?.split("\n").slice(0, 8).join("\n") },
+      { status: 500 }
+    );
+  }
 }
