@@ -14,6 +14,7 @@
 import { ImageResponse } from "next/og";
 import { db } from "@/app/lib/db";
 
+export const runtime = "nodejs";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 export const alt = "Bodha Ventures";
@@ -67,17 +68,28 @@ function clip(s: string, max: number): string {
 type Props = { params: Promise<{ slug: string }> };
 
 export default async function Image({ params }: Props) {
-  const { slug } = await params;
-  const post = await db.getBlogBySlug(slug).catch(() => null);
+  let slug = "";
+  try {
+    ({ slug } = await params);
+    const post = await db.getBlogBySlug(slug).catch((e) => {
+      console.error("[og] db.getBlogBySlug failed:", e);
+      return null;
+    });
 
-  const title = clip(post?.title || "Bodha Ventures", 110);
-  const deck = clip(post?.deck || "Markets · Macro · India", 180);
-  const kicker = (post?.kicker || "Markets · Macro · India").toUpperCase();
-  const dateLabel = (post?.dateLabel || "").toUpperCase();
-  const readTime = (post?.readTime || "").toUpperCase();
-  const brand = (post?.topbarBrand || "Bodha Ventures").toUpperCase();
+    const title = clip(post?.title || "Bodha Ventures", 110);
+    const deck = clip(post?.deck || "Markets · Macro · India", 180);
+    const kicker = (post?.kicker || "Markets · Macro · India").toUpperCase();
+    const dateLabel = (post?.dateLabel || "").toUpperCase();
+    const readTime = (post?.readTime || "").toUpperCase();
+    const brand = (post?.topbarBrand || "Bodha Ventures").toUpperCase();
 
-  const fonts = await loadFonts();
+    let fonts: LoadedFont[] = [];
+    try {
+      fonts = await loadFonts();
+    } catch (e) {
+      console.error("[og] loadFonts failed, falling back to system fonts:", e);
+      cachedFonts = null;
+    }
 
   return new ImageResponse(
     (
@@ -217,7 +229,30 @@ export default async function Image({ params }: Props) {
     ),
     {
       ...size,
-      fonts,
+      ...(fonts.length > 0 ? { fonts } : {}),
     }
   );
+  } catch (err) {
+    console.error("[og] image render crashed:", err);
+    return new ImageResponse(
+      (
+        <div
+          style={{
+            display: "flex",
+            width: "100%",
+            height: "100%",
+            background: BG,
+            color: FG,
+            alignItems: "center",
+            justifyContent: "center",
+            fontSize: 56,
+            letterSpacing: 2,
+          }}
+        >
+          {SITE.toUpperCase()}
+        </div>
+      ),
+      size
+    );
+  }
 }
