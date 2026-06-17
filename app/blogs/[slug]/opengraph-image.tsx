@@ -19,10 +19,13 @@ export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 export const alt = "Bodha Ventures";
 
-const BG = "#0a0a0a";
-const FG = "#f5f1e8";
-const DIM = "#8a8377";
-const GOLD = "#c9a04a";
+// Palette mirrors blogs.css / guide-article.css.
+const BG = "#fdfcf9";       // parchment
+const FG = "#0d0d0d";       // ink
+const DIM = "#6B6460";      // warm grey (deck, meta)
+const GOLD = "#c9a84c";     // accent rule + brand mark
+const GOLD_DEEP = "#A37A1A";// stronger gold for header letters
+const TINT = "rgba(200,154,46,0.08)"; // subtle gold wash
 const SITE = "bodhaventures.in";
 
 const UA =
@@ -105,6 +108,30 @@ export default async function Image({ params }: Props) {
           position: "relative",
         }}
       >
+        {/* TOP GOLD HAIRLINE — matches the article hero divider */}
+        <div
+          style={{
+            display: "flex",
+            position: "absolute",
+            top: 0,
+            left: 0,
+            right: 0,
+            height: 4,
+            background: GOLD,
+          }}
+        />
+        {/* SUBTLE GOLD WASH BEHIND RIGHT META */}
+        <div
+          style={{
+            display: "flex",
+            position: "absolute",
+            top: 130,
+            right: 0,
+            bottom: 130,
+            width: 320,
+            background: TINT,
+          }}
+        />
         {/* HEADER */}
         <div
           style={{
@@ -132,7 +159,7 @@ export default async function Image({ params }: Props) {
               }}
             />
           </div>
-          <div style={{ display: "flex" }}>{kicker}</div>
+          <div style={{ display: "flex", color: GOLD_DEEP, fontWeight: 500 }}>{kicker}</div>
         </div>
 
         {/* LEFT col */}
@@ -177,7 +204,7 @@ export default async function Image({ params }: Props) {
             display: "flex",
             width: 1,
             background: GOLD,
-            opacity: 0.45,
+            opacity: 0.7,
             margin: "130px 0",
           }}
         />
