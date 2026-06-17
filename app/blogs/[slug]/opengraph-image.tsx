@@ -25,7 +25,6 @@ const FG = "#0d0d0d";       // ink
 const DIM = "#6B6460";      // warm grey (deck, meta)
 const GOLD = "#c9a84c";     // accent rule + brand mark
 const GOLD_DEEP = "#A37A1A";// stronger gold for header letters
-const TINT = "rgba(200,154,46,0.08)"; // subtle gold wash
 const SITE = "bodhaventures.in";
 
 const UA =
@@ -118,18 +117,6 @@ export default async function Image({ params }: Props) {
             right: 0,
             height: 4,
             background: GOLD,
-          }}
-        />
-        {/* SUBTLE GOLD WASH BEHIND RIGHT META */}
-        <div
-          style={{
-            display: "flex",
-            position: "absolute",
-            top: 130,
-            right: 0,
-            bottom: 130,
-            width: 320,
-            background: TINT,
           }}
         />
         {/* HEADER */}
