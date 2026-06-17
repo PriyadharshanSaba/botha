@@ -178,7 +178,8 @@ export default function BlogEditor({ initial = EMPTY_INITIAL }: { initial?: Edit
       );
       if (!res.ok) {
         const b = await res.json().catch(() => ({}));
-        setSaveError(b.error || b.message || res.statusText);
+        const parts = [b.error, b.message].filter(Boolean).join(" — ");
+        setSaveError(parts || res.statusText);
         return;
       }
       router.push("/admin/blogs");
