@@ -96,6 +96,7 @@ export default function BlogEditor({ initial = EMPTY_INITIAL }: { initial?: Edit
 
   const [preview, setPreview] = useState<PreviewResp | null>(null);
   const [previewing, setPreviewing] = useState(false);
+  const [previewError, setPreviewError] = useState<string | null>(null);
   const [saving, setSaving] = useState(false);
   const [saveError, setSaveError] = useState<string | null>(null);
 
@@ -135,14 +136,23 @@ export default function BlogEditor({ initial = EMPTY_INITIAL }: { initial?: Edit
 
   async function runPreview() {
     setPreviewing(true);
+    setPreviewError(null);
     try {
       const res = await fetch("/api/admin/blogs/preview", {
         method: "POST",
         headers: { "content-type": "application/json" },
         body: JSON.stringify({ html: rawHtml, afterSection }),
       });
-      if (!res.ok) { setPreview(null); return; }
+      if (!res.ok) {
+        const bodyText = await res.text().catch(() => "");
+        setPreview(null);
+        setPreviewError(`Preview failed: HTTP ${res.status} ${res.statusText}${bodyText ? ` — ${bodyText.slice(0, 400)}` : ""}`);
+        return;
+      }
       setPreview(await res.json());
+    } catch (err) {
+      setPreview(null);
+      setPreviewError(`Preview request errored: ${err instanceof Error ? err.message : String(err)}`);
     } finally {
       setPreviewing(false);
     }
@@ -236,6 +246,11 @@ export default function BlogEditor({ initial = EMPTY_INITIAL }: { initial?: Edit
               </select>
             </Field>
 
+            {previewError && (
+              <div className="admin-editor-meta">
+                <p className="admin-editor-error">{previewError}</p>
+              </div>
+            )}
             {preview && (
               <div className="admin-editor-meta">
                 <p>Detected <strong>{preview.sections.length}</strong> section{preview.sections.length === 1 ? "" : "s"}.</p>
