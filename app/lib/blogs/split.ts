@@ -32,11 +32,16 @@ export class SplitError extends Error {}
  * Returns the section markers found in the document, in source order.
  * Does NOT modify the input. Used by the admin uploader to populate the
  * "split after section" dropdown.
+ *
+ * Sections are numbered 1..N by source order — the leading digits in the
+ * section-tag text are ignored for numbering, because pasted HTML may
+ * format the number in any way (or omit it). The visible text becomes the
+ * title (with leading digits + whitespace stripped if present).
  */
 export function detectSections(html: string): DetectedSection[] {
   const root = parse(html, { lowerCaseTagName: false, comment: false });
   const markers = root.querySelectorAll(".section-tag");
-  return markers.map((m) => parseSectionTag(m));
+  return markers.map((m, i) => parseSectionTag(m, i + 1));
 }
 
 /**
@@ -59,13 +64,14 @@ export function splitAt(html: string, afterSection: number): SplitResult {
     throw new SplitError("splitAt: no `.section-tag` markers found in HTML");
   }
 
-  const sections = allMarkers.map(parseSectionTag);
-  const cutMarker = allMarkers.find((m) => parseSectionTag(m).num === afterSection + 1);
-  if (!cutMarker) {
+  const sections = allMarkers.map((m, i) => parseSectionTag(m, i + 1));
+  const cutIndex = afterSection;   // sections numbered 1..N → cut at index `afterSection` (0-based)
+  if (cutIndex >= allMarkers.length) {
     throw new SplitError(
       `splitAt: no section numbered ${afterSection + 1} found (have ${sections.map((s) => s.num).join(", ")})`
     );
   }
+  const cutMarker = allMarkers[cutIndex];
 
   // The cut point is the cutMarker node. Find the top-level ancestor of
   // cutMarker inside `root` — we slice on direct children of root only.
@@ -90,18 +96,21 @@ export function splitAt(html: string, afterSection: number): SplitResult {
   };
 }
 
-function parseSectionTag(el: HTMLElement): DetectedSection {
-  // The text typically reads "01  The Market Scorecard" with non-breaking
-  // spaces. Normalize whitespace and pull the leading digits.
-  const raw = el.text.replace(/ /g, " ").trim();
-  const m = raw.match(/^(\d{1,3})\s+(.+)$/);
-  if (!m) {
-    return { num: NaN, rawText: raw, title: raw };
-  }
+function parseSectionTag(el: HTMLElement, num: number): DetectedSection {
+  // Decode &nbsp;, collapse all whitespace, trim. Strip any leading
+  // digits + separator so the title is the human label. Source-order
+  // numbering is used for `num`; the text-embedded number (if any) is
+  // ignored — pasted HTML may format it any way or omit it entirely.
+  const raw = el.text
+    .replace(/&nbsp;/g, " ")
+    .replace(/ /g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+  const titleOnly = raw.replace(/^\d{1,3}[\s.:\-—]*/, "").trim();
   return {
-    num: parseInt(m[1], 10),
+    num,
     rawText: raw,
-    title: m[2].trim(),
+    title: titleOnly || raw || `Section ${num}`,
   };
 }
 
