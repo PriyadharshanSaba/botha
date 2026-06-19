@@ -8,6 +8,7 @@ const links = [
   { href: "/admin/onboard", label: "Onboard" },
   { href: "/admin/referrals", label: "Referrals" },
   { href: "/admin/blogs", label: "Blogs" },
+  { href: "/admin/tools", label: "Tools" },
 ];
 
 export default function AdminNav({ email }: { email: string }) {
