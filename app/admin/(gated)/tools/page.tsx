@@ -11,9 +11,7 @@ export default async function AdminToolsPage() {
       <section className="admin-tile" style={{ marginTop: 16, maxWidth: 560 }}>
         <div className="admin-tile-label">User emails — weekly insights export</div>
         <div style={{ marginTop: 8, fontSize: 13, color: "#6B6460", lineHeight: 1.55 }}>
-          Downloads a CSV of every email in the <code>users</code> table that
-          contains an <code>@</code>. Deduplicated case-insensitively. Hand
-          this file to the partner for the weekly insights blast.
+          Downloads a CSV of every email.
         </div>
         <div style={{ marginTop: 14, display: "flex", alignItems: "center", gap: 12, flexWrap: "wrap" }}>
           <a
