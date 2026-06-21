@@ -1273,7 +1273,7 @@ export default function ToolsPage() {
           onClick={(e) => e.stopPropagation()}
         >
           {/* Header */}
-          <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "20px 32px", borderBottom: "1px solid rgba(0,0,0,0.08)", flexShrink: 0 }}>
+          <div className="ft-tracker-modal-header" style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "20px 32px", borderBottom: "1px solid rgba(0,0,0,0.08)", flexShrink: 0 }}>
             <div>
               <div style={{ fontSize: 11, letterSpacing: 2, textTransform: "uppercase", color: "var(--gold)", marginBottom: 4 }}>Tool 07</div>
               <div style={{ fontFamily: "'Playfair Display', serif", fontSize: 22, fontWeight: 700, letterSpacing: "-0.5px" }}>Net Worth Tracker</div>
@@ -1282,10 +1282,10 @@ export default function ToolsPage() {
           </div>
 
           {/* Two-pane body */}
-          <div style={{ display: "grid", gridTemplateColumns: "340px 1fr", flex: 1, overflow: "hidden", minHeight: 0 }}>
+          <div className="ft-tracker-2pane">
 
             {/* LEFT: tab-lock / bootstrap / entry form */}
-            <div style={{ borderRight: "1px solid rgba(0,0,0,0.08)", overflowY: "auto", padding: "28px 28px 40px" }}>
+            <div className="ft-tracker-pane-form">
               {tabLockState === "blocked" ? (
                 <div className="ft-tracker-blocked">
                   <h3 style={{ fontFamily: "'Playfair Display', serif", fontSize: 18, fontWeight: 700, marginBottom: 10 }}>Networth Tracker is open in another tab.</h3>
@@ -1338,6 +1338,12 @@ export default function ToolsPage() {
                       {errorMsg}
                     </div>
                   )}
+
+                  <details className="ft-tracker-form-drawer">
+                    <summary>
+                      <span>+ Add / update entry</span>
+                    </summary>
+                    <div className="ft-tracker-form-drawer-body">
 
                   <div className="ft-form-group" style={{ marginBottom: 14 }}>
                     <label className="ft-form-label">Month</label>
@@ -1441,12 +1447,15 @@ export default function ToolsPage() {
                       ✓ Saved! Charts updated.
                     </div>
                   )}
+
+                    </div>
+                  </details>
                 </div>
               )}
             </div>
 
             {/* RIGHT: charts + history */}
-            <div style={{ overflowY: "auto", padding: "28px 32px 40px", background: "#fafaf8" }}>
+            <div className="ft-tracker-pane-charts">
               {!sortedData.length ? (
                 <div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", height: "100%", opacity: 0.45, textAlign: "center" }}>
                   <div style={{ marginBottom: 14, color: "var(--ink)", lineHeight: 0 }}><SketchIcon name="bar-chart" size={48} /></div>
@@ -1472,7 +1481,7 @@ export default function ToolsPage() {
                 return (
                   <div>
                     {/* Summary strip */}
-                    <div style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 12, marginBottom: 28 }}>
+                    <div className="ft-tracker-summary">
                       <div style={{ background: "#fff", border: "1px solid rgba(0,0,0,0.08)", borderRadius: 12, padding: "16px 18px" }}>
                         <div style={{ fontSize: 11, color: "#aaa", textTransform: "uppercase", letterSpacing: 1, marginBottom: 6 }}>Latest Net Worth</div>
                         <div style={{ fontFamily: "'Playfair Display', serif", fontSize: 20, fontWeight: 700, color: latestNw >= 0 ? "var(--ink)" : "#b85c38" }}>{fmt(latestNw)}</div>
@@ -1498,7 +1507,7 @@ export default function ToolsPage() {
                     </div>
 
                     {/* Charts row */}
-                    <div style={{ display: "grid", gridTemplateColumns: allocTotal > 0 ? "1fr 1fr 1fr" : "1fr 1fr", gap: 16, marginBottom: 20 }}>
+                    <div className={`ft-tracker-charts-row${allocTotal > 0 ? "" : " ft-tracker-charts-row--two"}`}>
                       <div style={{ background: "#fff", border: "1px solid rgba(0,0,0,0.08)", borderRadius: 16, padding: "18px 20px" }}>
                         <div style={{ fontFamily: "'Playfair Display', serif", fontSize: 14, fontWeight: 700, marginBottom: 2 }}>Net Worth Over Time</div>
                         <div style={{ fontSize: 11, color: "#aaa", marginBottom: 12 }}>Monthly trend (₹)</div>
@@ -1541,7 +1550,7 @@ export default function ToolsPage() {
                         <div style={{ fontFamily: "'Playfair Display', serif", fontSize: 15, fontWeight: 700 }}>Entry Log</div>
                       </div>
                       <div style={{ overflowX: "auto" }}>
-                        <table style={{ width: "100%", borderCollapse: "collapse" }}>
+                        <table className="ft-tracker-entry-log" style={{ width: "100%", borderCollapse: "collapse" }}>
                           <thead>
                             <tr style={{ borderBottom: "2px solid rgba(0,0,0,0.08)" }}>
                               {["Month", "Assets", "Liabilities", "Net Worth"].map(h => (
@@ -1766,6 +1775,7 @@ export default function ToolsPage() {
         if (top < PAD) top = PAD;
         return (
           <div
+            className="ft-tracker-hover-popup"
             style={{
               position: "fixed",
               left,
