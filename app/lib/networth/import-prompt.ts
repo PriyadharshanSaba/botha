@@ -20,7 +20,7 @@ SCHEMA (exact shape):
       "month": "YYYY-MM",
       "assets": { "<key>": <number>, ... },
       "liabs":  { "<key>": <number>, ... },
-      "alloc":  { "equity": <number>, "debt": <number>, "gold": <number>, "realestate": <number>, "cash": <number> }
+      "alloc":  { "equity": <number>, "mutualFunds": <number>, "debt": <number>, "gold": <number>, "realestate": <number>, "cash": <number> }
     }
   ],
   "errors": [
@@ -49,9 +49,10 @@ Place each column under "assets" or "liabs":
 Use the user's own column names verbatim as object keys (camelCase or snake_case is fine, but keep them stable across months).
 
 ALLOC BUCKETS (donut chart)
-Compute the five required keys. Map every asset column to exactly one bucket:
-- equity → direct stocks (Indian + foreign), equity mutual funds, ESOPs, vested RSUs, crypto.
-- debt → FDs, debt mutual funds, bonds, EPF, PPF, LIC, NPS, loans given to others.
+Compute the six required keys. Map every asset column to exactly one bucket:
+- equity → direct stocks (Indian + foreign), ESOPs, vested RSUs, crypto.
+- mutualFunds → equity mutual funds AND debt mutual funds (any pooled fund unit).
+- debt → FDs, bonds, EPF, PPF, LIC, NPS, loans given to others.
 - gold → physical gold, SGB, gold ETF.
 - realestate → property holdings.
 - cash → bank balances, cash reserve, savings.
