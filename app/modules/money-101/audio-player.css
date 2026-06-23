@@ -93,21 +93,16 @@
 
 .ap-btn:hover { background: #ece5cf; }
 .ap-btn:active { transform: scale(0.94); }
+.ap-btn:focus { outline: none; }
+.ap-btn:focus-visible {
+  outline: 2px solid rgba(201, 168, 76, 0.55);
+  outline-offset: 2px;
+}
 
 .ap-btn-skip {
   width: 46px;
   height: 46px;
-}
-
-.ap-btn-num {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -38%);
-  font-size: 9px;
-  font-weight: 700;
-  letter-spacing: 0.3px;
-  pointer-events: none;
+  color: #2a2a2a;
 }
 
 .ap-btn-play {

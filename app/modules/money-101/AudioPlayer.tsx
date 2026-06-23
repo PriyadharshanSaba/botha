@@ -97,11 +97,11 @@ export default function AudioPlayer({ src }: Props) {
               onClick={() => skip(-5)}
               aria-label="Back 5 seconds"
             >
-              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M3 12a9 9 0 1 0 3-6.7" />
-                <polyline points="3 4 3 10 9 10" />
+              <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+                <path d="M4 12a8 8 0 1 0 2.34-5.66" />
+                <polyline points="4 3 4 7 8 7" />
+                <text x="12" y="15.6" textAnchor="middle" fontSize="8.5" fontWeight="700" fill="currentColor" stroke="none" style={{ fontFamily: "system-ui, -apple-system, sans-serif" }}>5</text>
               </svg>
-              <span className="ap-btn-num">5</span>
             </button>
 
             <button
@@ -128,11 +128,11 @@ export default function AudioPlayer({ src }: Props) {
               onClick={() => skip(5)}
               aria-label="Forward 5 seconds"
             >
-              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M21 12a9 9 0 1 1-3-6.7" />
-                <polyline points="21 4 21 10 15 10" />
+              <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+                <path d="M20 12a8 8 0 1 1-2.34-5.66" />
+                <polyline points="20 3 20 7 16 7" />
+                <text x="12" y="15.6" textAnchor="middle" fontSize="8.5" fontWeight="700" fill="currentColor" stroke="none" style={{ fontFamily: "system-ui, -apple-system, sans-serif" }}>5</text>
               </svg>
-              <span className="ap-btn-num">5</span>
             </button>
           </div>
 
