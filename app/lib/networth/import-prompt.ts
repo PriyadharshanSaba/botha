@@ -20,7 +20,7 @@ SCHEMA (exact shape):
       "month": "YYYY-MM",
       "assets": { "<key>": <number>, ... },
       "liabs":  { "<key>": <number>, ... },
-      "alloc":  { "equity": <number>, "debt": <number>, "gold": <number>, "realestate": <number>, "cash": <number> }
+      "alloc":  { "equity": <number>, "mutualFunds": <number>, "debt": <number>, "gold": <number>, "realestate": <number>, "cash": <number> }
     }
   ],
   "errors": [
@@ -42,24 +42,47 @@ MONTH NORMALIZATION (target: "YYYY-MM")
 - Ambiguous formats like "01/02/24" (could be Jan-Feb or Feb-Jan) → push to errors[] with reason "ambiguous-date". Do NOT guess.
 
 ASSET / LIABILITY CLASSIFICATION
-Place each column under "assets" or "liabs":
-- assets: bank balances, savings, cash reserve, crypto, equity (Indian + foreign), equity mutual funds, debt mutual funds, FDs, bonds, EPF, PPF, NPS, LIC, gold (physical / SGB / ETF), property, ESOPs, RSUs, loans GIVEN to others.
-- liabs: home loan, car loan, personal loan, credit card outstanding, any loan TAKEN.
+Place each column under "assets" or "liabs". Use stable camelCase keys (the UI humanizes them — "bankCash" → "Bank & Cash") and keep the same key across months so the breakdown stays consistent.
 
-Use the user's own column names verbatim as object keys (camelCase or snake_case is fine, but keep them stable across months).
+ASSET KEYS — prefer these canonical labels when the column matches; fall back to a sensible camelCase name otherwise:
+- bankCash → bank balances, cash reserve, lent receivables.
+- stocks → direct equity / ETFs (Indian + foreign).
+- mutualFunds → equity AND debt mutual funds (any pooled fund unit).
+- epfPpfNps → EPF, PPF, NPS combined; split into "epf" / "ppf" / "nps" only if the CSV does.
+- lic → LIC policies / endowment premiums paid.
+- fd → fixed deposits.
+- bonds → sovereign bonds, corporate bonds, RBI/treasury bills.
+- gold → physical gold / jewellery.
+- sgb → Sovereign Gold Bonds, digital gold, gold ETFs.
+- property → real estate.
+- crypto / wazirxRT → tradable tokens, recovery tokens.
+- esopIlliquid → exercised ESOPs in private companies, illiquid private equity.
+- loansGiven → money lent to others.
+
+LIABILITY KEYS — use the exact label that describes the debt, do NOT lump everything into a single key:
+- creditCard → outstanding card dues.
+- homeLoan → mortgage outstanding.
+- carLoan → vehicle loan outstanding.
+- personalLoan → unsecured personal loan.
+- educationLoan → student loan.
+- loans → only when the CSV truly carries a single aggregate column and you cannot split it.
 
 ALLOC BUCKETS (donut chart)
-Compute the five required keys. Map every asset column to exactly one bucket:
-- equity → direct stocks (Indian + foreign), equity mutual funds, ESOPs, vested RSUs, crypto.
-- debt → FDs, debt mutual funds, bonds, EPF, PPF, LIC, NPS, loans given to others.
+Compute the six required keys. Map every asset column to exactly one bucket:
+- equity → direct stocks (Indian + foreign), ESOPs, vested RSUs, crypto.
+- mutualFunds → equity mutual funds AND debt mutual funds (any pooled fund unit).
+- debt → FDs, bonds, EPF, PPF, LIC, NPS, loans given to others.
 - gold → physical gold, SGB, gold ETF.
 - realestate → property holdings.
 - cash → bank balances, cash reserve, savings.
 Liabilities are NEVER part of alloc.
 
+ALLOC INVARIANT: for each entry, sum of all six alloc values MUST equal the sum of all values in "assets" for that month (every rupee of an asset lands in exactly one bucket). If a row doesn't add up, recheck your bucket mapping before emitting it.
+
 HARD RULES
 - Do NOT include "id" or "createdAt" anywhere. The server will assign these.
 - Do NOT exceed 500 entries. If the CSV has more, take the most recent 500 and add an errors[] row noting the truncation.
+- All six alloc keys must be present in every entry, even if some are 0.
 - If you cannot parse a row with confidence, append { "row": <line_number_or_label>, "reason": "<short>" } to "errors" and skip the row — never guess.
 - If the CSV is empty or unrecognizable, output: { "schemaVersion": 1, "entries": [], "errors": [{"row":0,"reason":"unrecognizable-input"}] }
 

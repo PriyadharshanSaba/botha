@@ -48,7 +48,7 @@ function formatInr(n: number): string {
   return `\u20B9${n.toLocaleString("en-IN", { maximumFractionDigits: 0 })}`;
 }
 
-const ALLOC_ORDER = ["equity", "debt", "gold", "realestate", "cash"] as const;
+const ALLOC_ORDER = ["equity", "mutualFunds", "debt", "gold", "realestate", "cash"] as const;
 
 function formatAlloc(alloc: Record<string, number>): string {
   const parts: string[] = [];
@@ -230,7 +230,7 @@ export default function ImportModal(props: ImportModalProps): JSX.Element | null
     return (
       <div>
         <h2 style={headingStyle}>Import from CSV</h2>
-        <div style={subheadingStyle}>Step 1 — Copy the prompt and paste it in any GPT's chatbox along with your networth CSV / excel file uploaded</div>
+        <div style={subheadingStyle}>Step 1 — Copy the prompt and paste it in any GPT&apos;s chatbox along with your networth CSV / excel file uploaded</div>
         <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
           <button
             type="button"

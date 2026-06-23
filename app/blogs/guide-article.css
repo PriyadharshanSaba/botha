@@ -1,5 +1,27 @@
 /* ── GUIDE ARTICLE PAGE (shared: blog2, blog3) ── */
 
+/*
+ * Design-system palette as CSS variables. Articles with their own custom
+ * CSS may reference these (e.g. `color: var(--muted)`) without redefining
+ * them, and may override any of them in a per-article :root block.
+ * Keep values in lockstep with the literal colors used throughout this file.
+ */
+:root {
+  --bg:        #fdfcf9;
+  --surface:   #F5F5F5;
+  --surface2:  #EEEEEE;
+  --card-bg:   #F9F9F9;
+  --text:      #111111;
+  --muted:     #6B6460;
+  --border:    rgba(17,17,17,0.1);
+  --border2:   rgba(17,17,17,0.18);
+  --gold:      #C89A2E;
+  --accent:    #C89A2E;
+  --accent2:   #A37A1A;
+  --red:       #A0380A;
+  --green:     #2E7D45;
+}
+
 .blog-article-page {
   font-family: 'DM Sans', sans-serif;
   background: #fdfcf9;

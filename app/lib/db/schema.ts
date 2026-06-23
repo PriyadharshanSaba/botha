@@ -1,6 +1,6 @@
 import { pgTable, text, timestamp, integer, primaryKey, serial, bigserial, boolean, unique, jsonb, index, uniqueIndex } from "drizzle-orm/pg-core";
 import { sql } from "drizzle-orm";
-import type { BillingInfo, BuyerSnapshot, SupplierSnapshot, InvoiceLineItem, InvoiceNotes } from "./types";
+import type { BillingInfo, BuyerSnapshot, SupplierSnapshot, InvoiceLineItem, InvoiceNotes, BlogStatRowCell } from "./types";
 import type { NwtEntry } from "@/app/lib/networth/types";
 
 export const users = pgTable("users", {
@@ -191,6 +191,43 @@ export const referralOffers = pgTable("referral_offers", {
   expiresAt: timestamp("expires_at"),
 }, (table) => ({
   ownerIdx: index("idx_referral_offers_owner").on(table.ownerUserId),
+}));
+
+/**
+ * blogs — DB-backed articles. Written by admin uploader; read by /blogs and /blogs/[slug].
+ * preview_html / gated_html are pre-sanitized at write time — never trust raw input
+ * to land here. See app/lib/blogs/sanitize.ts.
+ */
+export const blogs = pgTable("blogs", {
+  slug:         text("slug").primaryKey(),
+
+  kicker:       text("kicker").notNull(),
+  title:        text("title").notNull(),
+  titleHtml:    text("title_html").notNull(),
+  deck:         text("deck").notNull(),
+
+  heroSub:      text("hero_sub").notNull(),
+  heroBadge:    text("hero_badge"),
+  topbarBrand:  text("topbar_brand").notNull().default("Markets & Macro"),
+  topbarTag:    text("topbar_tag").notNull(),
+
+  dateLabel:    text("date_label").notNull(),
+  readTime:     text("read_time").notNull(),
+
+  previewHtml:  text("preview_html").notNull(),
+  gatedHtml:    text("gated_html").notNull(),
+  customCss:    text("custom_css"),
+
+  statRow:      jsonb("stat_row").$type<BlogStatRowCell[] | null>(),
+
+  status:       text("status").notNull().default("draft"),          // 'draft' | 'published'
+  authorId:     text("author_id").notNull().references(() => users.id, { onDelete: "restrict" }),
+  createdAt:    timestamp("created_at").defaultNow().notNull(),
+  updatedAt:    timestamp("updated_at").defaultNow().notNull(),
+  publishedAt:  timestamp("published_at"),
+}, (table) => ({
+  statusPublishedIdx: index("idx_blogs_status_published").on(table.status, table.publishedAt),
+  updatedIdx:         index("idx_blogs_updated").on(table.updatedAt),
 }));
 
 export const referralRedemptions = pgTable("referral_redemptions", {

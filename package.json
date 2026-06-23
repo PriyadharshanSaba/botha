@@ -7,6 +7,7 @@
     "build": "next build --webpack",
     "start": "next start",
     "lint": "eslint",
+    "test": "tsx --test app/lib/blogs/*.test.ts",
     "enable-referrer": "tsx scripts/enable-referrer.ts",
     "heal-payment": "tsx scripts/heal-payment.ts"
   },
@@ -17,17 +18,22 @@
     "@vercel/analytics": "^2.0.1",
     "chart.js": "^4.5.1",
     "drizzle-orm": "^0.45.2",
+    "isomorphic-dompurify": "^3.16.0",
     "next": "^16.2.6",
+    "node-html-parser": "^7.1.0",
     "pg": "^8.16.3",
     "puppeteer-core": "^25.1.0",
     "razorpay": "^2.9.6",
     "react": "19.2.0",
     "react-dom": "19.2.0",
     "resend": "^6.10.0",
-    "server-only": "^0.0.1"
+    "server-only": "^0.0.1",
+    "zod": "^4.4.3"
   },
   "overrides": {
-    "axios": ">=1.8.0"
+    "axios": ">=1.8.0",
+    "jsdom": "27.0.0",
+    "cssstyle": "4.1.0"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",

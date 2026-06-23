@@ -4,7 +4,7 @@ import "./tools.css";
 import "../landing.css";
 import "../about/about.css";
 import Link from "next/link";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { Fragment, useEffect, useMemo, useRef, useState } from "react";
 import TermsModal from "../components/TermsModal";
 import PrivacyModal from "../components/PrivacyModal";
 import SketchIcon from "../components/SketchIcon";
@@ -27,6 +27,35 @@ function fmt(n: number) {
 
 const sumValues = (m: Record<string, number>) => Object.values(m).reduce((a, b) => a + b, 0);
 const monthNw = (d: NwtEntry) => sumValues(d.assets) - sumValues(d.liabs);
+
+/** "bankCash" → "Bank Cash"; "mfEquity" → "Mf Equity"; "epfPpfNps" → "Epf Ppf Nps". */
+function humanizeKey(k: string): string {
+  const SPECIAL: Record<string, string> = {
+    bankCash: "Bank & Cash",
+    stocks: "Stocks / ETFs",
+    mutualFunds: "Mutual Funds",
+    mfEquity: "Equity MF",
+    mfDebt: "Debt MF",
+    epfPpfNps: "EPF / PPF / NPS",
+    lic: "LIC",
+    wazirxRT: "WazirX Recovery Tokens",
+    esopIlliquid: "ESOP / Illiquid",
+    fd: "Fixed Deposits",
+    bonds: "PPF / Bonds / NPS",
+    gold: "Gold",
+    sgb: "SGB / Digital Gold",
+    property: "Property",
+    savings: "Savings",
+    otherAsset: "Other Assets",
+    homeLoan: "Home Loan",
+    carLoan: "Car Loan",
+    personalLoan: "Personal Loan",
+    cc: "Credit Card",
+    liabilities: "Liabilities",
+  };
+  if (SPECIAL[k]) return SPECIAL[k];
+  return k.replace(/([A-Z])/g, " $1").replace(/^./, (c) => c.toUpperCase()).trim();
+}
 
 /* ── tool card data ── */
 const tools = [
@@ -330,6 +359,9 @@ export default function ToolsPage() {
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
   const [importUsedAt, setImportUsedAt] = useState<string | null>(null);
   const [importOpen, setImportOpen] = useState(false);
+  const [hoveredEntry, setHoveredEntry] = useState<NwtEntry | null>(null);
+  const [hoverPos, setHoverPos] = useState<{ x: number; y: number }>({ x: 0, y: 0 });
+  const [expandedIds, setExpandedIds] = useState<Set<string>>(new Set());
   const tabLockReleaseRef = useRef<() => void>(() => {});
   const [nwtFields, setNwtFields] = useState({
     stocks: 0, mfEquity: 0, mfDebt: 0, fd: 0, bonds: 0,
@@ -422,8 +454,9 @@ export default function ToolsPage() {
     setErrorMsg(null);
     setSaving(true);
     const f = nwtFields;
-    const equity = f.stocks + f.mfEquity;
-    const debt = f.mfDebt + f.fd + f.bonds;
+    const equity = f.stocks;
+    const mutualFunds = f.mfEquity + f.mfDebt;
+    const debt = f.fd + f.bonds;
     const gold = f.gold + f.sgb;
     const realestate = f.property;
     const cash = f.savings + f.otherAsset;
@@ -436,7 +469,7 @@ export default function ToolsPage() {
       liabs: {
         homeLoan: f.homeLoan, carLoan: f.carLoan, personalLoan: f.personalLoan, cc: f.cc,
       },
-      alloc: { equity, debt, gold, realestate, cash },
+      alloc: { equity, mutualFunds, debt, gold, realestate, cash },
     });
     setNwtData(result.entries);
     setPendingN(pendingCount(userId));
@@ -507,13 +540,13 @@ export default function ToolsPage() {
 
       /* donut chart */
       const latest = sortedData[sortedData.length - 1];
-      const { equity = 0, debt = 0, gold = 0, realestate = 0, cash = 0 } = latest.alloc || {};
-      const allocTotal = equity + debt + gold + realestate + cash;
+      const { equity = 0, mutualFunds = 0, debt = 0, gold = 0, realestate = 0, cash = 0 } = latest.alloc || {};
+      const allocTotal = equity + mutualFunds + debt + gold + realestate + cash;
       if (nwtDonutRef.current && allocTotal > 0) {
         if (nwtDonutInst.current) nwtDonutInst.current.destroy();
         nwtDonutInst.current = new ChartJS(nwtDonutRef.current, {
           type: "pie",
-          data: { labels: ["Equity", "Debt", "Gold & Silver", "Real Estate", "Cash & Other"], datasets: [{ data: [equity, debt, gold, realestate, cash], backgroundColor: ["#4a7fcb", "#6a8fc8", "#e8c35a", "#a0785a", "#6abf7a"], borderColor: ["#3a6ab8", "#4a7ab5", "#d4a832", "#8a6040", "#4fa860"], borderWidth: 1.5, hoverOffset: 6 }] },
+          data: { labels: ["Equity", "Mutual Funds", "Debt", "Gold & Silver", "Real Estate", "Cash & Other"], datasets: [{ data: [equity, mutualFunds, debt, gold, realestate, cash], backgroundColor: ["#4a7fcb", "#9b7fcb", "#6a8fc8", "#e8c35a", "#a0785a", "#6abf7a"], borderColor: ["#3a6ab8", "#8a6ab8", "#4a7ab5", "#d4a832", "#8a6040", "#4fa860"], borderWidth: 1.5, hoverOffset: 6 }] },
           options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false }, tooltip: { callbacks: { label: (ctx) => " " + fmt(ctx.parsed) + " (" + ((ctx.parsed / allocTotal) * 100).toFixed(1) + "%)" } } } },
         });
       }
@@ -1240,7 +1273,7 @@ export default function ToolsPage() {
           onClick={(e) => e.stopPropagation()}
         >
           {/* Header */}
-          <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "20px 32px", borderBottom: "1px solid rgba(0,0,0,0.08)", flexShrink: 0 }}>
+          <div className="ft-tracker-modal-header" style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "20px 32px", borderBottom: "1px solid rgba(0,0,0,0.08)", flexShrink: 0 }}>
             <div>
               <div style={{ fontSize: 11, letterSpacing: 2, textTransform: "uppercase", color: "var(--gold)", marginBottom: 4 }}>Tool 07</div>
               <div style={{ fontFamily: "'Playfair Display', serif", fontSize: 22, fontWeight: 700, letterSpacing: "-0.5px" }}>Net Worth Tracker</div>
@@ -1249,10 +1282,10 @@ export default function ToolsPage() {
           </div>
 
           {/* Two-pane body */}
-          <div style={{ display: "grid", gridTemplateColumns: "340px 1fr", flex: 1, overflow: "hidden", minHeight: 0 }}>
+          <div className="ft-tracker-2pane">
 
             {/* LEFT: tab-lock / bootstrap / entry form */}
-            <div style={{ borderRight: "1px solid rgba(0,0,0,0.08)", overflowY: "auto", padding: "28px 28px 40px" }}>
+            <div className="ft-tracker-pane-form">
               {tabLockState === "blocked" ? (
                 <div className="ft-tracker-blocked">
                   <h3 style={{ fontFamily: "'Playfair Display', serif", fontSize: 18, fontWeight: 700, marginBottom: 10 }}>Networth Tracker is open in another tab.</h3>
@@ -1306,6 +1339,12 @@ export default function ToolsPage() {
                     </div>
                   )}
 
+                  <details className="ft-tracker-form-drawer">
+                    <summary>
+                      <span>+ Add / update entry</span>
+                    </summary>
+                    <div className="ft-tracker-form-drawer-body">
+
                   <div className="ft-form-group" style={{ marginBottom: 14 }}>
                     <label className="ft-form-label">Month</label>
                     <input className="ft-form-input" type="month" value={nwtMonth} onChange={e => setNwtMonth(e.target.value)} />
@@ -1318,17 +1357,21 @@ export default function ToolsPage() {
                     <label className="ft-form-label">Stocks / ETFs (₹)</label>
                     <input className="ft-form-input" type="number" value={nwtFields.stocks || ""} onChange={e => setNwtFields(p => ({ ...p, stocks: Number(e.target.value) || 0 }))} placeholder="0" />
                   </div>
+
+                  <div style={{ fontSize: 11, fontWeight: 500, textTransform: "uppercase", letterSpacing: "1.5px", color: "#9b7fcb", margin: "16px 0 10px", display: "flex", alignItems: "center", gap: 8 }}>
+                    <span style={{ display: "inline-block", width: 18, height: 2, background: "#9b7fcb" }} />Mutual Funds
+                  </div>
                   <div className="ft-form-group" style={{ marginBottom: 10 }}>
                     <label className="ft-form-label">Equity Mutual Funds (₹)</label>
                     <input className="ft-form-input" type="number" value={nwtFields.mfEquity || ""} onChange={e => setNwtFields(p => ({ ...p, mfEquity: Number(e.target.value) || 0 }))} placeholder="0" />
                   </div>
-
-                  <div style={{ fontSize: 11, fontWeight: 500, textTransform: "uppercase", letterSpacing: "1.5px", color: "#6a8fc8", margin: "16px 0 10px", display: "flex", alignItems: "center", gap: 8 }}>
-                    <span style={{ display: "inline-block", width: 18, height: 2, background: "#6a8fc8" }} />Debt
-                  </div>
                   <div className="ft-form-group" style={{ marginBottom: 10 }}>
                     <label className="ft-form-label">Debt Mutual Funds (₹)</label>
                     <input className="ft-form-input" type="number" value={nwtFields.mfDebt || ""} onChange={e => setNwtFields(p => ({ ...p, mfDebt: Number(e.target.value) || 0 }))} placeholder="0" />
+                  </div>
+
+                  <div style={{ fontSize: 11, fontWeight: 500, textTransform: "uppercase", letterSpacing: "1.5px", color: "#6a8fc8", margin: "16px 0 10px", display: "flex", alignItems: "center", gap: 8 }}>
+                    <span style={{ display: "inline-block", width: 18, height: 2, background: "#6a8fc8" }} />Debt
                   </div>
                   <div className="ft-form-group" style={{ marginBottom: 10 }}>
                     <label className="ft-form-label">Fixed Deposits (₹)</label>
@@ -1404,12 +1447,15 @@ export default function ToolsPage() {
                       ✓ Saved! Charts updated.
                     </div>
                   )}
+
+                    </div>
+                  </details>
                 </div>
               )}
             </div>
 
             {/* RIGHT: charts + history */}
-            <div style={{ overflowY: "auto", padding: "28px 32px 40px", background: "#fafaf8" }}>
+            <div className="ft-tracker-pane-charts">
               {!sortedData.length ? (
                 <div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", height: "100%", opacity: 0.45, textAlign: "center" }}>
                   <div style={{ marginBottom: 14, color: "var(--ink)", lineHeight: 0 }}><SketchIcon name="bar-chart" size={48} /></div>
@@ -1420,18 +1466,22 @@ export default function ToolsPage() {
                 const latest = sortedData[sortedData.length - 1];
                 const prev = sortedData.length > 1 ? sortedData[sortedData.length - 2] : null;
                 const latestNw = monthNw(latest);
+                const prevNw = prev ? monthNw(prev) : null;
                 const change = prev ? latestNw - monthNw(prev) : null;
+                const changePct = (change !== null && prevNw !== null && prevNw !== 0)
+                  ? (change / Math.abs(prevNw)) * 100
+                  : null;
                 const [ly, lm] = latest.month.split("-");
                 const latestLabel = new Date(+ly, +lm - 1, 1).toLocaleString("en-IN", { month: "long", year: "numeric" });
-                const { equity = 0, debt = 0, gold = 0, realestate = 0, cash = 0 } = latest.alloc || {};
-                const allocTotal = equity + debt + gold + realestate + cash;
-                const allocColors = ["#4a7fcb", "#6a8fc8", "#e8c35a", "#a0785a", "#6abf7a"];
-                const allocLabels = ["Equity", "Debt", "Gold & Silver", "Real Estate", "Cash & Other"];
-                const allocValues = [equity, debt, gold, realestate, cash];
+                const { equity = 0, mutualFunds = 0, debt = 0, gold = 0, realestate = 0, cash = 0 } = latest.alloc || {};
+                const allocTotal = equity + mutualFunds + debt + gold + realestate + cash;
+                const allocColors = ["#4a7fcb", "#9b7fcb", "#6a8fc8", "#e8c35a", "#a0785a", "#6abf7a"];
+                const allocLabels = ["Equity", "Mutual Funds", "Debt", "Gold & Silver", "Real Estate", "Cash & Other"];
+                const allocValues = [equity, mutualFunds, debt, gold, realestate, cash];
                 return (
                   <div>
                     {/* Summary strip */}
-                    <div style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 12, marginBottom: 28 }}>
+                    <div className="ft-tracker-summary">
                       <div style={{ background: "#fff", border: "1px solid rgba(0,0,0,0.08)", borderRadius: 12, padding: "16px 18px" }}>
                         <div style={{ fontSize: 11, color: "#aaa", textTransform: "uppercase", letterSpacing: 1, marginBottom: 6 }}>Latest Net Worth</div>
                         <div style={{ fontFamily: "'Playfair Display', serif", fontSize: 20, fontWeight: 700, color: latestNw >= 0 ? "var(--ink)" : "#b85c38" }}>{fmt(latestNw)}</div>
@@ -1441,6 +1491,11 @@ export default function ToolsPage() {
                         <div style={{ fontSize: 11, color: "#aaa", textTransform: "uppercase", letterSpacing: 1, marginBottom: 6 }}>Month-on-Month Change</div>
                         <div style={{ fontFamily: "'Playfair Display', serif", fontSize: 20, fontWeight: 700, color: change === null ? "#aaa" : change >= 0 ? "#2d7a3a" : "#b85c38" }}>
                           {change === null ? "—" : (change >= 0 ? "+" : "") + fmt(change)}
+                          {changePct !== null && (
+                            <span style={{ fontSize: 13, fontWeight: 500, marginLeft: 6, opacity: 0.85 }}>
+                              ({changePct >= 0 ? "+" : ""}{changePct.toFixed(1)}%)
+                            </span>
+                          )}
                         </div>
                         <div style={{ fontSize: 11, color: "#bbb", marginTop: 4 }}>{change === null ? "First entry" : "vs prev month"}</div>
                       </div>
@@ -1452,7 +1507,7 @@ export default function ToolsPage() {
                     </div>
 
                     {/* Charts row */}
-                    <div style={{ display: "grid", gridTemplateColumns: allocTotal > 0 ? "1fr 1fr 1fr" : "1fr 1fr", gap: 16, marginBottom: 20 }}>
+                    <div className={`ft-tracker-charts-row${allocTotal > 0 ? "" : " ft-tracker-charts-row--two"}`}>
                       <div style={{ background: "#fff", border: "1px solid rgba(0,0,0,0.08)", borderRadius: 16, padding: "18px 20px" }}>
                         <div style={{ fontFamily: "'Playfair Display', serif", fontSize: 14, fontWeight: 700, marginBottom: 2 }}>Net Worth Over Time</div>
                         <div style={{ fontSize: 11, color: "#aaa", marginBottom: 12 }}>Monthly trend (₹)</div>
@@ -1495,7 +1550,7 @@ export default function ToolsPage() {
                         <div style={{ fontFamily: "'Playfair Display', serif", fontSize: 15, fontWeight: 700 }}>Entry Log</div>
                       </div>
                       <div style={{ overflowX: "auto" }}>
-                        <table style={{ width: "100%", borderCollapse: "collapse" }}>
+                        <table className="ft-tracker-entry-log" style={{ width: "100%", borderCollapse: "collapse" }}>
                           <thead>
                             <tr style={{ borderBottom: "2px solid rgba(0,0,0,0.08)" }}>
                               {["Month", "Assets", "Liabilities", "Net Worth"].map(h => (
@@ -1510,13 +1565,115 @@ export default function ToolsPage() {
                               const dAssets = sumValues(d.assets);
                               const dLiabs = sumValues(d.liabs);
                               const dNw = dAssets - dLiabs;
+                              const isOpen = expandedIds.has(d.id);
+                              const assetRows = Object.entries(d.assets || {}).filter(([, v]) => Number(v) !== 0);
+                              const liabRows = Object.entries(d.liabs || {}).filter(([, v]) => Number(v) !== 0);
                               return (
-                                <tr key={d.id} style={{ borderBottom: "1px solid rgba(0,0,0,0.06)" }}>
-                                  <td style={{ padding: "11px 20px", fontSize: 13, fontWeight: 500 }}>{label}</td>
-                                  <td style={{ padding: "11px 20px", fontSize: 13, color: "#2d7a3a" }}>{fmt(dAssets)}</td>
-                                  <td style={{ padding: "11px 20px", fontSize: 13, color: "#b85c38" }}>{fmt(dLiabs)}</td>
-                                  <td style={{ padding: "11px 20px", fontSize: 13, fontWeight: 700, color: dNw >= 0 ? "#2d7a3a" : "#b85c38" }}>{fmt(dNw)}</td>
-                                </tr>
+                                <Fragment key={d.id}>
+                                  <tr
+                                    style={{
+                                      borderBottom: isOpen ? "1px solid rgba(0,0,0,0.04)" : "1px solid rgba(0,0,0,0.06)",
+                                      cursor: "pointer",
+                                      background: isOpen ? "rgba(201,168,76,0.06)" : undefined,
+                                    }}
+                                    onClick={() => {
+                                      setExpandedIds(prev => {
+                                        const next = new Set(prev);
+                                        if (next.has(d.id)) next.delete(d.id); else next.add(d.id);
+                                        return next;
+                                      });
+                                    }}
+                                    onMouseEnter={(e) => {
+                                      setHoveredEntry(d);
+                                      setHoverPos({ x: e.clientX, y: e.clientY });
+                                    }}
+                                    onMouseMove={(e) => setHoverPos({ x: e.clientX, y: e.clientY })}
+                                    onMouseLeave={() => setHoveredEntry(null)}
+                                  >
+                                    <td style={{ padding: "11px 20px", fontSize: 13, fontWeight: 500 }}>
+                                      <span style={{ display: "inline-block", width: 10, color: "#bbb", marginRight: 6, fontSize: 10 }}>{isOpen ? "▾" : "▸"}</span>
+                                      {label}
+                                    </td>
+                                    <td style={{ padding: "11px 20px", fontSize: 13, color: "#2d7a3a" }}>{fmt(dAssets)}</td>
+                                    <td style={{ padding: "11px 20px", fontSize: 13, color: "#b85c38" }}>{fmt(dLiabs)}</td>
+                                    <td style={{ padding: "11px 20px", fontSize: 13, fontWeight: 700, color: dNw >= 0 ? "#2d7a3a" : "#b85c38" }}>{fmt(dNw)}</td>
+                                  </tr>
+                                  {isOpen && (
+                                    <tr style={{ background: "#fdfcf9", borderBottom: "1px solid rgba(0,0,0,0.06)" }}>
+                                      <td colSpan={4} style={{ padding: "14px 24px 18px" }}>
+                                        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 10 }}>
+                                          <div style={{ fontSize: 11, color: "#999", textTransform: "uppercase", letterSpacing: 1 }}>
+                                            Breakdown · {label}
+                                          </div>
+                                          <button
+                                            onClick={(e) => {
+                                              e.stopPropagation();
+                                              if (expandedIds.size > 1) {
+                                                setExpandedIds(new Set());
+                                              } else {
+                                                setExpandedIds(prev => { const n = new Set(prev); n.delete(d.id); return n; });
+                                              }
+                                            }}
+                                            style={{
+                                              background: "transparent",
+                                              border: "1px solid rgba(0,0,0,0.15)",
+                                              borderRadius: 6,
+                                              padding: "4px 10px",
+                                              fontSize: 11,
+                                              fontWeight: 500,
+                                              color: "#555",
+                                              cursor: "pointer",
+                                            }}
+                                          >
+                                            {expandedIds.size > 1 ? "Collapse all" : "Collapse"}
+                                          </button>
+                                        </div>
+                                        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 18 }}>
+                                          {/* Assets */}
+                                          <div>
+                                            <div style={{ fontSize: 11, fontWeight: 600, color: "#2d7a3a", textTransform: "uppercase", letterSpacing: 1, marginBottom: 6 }}>
+                                              Assets
+                                            </div>
+                                            {assetRows.length === 0 ? (
+                                              <div style={{ fontSize: 12, color: "#aaa" }}>No assets recorded.</div>
+                                            ) : (
+                                              <table style={{ width: "100%", borderCollapse: "collapse" }}>
+                                                <tbody>
+                                                  {assetRows.map(([k, v]) => (
+                                                    <tr key={k} style={{ borderBottom: "1px dashed rgba(0,0,0,0.05)" }}>
+                                                      <td style={{ padding: "5px 0", fontSize: 12, color: "#555" }}>{humanizeKey(k)}</td>
+                                                      <td style={{ padding: "5px 0", fontSize: 12, textAlign: "right", fontWeight: 500, color: "#222" }}>{fmt(Number(v))}</td>
+                                                    </tr>
+                                                  ))}
+                                                </tbody>
+                                              </table>
+                                            )}
+                                          </div>
+                                          {/* Liabilities */}
+                                          <div>
+                                            <div style={{ fontSize: 11, fontWeight: 600, color: "#b85c38", textTransform: "uppercase", letterSpacing: 1, marginBottom: 6 }}>
+                                              Liabilities
+                                            </div>
+                                            {liabRows.length === 0 ? (
+                                              <div style={{ fontSize: 12, color: "#aaa" }}>No liabilities recorded.</div>
+                                            ) : (
+                                              <table style={{ width: "100%", borderCollapse: "collapse" }}>
+                                                <tbody>
+                                                  {liabRows.map(([k, v]) => (
+                                                    <tr key={k} style={{ borderBottom: "1px dashed rgba(0,0,0,0.05)" }}>
+                                                      <td style={{ padding: "5px 0", fontSize: 12, color: "#555" }}>{humanizeKey(k)}</td>
+                                                      <td style={{ padding: "5px 0", fontSize: 12, textAlign: "right", fontWeight: 500, color: "#222" }}>{fmt(Number(v))}</td>
+                                                    </tr>
+                                                  ))}
+                                                </tbody>
+                                              </table>
+                                            )}
+                                          </div>
+                                        </div>
+                                      </td>
+                                    </tr>
+                                  )}
+                                </Fragment>
                               );
                             })}
                           </tbody>
@@ -1594,6 +1751,74 @@ export default function ToolsPage() {
 
       {showTerms && <TermsModal viewOnly onClose={() => setShowTerms(false)} />}
       {showPrivacy && <PrivacyModal onClose={() => setShowPrivacy(false)} />}
+
+      {/* ── ENTRY-LOG HOVER POPUP: horizontal allocation bars ── */}
+      {hoveredEntry && (() => {
+        const a = hoveredEntry.alloc || {};
+        const allocColors = ["#4a7fcb", "#9b7fcb", "#6a8fc8", "#e8c35a", "#a0785a", "#6abf7a"];
+        const allocLabels = ["Equity", "Mutual Funds", "Debt", "Gold & Silver", "Real Estate", "Cash & Other"];
+        const allocKeys = ["equity", "mutualFunds", "debt", "gold", "realestate", "cash"] as const;
+        const allocValues = allocKeys.map((k) => Number(a[k] ?? 0));
+        const total = allocValues.reduce((s, v) => s + v, 0);
+        const [y, m] = hoveredEntry.month.split("-");
+        const monthLabel = new Date(+y, +m - 1, 1).toLocaleString("en-IN", { month: "long", year: "numeric" });
+        const PAD = 14;
+        const W = 280;
+        const H = 220;
+        const vw = typeof window !== "undefined" ? window.innerWidth : 1200;
+        const vh = typeof window !== "undefined" ? window.innerHeight : 800;
+        let left = hoverPos.x + 16;
+        let top = hoverPos.y + 14;
+        if (left + W + PAD > vw) left = hoverPos.x - W - 16;
+        if (top + H + PAD > vh) top = hoverPos.y - H - 14;
+        if (left < PAD) left = PAD;
+        if (top < PAD) top = PAD;
+        return (
+          <div
+            className="ft-tracker-hover-popup"
+            style={{
+              position: "fixed",
+              left,
+              top,
+              width: W,
+              background: "#fff",
+              border: "1px solid rgba(0,0,0,0.08)",
+              borderRadius: 12,
+              boxShadow: "0 12px 32px rgba(0,0,0,0.14)",
+              padding: "14px 16px",
+              zIndex: 9999,
+              pointerEvents: "none",
+            }}
+          >
+            <div style={{ fontFamily: "'Playfair Display', serif", fontSize: 13, fontWeight: 700, marginBottom: 2 }}>
+              {monthLabel}
+            </div>
+            <div style={{ fontSize: 10, color: "#aaa", textTransform: "uppercase", letterSpacing: 1, marginBottom: 10 }}>
+              Asset Allocation
+            </div>
+            {total === 0 ? (
+              <div style={{ fontSize: 11, color: "#aaa" }}>No allocation recorded for this month.</div>
+            ) : (
+              allocLabels.map((l, i) => {
+                const v = allocValues[i];
+                if (!v) return null;
+                const pct = (v / total) * 100;
+                return (
+                  <div key={l} style={{ marginBottom: 8 }}>
+                    <div style={{ display: "flex", justifyContent: "space-between", fontSize: 10.5, marginBottom: 3 }}>
+                      <span style={{ color: "#555", fontWeight: 500 }}>{l}</span>
+                      <span style={{ color: "#888" }}>{fmt(v)} · {pct.toFixed(1)}%</span>
+                    </div>
+                    <div style={{ height: 6, background: "rgba(0,0,0,0.05)", borderRadius: 3, overflow: "hidden" }}>
+                      <div style={{ width: pct + "%", height: "100%", background: allocColors[i], borderRadius: 3 }} />
+                    </div>
+                  </div>
+                );
+              })
+            )}
+          </div>
+        );
+      })()}
     </div>
   );
 }

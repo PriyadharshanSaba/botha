@@ -109,4 +109,37 @@ export const MockDB: DBDriver = {
   async withdrawConsent(_userId: string, _policyVersion: string): Promise<void> {
     // no-op
   },
+
+  /* Blogs — mock returns empty / null. Real implementation lives in PostgresDB. */
+  async listPublishedBlogs() { return []; },
+  async listAllBlogs() { return []; },
+  async getBlogBySlug(_slug: string) { return null; },
+  async upsertBlog(input) {
+    const now = new Date();
+    return {
+      slug: input.slug,
+      kicker: input.kicker,
+      title: input.title,
+      titleHtml: input.titleHtml,
+      deck: input.deck,
+      heroSub: input.heroSub,
+      heroBadge: input.heroBadge ?? null,
+      topbarBrand: input.topbarBrand ?? "Markets & Macro",
+      topbarTag: input.topbarTag,
+      dateLabel: input.dateLabel,
+      readTime: input.readTime,
+      previewHtml: input.previewHtml,
+      gatedHtml: input.gatedHtml,
+      customCss: input.customCss ?? null,
+      statRow: input.statRow ?? null,
+      status: "draft",
+      authorId: input.authorId,
+      createdAt: now,
+      updatedAt: now,
+      publishedAt: null,
+    };
+  },
+  async publishBlog(_slug: string) { /* no-op */ },
+  async unpublishBlog(_slug: string) { /* no-op */ },
+  async deleteBlog(_slug: string) { /* no-op */ },
 };

@@ -1,7 +1,7 @@
-import { DBDriver, CreateUserInput, User, SaveConsentInput, CookieConsent, Subscription, CreateSubscriptionInput, BillingInfo, ReferralOffer, ReferralIdentity, ReferralStats } from "./types";
+import { DBDriver, CreateUserInput, User, SaveConsentInput, CookieConsent, Subscription, CreateSubscriptionInput, BillingInfo, ReferralOffer, ReferralIdentity, ReferralStats, Blog, BlogListItem, BlogAdminListItem, BlogUpsertInput, BlogStatus } from "./types";
 import { db } from "./connection";
-import { users, userProgress, otpAttempts, cookieConsents, subscriptions, referralOffers, referralRedemptions } from "./schema";
-import { eq, and, gte, count, sql } from "drizzle-orm";
+import { users, userProgress, otpAttempts, cookieConsents, subscriptions, referralOffers, referralRedemptions, blogs } from "./schema";
+import { eq, and, gte, count, sql, desc } from "drizzle-orm";
 import crypto from "crypto";
 
 const DAILY_OTP_LIMIT = 5;
@@ -445,6 +445,162 @@ export const PostgresDB: DBDriver = {
       count: Number(row?.count ?? 0),
       totalDiscountPaise: Number(row?.total ?? 0),
     };
+  },
+
+  /* --------------------------------
+     BLOGS: list published (public)
+  ----------------------------------*/
+  async listPublishedBlogs(): Promise<BlogListItem[]> {
+    const rows = await db
+      .select({
+        slug: blogs.slug,
+        kicker: blogs.kicker,
+        title: blogs.title,
+        deck: blogs.deck,
+        dateLabel: blogs.dateLabel,
+        readTime: blogs.readTime,
+        publishedAt: blogs.publishedAt,
+      })
+      .from(blogs)
+      .where(eq(blogs.status, "published"))
+      .orderBy(desc(blogs.publishedAt));
+    return rows;
+  },
+
+  /* --------------------------------
+     BLOGS: list all (admin — includes drafts)
+  ----------------------------------*/
+  async listAllBlogs(): Promise<BlogAdminListItem[]> {
+    const rows = await db
+      .select({
+        slug: blogs.slug,
+        kicker: blogs.kicker,
+        title: blogs.title,
+        deck: blogs.deck,
+        dateLabel: blogs.dateLabel,
+        readTime: blogs.readTime,
+        publishedAt: blogs.publishedAt,
+        status: blogs.status,
+        updatedAt: blogs.updatedAt,
+      })
+      .from(blogs)
+      .orderBy(desc(blogs.updatedAt));
+    return rows.map((r) => ({ ...r, status: r.status as BlogStatus }));
+  },
+
+  /* --------------------------------
+     BLOGS: get one by slug
+  ----------------------------------*/
+  async getBlogBySlug(slug: string): Promise<Blog | null> {
+    const res = await db.select().from(blogs).where(eq(blogs.slug, slug)).limit(1);
+    const r = res[0];
+    if (!r) return null;
+    return {
+      slug: r.slug,
+      kicker: r.kicker,
+      title: r.title,
+      titleHtml: r.titleHtml,
+      deck: r.deck,
+      heroSub: r.heroSub,
+      heroBadge: r.heroBadge,
+      topbarBrand: r.topbarBrand,
+      topbarTag: r.topbarTag,
+      dateLabel: r.dateLabel,
+      readTime: r.readTime,
+      previewHtml: r.previewHtml,
+      gatedHtml: r.gatedHtml,
+      customCss: r.customCss,
+      statRow: r.statRow,
+      status: r.status as BlogStatus,
+      authorId: r.authorId,
+      createdAt: r.createdAt,
+      updatedAt: r.updatedAt,
+      publishedAt: r.publishedAt,
+    };
+  },
+
+  /* --------------------------------
+     BLOGS: upsert (insert-or-update by slug)
+     Preserves status + published_at on update; use publishBlog/unpublishBlog
+     to flip workflow state explicitly.
+  ----------------------------------*/
+  async upsertBlog(input: BlogUpsertInput): Promise<Blog> {
+    const now = new Date();
+    await db
+      .insert(blogs)
+      .values({
+        slug: input.slug,
+        kicker: input.kicker,
+        title: input.title,
+        titleHtml: input.titleHtml,
+        deck: input.deck,
+        heroSub: input.heroSub,
+        heroBadge: input.heroBadge ?? null,
+        topbarBrand: input.topbarBrand ?? "Markets & Macro",
+        topbarTag: input.topbarTag,
+        dateLabel: input.dateLabel,
+        readTime: input.readTime,
+        previewHtml: input.previewHtml,
+        gatedHtml: input.gatedHtml,
+        customCss: input.customCss ?? null,
+        statRow: input.statRow ?? null,
+        authorId: input.authorId,
+        status: "draft",
+        createdAt: now,
+        updatedAt: now,
+      })
+      .onConflictDoUpdate({
+        target: blogs.slug,
+        set: {
+          kicker: input.kicker,
+          title: input.title,
+          titleHtml: input.titleHtml,
+          deck: input.deck,
+          heroSub: input.heroSub,
+          heroBadge: input.heroBadge ?? null,
+          topbarBrand: input.topbarBrand ?? "Markets & Macro",
+          topbarTag: input.topbarTag,
+          dateLabel: input.dateLabel,
+          readTime: input.readTime,
+          previewHtml: input.previewHtml,
+          gatedHtml: input.gatedHtml,
+          customCss: input.customCss ?? null,
+          statRow: input.statRow ?? null,
+          updatedAt: now,
+        },
+      });
+
+    const saved = await this.getBlogBySlug(input.slug);
+    if (!saved) throw new Error(`upsertBlog: row vanished after upsert (slug=${input.slug})`);
+    return saved;
+  },
+
+  /* --------------------------------
+     BLOGS: publish
+  ----------------------------------*/
+  async publishBlog(slug: string): Promise<void> {
+    const now = new Date();
+    await db
+      .update(blogs)
+      .set({ status: "published", publishedAt: now, updatedAt: now })
+      .where(eq(blogs.slug, slug));
+  },
+
+  /* --------------------------------
+     BLOGS: unpublish
+  ----------------------------------*/
+  async unpublishBlog(slug: string): Promise<void> {
+    await db
+      .update(blogs)
+      .set({ status: "draft", updatedAt: new Date() })
+      .where(eq(blogs.slug, slug));
+  },
+
+  /* --------------------------------
+     BLOGS: delete
+  ----------------------------------*/
+  async deleteBlog(slug: string): Promise<void> {
+    await db.delete(blogs).where(eq(blogs.slug, slug));
   },
 };
 

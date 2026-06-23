@@ -2,7 +2,7 @@ import "server-only";
 import { MONTH_RE } from "./types";
 
 /** Allowed alloc bucket keys per spec. */
-const ALLOC_KEYS = ["equity", "debt", "gold", "realestate", "cash"] as const;
+const ALLOC_KEYS = ["equity", "mutualFunds", "debt", "gold", "realestate", "cash"] as const;
 
 const MAX_NUMERIC_MAGNITUDE = 1e10;
 const MAX_ENTRIES_PER_IMPORT = 500;

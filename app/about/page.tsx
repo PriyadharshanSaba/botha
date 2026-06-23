@@ -143,10 +143,13 @@ export default function AboutPage() {
             </div>
             <div className="about-partner-card-body">
               <p className="about-partner-bio">
-                Our finance partner is a <strong>Chartered Accountant, CFA Level 3 cleared</strong> and <strong>former Deloitte Manager</strong> who has spent years working alongside some of the most experienced financial minds in the industry - Senior Partners, CFOs and other C-suite executives across Financial Services, Consumer and Life Sciences. That proximity to excellence shapes everything: how we think, how we work and the standard we hold ourselves to.
+                Our finance partner brings a rare vantage point to Bodha — years spent in the room with Senior Partners, CFOs and other C-suite executives across Financial Services, Consumer and Life Sciences, first as a Manager at Deloitte and later as a trusted advisor in his own right. A <strong>Chartered Accountant</strong> who has also <strong>cleared all levels of the CFA Program</strong>, his technical grounding runs deep — financial reporting, valuation, capital markets, portfolio strategy. But what really sets him apart is everything credentials alone can&apos;t teach: how the best in the business approach complexity, make decisions under pressure and lead with clarity, even when the stakes are highest.
               </p>
               <p className="about-partner-bio" style={{ marginTop: -10 }}>
-                It&apos;s a rare kind of formation, not just technical training, but years of watching how the best in the business approach complexity, make decisions under pressure and lead with clarity. That perspective now sits at the centre of Bodha and it&apos;s what every client benefits from.
+                That proximity to excellence shapes everything — how we think, how we work and the standard we hold ourselves to. It&apos;s a synthesis of deep technical mastery and the hard-earned instincts that only come from sustained exposure to high-stakes decision-making at the top of the industry.
+              </p>
+              <p className="about-partner-bio" style={{ marginTop: -10 }}>
+                That same depth sits at the center of Bodha and informs our Virtual CFO service and every business we work with — bringing institutional-grade financial thinking to founders and leadership teams who need more than just numbers; they need someone who&apos;s seen how the best operate and can bring that perspective to their own decisions.
               </p>
             </div>
           </div>
