@@ -1,0 +1,180 @@
+/* === Audio Player (Money 101) === */
+.ap-wrap {
+  margin: 28px 0 14px;
+  border: 1px solid rgba(201, 168, 76, 0.25);
+  border-radius: 12px;
+  background: linear-gradient(180deg, rgba(201, 168, 76, 0.05), rgba(201, 168, 76, 0.02));
+  overflow: hidden;
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+
+.ap-wrap.ap-open {
+  border-color: rgba(201, 168, 76, 0.45);
+  background: linear-gradient(180deg, rgba(201, 168, 76, 0.08), rgba(201, 168, 76, 0.03));
+}
+
+.ap-toggle {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 14px;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  color: var(--ink, #0d0d0d);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+  user-select: none;
+}
+
+.ap-toggle:hover {
+  background: rgba(201, 168, 76, 0.06);
+}
+
+.ap-toggle-left {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.ap-toggle-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 999px;
+  background: var(--gold, #c9a84c);
+  color: #fff;
+}
+
+.ap-toggle-chev {
+  display: inline-flex;
+  color: #777;
+  transition: transform 0.2s ease;
+}
+
+.ap-wrap.ap-open .ap-toggle-chev {
+  transform: rotate(180deg);
+}
+
+.ap-panel {
+  padding: 18px 16px 20px;
+  border-top: 1px solid rgba(201, 168, 76, 0.18);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+}
+
+.ap-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 22px;
+}
+
+.ap-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  border: 0;
+  cursor: pointer;
+  color: var(--ink, #0d0d0d);
+  background: #f4f0e3;
+  transition: transform 0.1s ease, background 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
+}
+
+.ap-btn:hover { background: #ece5cf; }
+.ap-btn:active { transform: scale(0.94); }
+
+.ap-btn-skip {
+  width: 46px;
+  height: 46px;
+}
+
+.ap-btn-num {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -38%);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  pointer-events: none;
+}
+
+.ap-btn-play {
+  width: 60px;
+  height: 60px;
+  background: var(--gold, #c9a84c);
+  color: #fff;
+  box-shadow: 0 4px 14px rgba(201, 168, 76, 0.35);
+}
+
+.ap-btn-play:hover { background: #b8973e; }
+
+.ap-progress {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.ap-time {
+  font-size: 11px;
+  color: #888;
+  font-variant-numeric: tabular-nums;
+  min-width: 38px;
+  text-align: center;
+}
+
+.ap-range {
+  flex: 1;
+  -webkit-appearance: none;
+  appearance: none;
+  height: 4px;
+  border-radius: 100px;
+  background: rgba(0, 0, 0, 0.08);
+  outline: none;
+  cursor: pointer;
+}
+
+.ap-range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 14px;
+  height: 14px;
+  border-radius: 999px;
+  background: var(--gold, #c9a84c);
+  border: 2px solid #fff;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+}
+
+.ap-range::-moz-range-thumb {
+  width: 14px;
+  height: 14px;
+  border-radius: 999px;
+  background: var(--gold, #c9a84c);
+  border: 2px solid #fff;
+  cursor: pointer;
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+  .ap-wrap { margin: 22px 0 12px; border-radius: 10px; }
+  .ap-toggle { padding: 9px 12px; font-size: 12.5px; }
+  .ap-toggle-icon { width: 24px; height: 24px; }
+  .ap-panel { padding: 16px 12px 18px; gap: 12px; }
+  .ap-controls { gap: 18px; }
+  .ap-btn-skip { width: 42px; height: 42px; }
+  .ap-btn-play { width: 56px; height: 56px; }
+  .ap-time { font-size: 10.5px; min-width: 34px; }
+}
