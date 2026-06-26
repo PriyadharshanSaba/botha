@@ -1,8 +1,9 @@
 "use client";
 
+import Link from "next/link";
 import React, { useEffect, useRef, useState } from "react";
 
-type Props = { src: string };
+type Props = { src: string; requireSignIn?: boolean };
 
 function fmt(s: number) {
   if (!isFinite(s) || s < 0) s = 0;
@@ -11,7 +12,7 @@ function fmt(s: number) {
   return `${m}:${sec.toString().padStart(2, "0")}`;
 }
 
-export default function AudioPlayer({ src }: Props) {
+export default function AudioPlayer({ src, requireSignIn = false }: Props) {
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const [open, setOpen] = useState(false);
   const [playing, setPlaying] = useState(false);
@@ -86,7 +87,25 @@ export default function AudioPlayer({ src }: Props) {
         </span>
       </button>
 
-      {open && (
+      {open && requireSignIn && (
+        <div className="ap-panel ap-panel-signin">
+          <div className="ap-signin-icon" aria-hidden>
+            <svg viewBox="0 0 24 24" width="36" height="36" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M3 18v-6a9 9 0 0 1 18 0v6" />
+              <path d="M21 19a2 2 0 0 1-2 2h-1v-7h3v5z" />
+              <path d="M3 19a2 2 0 0 0 2 2h1v-7H3v5z" />
+            </svg>
+          </div>
+          <p className="ap-signin-text">
+            Sign up free to listen to this chapter.
+          </p>
+          <Link href="/signup" className="ap-signin-cta">
+            Sign up &rarr;
+          </Link>
+        </div>
+      )}
+
+      {open && !requireSignIn && (
         <div className="ap-panel">
           <audio ref={audioRef} src={src} preload="none" />
 

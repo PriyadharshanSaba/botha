@@ -70,6 +70,47 @@
   gap: 14px;
 }
 
+.ap-panel-signin {
+  padding: 22px 16px 22px;
+  gap: 10px;
+  text-align: center;
+}
+
+.ap-signin-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 54px;
+  height: 54px;
+  border-radius: 999px;
+  background: rgba(201, 168, 76, 0.12);
+  color: var(--gold, #c9a84c);
+}
+
+.ap-signin-text {
+  margin: 4px 0 6px;
+  font-size: 14px;
+  color: #444;
+  line-height: 1.45;
+  max-width: 320px;
+}
+
+.ap-signin-cta {
+  display: inline-block;
+  padding: 9px 20px;
+  background: var(--gold, #c9a84c);
+  color: #fff;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  text-decoration: none;
+  transition: background 0.2s ease, transform 0.1s ease;
+}
+
+.ap-signin-cta:hover { background: #b8973e; }
+.ap-signin-cta:active { transform: scale(0.97); }
+
 .ap-controls {
   display: flex;
   align-items: center;
@@ -172,4 +213,84 @@
   .ap-btn-skip { width: 42px; height: 42px; }
   .ap-btn-play { width: 56px; height: 56px; }
   .ap-time { font-size: 10.5px; min-width: 34px; }
+}
+
+/* === Locked Chapter === */
+.locked-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  margin-left: 10px;
+  padding: 3px 8px 3px 7px;
+  font-size: 11px;
+  font-weight: 600;
+  color: #8a7223;
+  background: rgba(201, 168, 76, 0.12);
+  border: 1px solid rgba(201, 168, 76, 0.35);
+  border-radius: 999px;
+  vertical-align: middle;
+  letter-spacing: 0.2px;
+}
+
+.locked-chapter-body {
+  margin: 28px auto;
+  padding: 40px 24px;
+  text-align: center;
+  border: 1px dashed rgba(201, 168, 76, 0.45);
+  border-radius: 14px;
+  background: linear-gradient(180deg, rgba(201, 168, 76, 0.04), rgba(201, 168, 76, 0.01));
+  max-width: 560px;
+}
+
+.locked-chapter-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 72px;
+  height: 72px;
+  border-radius: 999px;
+  background: rgba(201, 168, 76, 0.12);
+  color: var(--gold, #c9a84c);
+  margin-bottom: 16px;
+}
+
+.locked-chapter-headline {
+  font-family: 'Playfair Display', serif;
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--ink, #0d0d0d);
+  margin: 0 0 10px;
+}
+
+.locked-chapter-sub {
+  font-size: 14.5px;
+  color: #555;
+  line-height: 1.55;
+  margin: 0 auto 22px;
+  max-width: 420px;
+}
+
+.locked-chapter-cta {
+  display: inline-block;
+  padding: 11px 22px;
+  background: var(--gold, #c9a84c);
+  color: #fff;
+  border-radius: 999px;
+  font-size: 13.5px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  text-decoration: none;
+  box-shadow: 0 4px 14px rgba(201, 168, 76, 0.3);
+  transition: background 0.2s ease, transform 0.1s ease;
+}
+
+.locked-chapter-cta:hover { background: #b8973e; }
+.locked-chapter-cta:active { transform: scale(0.97); }
+
+@media (max-width: 600px) {
+  .locked-chapter-body { padding: 32px 18px; margin: 22px auto; }
+  .locked-chapter-icon { width: 60px; height: 60px; }
+  .locked-chapter-headline { font-size: 19px; }
+  .locked-chapter-sub { font-size: 13.5px; }
+  .locked-badge { font-size: 10.5px; padding: 2px 7px; margin-left: 6px; }
 }
