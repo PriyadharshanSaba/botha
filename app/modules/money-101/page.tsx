@@ -1,5 +1,5 @@
 import ModuleViewer from "@/app/modules/ModuleViewer";
-import { getSession, isChapterAllowed } from "@/app/lib/session";
+import { getSession, isChapterAllowed, FREE_PREVIEW_CHAPTERS } from "@/app/lib/session";
 import { chapters } from "./chapters";
 import AudioPlayer from "./AudioPlayer";
 import LockedChapter from "./LockedChapter";
@@ -23,13 +23,22 @@ export default async function Money101Page() {
 
   const lockedSub = isSignedIn
     ? "Subscribe to unlock all 8 chapters of Money 101, plus every other module on Bodha."
-    : "Sign up free to keep reading. Subscribe later to unlock the full course.";
+    : "Subscribe to unlock the full course";
+
+  // Non-subscribers can open the free chapters + one locked-preview chapter
+  // (which renders LockedChapter). Anything beyond that is fully gated:
+  // dots greyed out, Next button disabled.
+  const freePreview = FREE_PREVIEW_CHAPTERS[MODULE_ID] ?? 0;
+  const maxAccessibleIndex = hasActiveSub
+    ? chapters.length - 1
+    : Math.min(freePreview, chapters.length - 1);
 
   return (
     <ModuleViewer
       moduleId={MODULE_ID}
       moduleNumber={1}
       moduleName="Money 101"
+      maxAccessibleIndex={maxAccessibleIndex}
       completionMessage={
         hasActiveSub
           ? "You&apos;ve finished Money 101 &mdash; all 8 chapters. You now understand where money comes from, how to manage it, and how to start making it grow."

@@ -10,6 +10,10 @@ type Props = {
   moduleNumber: number;
   moduleName: string;
   completionMessage: string;
+  // Highest chapter index the viewer is allowed to navigate to (0-based).
+  // Defaults to the last chapter when omitted. Used to lock chapters past
+  // the free preview boundary for non-subscribers.
+  maxAccessibleIndex?: number;
   children: React.ReactNode;
 };
 
@@ -17,6 +21,7 @@ export default function ModuleViewer({
   moduleId,
   moduleNumber,
   completionMessage,
+  maxAccessibleIndex,
   children,
 }: Props) {
   const { t, lang } = useLanguage();
@@ -25,6 +30,11 @@ export default function ModuleViewer({
 
   const chapterElements = React.Children.toArray(children);
   const totalChapters = chapterElements.length;
+  const maxIdx =
+    maxAccessibleIndex !== undefined
+      ? Math.max(0, Math.min(maxAccessibleIndex, totalChapters - 1))
+      : totalChapters - 1;
+  const clampIdx = (i: number) => Math.max(0, Math.min(maxIdx, i));
 
   const [chapterIndex, setChapterIndex] = useState(0);
   const [isComplete, setIsComplete] = useState(false);
@@ -33,7 +43,7 @@ export default function ModuleViewer({
   useEffect(() => {
     const chapter = searchParams.get("chapter");
     if (chapter) {
-      setChapterIndex(Number(chapter));
+      setChapterIndex(clampIdx(Number(chapter)));
       setIsLoading(false);
       return;
     }
@@ -42,7 +52,7 @@ export default function ModuleViewer({
       .then((r) => (r.ok ? r.json() : {}))
       .then((data: { moduleId?: string; chapterNumber?: number }) => {
         if (data.moduleId === moduleId) {
-          setChapterIndex(data.chapterNumber ?? 0);
+          setChapterIndex(clampIdx(data.chapterNumber ?? 0));
         }
       })
       .finally(() => setIsLoading(false));
@@ -139,24 +149,31 @@ export default function ModuleViewer({
           </span>
         </div>
         <div className="chapter-dots">
-          {chapterElements.map((_, i) => (
-            <button
-              key={i}
-              className={[
-                "chapter-dot",
-                chapterIndex > i ? "done" : "",
-                chapterIndex === i ? "active" : "",
-              ]
-                .filter(Boolean)
-                .join(" ")}
-              onClick={() => {
-                setChapterIndex(i);
-                saveProgress(i);
-              }}
-            >
-              {i + 1}
-            </button>
-          ))}
+          {chapterElements.map((_, i) => {
+            const locked = i > maxIdx;
+            return (
+              <button
+                key={i}
+                className={[
+                  "chapter-dot",
+                  chapterIndex > i ? "done" : "",
+                  chapterIndex === i ? "active" : "",
+                  locked ? "locked" : "",
+                ]
+                  .filter(Boolean)
+                  .join(" ")}
+                disabled={locked}
+                aria-disabled={locked}
+                onClick={() => {
+                  if (locked) return;
+                  setChapterIndex(i);
+                  saveProgress(i);
+                }}
+              >
+                {i + 1}
+              </button>
+            );
+          })}
         </div>
       </div>
 
@@ -203,13 +220,14 @@ export default function ModuleViewer({
 
         <button
           className="nav-btn next"
+          disabled={chapterIndex >= maxIdx && maxIdx < totalChapters - 1}
           onClick={async () => {
             if (chapterIndex === totalChapters - 1) {
               await saveProgress(chapterIndex);
               setIsComplete(true);
             } else {
               setChapterIndex((i) => {
-                const newIndex = Math.min(totalChapters - 1, i + 1);
+                const newIndex = Math.min(maxIdx, i + 1);
                 saveProgress(newIndex);
                 return newIndex;
               });

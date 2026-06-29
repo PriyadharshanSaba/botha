@@ -53,11 +53,16 @@ export function proxy(request: NextRequest) {
     return NextResponse.next();
   }
 
-  const publicPaths = ["/", "/signin", "/waitlist", "/about", "/vcfo", "/venture", "/tools", "/plans"];
+  const publicPaths = ["/", "/signin", "/waitlist", "/about", "/vcfo", "/venture", "/tools", "/plans", "/modules"];
+  const publicPrefixes = ["/blogs", "/modules/money-101"];
   const authRedirectPaths = ["/signin"];
 
   // Logged-out → only allow public paths
-  if (!loggedIn && !publicPaths.includes(pathname) && !pathname.startsWith("/blogs")) {
+  if (
+    !loggedIn &&
+    !publicPaths.includes(pathname) &&
+    !publicPrefixes.some((p) => pathname.startsWith(p))
+  ) {
     const url = request.nextUrl.clone();
     url.pathname = "/signin";
     return NextResponse.redirect(url);
@@ -84,8 +89,15 @@ export function proxy(request: NextRequest) {
     return NextResponse.redirect(url);
   }
 
-  // Accessing /modules without a subscription → send to plans
-  if (loggedIn && !subscribed && pathname.startsWith("/modules")) {
+  // Accessing gated /modules/* without a subscription → send to plans.
+  // Exempt: /modules (list page) and /modules/money-101/* (chapter-gated free preview).
+  if (
+    loggedIn &&
+    !subscribed &&
+    pathname.startsWith("/modules") &&
+    pathname !== "/modules" &&
+    !pathname.startsWith("/modules/money-101")
+  ) {
     const url = request.nextUrl.clone();
     url.pathname = "/plans";
     return NextResponse.redirect(url);
