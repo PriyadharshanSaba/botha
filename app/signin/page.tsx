@@ -197,13 +197,36 @@ function SignInContent() {
               </button>
 
               {/* --- Sign up link --- */}
-              <p className="hint" style={{ textAlign: "center", marginTop: "10px" }}>
-                New here?{" "}
+              <p
+                className="hint"
+                style={{
+                  textAlign: "center",
+                  marginTop: "16px",
+                  fontSize: 14,
+                  color: "#666",
+                }}
+              >
+                New user?{" "}
                 <span
-                  style={{ fontWeight: 600, color: "#0f172a", cursor: "pointer" }}
+                  role="button"
+                  tabIndex={0}
+                  style={{
+                    fontWeight: 600,
+                    color: "#c9a84c",
+                    cursor: "pointer",
+                    textDecoration: "underline",
+                  }}
                   onClick={() => { setMode("signup"); setError(""); setNotRegistered(false); }}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter" || e.key === " ") {
+                      e.preventDefault();
+                      setMode("signup");
+                      setError("");
+                      setNotRegistered(false);
+                    }
+                  }}
                 >
-                  Sign Up
+                  Sign up for free &rarr;
                 </span>
               </p>
             </form>

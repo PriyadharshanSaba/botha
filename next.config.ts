@@ -2,6 +2,11 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   serverExternalPackages: ["isomorphic-dompurify", "jsdom"],
+  // Ensure gated audio in `private/` ships with the API route bundle.
+  // Files outside `public/` are not traced by default.
+  outputFileTracingIncludes: {
+    "/api/audio/money-101/[ch]": ["./private/money-101/audio/**"],
+  },
   async headers() {
     return [
       {

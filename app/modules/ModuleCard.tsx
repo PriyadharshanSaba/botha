@@ -14,6 +14,7 @@ interface ModuleCardProps {
   view_module_link: string;
   moduleId: string;
   progressChapter?: number; // current chapter index (0-based)
+  accessState?: "full" | "preview" | "locked";
 }
 
 export default function ModuleCard({
@@ -24,6 +25,7 @@ export default function ModuleCard({
   description,
   view_module_link,
   progressChapter,
+  accessState = "full",
 }: ModuleCardProps) {
   const { t, lang } = useLanguage();
 
@@ -37,11 +39,26 @@ export default function ModuleCard({
     ? Math.round(((progressChapter) / (chaptersNum - 1)) * 100)
     : 0;
 
+  const isLocked = accessState === "locked";
+  const isPreview = accessState === "preview";
+
   return (
-    <Link href={view_module_link} className="module-card-link">
-      <div className="module-card hover-card">
+    <Link href={view_module_link} className={`module-card-link ${isLocked ? "module-card-link--locked" : ""}`}>
+      <div className={`module-card hover-card ${isLocked ? "module-card--locked" : ""}`}>
         <div className="module-header">
           <h2 className="module-number">{displayId}</h2>
+          {isPreview && (
+            <span className="module-badge module-badge--preview">Free preview</span>
+          )}
+          {isLocked && (
+            <span className="module-badge module-badge--locked" aria-label="Subscribers only">
+              <svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+                <rect x="4" y="11" width="16" height="10" rx="2" />
+                <path d="M8 11V7a4 4 0 0 1 8 0v4" />
+              </svg>
+              Subscribers only
+            </span>
+          )}
         </div>
 
         <h3 className="module-name">{title}</h3>
@@ -62,7 +79,7 @@ export default function ModuleCard({
         <p className="module-description">{description}</p>
 
         <div className="module-links">
-          <span className="link">{t("viewModule")}</span>
+          <span className="link">{isLocked ? "Subscribe to unlock" : t("viewModule")}</span>
         </div>
       </div>
     </Link>
