@@ -38,9 +38,9 @@ export default async function Page() {
         <div className="guide-eyebrow">Free Guide</div>
         <h1 className="guide-title">The 5-Bucket Cash Framework</h1>
         <p className="guide-sub">
-          A simple way to split your money into five buckets — so every rupee
-          has a job, your essentials are covered, and you always know what&apos;s
-          safe to spend and what&apos;s meant to grow.
+          A simple way to split your surplus cash into five buckets — so every
+          rupee does the important job first, and you always know what&apos;s
+          right for your business.
         </p>
 
         {authed ? (
