@@ -20,7 +20,7 @@ export default function DownloadButton() {
       const url = URL.createObjectURL(blob);
       const a = document.createElement("a");
       a.href = url;
-      a.download = "Bodha-Personal-Finance-Program-Guide.pdf";
+      a.download = "5-Bucket-Cash-Framework.pdf";
       document.body.appendChild(a);
       a.click();
       a.remove();

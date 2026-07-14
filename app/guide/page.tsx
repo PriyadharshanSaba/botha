@@ -1,5 +1,5 @@
 /**
- * Public landing for the Bodha Personal Finance Program Guide PDF.
+ * Public landing for the 5-Bucket Cash Framework PDF.
  *
  * Auth model mirrors gated blogs:
  *   - read uid cookie
@@ -21,9 +21,9 @@ import "./guide.css";
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
-  title: "The Bodha Personal Finance Program Guide",
+  title: "The 5-Bucket Cash Framework",
   description:
-    "A free guide to Bodha's structured personal finance program — what's covered, how it works, and how to get started.",
+    "A simple framework to organise your money into five buckets — so every rupee has a job and nothing gets lost between accounts.",
 };
 
 export default async function Page() {
@@ -36,25 +36,25 @@ export default async function Page() {
     <div className="guide-page">
       <div className="guide-page-inner">
         <div className="guide-eyebrow">Free Guide</div>
-        <h1 className="guide-title">The Bodha Personal Finance Program Guide</h1>
+        <h1 className="guide-title">The 5-Bucket Cash Framework</h1>
         <p className="guide-sub">
-          A structured walkthrough of Bodha&apos;s personal finance program —
-          what&apos;s inside, how the modules build on each other, and how to
-          use it to take control of your money.
+          A simple way to split your money into five buckets — so every rupee
+          has a job, your essentials are covered, and you always know what&apos;s
+          safe to spend and what&apos;s meant to grow.
         </p>
 
         {authed ? (
           <div className="guide-card">
             <h2 className="guide-card-title">You&apos;re signed in</h2>
             <p className="guide-card-sub">
-              Download the full guide as a PDF. Save it, share it, come back to it.
+              Download the framework as a PDF. Save it, share it, come back to it.
             </p>
             <DownloadButton />
           </div>
         ) : (
           <PaywallGate
             slug="guide"
-            title="Get the guide"
+            title="Get the framework"
             subtitle="Sign in or create a free account to download the PDF."
           />
         )}

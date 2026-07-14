@@ -1,5 +1,5 @@
 /**
- * Gated download for the Bodha Personal Finance Program Guide PDF.
+ * Gated download for the 5-Bucket Cash Framework PDF.
  *
  * Auth: verified `uid` cookie → known user. Anon requests get 401.
  * PDF lives outside /public so the file cannot be fetched directly.
@@ -18,9 +18,9 @@ const PDF_PATH = path.join(
   process.cwd(),
   "private",
   "guide",
-  "bodha-personal-finance-program-guide.pdf",
+  "5-bucket-cash-framework.pdf",
 );
-const DOWNLOAD_NAME = "Bodha-Personal-Finance-Program-Guide.pdf";
+const DOWNLOAD_NAME = "5-Bucket-Cash-Framework.pdf";
 
 export async function GET() {
   const cookieStore = await cookies();
