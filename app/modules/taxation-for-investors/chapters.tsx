@@ -981,9 +981,7 @@ export const chapters = [
           ಆದರೆ ಅವುಗಳ ತೆರಿಗೆ ನಿಯಮಗಳನ್ನು ಅರ್ಥಮಾಡಿಕೊಳ್ಳುವುದರಿಂದ, ವೈವಿಧ್ಯಮಯ ಆಸ್ತಿ ಸಂಗ್ರಹದಲ್ಲಿ ಅವುಗಳನ್ನು ಹೆಚ್ಚು ನಿಖರವಾಗಿ ಮೌಲ್ಯಮಾಪನ ಮಾಡಲು ಹೂಡಿಕೆದಾರರಿಗೆ ಸಾಧ್ಯವಾಗುತ್ತದೆ.
         </p>
         <div className="pull-quote">
-          A 7% fixed deposit taxed at 30% yields approximately 4.9% after tax. Always
-          compare investments on their post-tax return - the headline rate rarely tells the
-          full story.
+          ೩೦% ದರದಲ್ಲಿ ತೆರಿಗೆ ವಿಧಿಸಲಾದ ೭% ಸ್ಥಿರ ಠೇವಣಿಯು ತೆರಿಗೆ ನಂತರ ಸುಮಾರು ೪.೯% ಲಾಭ ನೀಡುತ್ತದೆ. ಹೂಡಿಕೆಗಳನ್ನು ಯಾವಾಗಲೂ ಅವುಗಳ ತೆರಿಗೆ-ನಂತರದ ಲಾಭದ ಆಧಾರದ ಮೇಲೆ ಹೋಲಿಸಿ — ಜಾಹೀರಾತಿನ ದರವು ಪೂರ್ಣ ಕಥೆಯನ್ನು ಅಪರೂಪವಾಗಿ ಹೇಳುತ್ತದೆ.
         </div>
         </>
       ),
