@@ -9,10 +9,12 @@
     "lint": "eslint",
     "test": "tsx --test app/lib/blogs/*.test.ts",
     "enable-referrer": "tsx scripts/enable-referrer.ts",
-    "heal-payment": "tsx scripts/heal-payment.ts"
+    "heal-payment": "tsx scripts/heal-payment.ts",
+    "send-email": "tsx scripts/send-bulk-email.ts"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.1054.0",
+    "@aws-sdk/client-ses": "^3.1091.0",
     "@aws-sdk/s3-request-presigner": "^3.1054.0",
     "@sparticuz/chromium": "^148.0.0",
     "@vercel/analytics": "^2.0.1",
