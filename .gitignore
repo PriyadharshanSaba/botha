@@ -70,3 +70,4 @@ env/
 
 # bodha-specific
 public/uploads/
+scripts/.send-log.json
