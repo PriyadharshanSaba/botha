@@ -54,7 +54,7 @@ export function proxy(request: NextRequest) {
   }
 
   const publicPaths = ["/", "/signin", "/waitlist", "/about", "/vcfo", "/venture", "/tools", "/plans", "/modules", "/guide"];
-  const publicPrefixes = ["/blogs", "/modules/money-101"];
+  const publicPrefixes = ["/blogs", "/modules/money-101", "/modules/introduction"];
   const authRedirectPaths = ["/signin"];
 
   // Logged-out → only allow public paths

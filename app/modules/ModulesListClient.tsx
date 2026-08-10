@@ -17,6 +17,18 @@ type Module = {
 
 const modules: Module[] = [
   {
+    id: 0,
+    moduleId: "introduction",
+    color: "#607D8B",
+    title: { en: "Introduction", kn: "ಪರಿಚಯ" },
+    chaptersNum: 5,
+    description: {
+      en: "Five real excerpts pulled straight from across the curriculum — from reading your first stock chart to harvesting tax losses like a pro. A first look at where the full course leads.",
+      kn: "ಸಂಪೂರ್ಣ ಪಠ್ಯಕ್ರಮದಿಂದ ಆಯ್ದ ಐದು ನಿಜವಾದ ಭಾಗಗಳು — ನಿಮ್ಮ ಮೊದಲ ಷೇರು ಚಾರ್ಟ್ ಓದುವುದರಿಂದ ಹಿಡಿದು ತಜ್ಞರಂತೆ ತೆರಿಗೆ ನಷ್ಟ ಕಟಾವು ಮಾಡುವವರೆಗೆ. ಸಂಪೂರ್ಣ ಕೋರ್ಸ್ ಎಲ್ಲಿಗೆ ಕರೆದೊಯ್ಯುತ್ತದೆ ಎಂಬುದರ ಮೊದಲ ನೋಟ.",
+    },
+    view_module_link: "/modules/introduction",
+  },
+  {
     id: 1,
     moduleId: "money-101",
     color: "#FFC107",
@@ -162,12 +174,17 @@ export default function ModulesListClient({ isSignedIn, isSubscribed }: Props) {
       <div className="divider" />
 
       <div className="modules-grid">
-        {modules.map((m) => {
-          const accessState: "full" | "preview" | "locked" = isSubscribed
-            ? "full"
-            : FREE_PREVIEW_MODULE_IDS.has(m.moduleId)
-            ? "preview"
-            : "locked";
+        {modules
+          .filter((m) => m.moduleId !== "introduction" || !isSubscribed)
+          .map((m) => {
+          const accessState: "full" | "preview" | "locked" =
+            m.moduleId === "introduction"
+              ? "full"
+              : isSubscribed
+              ? "full"
+              : FREE_PREVIEW_MODULE_IDS.has(m.moduleId)
+              ? "preview"
+              : "locked";
           return (
             <ModuleCard
               key={m.id}
