@@ -35,7 +35,7 @@ export const PLANS: Plan[] = [
     tagline: "Introductory price. Reserved for our first 100 believers.",
     basePriceRs: 999,
     testPriceRs: 10,
-    originalPriceRs: 4999,
+    originalPriceRs: 2999,
     seatRange: "Seats 1 – 100",
     maxSeats: 100,
     featured: false,
