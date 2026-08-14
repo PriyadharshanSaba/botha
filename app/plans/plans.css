@@ -177,34 +177,6 @@
   margin-bottom: 14px;
 }
 
-/* Seat progress */
-.plan-seats-bar {
-  height: 4px;
-  background: #f0ede6;
-  border-radius: 4px;
-  margin-bottom: 5px;
-  overflow: hidden;
-}
-
-.plan-seats-fill {
-  height: 4px;
-  border-radius: 4px;
-  background: #1D9E75;
-  transition: width 0.4s ease;
-}
-
-.plan-seats-txt {
-  font-size: 11px;
-  color: #94a3b8;
-  margin-bottom: 18px;
-}
-
-/* Invisible spacer to align divider across cards without seat bar.
-   Total = bar (4px) + bar mb (5px) + txt (11px * 1.5 ≈ 17px) + txt mb (18px) ≈ 44px */
-.plan-seats-spacer {
-  height: 44px;
-}
-
 /* Divider */
 .plan-divider {
   border: none;

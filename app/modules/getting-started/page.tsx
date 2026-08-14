@@ -1,6 +1,5 @@
-import { cookies } from "next/headers";
-import { redirect } from "next/navigation";
 import ModuleViewer from "@/app/modules/ModuleViewer";
+import { requireSubscription } from "@/app/lib/session";
 import { chapters } from "./chapters";
 
 import "../modules.css";
@@ -9,9 +8,7 @@ import "../module-detail.css";
 export const dynamic = "force-dynamic";
 
 export default async function GettingStartedPage() {
-  const cookieStore = await cookies();
-  const uid = cookieStore.get("uid")?.value;
-  if (!uid) redirect("/signin");
+  await requireSubscription();
 
   return (
     <ModuleViewer

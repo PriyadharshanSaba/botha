@@ -202,3 +202,42 @@
   margin-top: 5px;
   font-weight: 300;
 }
+
+/* Access state badges (free preview / locked) */
+.module-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-left: auto;
+  padding: 3px 9px;
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  border-radius: 999px;
+  border: 1px solid;
+  white-space: nowrap;
+}
+
+.module-badge--preview {
+  color: #6d5811;
+  background: rgba(201, 168, 76, 0.14);
+  border-color: rgba(201, 168, 76, 0.4);
+}
+
+.module-badge--locked {
+  color: #666;
+  background: rgba(0, 0, 0, 0.04);
+  border-color: rgba(0, 0, 0, 0.12);
+}
+
+.module-card--locked {
+  opacity: 0.78;
+}
+
+.module-card--locked .module-number {
+  color: #b8b8b8;
+}
+
+.module-card-link--locked .module-card:hover {
+  transform: none;
+}

@@ -9,7 +9,8 @@
     "lint": "eslint",
     "test": "tsx --test app/lib/blogs/*.test.ts",
     "enable-referrer": "tsx scripts/enable-referrer.ts",
-    "heal-payment": "tsx scripts/heal-payment.ts"
+    "heal-payment": "tsx scripts/heal-payment.ts",
+    "grant-subscription": "tsx scripts/grant-subscription.ts"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.1054.0",
