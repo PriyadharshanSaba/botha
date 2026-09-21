@@ -62,7 +62,11 @@ export default function Header({
     <header className="header">
       <style>{`
         @media (max-width: 768px) {
-          .header { justify-content: flex-start; }
+          .header {
+            display: flex !important;
+            justify-content: flex-start;
+            grid-template-columns: none;
+          }
           .header-logo { margin-right: auto; }
           .hamburger { margin-left: 8px !important; }
           .nav-links { display: none !important; }
@@ -143,6 +147,7 @@ export default function Header({
         <>
           {/* Desktop — signed out */}
           <ul className="nav-links">
+            <li><Link href="/modules">{t("courses")}</Link></li>
             <li><Link href="/vcfo">{t("virtualCfo")}</Link></li>
             <li><Link href="/venture">{t("ventureCapital")}</Link></li>
             <li><Link href="/tools">{t("tools")}</Link></li>
@@ -154,9 +159,7 @@ export default function Header({
               {lang === "en" ? "ಕನ್ನಡ" : "English"}
             </button>
             <span style={{ color: "rgba(0,0,0,0.15)", fontSize: 18 }}>|</span>
-            <Link href="/signin" className="btn-ghost">Sign In</Link>
-            <span style={{ color: "rgba(0,0,0,0.15)", fontSize: 18 }}>|</span>
-            <Link href="/signin?mode=signup" className="btn-primary">Sign Up</Link>
+            <Link href="/signin" className="btn-primary">Sign In</Link>
           </div>
           <Link href="/signin" className="btn-ghost mobile-signin-btn">Sign In</Link>
           <button className="hamburger" onClick={() => setOpen(!open)} aria-label="Toggle menu">
@@ -166,6 +169,7 @@ export default function Header({
           </button>
           {open && (
             <nav className="mobile-nav">
+              <Link href="/modules" className="mobile-link" onClick={() => setOpen(false)}>{t("courses")}</Link>
               <Link href="/vcfo" className="mobile-link" onClick={() => setOpen(false)}>{t("virtualCfo")}</Link>
               <Link href="/venture" className="mobile-link" onClick={() => setOpen(false)}>{t("ventureCapital")}</Link>
               <Link href="/tools" className="mobile-link" onClick={() => setOpen(false)}>{t("tools")}</Link>

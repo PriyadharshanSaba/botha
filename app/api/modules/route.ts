@@ -3,6 +3,7 @@ import { db } from "@/app/lib/db";
 import { db as drizzle } from "@/app/lib/db/connection";
 import { chapterViews } from "@/app/lib/db/schema";
 import { getAuthenticatedUser } from "@/app/lib/auth";
+import { isChapterAllowed } from "@/app/lib/session";
 
 // --------------------------------------
 // GET → Fetch progress
@@ -37,8 +38,14 @@ export async function POST(req: NextRequest) {
 
     const { moduleId, chapterNumber } = await req.json();
 
-    if (!moduleId || chapterNumber === undefined) {
+    if (typeof moduleId !== "string" || !moduleId || typeof chapterNumber !== "number" || !Number.isInteger(chapterNumber) || chapterNumber < 0) {
       return NextResponse.json({ error: "Missing fields" }, { status: 400 });
+    }
+
+    const sub = await db.getUserSubscription(userId);
+    const hasActiveSub = sub?.status === "active";
+    if (!isChapterAllowed(moduleId, chapterNumber, hasActiveSub)) {
+      return NextResponse.json({ error: "Subscription required" }, { status: 403 });
     }
 
     // Save progress in your user_progress table

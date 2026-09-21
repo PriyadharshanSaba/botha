@@ -7,9 +7,11 @@
     "build": "next build --webpack",
     "start": "next start",
     "lint": "eslint",
-    "test": "tsx --test app/lib/blogs/*.test.ts",
+    "test": "tsx --test app/lib/blogs/*.test.ts app/lib/meetings/*.test.ts",
+    "migrate": "tsx scripts/run-migration.ts",
     "enable-referrer": "tsx scripts/enable-referrer.ts",
-    "heal-payment": "tsx scripts/heal-payment.ts"
+    "heal-payment": "tsx scripts/heal-payment.ts",
+    "grant-subscription": "tsx scripts/grant-subscription.ts"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.1054.0",
@@ -18,6 +20,7 @@
     "@vercel/analytics": "^2.0.1",
     "chart.js": "^4.5.1",
     "drizzle-orm": "^0.45.2",
+    "googleapis": "^161.0.0",
     "isomorphic-dompurify": "^3.16.0",
     "next": "^16.2.6",
     "node-html-parser": "^7.1.0",

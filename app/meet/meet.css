@@ -1,0 +1,239 @@
+.meet-page {
+  min-height: 100vh;
+  background: var(--white);
+  padding: 48px 5vw 80px;
+}
+
+.meet-header {
+  max-width: 640px;
+  margin: 0 auto 36px;
+  text-align: center;
+}
+
+.meet-eyebrow {
+  display: block;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 10px;
+}
+
+.meet-title {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(28px, 4vw, 38px);
+  color: var(--ink);
+  margin: 0 0 10px;
+}
+
+.meet-subtitle {
+  color: #6B6460;
+  font-size: 15px;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.meet-shell {
+  max-width: 900px;
+  margin: 0 auto;
+  background: #fff;
+  border: 1px solid #ece7dc;
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.meet-body {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+}
+
+@media (max-width: 720px) {
+  .meet-body { grid-template-columns: 1fr; }
+}
+
+.meet-dates {
+  border-right: 1px solid #ece7dc;
+  padding: 20px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  max-height: 520px;
+  overflow-y: auto;
+}
+
+@media (max-width: 720px) {
+  .meet-dates {
+    border-right: none;
+    border-bottom: 1px solid #ece7dc;
+    flex-direction: row;
+    overflow-x: auto;
+    max-height: none;
+  }
+}
+
+.meet-date-btn {
+  text-align: left;
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  background: transparent;
+  font-size: 13px;
+  color: var(--slate);
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+
+.meet-date-btn:hover { background: var(--cream); }
+
+.meet-date-btn.active {
+  background: var(--ink);
+  color: #fff;
+}
+
+.meet-slots {
+  padding: 24px;
+}
+
+.meet-slots-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--ink);
+  margin: 0 0 16px;
+}
+
+.meet-slot-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(96px, 1fr));
+  gap: 10px;
+}
+
+.meet-slot-btn {
+  padding: 10px 8px;
+  border-radius: 8px;
+  border: 1px solid #ddd6c4;
+  background: #fff;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--ink);
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s;
+}
+
+.meet-slot-btn:hover {
+  border-color: var(--gold);
+  background: #fdf6e3;
+}
+
+.meet-slot-btn.selected {
+  background: var(--gold);
+  border-color: var(--gold);
+  color: var(--ink);
+}
+
+.meet-empty {
+  color: #999;
+  font-size: 13px;
+  padding: 20px 0;
+}
+
+.meet-loading {
+  color: #999;
+  font-size: 13px;
+  padding: 20px 0;
+}
+
+.meet-form {
+  margin-top: 24px;
+  padding-top: 20px;
+  border-top: 1px solid #ece7dc;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  max-width: 420px;
+}
+
+.meet-selected-time {
+  font-size: 14px;
+  color: var(--slate);
+  background: var(--cream);
+  border-radius: 8px;
+  padding: 10px 14px;
+}
+
+.meet-field label {
+  display: block;
+  font-size: 12px;
+  font-weight: 500;
+  color: #6B6460;
+  margin-bottom: 6px;
+}
+
+.meet-input,
+.meet-textarea {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #ddd6c4;
+  border-radius: 8px;
+  font-size: 14px;
+  font-family: inherit;
+  color: var(--ink);
+  background: #fff;
+}
+
+.meet-input:focus,
+.meet-textarea:focus {
+  outline: none;
+  border-color: var(--gold);
+}
+
+.meet-textarea {
+  resize: vertical;
+  min-height: 70px;
+}
+
+.meet-submit {
+  height: 46px;
+  border-radius: 8px;
+  border: none;
+  background: var(--ink);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.meet-submit:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.meet-error {
+  color: #b3261e;
+  font-size: 13px;
+}
+
+.meet-confirmed {
+  max-width: 640px;
+  margin: 0 auto;
+  text-align: center;
+  padding: 60px 24px;
+  background: #fff;
+  border: 1px solid #ece7dc;
+  border-radius: 16px;
+}
+
+.meet-confirmed-title {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 26px;
+  color: var(--ink);
+  margin: 0 0 10px;
+}
+
+.meet-confirmed-time {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--gold);
+  margin-bottom: 12px;
+}

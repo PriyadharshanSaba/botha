@@ -1,0 +1,303 @@
+/* === Audio Player (Money 101) === */
+.ap-wrap {
+  margin: 28px 0 14px;
+  border: 1px solid rgba(201, 168, 76, 0.25);
+  border-radius: 12px;
+  background: linear-gradient(180deg, rgba(201, 168, 76, 0.05), rgba(201, 168, 76, 0.02));
+  overflow: hidden;
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+
+.ap-wrap.ap-open {
+  border-color: rgba(201, 168, 76, 0.45);
+  background: linear-gradient(180deg, rgba(201, 168, 76, 0.08), rgba(201, 168, 76, 0.03));
+}
+
+.ap-toggle {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 14px;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  color: var(--ink, #0d0d0d);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+  user-select: none;
+}
+
+.ap-toggle:hover {
+  background: rgba(201, 168, 76, 0.06);
+}
+
+.ap-toggle-left {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.ap-toggle-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 999px;
+  background: var(--gold, #c9a84c);
+  color: #fff;
+}
+
+.ap-toggle-chev {
+  display: inline-flex;
+  color: #777;
+  transition: transform 0.2s ease;
+}
+
+.ap-wrap.ap-open .ap-toggle-chev {
+  transform: rotate(180deg);
+}
+
+.ap-panel {
+  padding: 18px 16px 20px;
+  border-top: 1px solid rgba(201, 168, 76, 0.18);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+}
+
+.ap-panel-signin {
+  padding: 22px 16px 22px;
+  gap: 10px;
+  text-align: center;
+}
+
+.ap-signin-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 54px;
+  height: 54px;
+  border-radius: 999px;
+  background: rgba(201, 168, 76, 0.12);
+  color: var(--gold, #c9a84c);
+}
+
+.ap-signin-text {
+  margin: 4px 0 6px;
+  font-size: 14px;
+  color: #444;
+  line-height: 1.45;
+  max-width: 320px;
+}
+
+.ap-signin-cta {
+  display: inline-block;
+  padding: 9px 20px;
+  background: var(--gold, #c9a84c);
+  color: #fff;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  text-decoration: none;
+  transition: background 0.2s ease, transform 0.1s ease;
+}
+
+.ap-signin-cta:hover { background: #b8973e; }
+.ap-signin-cta:active { transform: scale(0.97); }
+
+.ap-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 22px;
+}
+
+.ap-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  border: 0;
+  cursor: pointer;
+  color: var(--ink, #0d0d0d);
+  background: #f4f0e3;
+  transition: transform 0.1s ease, background 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
+}
+
+.ap-btn:hover { background: #ece5cf; }
+.ap-btn:active { transform: scale(0.94); }
+.ap-btn:focus { outline: none; }
+.ap-btn:focus-visible {
+  outline: 2px solid rgba(201, 168, 76, 0.55);
+  outline-offset: 2px;
+}
+
+.ap-btn-skip {
+  width: 46px;
+  height: 46px;
+  color: #2a2a2a;
+}
+
+.ap-btn-play {
+  width: 60px;
+  height: 60px;
+  background: var(--gold, #c9a84c);
+  color: #fff;
+  box-shadow: 0 4px 14px rgba(201, 168, 76, 0.35);
+}
+
+.ap-btn-play:hover { background: #b8973e; }
+
+.ap-progress {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.ap-time {
+  font-size: 11px;
+  color: #888;
+  font-variant-numeric: tabular-nums;
+  min-width: 38px;
+  text-align: center;
+}
+
+.ap-range {
+  flex: 1;
+  -webkit-appearance: none;
+  appearance: none;
+  height: 4px;
+  border-radius: 100px;
+  background: rgba(0, 0, 0, 0.08);
+  outline: none;
+  cursor: pointer;
+}
+
+.ap-range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 14px;
+  height: 14px;
+  border-radius: 999px;
+  background: var(--gold, #c9a84c);
+  border: 2px solid #fff;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+}
+
+.ap-range::-moz-range-thumb {
+  width: 14px;
+  height: 14px;
+  border-radius: 999px;
+  background: var(--gold, #c9a84c);
+  border: 2px solid #fff;
+  cursor: pointer;
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+  .ap-wrap { margin: 22px 0 12px; border-radius: 10px; }
+  .ap-toggle { padding: 9px 12px; font-size: 12.5px; }
+  .ap-toggle-icon { width: 24px; height: 24px; }
+  .ap-panel { padding: 16px 12px 18px; gap: 12px; }
+  .ap-controls { gap: 18px; }
+  .ap-btn-skip { width: 42px; height: 42px; }
+  .ap-btn-play { width: 56px; height: 56px; }
+  .ap-time { font-size: 10.5px; min-width: 34px; }
+}
+
+/* === Locked Chapter === */
+.locked-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  margin-left: 10px;
+  padding: 3px 8px 3px 7px;
+  font-size: 11px;
+  font-weight: 600;
+  color: #8a7223;
+  background: rgba(201, 168, 76, 0.12);
+  border: 1px solid rgba(201, 168, 76, 0.35);
+  border-radius: 999px;
+  vertical-align: middle;
+  letter-spacing: 0.2px;
+}
+
+.locked-chapter-body {
+  margin: 28px auto;
+  padding: 40px 24px;
+  text-align: center;
+  border: 1px dashed rgba(201, 168, 76, 0.45);
+  border-radius: 14px;
+  background: linear-gradient(180deg, rgba(201, 168, 76, 0.04), rgba(201, 168, 76, 0.01));
+  max-width: 560px;
+}
+
+.locked-chapter-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 72px;
+  height: 72px;
+  border-radius: 999px;
+  background: rgba(201, 168, 76, 0.12);
+  color: var(--gold, #c9a84c);
+  margin-bottom: 16px;
+}
+
+/* Override `.chapter h3` (gold bar + padding-left) so the headline sits
+   centered inside the locked card, not flush-left with a border accent. */
+.chapter .locked-chapter-headline {
+  font-family: 'Playfair Display', serif;
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--ink, #0d0d0d);
+  margin: 0 0 10px;
+  padding-left: 0;
+  border-left: 0;
+  text-align: center;
+}
+
+/* Override `.chapter p` (justify) so the sub line stays center-aligned. */
+.chapter .locked-chapter-sub {
+  font-size: 14.5px;
+  color: #555;
+  line-height: 1.55;
+  margin: 0 auto 22px;
+  max-width: 420px;
+  text-align: center;
+}
+
+.locked-chapter-cta {
+  display: inline-block;
+  padding: 11px 22px;
+  background: var(--gold, #c9a84c);
+  color: #fff;
+  border-radius: 999px;
+  font-size: 13.5px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  text-decoration: none;
+  box-shadow: 0 4px 14px rgba(201, 168, 76, 0.3);
+  transition: background 0.2s ease, transform 0.1s ease;
+}
+
+.locked-chapter-cta:hover { background: #b8973e; }
+.locked-chapter-cta:active { transform: scale(0.97); }
+
+@media (max-width: 600px) {
+  .locked-chapter-body { padding: 32px 18px; margin: 22px auto; }
+  .locked-chapter-icon { width: 60px; height: 60px; }
+  .locked-chapter-headline { font-size: 19px; }
+  .locked-chapter-sub { font-size: 13.5px; }
+  .locked-badge { font-size: 10.5px; padding: 2px 7px; margin-left: 6px; }
+}

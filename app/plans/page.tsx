@@ -287,7 +287,6 @@ export default function PlansPage() {
             <div className="plans-grid">
               {PLANS.map((plan) => {
                 const taken   = seatCounts[plan.id] ?? (plan.id === "founding" ? 0 : 0);
-                const pct     = plan.maxSeats ? Math.min((taken / plan.maxSeats) * 100, 100) : 0;
                 const soldOut = plan.maxSeats !== null && taken >= plan.maxSeats;
                 const d       = discountedFor(plan, isTestUser, refStatus);
                 const finalRs = d.finalPaise / 100;
@@ -312,19 +311,6 @@ export default function PlansPage() {
                         (₹{Math.round(finalRs * 1.18).toLocaleString("en-IN")} inclusive of GST)
                       </span>
                     </p>
-
-                    {plan.maxSeats !== null ? (
-                      <>
-                        <div className="plan-seats-bar">
-                          <div className="plan-seats-fill" style={{ width: `${pct}%` }} />
-                        </div>
-                        <p className="plan-seats-txt">
-                          {soldOut ? "All seats taken" : `${taken} of ${plan.maxSeats} seats taken`}
-                        </p>
-                      </>
-                    ) : (
-                      <div className="plan-seats-spacer" aria-hidden="true" />
-                    )}
 
                     <hr className="plan-divider" />
                     <p className="plan-features-label">What&apos;s included</p>

@@ -8,11 +8,13 @@ import TermsModal from "./TermsModal";
 
 interface Props {
   slug: string;
+  title?: string;
+  subtitle?: string;
 }
 
 type Mode = "email" | "otp-login" | "name" | "otp-signup";
 
-export default function PaywallGate({ slug }: Props) {
+export default function PaywallGate({ slug, title, subtitle }: Props) {
   const router = useRouter();
   const [mode, setMode] = useState<Mode>("email");
   const [email, setEmail] = useState("");
@@ -156,9 +158,11 @@ export default function PaywallGate({ slug }: Props) {
         >
           {mode === "email" && (
             <form onSubmit={submitEmail} className="paywall-gate-form paywall-gate-mode">
-              <h2 id="paywall-gate-title" className="paywall-gate-title">Keep reading</h2>
+              <h2 id="paywall-gate-title" className="paywall-gate-title">
+                {title ?? "Keep reading"}
+              </h2>
               <p className="paywall-gate-sub">
-                Sign in or create a free account to finish this article.
+                {subtitle ?? "Sign in or create a free account to finish this article."}
               </p>
               <label htmlFor="paywall-email">Email</label>
               <input
