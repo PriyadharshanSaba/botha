@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { DBDriver, UserWithOTP, CreateUserInput, CookieConsent, SaveConsentInput, Subscription, CreateSubscriptionInput, BillingInfo } from "./types";
+import { DBDriver, UserWithOTP, CreateUserInput, CookieConsent, SaveConsentInput, Subscription, CreateSubscriptionInput, BillingInfo, MeetingSettings, SaveMeetingSettingsInput, MeetingBlackout, CreateBlackoutInput, MeetingBooking, CreateBookingInput, GoogleTokenRecord } from "./types";
 import { mockUsers } from "../mock/users";
 import crypto from "crypto";
 
@@ -142,4 +142,47 @@ export const MockDB: DBDriver = {
   async publishBlog(_slug: string) { /* no-op */ },
   async unpublishBlog(_slug: string) { /* no-op */ },
   async deleteBlog(_slug: string) { /* no-op */ },
+
+  /* Meetings — mock returns empty / no-op. Real implementation lives in PostgresDB. */
+  async getMeetingSettings(): Promise<MeetingSettings> {
+    return {
+      weeklyHours: { sun: [], mon: [], tue: [], wed: [], thu: [], fri: [], sat: [] },
+      slotMinutes: 30,
+      timezone: "Asia/Kolkata",
+      updatedAt: new Date(),
+    };
+  },
+  async saveMeetingSettings(input: SaveMeetingSettingsInput): Promise<MeetingSettings> {
+    return { ...input, updatedAt: new Date() };
+  },
+  async listBlackouts(): Promise<MeetingBlackout[]> { return []; },
+  async listBlackoutsInRange(_startAt: Date, _endAt: Date): Promise<MeetingBlackout[]> { return []; },
+  async createBlackout(input: CreateBlackoutInput): Promise<MeetingBlackout> {
+    return { id: "mock-blackout", startAt: input.startAt, endAt: input.endAt, reason: input.reason ?? null, googleEventId: null, createdAt: new Date() };
+  },
+  async getBlackoutById(_id: string): Promise<MeetingBlackout | null> { return null; },
+  async setBlackoutGoogleEventId(_id: string, _googleEventId: string): Promise<void> {},
+  async deleteBlackout(_id: string): Promise<void> {},
+  async listBookingsInRange(_startAt: Date, _endAt: Date): Promise<MeetingBooking[]> { return []; },
+  async listUpcomingBookings(): Promise<MeetingBooking[]> { return []; },
+  async getBookingById(_id: string): Promise<MeetingBooking | null> { return null; },
+  async createBooking(input: CreateBookingInput): Promise<MeetingBooking> {
+    return {
+      id: "mock-booking",
+      name: input.name,
+      email: input.email,
+      phone: input.phone ?? null,
+      note: input.note ?? null,
+      startAt: input.startAt,
+      endAt: input.endAt,
+      googleEventId: null,
+      status: "confirmed",
+      createdAt: new Date(),
+    };
+  },
+  async setBookingGoogleEventId(_id: string, _googleEventId: string): Promise<void> {},
+  async cancelBooking(_id: string): Promise<MeetingBooking | null> { return null; },
+  async getGoogleTokens(): Promise<GoogleTokenRecord | null> { return null; },
+  async saveGoogleTokens(_input: { refreshTokenEnc: string; connectedEmail: string }): Promise<void> {},
+  async clearGoogleTokens(): Promise<void> {},
 };

@@ -1,6 +1,6 @@
 import { pgTable, text, timestamp, integer, primaryKey, serial, bigserial, boolean, unique, jsonb, index, uniqueIndex } from "drizzle-orm/pg-core";
 import { sql } from "drizzle-orm";
-import type { BillingInfo, BuyerSnapshot, SupplierSnapshot, InvoiceLineItem, InvoiceNotes, BlogStatRowCell } from "./types";
+import type { BillingInfo, BuyerSnapshot, SupplierSnapshot, InvoiceLineItem, InvoiceNotes, BlogStatRowCell, WeeklyHours } from "./types";
 import type { NwtEntry } from "@/app/lib/networth/types";
 
 export const users = pgTable("users", {
@@ -229,6 +229,59 @@ export const blogs = pgTable("blogs", {
   statusPublishedIdx: index("idx_blogs_status_published").on(table.status, table.publishedAt),
   updatedIdx:         index("idx_blogs_updated").on(table.updatedAt),
 }));
+
+/**
+ * meeting_settings — single-row config for the /meet booking page.
+ * weeklyHours is IST wall-clock: { mon: [{start:"10:00",end:"18:00"}], ... }.
+ */
+export const meetingSettings = pgTable("meeting_settings", {
+  id:           text("id").primaryKey().default("default"),
+  weeklyHours:  jsonb("weekly_hours").$type<WeeklyHours>().notNull(),
+  slotMinutes:  integer("slot_minutes").notNull().default(30),
+  timezone:     text("timezone").notNull().default("Asia/Kolkata"),
+  updatedAt:    timestamp("updated_at").defaultNow().notNull(),
+});
+
+/** meeting_blackouts — admin-blocked date/time ranges that are never bookable. */
+export const meetingBlackouts = pgTable("meeting_blackouts", {
+  id:             text("id").primaryKey(),
+  startAt:        timestamp("start_at").notNull(),
+  endAt:          timestamp("end_at").notNull(),
+  reason:         text("reason"),
+  googleEventId:  text("google_event_id"),
+  createdAt:      timestamp("created_at").defaultNow().notNull(),
+}, (table) => ({
+  rangeIdx: index("idx_meeting_blackouts_range").on(table.startAt, table.endAt),
+}));
+
+/** meeting_bookings — a confirmed (or cancelled) slot booked on /meet. */
+export const meetingBookings = pgTable("meeting_bookings", {
+  id:             text("id").primaryKey(),
+  name:           text("name").notNull(),
+  email:          text("email").notNull(),
+  phone:          text("phone"),
+  note:           text("note"),
+  startAt:        timestamp("start_at").notNull(),
+  endAt:          timestamp("end_at").notNull(),
+  googleEventId:  text("google_event_id"),
+  status:         text("status").notNull().default("confirmed"), // 'confirmed' | 'cancelled'
+  createdAt:      timestamp("created_at").defaultNow().notNull(),
+}, (table) => ({
+  rangeIdx:   index("idx_meeting_bookings_range").on(table.startAt, table.endAt),
+  statusIdx:  index("idx_meeting_bookings_status").on(table.status),
+}));
+
+/**
+ * google_tokens — single-row store for the connected Google account's OAuth
+ * refresh token. refreshTokenEnc is AES-256-GCM ciphertext, never raw.
+ * See app/lib/google/crypto.ts.
+ */
+export const googleTokens = pgTable("google_tokens", {
+  id:               text("id").primaryKey().default("default"),
+  refreshTokenEnc:  text("refresh_token_enc").notNull(),
+  connectedEmail:   text("connected_email").notNull(),
+  updatedAt:        timestamp("updated_at").defaultNow().notNull(),
+});
 
 export const referralRedemptions = pgTable("referral_redemptions", {
   id: serial("id").primaryKey(),

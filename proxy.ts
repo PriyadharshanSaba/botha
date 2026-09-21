@@ -53,7 +53,7 @@ export function proxy(request: NextRequest) {
     return NextResponse.next();
   }
 
-  const publicPaths = ["/", "/signin", "/waitlist", "/about", "/vcfo", "/venture", "/tools", "/plans", "/modules", "/guide"];
+  const publicPaths = ["/", "/signin", "/waitlist", "/about", "/vcfo", "/venture", "/tools", "/plans", "/modules", "/guide", "/meet"];
   const publicPrefixes = ["/blogs", "/modules/money-101", "/modules/introduction"];
   const authRedirectPaths = ["/signin"];
 
