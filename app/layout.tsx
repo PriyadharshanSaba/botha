@@ -18,9 +18,9 @@ export const metadata = {
     siteName: "Bodha Ventures",
     images: [
       {
-        url: "https://bodhaventures.in/preview-image.png",
+        url: "https://bodhaventures.in/preview-image.png?v=2",
         width: 1200,
-        height: 630,
+        height: 703,
         alt: "Bodha Ventures",
       },
     ],
@@ -31,7 +31,7 @@ export const metadata = {
     card: "summary_large_image",
     title: "Bodha Ventures — Company registration, GST, Virtual CFO & personal finance",
     description: "From registering your company to making your first investment, Bodha Ventures takes care of the hard parts and explains every decision in plain language.",
-    images: ["https://bodhaventures.in/preview-image.png"],
+    images: ["https://bodhaventures.in/preview-image.png?v=2"],
   },
 };
 
