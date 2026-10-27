@@ -30,7 +30,7 @@ export default function HomePage() {
         <SectionLabel id="business">{c.businessLabel}</SectionLabel>
         <RegistrationBanner c={c.registration} onStart={() => setEnquiry("registration")} />
         <WebsitesBanner c={c.websites} onStart={() => setEnquiry("website")} />
-        <CfoBanner c={c.cfo} onStart={() => setEnquiry("vcfo")} />
+        <CfoBanner c={c.cfo} learnMore={c.learnMore} onStart={() => setEnquiry("vcfo")} />
         <SectionLabel id="individuals">{c.individualsLabel}</SectionLabel>
         <ProgramBanner c={c.program} />
         <ToolsBanner c={c.tools} />

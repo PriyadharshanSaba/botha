@@ -1,8 +1,8 @@
 import type { HomeCopy } from "./copy";
-import { Eyebrow, Gold } from "../ui/parts";
+import { ArrowCta, Eyebrow, Gold } from "../ui/parts";
 import SplitBanner from "./SplitBanner";
 
-export default function CfoBanner({ c, onStart }: { c: HomeCopy["cfo"]; onStart: () => void }) {
+export default function CfoBanner({ c, learnMore, onStart }: { c: HomeCopy["cfo"]; learnMore: string; onStart: () => void }) {
   return (
     <SplitBanner images={["/landing/cfo-left.svg", "/landing/cfo-right.svg"]}>
       <Eyebrow>{c.eyebrow}</Eyebrow>
@@ -10,6 +10,7 @@ export default function CfoBanner({ c, onStart }: { c: HomeCopy["cfo"]; onStart:
       <p className="hm-body">{c.body}</p>
       <div className="ui-ctas">
         <button type="button" className="ui-btn" onClick={onStart}>{c.cta}</button>
+        <ArrowCta to={{ href: "/vcfo" }}>{learnMore}</ArrowCta>
       </div>
     </SplitBanner>
   );

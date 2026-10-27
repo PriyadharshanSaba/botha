@@ -5,6 +5,7 @@ export type HomeCopy = {
   hero: { lines: [Headline, Headline]; body: string; jumpLabel: string; business: string; individuals: string };
   businessLabel: string;
   individualsLabel: string;
+  learnMore: string;
   registration: { eyebrow: string; title: Headline; sub: Headline; body: string; items: string[]; cta: string };
   websites: { eyebrow: string; title: Headline; body: string; cta: string };
   cfo: { eyebrow: string; title: Headline; body: string; cta: string };
@@ -25,6 +26,7 @@ const en: HomeCopy = {
   },
   businessLabel: "For businesses & founders",
   individualsLabel: "For individuals",
+  learnMore: "Learn more",
   registration: {
     eyebrow: "Company registration & GST",
     title: h("From idea to ", "incorporated."),
@@ -82,6 +84,7 @@ const kn: HomeCopy = {
   },
   businessLabel: "ವ್ಯವಹಾರಗಳು ಮತ್ತು ಸಂಸ್ಥಾಪಕರಿಗೆ",
   individualsLabel: "ವ್ಯಕ್ತಿಗಳಿಗೆ",
+  learnMore: "ಇನ್ನಷ್ಟು ತಿಳಿಯಿರಿ",
   registration: {
     eyebrow: "ಕಂಪನಿ ನೋಂದಣಿ ಮತ್ತು GST",
     title: h("ಆಲೋಚನೆಯಿಂದ ", "ನೋಂದಾಯಿತ ಕಂಪನಿಯವರೆಗೆ."),
