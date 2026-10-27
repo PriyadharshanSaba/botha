@@ -6,22 +6,22 @@ import { Analytics } from "@vercel/analytics/next";
 import AppShell from "./AppShell";
 
 export const metadata = {
-  title: "Bodha — The Personal Finance Program",
-  description: "This course is not for people who want to gamble with their money. Our program is built for people who want to build real, lasting wealth — patiently, intelligently and on solid foundations.",
+  title: "Bodha Ventures — Company registration, GST, Virtual CFO & personal finance",
+  description: "From registering your company to making your first investment, Bodha Ventures takes care of the hard parts and explains every decision in plain language.",
   icons: {
     icon: "/logo-favicon.png",
   },
   openGraph: {
-    title: "Bodha — The Personal Finance Program by Bodha Ventures",
-    description: "Not for people chasing hot tips or 100x stocks. Built for those who want real, lasting wealth — patiently and intelligently.",
+    title: "Bodha Ventures — Company registration, GST, Virtual CFO & personal finance",
+    description: "From registering your company to making your first investment, Bodha Ventures takes care of the hard parts and explains every decision in plain language.",
     url: "https://bodhaventures.in",
-    siteName: "Bodha",
+    siteName: "Bodha Ventures",
     images: [
       {
         url: "https://bodhaventures.in/preview-image.png",
         width: 1200,
         height: 630,
-        alt: "Bodha — The Personal Finance Program",
+        alt: "Bodha Ventures",
       },
     ],
     locale: "en_IN",
@@ -29,8 +29,8 @@ export const metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Bodha — The Personal Finance Program by Bodha Ventures",
-    description: "Not for people chasing hot tips or 100x stocks. Built for those who want real, lasting wealth — patiently and intelligently.",
+    title: "Bodha Ventures — Company registration, GST, Virtual CFO & personal finance",
+    description: "From registering your company to making your first investment, Bodha Ventures takes care of the hard parts and explains every decision in plain language.",
     images: ["https://bodhaventures.in/preview-image.png"],
   },
 };

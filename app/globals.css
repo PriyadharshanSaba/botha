@@ -29,6 +29,13 @@ body {
   text-rendering: optimizeLegibility;
 }
 
+/* Let body grow with its content: a fixed-height body is the sticky header's
+   containing block, which would make the header scroll away after one screen. */
+body {
+  height: auto;
+  min-height: 100%;
+}
+
 a {
   color: inherit;
   text-decoration: none;

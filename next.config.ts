@@ -1,4 +1,5 @@
 import type { NextConfig } from "next";
+import { ventureRedirects } from "./app/lib/features";
 
 const nextConfig: NextConfig = {
   serverExternalPackages: ["isomorphic-dompurify", "jsdom"],
@@ -7,6 +8,9 @@ const nextConfig: NextConfig = {
   outputFileTracingIncludes: {
     "/api/audio/money-101/[ch]": ["./private/money-101/audio/**"],
     "/api/guide/download": ["./private/guide/**"],
+  },
+  async redirects() {
+    return ventureRedirects();
   },
   async headers() {
     return [

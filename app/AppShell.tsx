@@ -28,6 +28,7 @@ export default function AppShell({
     pathname === "/vcfo" ||
     pathname === "/venture" ||
     pathname === "/tools" ||
+    pathname === "/meet" ||
     pathname === "/blogs" ||
     pathname.startsWith("/blogs/");
   const showAppFooter = showHeader && !hasOwnFooter;

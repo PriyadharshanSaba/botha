@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 180" width="280" height="180" font-family="Helvetica, Arial, sans-serif">
+  <rect x="10" y="10" width="260" height="160" rx="14" fill="#fdfcf9" stroke="#2a2d35" stroke-width="2"/>
+  <text x="30" y="40" font-size="11" font-weight="700" letter-spacing="1.5" fill="#2a2d35">STOCK VALUATION</text>
+  <rect x="218" y="26" width="34" height="20" rx="4" fill="#2a2d35"/>
+  <text x="235" y="40" text-anchor="middle" font-size="9" font-weight="700" fill="#e8d08a">XLSX</text>
+  <rect x="30" y="56" width="66" height="44" rx="6" fill="#f0e9da"/>
+  <text x="42" y="74" font-size="10" font-weight="700" fill="#55524c">P/E</text>
+  <rect x="42" y="82" width="40" height="8" rx="3" fill="#2a2d35"/>
+  <rect x="107" y="56" width="66" height="44" rx="6" fill="#f0e9da"/>
+  <text x="119" y="74" font-size="10" font-weight="700" fill="#55524c">P/B</text>
+  <rect x="119" y="82" width="34" height="8" rx="3" fill="#2a2d35"/>
+  <rect x="184" y="56" width="66" height="44" rx="6" fill="#f0e9da"/>
+  <text x="196" y="74" font-size="10" font-weight="700" fill="#55524c">ROE</text>
+  <rect x="196" y="82" width="38" height="8" rx="3" fill="#c9a84c"/>
+  <path d="M30 152 L62 140 L94 146 L126 128 L158 132 L190 116 L222 120 L250 108" fill="none" stroke="#c9a84c" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

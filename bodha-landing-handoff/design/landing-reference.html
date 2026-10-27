@@ -1,0 +1,310 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Bodha — Landing page (design reference)</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
+<link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400..800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#fdfcf9}
+html{scroll-behavior:smooth}
+.bd [id]{scroll-margin-top:72px}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+a{color:#7d6219}a:hover{color:#0d0d0d}
+.bd *{box-sizing:border-box}
+.bd h1,.bd h2,.bd h3,.bd p{margin:0}
+.bd em{font-family:inherit;font-style:normal;font-weight:inherit}
+.wrap{max-width:1380px;margin:0 auto;padding:0 12px}
+.navbar{max-width:1380px;margin:0 auto;padding:0 24px;height:68px;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:24px}
+.navlinks{display:flex;align-items:center;gap:2px;background:#f5f0e8;border-radius:100px;padding:4px}
+.navpill{padding:9px 18px;border-radius:100px;font-size:14px;font-weight:500;color:#2a2d35;text-decoration:none;white-space:nowrap}
+.navpill:hover{background:#fdfcf9;color:#0d0d0d;box-shadow:0 1px 3px rgba(0,0,0,0.08)}
+.navright{display:flex;align-items:center;justify-content:flex-end;gap:6px}
+.iconbtn{width:40px;height:40px;border-radius:100px;display:inline-flex;align-items:center;justify-content:center;color:#2a2d35;text-decoration:none}
+.iconbtn:hover{background:#f5f0e8;color:#0d0d0d}
+.textlink{padding:10px 14px;border-radius:100px;font-size:14px;font-weight:500;color:#0d0d0d;text-decoration:none;white-space:nowrap;flex-shrink:0}
+.navright .btn{white-space:nowrap;flex-shrink:0}
+.navright .iconbtn{flex-shrink:0}
+.textlink:hover{background:#f5f0e8}
+.menu-btn{display:none}
+.lnk{display:inline-flex;align-items:center;gap:6px;font-size:17px;font-weight:500;text-decoration:none}
+.lnk:hover{text-decoration:underline}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:0 28px;border-radius:100px;font-family:inherit;font-size:15px;font-weight:500;letter-spacing:.2px;text-decoration:none}
+.jumps{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-top:4px}
+.jump{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 16px;border-radius:100px;background:#f5f0e8;color:#2a2d35;font-size:14px;font-weight:500;text-decoration:none}
+.jump:hover{background:#ebe3d2;color:#0d0d0d}
+.jump svg{color:#7d6219}
+.chapter{padding:64px 24px 40px;text-align:center;display:flex;flex-direction:column;align-items:center;background:#fdfcf9}
+.chapter-label{font-size:15px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:#7d6219;text-decoration:underline;text-decoration-color:#c9a84c;text-decoration-thickness:2px;text-underline-offset:12px}
+.banners{display:flex;flex-direction:column}
+.banner{position:relative;overflow:hidden;min-height:640px;padding:112px 24px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
+.banner-in{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;gap:20px;max-width:700px}
+.ctas{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:14px 28px;margin-top:10px}
+.eyebrow{font-size:12px;font-weight:600;letter-spacing:2.5px;text-transform:uppercase}
+.incl{display:grid;grid-template-columns:repeat(2,auto);justify-content:center;gap:12px 36px;margin-top:6px;font-size:15px;color:#2a2d35;text-align:left}
+.incl span{display:inline-flex;align-items:center;gap:8px}
+/* Layout A: documents at both edges */
+.doc{position:absolute;top:50%;width:clamp(220px,22vw,360px);height:auto;transform:translateY(-50%);opacity:.4;pointer-events:none}
+.doc-l{left:-80px}
+.doc-r{right:-80px}
+.doc-m{display:none}
+/* Layout B: device rising from the bottom edge */
+.banner.has-rise{padding-bottom:0}
+.rise{position:relative;z-index:1;width:min(900px,100%);height:clamp(200px,30vw,380px);overflow:hidden;margin-top:56px}
+.rise img{width:100%;height:auto;display:block}
+/* Layout C: split, text one side, illustration the other */
+.split{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));align-items:center;gap:64px;width:100%;max-width:1280px;margin:0 auto;padding:0 clamp(24px,6vw,96px)}
+.split .banner-in{align-items:flex-start;text-align:left;max-width:520px;padding:0 clamp(0px,2.5vw,40px)}
+.split .ctas{justify-content:flex-start}
+.split.rev .banner-in{justify-self:end}
+.rev .cluster{order:-1}
+.cluster{position:relative;width:100%;max-width:560px;aspect-ratio:1 / 0.9;justify-self:center}
+.cluster img{position:absolute;height:auto}
+.cluster .c1{left:0;top:0;width:62%}
+.cluster .c2{right:0;bottom:0;width:62%}
+/* Layout D: floating tool cards in the corners */
+.float{position:absolute;width:clamp(180px,16vw,240px);height:auto;pointer-events:none}
+.f1{left:5%;top:13%;transform:rotate(-6deg)}
+.f2{left:8%;bottom:12%;transform:rotate(4deg)}
+.f3{right:5%;top:12%;transform:rotate(5deg)}
+.f4{right:8%;bottom:14%;transform:rotate(-4deg)}
+.float-m{display:none}
+/* Layout E: fan of article cards below the text */
+.fan{position:relative;z-index:1;width:min(860px,100%);margin-top:48px}
+.fan img{width:100%;height:auto;display:block}
+@media (max-width:1100px){
+ .navbar{gap:12px}
+ .navpill{padding:8px 12px;font-size:13px}
+ .textlink{padding:8px 10px;font-size:13px}
+ .navright .btn{font-size:13px !important;padding:0 14px !important;min-height:38px !important}
+ .doc{opacity:.18;width:200px}
+ .doc-l{left:-110px}
+ .doc-r{right:-110px}
+ .float{display:none}
+ .float-m{display:flex;justify-content:center;gap:12px;width:100%;max-width:520px;margin-top:36px}
+ .float-m img{width:48%;height:auto}
+}
+@media (max-width:760px){
+ .doc{display:none}
+ .doc-m{display:flex;justify-content:center;align-items:flex-start;width:100%;max-width:420px;margin-top:44px;height:34vw;max-height:180px;overflow:hidden}
+ .doc-m img{width:58%;height:auto;opacity:.9;flex-shrink:0}
+ .doc-m img+img{margin-left:-16%}
+ .banner.has-doc{padding-bottom:0}
+ .incl{grid-template-columns:auto}
+ .banner{min-height:0;padding:80px 20px}
+ .banner.has-rise{padding-bottom:0}
+ .split{grid-template-columns:minmax(0,1fr);gap:36px;padding:0}
+ .split .banner-in{padding:0}
+ .split .banner-in,.split.rev .banner-in{align-items:center;text-align:center;justify-self:center}
+ .split .ctas{justify-content:center}
+ .rev .cluster{order:0}
+ .cluster{max-width:420px}
+ .chapter{padding:48px 20px 32px}
+ .chapter-label{font-size:14px}
+ .navlinks{display:none}
+ .navbar{grid-template-columns:auto 1fr;padding:0 16px}
+ .menu-btn{display:inline-flex}
+ .navright{gap:8px}
+ .hide-sm{display:none}
+}
+</style>
+</head>
+<body>
+<div class="bd" style="width: 100%; background: #fdfcf9; color: #0d0d0d; font-family: 'Inter', -apple-system, 'Segoe UI', sans-serif; -webkit-font-smoothing: antialiased">
+
+<!-- ========== NAV ========== -->
+<header style="position: sticky; top: 0; z-index: 10; background: rgba(253,252,249,0.85); backdrop-filter: saturate(180%) blur(16px); border-bottom: 1px solid rgba(13,13,13,0.06)">
+<nav aria-label="Main" class="navbar">
+<a href="#top" aria-label="Bodha Ventures home" style="display: flex; align-items: center; justify-self: start"><img src="../../public/landing/bodha-logo.png" alt="Bodha Ventures" style="height: 34px; width: auto; display: block"></a>
+<div class="navlinks">
+<a href="#business" class="navpill">For businesses</a>
+<a href="#individuals" class="navpill">For individuals</a>
+<a href="#tools" class="navpill">Tools</a>
+<a href="#top" class="navpill">About</a>
+</div>
+<div class="navright">
+<a href="#top" class="iconbtn hide-sm" aria-label="Read in Kannada (ಕನ್ನಡ)" title="ಕನ್ನಡ"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M3 12h18M12 3c2.5 2.6 3.8 5.6 3.8 9s-1.3 6.4-3.8 9c-2.5-2.6-3.8-5.6-3.8-9S9.5 5.6 12 3z"></path></svg></a>
+<a href="#top" class="textlink hide-sm">Log in</a>
+<a href="#talk" class="btn" style="background: #0d0d0d; color: #fdfcf9; min-height: 40px; padding: 0 18px; font-size: 14px">Talk to us</a>
+<button type="button" class="menu-btn" aria-label="Open menu" style="width: 44px; height: 44px; border: 1px solid rgba(13,13,13,0.15); border-radius: 100px; background: transparent; align-items: center; justify-content: center; color: #0d0d0d"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"></path></svg></button>
+</div>
+</nav>
+</header>
+
+<main id="top">
+
+<!-- ========== HERO ========== -->
+<section class="wrap" style="padding-top: 96px; padding-bottom: 8px">
+<div style="text-align: center; max-width: 1000px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; gap: 24px; padding: 0 12px">
+<h1 style="font-family: 'Inter', -apple-system, 'Segoe UI', sans-serif; font-weight: 700; letter-spacing: -0.035em; font-size: clamp(42px, 5.6vw, 80px); line-height: 1.05">Helping India <em style="color: #9a7a2a">build businesses.</em><br>Helping Indians <em style="color: #9a7a2a">grow wealth.</em></h1>
+<p style="font-size: clamp(17px, 1.5vw, 21px); line-height: 1.55; color: #55524c; max-width: 680px">From registering your company to making your first investment, we take care of the hard parts and explain every decision in plain language.</p>
+<nav class="jumps" aria-label="Jump to a section">
+<a href="#business" class="jump"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="7" width="18" height="13" rx="2"></rect><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M3 13h18"></path></svg>For businesses<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a>
+<a href="#individuals" class="jump"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"></circle><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7"></path></svg>For individuals<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a>
+</nav>
+</div>
+</section>
+
+<!-- ========== BANNERS ========== -->
+<div class="banners">
+
+<!-- Chapter · businesses -->
+<section id="business" class="chapter">
+<span class="chapter-label">For businesses &amp; founders</span>
+</section>
+
+<!-- Company registration & GST · documents at both edges -->
+<section class="banner has-doc" style="background: #f5f0e8">
+<img class="doc doc-l" src="../../public/landing/gst-left.svg" alt="">
+<img class="doc doc-r" src="../../public/landing/gst-right.svg" alt="">
+<div class="banner-in">
+<span class="eyebrow" style="color: #7d6219">Company registration &amp; GST</span>
+<h2 style="font-family: 'Inter', -apple-system, 'Segoe UI', sans-serif; font-weight: 700; letter-spacing: -0.035em; font-size: clamp(40px, 5.4vw, 76px); line-height: 1.04">From idea to <em style="color: #9a7a2a">incorporated.</em></h2>
+<p style="font-family: 'Inter', -apple-system, 'Segoe UI', sans-serif; font-weight: 700; letter-spacing: -0.035em; font-size: clamp(20px, 1.9vw, 28px); line-height: 1.25; color: #2a2d35">Everything your company needs, <em style="color: #9a7a2a">from day one.</em></p>
+<p style="font-size: clamp(17px, 1.5vw, 21px); line-height: 1.55; color: #55524c; max-width: 640px">We register your Private Limited company or LLP with the government, get your GST number, and handle every filing that follows.</p>
+<div class="incl">
+<span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#7d6219" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg>Company &amp; LLP registration</span>
+<span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#7d6219" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg>GST registration</span>
+<span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#7d6219" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg>GST, TDS &amp; ROC filings</span>
+<span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#7d6219" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg>Bookkeeping &amp; accounts</span>
+</div>
+<div class="ctas">
+<a href="#talk" class="btn" style="background: #0d0d0d; color: #fdfcf9">Start your registration</a>
+<a href="#talk" class="lnk" style="color: #7d6219">Learn more<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"></path></svg></a>
+</div>
+<div class="doc-m" aria-hidden="true"><img src="../../public/landing/gst-left.svg" alt=""><img src="../../public/landing/gst-right.svg" alt=""></div>
+</div>
+</section>
+
+<!-- Websites · browser and phone rising from the bottom -->
+<section class="banner has-rise" style="background: #fdfcf9">
+<div class="banner-in">
+<span class="eyebrow" style="color: #7d6219">Websites, domains &amp; hosting</span>
+<h2 style="font-family: 'Inter', -apple-system, 'Segoe UI', sans-serif; font-weight: 700; letter-spacing: -0.035em; font-size: clamp(40px, 5.4vw, 76px); line-height: 1.04">Your business, <em style="color: #9a7a2a">online.</em></h2>
+<p style="font-size: clamp(17px, 1.5vw, 21px); line-height: 1.55; color: #55524c; max-width: 620px">We get your domain, set up your website and host it for you, so customers can find you and trust what they see.</p>
+<div class="ctas">
+<a href="#talk" class="btn" style="background: #0d0d0d; color: #fdfcf9">Get your business online</a>
+<a href="#talk" class="lnk" style="color: #7d6219">Learn more<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"></path></svg></a>
+</div>
+</div>
+<div class="rise" aria-hidden="true"><img src="../../public/landing/web-rise.svg" alt=""></div>
+</section>
+
+<!-- Virtual CFO · split, text left, reports right -->
+<section class="banner" style="background: #f5f0e8">
+<div class="split">
+<div class="banner-in">
+<span class="eyebrow" style="color: #7d6219">Virtual CFO</span>
+<h2 style="font-family: 'Inter', -apple-system, 'Segoe UI', sans-serif; font-weight: 700; letter-spacing: -0.035em; font-size: clamp(40px, 4.6vw, 68px); line-height: 1.04">A CFO, without the <em style="color: #9a7a2a">full-time</em> cost.</h2>
+<p style="font-size: clamp(17px, 1.5vw, 21px); line-height: 1.55; color: #55524c">Monthly reports, cash flow planning and fundraise support, like having a CFO on your team.</p>
+<div class="ctas">
+<a href="#talk" class="btn" style="background: #0d0d0d; color: #fdfcf9">Request a Virtual CFO</a>
+<a href="#talk" class="lnk" style="color: #7d6219">Learn more<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"></path></svg></a>
+</div>
+</div>
+<div class="cluster" aria-hidden="true">
+<img class="c1" src="../../public/landing/cfo-left.svg" alt="">
+<img class="c2" src="../../public/landing/cfo-right.svg" alt="">
+</div>
+</div>
+</section>
+
+<!-- Chapter · individuals -->
+<section id="individuals" class="chapter">
+<span class="chapter-label">For individuals</span>
+</section>
+
+<!-- Personal Finance Program · split, illustration left, text right -->
+<section class="banner" style="background: #f5f0e8">
+<div class="split rev">
+<div class="banner-in">
+<span class="eyebrow" style="color: #7d6219">The Personal Finance Program</span>
+<h2 style="font-family: 'Inter', -apple-system, 'Segoe UI', sans-serif; font-weight: 700; letter-spacing: -0.035em; font-size: clamp(40px, 4.6vw, 68px); line-height: 1.04">Wealth, built <em style="color: #9a7a2a">patiently.</em></h2>
+<p style="font-size: clamp(17px, 1.5vw, 21px); line-height: 1.55; color: #55524c">Our mission is to help India invest better. Ten modules take you from Money 101 to your first investment plan.</p>
+<div class="ctas">
+<a href="#individuals" class="btn" style="background: #0d0d0d; color: #fdfcf9">Enroll now</a>
+<a href="#individuals" class="lnk" style="color: #7d6219">See the curriculum<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"></path></svg></a>
+</div>
+</div>
+<div class="cluster" aria-hidden="true">
+<img class="c1" src="../../public/landing/pfp-left.svg" alt="">
+<img class="c2" src="../../public/landing/pfp-right.svg" alt="">
+</div>
+</div>
+</section>
+
+<!-- Planning tools · floating tool cards -->
+<section id="tools" class="banner" style="background: #fdfcf9">
+<img class="float f1" src="../../public/landing/tw-sip.svg" alt="">
+<img class="float f2" src="../../public/landing/tw-budget.svg" alt="">
+<img class="float f3" src="../../public/landing/tw-networth.svg" alt="">
+<img class="float f4" src="../../public/landing/tw-tax.svg" alt="">
+<div class="banner-in" style="max-width: 620px">
+<span class="eyebrow" style="color: #7d6219">Planning tools</span>
+<h2 style="font-family: 'Inter', -apple-system, 'Segoe UI', sans-serif; font-weight: 700; letter-spacing: -0.035em; font-size: clamp(40px, 5.4vw, 76px); line-height: 1.04">Plan every <em style="color: #9a7a2a">goal.</em></h2>
+<p style="font-size: clamp(17px, 1.5vw, 21px); line-height: 1.55; color: #55524c">Free calculators to plan your SIPs, budget, goals and tax.</p>
+<div class="ctas">
+<a href="#tools" class="btn" style="background: #0d0d0d; color: #fdfcf9">Try the free tools</a>
+</div>
+<div class="float-m" aria-hidden="true"><img src="../../public/landing/tw-sip.svg" alt=""><img src="../../public/landing/tw-networth.svg" alt=""></div>
+</div>
+</section>
+
+<!-- Insights · fan of article cards -->
+<section id="insights" class="banner" style="background: #f5f0e8">
+<div class="banner-in">
+<span class="eyebrow" style="color: #7d6219">Insights</span>
+<h2 style="font-family: 'Inter', -apple-system, 'Segoe UI', sans-serif; font-weight: 700; letter-spacing: -0.035em; font-size: clamp(40px, 5.4vw, 76px); line-height: 1.04">Money insights, in <em style="color: #9a7a2a">plain language.</em></h2>
+<p style="font-size: clamp(17px, 1.5vw, 21px); line-height: 1.55; color: #55524c; max-width: 620px">Weekly reads on markets, personal finance and business.</p>
+<div class="ctas">
+<a href="#insights" class="btn" style="background: #0d0d0d; color: #fdfcf9">Read the blog</a>
+</div>
+</div>
+<div class="fan" aria-hidden="true"><img src="../../public/landing/insights-fan.svg" alt=""></div>
+</section>
+</div>
+
+<!-- ========== TRUSTED BY ========== -->
+<section class="wrap" style="padding-top: 64px">
+<div style="padding: 0 12px 64px; border-bottom: 1px solid rgba(201,168,76,0.25); display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 12px 44px">
+<span class="eyebrow" style="font-size: 11px; color: #55524c">Trusted by</span>
+<span style="font-weight: 600; font-size: 18px; letter-spacing: -0.01em; color: #2a2d35">Artan Technologies</span>
+<span style="font-weight: 600; font-size: 18px; letter-spacing: -0.01em; color: #2a2d35">OFFScenes</span>
+<span style="font-weight: 600; font-size: 18px; letter-spacing: -0.01em; color: #2a2d35">Toodex Technology</span>
+<span style="font-weight: 600; font-size: 18px; letter-spacing: -0.01em; color: #2a2d35">SR Enterprises</span>
+</div>
+</section>
+
+<!-- ========== FINAL CTA ========== -->
+<section id="talk" class="wrap" style="padding-top: 104px; padding-bottom: 120px">
+<div style="text-align: center; display: flex; flex-direction: column; align-items: center; gap: 22px; max-width: 760px; margin: 0 auto; padding: 0 12px">
+<h2 style="font-family: 'Inter', -apple-system, 'Segoe UI', sans-serif; font-weight: 700; letter-spacing: -0.035em; font-size: clamp(38px, 4.6vw, 64px); line-height: 1.06">Tell us where you are.<br><em style="color: #9a7a2a">We'll take it from there.</em></h2>
+<div class="ctas">
+<a href="#talk" class="btn" style="background: #0d0d0d; color: #fdfcf9">Book a discovery call</a>
+<a href="#talk" class="lnk" style="color: #7d6219">[EMAIL]<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"></path></svg></a>
+</div>
+</div>
+</section>
+
+</main>
+
+<!-- ========== FOOTER ========== -->
+<footer style="background: #0d0d0d; color: #f5f0e8">
+<div style="max-width: 1380px; margin: 0 auto; padding: 48px 36px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 24px">
+<img src="../../public/landing/bodha-logo-light.png" alt="Bodha Ventures" style="height: 40px; width: auto">
+<div style="display: flex; flex-wrap: wrap; gap: 12px 28px; font-size: 14px">
+<a href="#business" style="color: rgba(245,240,232,0.8); text-decoration: none">For businesses</a>
+<a href="#individuals" style="color: rgba(245,240,232,0.8); text-decoration: none">For individuals</a>
+<a href="#top" style="color: rgba(245,240,232,0.8); text-decoration: none">About</a>
+<a href="#top" style="color: rgba(245,240,232,0.8); text-decoration: none">Privacy</a>
+<a href="#top" style="color: rgba(245,240,232,0.8); text-decoration: none">Terms</a>
+</div>
+<span style="font-size: 13px; color: rgba(245,240,232,0.6)">© 2026 Bodha Ventures</span>
+</div>
+</footer>
+
+</div>
+</body>
+</html>

@@ -1,8 +1,16 @@
 "use client";
 import { useEffect, useMemo, useState } from "react";
 import "./meet.css";
+import { useLanguage } from "../context/LanguageContext";
+import BrandPage from "../components/ui/BrandPage";
+import { Gold, Eyebrow } from "../components/ui/parts";
+import { CheckIcon } from "../components/LineIcons";
+import { addDays, firstOpenDate } from "../lib/meetings/calendar";
+import { MEET_COPY, TOPIC_VALUES } from "./copy";
+import DayPicker from "./components/DayPicker";
 
 const IST_OFFSET_MS = 5.5 * 60 * 60 * 1000;
+const BOOKING_WINDOW_DAYS = 60;
 
 type Slot = { start: string; end: string };
 
@@ -11,28 +19,34 @@ function istDateString(d: Date): string {
   return `${ist.getUTCFullYear()}-${String(ist.getUTCMonth() + 1).padStart(2, "0")}-${String(ist.getUTCDate()).padStart(2, "0")}`;
 }
 
-function nextDates(days: number): { value: string; label: string }[] {
-  const out: { value: string; label: string }[] = [];
-  const startIST = new Date(Date.now() + IST_OFFSET_MS);
-  for (let i = 0; i < days; i++) {
-    const d = new Date(Date.UTC(startIST.getUTCFullYear(), startIST.getUTCMonth(), startIST.getUTCDate() + i));
-    const value = `${d.getUTCFullYear()}-${String(d.getUTCMonth() + 1).padStart(2, "0")}-${String(d.getUTCDate()).padStart(2, "0")}`;
-    const label = d.toLocaleDateString("en-IN", { weekday: "short", day: "numeric", month: "short", timeZone: "UTC" });
-    out.push({ value, label });
-  }
-  return out;
-}
-
 function fmtSlotTime(iso: string): string {
   return new Date(iso).toLocaleTimeString("en-IN", { hour: "numeric", minute: "2-digit", hour12: true, timeZone: "Asia/Kolkata" });
 }
 
+function fmtShort(iso: string): string {
+  return new Date(iso).toLocaleString("en-IN", {
+    weekday: "short", day: "numeric", month: "short", hour: "numeric", minute: "2-digit", hour12: true, timeZone: "Asia/Kolkata",
+  }) + " IST";
+}
+
+function fmtLong(iso: string): string {
+  return new Date(iso).toLocaleString("en-IN", {
+    weekday: "long", day: "numeric", month: "long", hour: "numeric", minute: "2-digit", hour12: true, timeZone: "Asia/Kolkata",
+  }) + " IST";
+}
+
 export default function MeetPage() {
-  const dates = useMemo(() => nextDates(21), []);
-  const [selectedDate, setSelectedDate] = useState(() => istDateString(new Date()));
-  const [slots, setSlots] = useState<Slot[]>([]);
-  const [loadingSlots, setLoadingSlots] = useState(true);
-  const [selectedSlot, setSelectedSlot] = useState<Slot | null>(null);
+  const { lang } = useLanguage();
+  const c = MEET_COPY[lang];
+  const today = useMemo(() => istDateString(new Date()), []);
+  const lastDay = useMemo(() => addDays(today, BOOKING_WINDOW_DAYS), [today]);
+
+  const [topic, setTopic] = useState(TOPIC_VALUES[0]);
+  const [openWeekdays, setOpenWeekdays] = useState<number[] | null>(null);
+  const [pickedDate, setPickedDate] = useState<string | null>(null);
+  const [view, setView] = useState<{ year: number; month: number } | null>(null);
+  const [fetched, setFetched] = useState<{ date: string; slots: Slot[] } | null>(null);
+  const [pickedStart, setPickedStart] = useState<string | null>(null);
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -44,32 +58,52 @@ export default function MeetPage() {
 
   useEffect(() => {
     let cancelled = false;
+    fetch("/api/meetings/days")
+      .then((r) => r.json())
+      .then((j) => { if (!cancelled) setOpenWeekdays(Array.isArray(j.openWeekdays) ? j.openWeekdays : []); })
+      .catch(() => { if (!cancelled) setOpenWeekdays([]); });
+    return () => { cancelled = true; };
+  }, []);
+
+  // Until the visitor picks a day, show the first open one.
+  const selectedDate = pickedDate ?? (openWeekdays ? firstOpenDate(today, openWeekdays, BOOKING_WINDOW_DAYS) : null);
+  const shownView = view ?? (selectedDate
+    ? { year: Number(selectedDate.slice(0, 4)), month: Number(selectedDate.slice(5, 7)) }
+    : { year: Number(today.slice(0, 4)), month: Number(today.slice(5, 7)) });
+
+  useEffect(() => {
+    if (!selectedDate) return;
+    let cancelled = false;
     fetch(`/api/meetings/slots?date=${selectedDate}`)
       .then((r) => r.json())
-      .then((j) => { if (!cancelled) setSlots(j.slots ?? []); })
-      .catch(() => { if (!cancelled) setSlots([]); })
-      .finally(() => { if (!cancelled) setLoadingSlots(false); });
+      .then((j) => { if (!cancelled) setFetched({ date: selectedDate, slots: j.slots ?? [] }); })
+      .catch(() => { if (!cancelled) setFetched({ date: selectedDate, slots: [] }); });
     return () => { cancelled = true; };
   }, [selectedDate]);
 
+  const loadingSlots = !selectedDate || fetched?.date !== selectedDate;
+  const slots = !loadingSlots && fetched ? fetched.slots : [];
+  const selectedSlot = slots.find((s) => s.start === pickedStart) ?? null;
+
   async function submit(e: React.FormEvent) {
     e.preventDefault();
-    if (!selectedSlot) return;
+    if (!selectedSlot || !selectedDate) return;
     setSubmitting(true);
     setError(null);
+    const fullNote = `Topic: ${topic}${note.trim() ? `\n${note.trim()}` : ""}`;
     const r = await fetch("/api/meetings/book", {
       method: "POST",
       headers: { "content-type": "application/json" },
-      body: JSON.stringify({ name, email, phone: phone || undefined, note: note || undefined, start: selectedSlot.start }),
+      body: JSON.stringify({ name, email, phone: phone || undefined, note: fullNote, start: selectedSlot.start }),
     });
     const j = await r.json().catch(() => ({}));
     setSubmitting(false);
     if (!r.ok) {
-      setError(j.error || "Something went wrong. Please try again.");
+      setError(j.error || c.genericError);
       if (r.status === 409) {
-        // Slot was taken — refresh the list.
-        fetch(`/api/meetings/slots?date=${selectedDate}`).then((res) => res.json()).then((jj) => setSlots(jj.slots ?? []));
-        setSelectedSlot(null);
+        // Slot was taken: refresh the list.
+        fetch(`/api/meetings/slots?date=${selectedDate}`).then((res) => res.json()).then((jj) => setFetched({ date: selectedDate, slots: jj.slots ?? [] }));
+        setPickedStart(null);
       }
       return;
     }
@@ -78,104 +112,133 @@ export default function MeetPage() {
 
   if (confirmed) {
     return (
-      <div className="meet-page">
-        <div className="meet-confirmed">
-          <div className="meet-confirmed-title">You&apos;re booked</div>
-          <div className="meet-confirmed-time">
-            {new Date(confirmed.start).toLocaleString("en-IN", {
-              weekday: "long", day: "numeric", month: "long", hour: "numeric", minute: "2-digit", hour12: true, timeZone: "Asia/Kolkata",
-            })} IST
-          </div>
-          <p style={{ color: "#6B6460", fontSize: 14 }}>
-            A confirmation with a calendar invite is on its way to {email}.
-          </p>
-        </div>
-      </div>
+      <BrandPage className="meet-page">
+        <section className="meet-confirmed" role="status">
+          <span className="meet-confirmed-icon" aria-hidden="true"><CheckIcon size={28} /></span>
+          <h1 className="meet-title">{c.bookedTitle}</h1>
+          <p className="meet-confirmed-time">{fmtLong(confirmed.start)}</p>
+          <p className="meet-subtitle">{c.bookedBody(email)}</p>
+        </section>
+      </BrandPage>
     );
   }
 
+  const dayLabel = selectedDate
+    ? new Date(`${selectedDate}T00:00:00Z`).toLocaleDateString(lang === "kn" ? "kn-IN" : "en-IN", { weekday: "short", day: "numeric", month: "long", timeZone: "UTC" })
+    : "";
+
   return (
-    <div className="meet-page">
-      <div className="meet-header">
-        <span className="meet-eyebrow">Bodha Ventures</span>
-        <h1 className="meet-title">Book a call</h1>
-        <p className="meet-subtitle">Pick a time that works for you. 30 minutes, over a video call.</p>
-      </div>
+    <BrandPage className="meet-page">
+      <section className="meet-hero">
+        <Eyebrow>{c.eyebrow}</Eyebrow>
+        <h1 className="meet-title"><Gold line={c.title} /></h1>
+        <p className="meet-subtitle">{c.subtitle}</p>
+      </section>
 
-      <div className="meet-shell">
-        <div className="meet-body">
-          <div className="meet-dates">
-            {dates.map((d) => (
-              <button
-                key={d.value}
-                className={`meet-date-btn ${d.value === selectedDate ? "active" : ""}`}
-                onClick={() => {
-                  setSelectedSlot(null);
-                  setLoadingSlots(true);
-                  setSelectedDate(d.value);
-                }}
-              >
-                {d.label}
-              </button>
-            ))}
-          </div>
-
-          <div className="meet-slots">
-            <p className="meet-slots-title">Available times (IST)</p>
-
-            {loadingSlots ? (
-              <p className="meet-loading">Loading…</p>
-            ) : slots.length === 0 ? (
-              <p className="meet-empty">No open times on this day. Try another date.</p>
-            ) : (
-              <div className="meet-slot-grid">
-                {slots.map((s) => (
-                  <button
-                    key={s.start}
-                    className={`meet-slot-btn ${selectedSlot?.start === s.start ? "selected" : ""}`}
-                    onClick={() => setSelectedSlot(s)}
-                  >
-                    {fmtSlotTime(s.start)}
-                  </button>
-                ))}
+      <section id="book" className="meet-book-section">
+        <form className="meet-book" aria-label={c.formLabel} onSubmit={submit}>
+          <div className="meet-card">
+            <div className="meet-pick">
+              <div className="meet-col-l">
+                <div className="meet-step"><b>1</b>{c.stepTopic}</div>
+                <fieldset className="meet-fieldset">
+                  <legend className="meet-sr-only">{c.topicLegend}</legend>
+                  <div className="meet-topics">
+                    {TOPIC_VALUES.map((value, i) => (
+                      <label key={value} className="meet-topic">
+                        <input type="radio" name="topic" value={value} checked={topic === value} onChange={() => setTopic(value)} />
+                        <span>{c.topics[i]}</span>
+                      </label>
+                    ))}
+                  </div>
+                </fieldset>
+                <ul className="meet-meta">
+                  <li>{c.metaLength}</li>
+                  <li>{c.metaVideo}</li>
+                  <li>{c.metaTz}</li>
+                </ul>
               </div>
-            )}
 
-            {selectedSlot && (
-              <form className="meet-form" onSubmit={submit}>
-                <div className="meet-selected-time">
-                  {new Date(selectedSlot.start).toLocaleString("en-IN", {
-                    weekday: "long", day: "numeric", month: "long", hour: "numeric", minute: "2-digit", hour12: true, timeZone: "Asia/Kolkata",
-                  })} IST
-                </div>
-
-                <div className="meet-field">
-                  <label htmlFor="meet-name">Name</label>
-                  <input id="meet-name" className="meet-input" required value={name} onChange={(e) => setName(e.target.value)} />
-                </div>
-                <div className="meet-field">
-                  <label htmlFor="meet-email">Email</label>
-                  <input id="meet-email" type="email" className="meet-input" required value={email} onChange={(e) => setEmail(e.target.value)} />
-                </div>
-                <div className="meet-field">
-                  <label htmlFor="meet-phone">Phone (optional)</label>
-                  <input id="meet-phone" className="meet-input" value={phone} onChange={(e) => setPhone(e.target.value)} />
-                </div>
-                <div className="meet-field">
-                  <label htmlFor="meet-note">What would you like to talk about? (optional)</label>
-                  <textarea id="meet-note" className="meet-textarea" value={note} onChange={(e) => setNote(e.target.value)} />
+              <div className="meet-col-r">
+                <div>
+                  <div className="meet-step meet-step-gap"><b>2</b>{c.stepDay}</div>
+                  {openWeekdays ? (
+                    <DayPicker
+                      c={c}
+                      lang={lang}
+                      view={shownView}
+                      today={today}
+                      lastDay={lastDay}
+                      openWeekdays={openWeekdays}
+                      selected={selectedDate}
+                      onSelect={(date) => { setPickedDate(date); setPickedStart(null); }}
+                      onViewChange={setView}
+                    />
+                  ) : (
+                    <p className="meet-status">{c.loading}</p>
+                  )}
                 </div>
 
-                {error && <p className="meet-error">{error}</p>}
+                <div>
+                  <div className="meet-step meet-step-gap"><b>3</b>{c.stepTime}{dayLabel && <span className="meet-step-day">· {dayLabel}</span>}</div>
+                  {loadingSlots ? (
+                    <p className="meet-status">{c.loading}</p>
+                  ) : slots.length === 0 ? (
+                    <p className="meet-status">{c.noSlots}</p>
+                  ) : (
+                    <fieldset className="meet-fieldset">
+                      <legend className="meet-sr-only">{c.timeLegend}</legend>
+                      <div className="meet-slots">
+                        {slots.map((s) => (
+                          <label key={s.start} className="meet-slot">
+                            <input type="radio" name="time" value={s.start} checked={pickedStart === s.start} onChange={() => setPickedStart(s.start)} />
+                            <span>{fmtSlotTime(s.start)}</span>
+                          </label>
+                        ))}
+                      </div>
+                    </fieldset>
+                  )}
+                </div>
+              </div>
+            </div>
 
-                <button type="submit" className="meet-submit" disabled={submitting}>
-                  {submitting ? "Booking…" : "Confirm booking"}
+            <div className="meet-details">
+              <div className="meet-step meet-full"><b>4</b>{c.stepDetails}</div>
+              <div className="meet-field">
+                <label htmlFor="m-name">{c.name}</label>
+                <input id="m-name" type="text" required autoComplete="name" value={name} onChange={(e) => setName(e.target.value)} />
+              </div>
+              <div className="meet-field">
+                <label htmlFor="m-email">{c.email}</label>
+                <input id="m-email" type="email" required autoComplete="email" value={email} onChange={(e) => setEmail(e.target.value)} />
+              </div>
+              <div className="meet-field">
+                <label htmlFor="m-phone">{c.phone} <span className="meet-opt">({c.optional})</span></label>
+                <input id="m-phone" type="tel" autoComplete="tel" value={phone} onChange={(e) => setPhone(e.target.value)} />
+              </div>
+              <div className="meet-field meet-full">
+                <label htmlFor="m-note">{c.note} <span className="meet-opt">({c.optional})</span></label>
+                <textarea id="m-note" rows={2} value={note} onChange={(e) => setNote(e.target.value)} />
+              </div>
+              {error && <p className="meet-error meet-full" role="alert">{error}</p>}
+              <div className="meet-full meet-confirm-row">
+                <span className="meet-summary">
+                  {selectedSlot ? <><strong>{fmtShort(selectedSlot.start)}</strong> · {c.duration}</> : c.pickTime}
+                </span>
+                <button type="submit" className="ui-btn" disabled={!selectedSlot || submitting}>
+                  {submitting ? c.booking : c.confirm}
                 </button>
-              </form>
-            )}
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
-    </div>
+
+          <ul className="meet-promises">
+            {c.promises.map((p) => (
+              <li key={p}><CheckIcon size={18} />{p}</li>
+            ))}
+          </ul>
+        </form>
+      </section>
+    </BrandPage>
   );
 }

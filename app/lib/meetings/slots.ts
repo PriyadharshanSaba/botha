@@ -5,6 +5,9 @@ export const IST_OFFSET_MS = 5.5 * 60 * 60 * 1000;
 
 const DAY_KEYS = ["sun", "mon", "tue", "wed", "thu", "fri", "sat"] as const;
 
+/** Earliest a call can be booked: six hours from now, so there is time to prepare. */
+export const MIN_NOTICE_MINUTES = 6 * 60;
+
 export type BusyRange = { start: Date; end: Date };
 export type Slot = { start: Date; end: Date };
 
@@ -37,7 +40,7 @@ export function computeAvailableSlots(opts: {
   minNoticeMinutes?: number;
 }): Slot[] {
   const { date, weeklyHours, slotMinutes, busyRanges, now } = opts;
-  const minNotice = opts.minNoticeMinutes ?? 60;
+  const minNotice = opts.minNoticeMinutes ?? MIN_NOTICE_MINUTES;
 
   const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(date);
   if (!m) throw new Error(`computeAvailableSlots: invalid date "${date}"`);

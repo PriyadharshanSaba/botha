@@ -1,0 +1,183 @@
+/* ================================
+   SHARED BRAND UI (ui- prefix)
+   Used by the home, /tools and /about pages.
+================================ */
+:root {
+  --gold-text: #7d6219;  /* small gold labels and links on light backgrounds */
+  --gold-head: #9a7a2a;  /* gold words in headlines */
+  --text-muted: #55524c;
+}
+
+.ui-page {
+  width: 100%;
+  background: var(--white, #fdfcf9);
+  color: var(--ink, #0d0d0d);
+  -webkit-font-smoothing: antialiased;
+}
+
+.ui-page [id] {
+  scroll-margin-top: var(--hm-header-h, 69px);
+}
+
+.ui-page em.ui-gold {
+  font-style: normal;
+  font-weight: inherit;
+  color: var(--gold-head);
+}
+
+.ui-eyebrow {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--gold-text);
+}
+
+/* Kannada: wide tracking breaks conjuncts. */
+.ui-page:lang(kn) .ui-eyebrow,
+.ui-page:lang(kn) .ui-chapter-label {
+  letter-spacing: 0.5px;
+}
+
+/* ── Buttons & links ── */
+.ui-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 48px;
+  padding: 0 28px;
+  border: none;
+  border-radius: 100px;
+  background: var(--ink, #0d0d0d);
+  color: var(--white, #fdfcf9);
+  font: inherit;
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: 0.2px;
+  text-align: center;
+  transition: background 0.15s;
+}
+.ui-btn:hover { background: var(--slate, #2a2d35); }
+
+.ui-lnk {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 17px;
+  font-weight: 500;
+  color: var(--gold-text);
+}
+.ui-lnk:hover {
+  color: var(--ink, #0d0d0d);
+  text-decoration: underline;
+}
+
+.ui-btn:focus-visible,
+.ui-lnk:focus-visible,
+.ui-jump:focus-visible,
+.ui-footer-links a:focus-visible,
+.ui-footer-links button:focus-visible {
+  outline: 2px solid var(--gold-text);
+  outline-offset: 3px;
+}
+
+.ui-ctas {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 14px 28px;
+  margin-top: 10px;
+}
+
+/* ── Jump pills ── */
+.ui-jumps {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 4px;
+}
+.ui-jump {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 0 16px;
+  border-radius: 100px;
+  background: var(--cream, #f5f0e8);
+  color: var(--slate, #2a2d35);
+  font-size: 14px;
+  font-weight: 500;
+}
+.ui-jump:hover {
+  background: #ebe3d2;
+  color: var(--ink, #0d0d0d);
+}
+.ui-jump svg { color: var(--gold-text); }
+
+/* ── Chapter labels ── */
+.ui-chapter {
+  padding: 64px 24px 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+.ui-chapter-label {
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--gold-text);
+  text-decoration: underline;
+  text-decoration-color: var(--gold, #c9a84c);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 12px;
+}
+
+/* ── Footer ── */
+.ui-footer {
+  background: var(--ink, #0d0d0d);
+  color: var(--cream, #f5f0e8);
+}
+.ui-footer-in {
+  max-width: 1380px;
+  margin: 0 auto;
+  padding: 48px 36px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+.ui-footer-logo {
+  height: 40px;
+  width: auto;
+}
+.ui-footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 28px;
+  font-size: 14px;
+}
+.ui-footer-links a,
+.ui-footer-links button {
+  padding: 0;
+  border: none;
+  background: none;
+  font: inherit;
+  color: rgba(245, 240, 232, 0.8);
+}
+.ui-footer-links a:hover,
+.ui-footer-links button:hover { color: var(--gold-light, #e8d08a); }
+.ui-footer-copy {
+  font-size: 13px;
+  color: rgba(245, 240, 232, 0.6);
+}
+
+@media (max-width: 760px) {
+  .ui-chapter { padding: 48px 20px 32px; }
+  .ui-chapter-label { font-size: 14px; }
+}

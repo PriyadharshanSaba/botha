@@ -87,6 +87,20 @@ describe("computeAvailableSlots", () => {
     assert.ok(starts.includes(istToUTC(2026, 9, 14, 12, 0).getTime()));
   });
 
+  it("defaults to six hours of notice: the first slot starts at least 6h from now", () => {
+    const now = istToUTC(2026, 9, 14, 10, 15);
+    const slots = computeAvailableSlots({
+      date: MONDAY,
+      weeklyHours: WEEKDAY_10_18,
+      slotMinutes: 30,
+      busyRanges: [],
+      now,
+    });
+    // now + 6h = 16:15 -> 16:00 excluded, 16:30 is the first bookable slot
+    assert.deepEqual(slots[0].start, istToUTC(2026, 9, 14, 16, 30));
+    assert.ok(slots.every((s) => s.start.getTime() - now.getTime() >= 6 * 60 * 60 * 1000));
+  });
+
   it("never returns a slot longer than the configured length", () => {
     const slots = computeAvailableSlots({
       date: MONDAY,

@@ -65,6 +65,31 @@ export async function POST(req: NextRequest) {
       row("Traction", body.traction),
       row("Pitch Deck / Website", body.deck),
     ].join("");
+  } else if (type === "registration") {
+    subject = `Company Registration Request — ${body.name}${body.company ? ` · ${body.company}` : ""}`;
+    tableRows = [
+      row("Name", body.name),
+      row("Email", body.email),
+      row("Phone", body.phone),
+      row("Proposed Name", body.company),
+      row("Entity Type", body.entity),
+      row("Services Needed", body.services),
+      row("State", body.state),
+      row("Timeline", body.timeline),
+      row("Notes", body.notes),
+    ].join("");
+  } else if (type === "website") {
+    subject = `Website Request — ${body.name}${body.company ? ` · ${body.company}` : ""}`;
+    tableRows = [
+      row("Name", body.name),
+      row("Email", body.email),
+      row("Phone", body.phone),
+      row("Business", body.company),
+      row("Needs", body.services),
+      row("Current Website", body.website),
+      row("Timeline", body.timeline),
+      row("Notes", body.notes),
+    ].join("");
   } else if (type === "general") {
     subject = `General Enquiry — ${body.name}`;
     tableRows = [
@@ -77,7 +102,14 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "Invalid type" }, { status: 400 });
   }
 
-  const typeLabel = type === "vcfo" ? "Virtual CFO Request" : type === "venture" ? "Pitch Submission" : "General Enquiry";
+  const TYPE_LABELS: Record<string, string> = {
+    vcfo: "Virtual CFO Request",
+    venture: "Pitch Submission",
+    registration: "Company Registration Request",
+    website: "Website Request",
+    general: "General Enquiry",
+  };
+  const typeLabel = TYPE_LABELS[type];
 
   const html = `<!DOCTYPE html>
 <html lang="en">

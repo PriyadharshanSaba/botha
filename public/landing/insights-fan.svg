@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 380" width="900" height="380" font-family="Helvetica, Arial, sans-serif">
+  <g transform="translate(70 60) rotate(-6)">
+    <rect x="0" y="0" width="250" height="300" rx="12" fill="#fdfcf9" stroke="#2a2d35" stroke-width="2"/>
+    <rect x="14" y="14" width="222" height="110" rx="8" fill="#f0e9da"/>
+    <path d="M24 114 L80 70 L120 96 L160 58 L226 114 Z" fill="#d8cdb6"/>
+    <rect x="16" y="140" width="80" height="20" rx="10" fill="#f5f0e8" stroke="#c9a84c"/>
+    <text x="56" y="154" text-anchor="middle" font-size="9" font-weight="700" letter-spacing="1.2" fill="#9a7a2a">MARKETS</text>
+    <rect x="16" y="174" width="200" height="12" rx="3" fill="#2a2d35"/>
+    <rect x="16" y="194" width="150" height="12" rx="3" fill="#2a2d35"/>
+    <rect x="16" y="222" width="210" height="6" rx="3" fill="#cfc6b4"/><rect x="16" y="236" width="180" height="6" rx="3" fill="#cfc6b4"/>
+    <text x="16" y="276" font-size="10" fill="#55524c">5 min read</text>
+  </g>
+  <g transform="translate(325 30)">
+    <rect x="0" y="0" width="250" height="300" rx="12" fill="#fdfcf9" stroke="#2a2d35" stroke-width="2"/>
+    <rect x="14" y="14" width="222" height="110" rx="8" fill="#2a2d35"/>
+    <path d="M30 104 L70 84 L110 92 L150 62 L190 52 L222 34" fill="none" stroke="#c9a84c" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+    <rect x="16" y="140" width="128" height="20" rx="10" fill="#f5f0e8" stroke="#c9a84c"/>
+    <text x="80" y="154" text-anchor="middle" font-size="9" font-weight="700" letter-spacing="1.2" fill="#9a7a2a">PERSONAL FINANCE</text>
+    <rect x="16" y="174" width="210" height="12" rx="3" fill="#2a2d35"/>
+    <rect x="16" y="194" width="130" height="12" rx="3" fill="#2a2d35"/>
+    <rect x="16" y="222" width="210" height="6" rx="3" fill="#cfc6b4"/><rect x="16" y="236" width="170" height="6" rx="3" fill="#cfc6b4"/>
+    <text x="16" y="276" font-size="10" fill="#55524c">4 min read</text>
+  </g>
+  <g transform="translate(605 34) rotate(6)">
+    <rect x="0" y="0" width="250" height="300" rx="12" fill="#fdfcf9" stroke="#2a2d35" stroke-width="2"/>
+    <rect x="14" y="14" width="222" height="110" rx="8" fill="#f0e9da"/>
+    <rect x="40" y="40" width="70" height="70" rx="6" fill="#d8cdb6"/><rect x="120" y="58" width="90" height="52" rx="6" fill="#c9a84c"/>
+    <rect x="16" y="140" width="84" height="20" rx="10" fill="#f5f0e8" stroke="#c9a84c"/>
+    <text x="58" y="154" text-anchor="middle" font-size="9" font-weight="700" letter-spacing="1.2" fill="#9a7a2a">BUSINESS</text>
+    <rect x="16" y="174" width="190" height="12" rx="3" fill="#2a2d35"/>
+    <rect x="16" y="194" width="160" height="12" rx="3" fill="#2a2d35"/>
+    <rect x="16" y="222" width="210" height="6" rx="3" fill="#cfc6b4"/><rect x="16" y="236" width="150" height="6" rx="3" fill="#cfc6b4"/>
+    <text x="16" y="276" font-size="10" fill="#55524c">6 min read</text>
+  </g>
+</svg>
