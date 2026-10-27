@@ -33,7 +33,7 @@ test("every headline has a gold phrase and every label has text", () => {
       c.cfo.title, c.program.title, c.tools.title, c.insights.title,
     ];
     for (const line of headlines) assert.ok(line.gold.trim(), `${lang}: headline "${line.pre}" has no gold phrase`);
-    for (const label of [c.businessLabel, c.individualsLabel, c.learnMore, c.trustedBy, c.talk.cta]) {
+    for (const label of [c.businessLabel, c.individualsLabel, c.trustedBy, c.talk.cta]) {
       assert.ok(label.trim(), `${lang}: empty label`);
     }
     assert.equal(c.registration.items.length, 4, `${lang}: registration list should be 2×2`);

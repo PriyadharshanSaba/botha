@@ -1,8 +1,8 @@
 import { CheckIcon } from "../LineIcons";
 import type { HomeCopy } from "./copy";
-import { ArrowCta, Decor, Eyebrow, Gold } from "../ui/parts";
+import { Decor, Eyebrow, Gold } from "../ui/parts";
 
-export default function RegistrationBanner({ c, learnMore, onStart }: { c: HomeCopy["registration"]; learnMore: string; onStart: () => void }) {
+export default function RegistrationBanner({ c, onStart }: { c: HomeCopy["registration"]; onStart: () => void }) {
   return (
     <section className="hm-banner hm-cream hm-has-doc">
       <Decor src="/landing/gst-left.svg" className="hm-doc hm-doc-l" />
@@ -19,7 +19,6 @@ export default function RegistrationBanner({ c, learnMore, onStart }: { c: HomeC
         </ul>
         <div className="ui-ctas">
           <button type="button" className="ui-btn" onClick={onStart}>{c.cta}</button>
-          {/* <ArrowCta to={{ section: "talk" }}>{learnMore}</ArrowCta> */}
         </div>
         <div className="hm-doc-m" aria-hidden="true">
           <Decor src="/landing/gst-left.svg" />

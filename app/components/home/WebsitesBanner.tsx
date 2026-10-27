@@ -1,8 +1,8 @@
 import type { HomeCopy } from "./copy";
-import { ArrowCta, Decor, Eyebrow, Gold } from "../ui/parts";
+import { Decor, Eyebrow, Gold } from "../ui/parts";
 
-// There is no websites page yet: the button opens the website form, "Learn more" goes to "Talk to us".
-export default function WebsitesBanner({ c, learnMore, onStart }: { c: HomeCopy["websites"]; learnMore: string; onStart: () => void }) {
+// There is no websites page yet, so the button opens the website enquiry form.
+export default function WebsitesBanner({ c, onStart }: { c: HomeCopy["websites"]; onStart: () => void }) {
   return (
     <section className="hm-banner hm-white hm-has-rise">
       <div className="hm-banner-in">
@@ -11,7 +11,6 @@ export default function WebsitesBanner({ c, learnMore, onStart }: { c: HomeCopy[
         <p className="hm-body hm-narrow">{c.body}</p>
         <div className="ui-ctas">
           <button type="button" className="ui-btn" onClick={onStart}>{c.cta}</button>
-          {/* <ArrowCta to={{ section: "talk" }}>{learnMore}</ArrowCta> */}
         </div>
       </div>
       <div className="hm-rise" aria-hidden="true">
