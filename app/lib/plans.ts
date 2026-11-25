@@ -30,14 +30,14 @@ export const PLANS: Plan[] = [
   {
     id: "founding",
     name: "Founding member",
-    badge: "Founding batch — first 100",
+    badge: "Limited time offer",
     badgeStyle: "founding",
-    tagline: "Introductory price. Reserved for our first 100 believers.",
-    basePriceRs: 999,
+    tagline: "Introductory price. Ends soon.",
+    basePriceRs: 499,
     testPriceRs: 10,
-    originalPriceRs: 4999,
-    seatRange: "Seats 1 – 100",
-    maxSeats: 100,
+    originalPriceRs: 2999,
+    seatRange: "",
+    maxSeats: null,
     featured: false,
     waitlist: false,
     features: [
@@ -46,7 +46,6 @@ export const PLANS: Plan[] = [
       { text: "WhatsApp community access for 1 year" },
       { text: "Email doubt support (within 24 hours) for 1 year" },
       { text: "Lifetime access + future updates" },
-      { text: "All future programs free of cost", highlight: true },
     ],
   },
   {

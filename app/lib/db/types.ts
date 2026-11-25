@@ -264,6 +264,80 @@ export type BlogUpsertInput = {
   authorId: string;
 };
 
+/* ──────────────────────────────────────────────────────────────────────── */
+/* Meetings — public booking page + admin-managed availability             */
+/* ──────────────────────────────────────────────────────────────────────── */
+
+export type DayHours = { start: string; end: string }; // "HH:MM" 24h IST wall-clock
+
+export type WeeklyHours = {
+  sun: DayHours[];
+  mon: DayHours[];
+  tue: DayHours[];
+  wed: DayHours[];
+  thu: DayHours[];
+  fri: DayHours[];
+  sat: DayHours[];
+};
+
+export type MeetingSettings = {
+  weeklyHours: WeeklyHours;
+  slotMinutes: number;
+  timezone: string;
+  updatedAt: Date;
+};
+
+export type SaveMeetingSettingsInput = {
+  weeklyHours: WeeklyHours;
+  slotMinutes: number;
+  timezone: string;
+};
+
+export type MeetingBlackout = {
+  id: string;
+  startAt: Date;
+  endAt: Date;
+  reason: string | null;
+  googleEventId: string | null;
+  createdAt: Date;
+};
+
+export type CreateBlackoutInput = {
+  startAt: Date;
+  endAt: Date;
+  reason?: string | null;
+};
+
+export type MeetingBookingStatus = "confirmed" | "cancelled";
+
+export type MeetingBooking = {
+  id: string;
+  name: string;
+  email: string;
+  phone: string | null;
+  note: string | null;
+  startAt: Date;
+  endAt: Date;
+  googleEventId: string | null;
+  status: MeetingBookingStatus;
+  createdAt: Date;
+};
+
+export type CreateBookingInput = {
+  name: string;
+  email: string;
+  phone?: string | null;
+  note?: string | null;
+  startAt: Date;
+  endAt: Date;
+};
+
+export type GoogleTokenRecord = {
+  refreshTokenEnc: string;
+  connectedEmail: string;
+  updatedAt: Date;
+};
+
 export interface DBDriver {
   createUser(data: CreateUserInput): Promise<User>;
   getUserById(id: string): Promise<User | null>;
@@ -305,4 +379,23 @@ export interface DBDriver {
   publishBlog(slug: string): Promise<void>;
   unpublishBlog(slug: string): Promise<void>;
   deleteBlog(slug: string): Promise<void>;
+
+  /* Meetings */
+  getMeetingSettings(): Promise<MeetingSettings>;
+  saveMeetingSettings(input: SaveMeetingSettingsInput): Promise<MeetingSettings>;
+  listBlackouts(): Promise<MeetingBlackout[]>;
+  listBlackoutsInRange(startAt: Date, endAt: Date): Promise<MeetingBlackout[]>;
+  createBlackout(input: CreateBlackoutInput): Promise<MeetingBlackout>;
+  getBlackoutById(id: string): Promise<MeetingBlackout | null>;
+  setBlackoutGoogleEventId(id: string, googleEventId: string): Promise<void>;
+  deleteBlackout(id: string): Promise<void>;
+  listBookingsInRange(startAt: Date, endAt: Date): Promise<MeetingBooking[]>;
+  listUpcomingBookings(): Promise<MeetingBooking[]>;
+  getBookingById(id: string): Promise<MeetingBooking | null>;
+  createBooking(input: CreateBookingInput): Promise<MeetingBooking>;
+  setBookingGoogleEventId(id: string, googleEventId: string): Promise<void>;
+  cancelBooking(id: string): Promise<MeetingBooking | null>;
+  getGoogleTokens(): Promise<GoogleTokenRecord | null>;
+  saveGoogleTokens(input: { refreshTokenEnc: string; connectedEmail: string }): Promise<void>;
+  clearGoogleTokens(): Promise<void>;
 }

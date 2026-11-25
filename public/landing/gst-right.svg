@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 490 640" width="490" height="640" font-family="Helvetica, Arial, sans-serif">
+  <g transform="translate(70 20) rotate(6)">
+    <rect x="0" y="0" width="400" height="560" rx="6" fill="#fdfcf9" stroke="#2a2d35" stroke-width="2"/>
+    <rect x="0" y="0" width="400" height="64" rx="6" fill="#2a2d35"/>
+    <rect x="0" y="40" width="400" height="24" fill="#2a2d35"/>
+    <text x="200" y="40" text-anchor="middle" font-size="16" font-weight="700" letter-spacing="1.5" fill="#f5f0e8">GST REGISTRATION CERTIFICATE</text>
+    <text x="200" y="92" text-anchor="middle" font-size="12" letter-spacing="1" fill="#55524c">FORM GST REG-06</text>
+    <text x="32" y="136" font-size="13" font-weight="700" fill="#2a2d35">GSTIN</text>
+    <g fill="none" stroke="#2a2d35" stroke-width="1.5">
+      <rect x="32" y="148" width="20" height="26" rx="2"/><rect x="54" y="148" width="20" height="26" rx="2"/><rect x="76" y="148" width="20" height="26" rx="2"/>
+      <rect x="98" y="148" width="20" height="26" rx="2"/><rect x="120" y="148" width="20" height="26" rx="2"/><rect x="142" y="148" width="20" height="26" rx="2"/>
+      <rect x="164" y="148" width="20" height="26" rx="2"/><rect x="186" y="148" width="20" height="26" rx="2"/><rect x="208" y="148" width="20" height="26" rx="2"/>
+      <rect x="230" y="148" width="20" height="26" rx="2"/><rect x="252" y="148" width="20" height="26" rx="2"/><rect x="274" y="148" width="20" height="26" rx="2"/>
+      <rect x="296" y="148" width="20" height="26" rx="2"/><rect x="318" y="148" width="20" height="26" rx="2"/><rect x="340" y="148" width="20" height="26" rx="2"/>
+    </g>
+    <text x="32" y="216" font-size="12" font-weight="700" fill="#2a2d35">Legal name of business</text>
+    <rect x="32" y="226" width="330" height="7" rx="3" fill="#cfc6b4"/>
+    <text x="32" y="266" font-size="12" font-weight="700" fill="#2a2d35">Constitution of business</text>
+    <rect x="32" y="276" width="240" height="7" rx="3" fill="#cfc6b4"/>
+    <text x="32" y="316" font-size="12" font-weight="700" fill="#2a2d35">Address of principal place of business</text>
+    <rect x="32" y="326" width="330" height="7" rx="3" fill="#cfc6b4"/>
+    <rect x="32" y="342" width="280" height="7" rx="3" fill="#cfc6b4"/>
+    <text x="32" y="382" font-size="12" font-weight="700" fill="#2a2d35">Date of validity</text>
+    <rect x="32" y="392" width="160" height="7" rx="3" fill="#cfc6b4"/>
+    <g transform="translate(290 470) rotate(-14)">
+      <rect x="-82" y="-30" width="164" height="60" rx="8" fill="none" stroke="#c9a84c" stroke-width="3"/>
+      <text x="0" y="8" text-anchor="middle" font-size="20" font-weight="700" letter-spacing="3" fill="#c9a84c">APPROVED</text>
+    </g>
+    <path d="M40 478 c12 -20 22 -20 26 -4 s12 16 24 -6 s16 -8 20 4" fill="none" stroke="#2a2d35" stroke-width="2" stroke-linecap="round"/>
+    <rect x="36" y="494" width="110" height="1.5" fill="#2a2d35"/>
+  </g>
+</svg>

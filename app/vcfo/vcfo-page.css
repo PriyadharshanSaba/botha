@@ -1,0 +1,325 @@
+/* ================================
+      /vcfo PAGE (vc- prefix)
+================================ */
+.vc-h1,
+.vc-h2 {
+  font-weight: 700;
+  letter-spacing: -0.035em;
+}
+.vc-h1 {
+  font-size: clamp(40px, 5vw, 72px);
+  line-height: 1.04;
+}
+.vc-h2 {
+  font-size: clamp(34px, 3.8vw, 52px);
+  line-height: 1.06;
+}
+.vc-page:lang(kn) .vc-h1,
+.vc-page:lang(kn) .vc-h2 {
+  letter-spacing: 0;
+  line-height: 1.3;
+}
+.vc-lead {
+  max-width: 520px;
+  font-size: clamp(17px, 1.5vw, 20px);
+  line-height: 1.6;
+  color: var(--text-muted);
+}
+
+/* ── Hero ── */
+.vc-hero {
+  background: var(--cream, #f5f0e8);
+  padding: 104px 0;
+}
+.vc-split {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: center;
+  gap: 64px;
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 clamp(24px, 6vw, 96px);
+}
+.vc-hero-in {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 22px;
+}
+.vc-ctas {
+  justify-content: flex-start;
+  margin-top: 8px;
+}
+.vc-cluster {
+  position: relative;
+  width: 100%;
+  max-width: 540px;
+  aspect-ratio: 1 / 0.9;
+  justify-self: center;
+}
+.vc-cluster img { position: absolute; height: auto; }
+.vc-cluster .vc-c1 { left: 0; top: 0; width: 62%; }
+.vc-cluster .vc-c2 { right: 0; bottom: 0; width: 62%; }
+
+/* ── What's included ── */
+.vc-page .ui-chapter { padding-top: 80px; }
+.vc-services {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 24px 104px;
+}
+.vc-svc {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 26px;
+  border: 1px solid rgba(13, 13, 13, 0.08);
+  border-radius: 20px;
+  background: var(--white, #fdfcf9);
+}
+.vc-svc-num {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  color: var(--gold-text);
+}
+.vc-svc h3 {
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.25;
+}
+.vc-svc p {
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--text-muted);
+}
+.vc-svc-tag {
+  margin-top: auto;
+  align-self: flex-start;
+  padding: 5px 11px;
+  border-radius: 100px;
+  background: var(--cream, #f5f0e8);
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--slate, #2a2d35);
+}
+
+/* ── How it works ── */
+.vc-how {
+  background: var(--cream, #f5f0e8);
+  padding-bottom: 104px;
+}
+.vc-steps {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+  max-width: 1280px;
+  margin: 16px auto 0;
+  padding: 0 24px;
+}
+.vc-step {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 0 8px;
+}
+.vc-step-head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.vc-step-num {
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--ink, #0d0d0d);
+  color: var(--gold-light, #e8d08a);
+  font-size: 14px;
+  font-weight: 700;
+}
+.vc-step-line {
+  flex: 1;
+  height: 2px;
+  background: repeating-linear-gradient(90deg, #c9a84c 0 6px, transparent 6px 12px);
+}
+.vc-step:last-child .vc-step-line { display: none; }
+.vc-step h3 {
+  margin-top: 6px;
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+.vc-step p {
+  font-size: 15px;
+  line-height: 1.55;
+  color: var(--text-muted);
+}
+
+/* ── Request ── */
+.vc-request { padding: 104px 0 120px; }
+.vc-form-wrap {
+  display: grid;
+  grid-template-columns: 1fr 1.15fr;
+  gap: 64px;
+  align-items: start;
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+.vc-request-text {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.vc-request-text .vc-lead { font-size: 17px; }
+.vc-promises {
+  list-style: none;
+  border-top: 1px solid rgba(13, 13, 13, 0.08);
+}
+.vc-promises li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 0;
+  border-bottom: 1px solid rgba(13, 13, 13, 0.08);
+  font-size: 16px;
+  color: var(--slate, #2a2d35);
+}
+.vc-promises svg { flex-shrink: 0; color: var(--gold-text); }
+
+.vc-form {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+  padding: 36px;
+  border: 1px solid rgba(13, 13, 13, 0.1);
+  border-radius: 24px;
+  background: var(--white, #fdfcf9);
+}
+.vc-field {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.vc-full { grid-column: 1 / -1; }
+.vc-field label {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--slate, #2a2d35);
+}
+.vc-opt {
+  font-weight: 400;
+  color: var(--text-muted);
+}
+/* Explicit sizes override the site-wide input rules in globals.css. */
+.vc-field input,
+.vc-field select,
+.vc-field textarea {
+  width: 100%;
+  height: 48px;
+  padding: 0 14px;
+  border: 1.5px solid rgba(13, 13, 13, 0.18);
+  border-radius: 12px;
+  background: var(--white, #fdfcf9);
+  font: inherit;
+  font-size: 15px;
+  color: var(--ink, #0d0d0d);
+  outline: none;
+}
+.vc-field textarea {
+  height: auto;
+  padding: 12px 14px;
+  resize: vertical;
+}
+.vc-field input:focus,
+.vc-field select:focus,
+.vc-field textarea:focus {
+  border-color: var(--gold-head);
+  box-shadow: 0 0 0 3px rgba(201, 168, 76, 0.25);
+}
+.vc-submit-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 4px;
+}
+.vc-submit-row .ui-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+.vc-reply {
+  font-size: 13px;
+  color: var(--text-muted);
+}
+.vc-error {
+  padding: 12px 14px;
+  border-radius: 12px;
+  background: rgba(185, 74, 62, 0.08);
+  font-size: 14px;
+  color: #b94a3e;
+}
+.vc-sent {
+  grid-template-columns: minmax(0, 1fr);
+  justify-items: center;
+  padding: 56px 36px;
+  text-align: center;
+}
+.vc-sent h3 {
+  font-size: 26px;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+}
+.vc-sent p { color: var(--text-muted); line-height: 1.6; }
+.vc-sent-icon {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--cream, #f5f0e8);
+  color: var(--gold-text);
+}
+
+/* ── Tablet ── */
+@media (max-width: 1100px) {
+  .vc-services { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .vc-steps { grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: 36px; }
+  .vc-step-line { display: none; }
+  .vc-form-wrap {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 40px;
+    max-width: 720px;
+  }
+}
+
+/* ── Phone ── */
+@media (max-width: 760px) {
+  .vc-hero { padding: 72px 0; }
+  .vc-split {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 36px;
+    padding: 0 20px;
+    text-align: center;
+  }
+  .vc-hero-in { align-items: center; }
+  .vc-ctas { justify-content: center; }
+  .vc-cluster { max-width: 400px; }
+  .vc-page .ui-chapter { padding-top: 56px; }
+  .vc-services { grid-template-columns: minmax(0, 1fr); padding: 0 16px 72px; }
+  .vc-steps { grid-template-columns: minmax(0, 1fr); padding: 0 20px; }
+  .vc-form { grid-template-columns: minmax(0, 1fr); padding: 24px 20px; }
+  .vc-form-wrap { padding: 0 16px; }
+  .vc-request { padding: 72px 0 80px; }
+}

@@ -157,7 +157,7 @@ export const chapters = [
             <li>your short-term and long-term financial goals</li>
           </ul>
           <p>Each of these elements influences how much risk you can reasonably take and how your investments should be structured.</p>
-          <p>For example, a young professional early in their career may have <strong>many years ahead to grow their wealth</strong>. With fewer financial obligations and a longer investment horizon, they may be able to allocate a larger portion of their portfolio toward growth-oriented assets such as equities.</p>
+          <p>For example, a young professional early in their career may have <strong>many years ahead to grow wealth</strong>. With fewer financial obligations and a longer investment horizon, they may be able to allocate a larger portion of their portfolio toward growth-oriented assets such as equities.</p>
           <p>In contrast, someone approaching retirement may have very different priorities. At this stage, protecting accumulated wealth and ensuring financial stability may become more important than pursuing aggressive growth.</p>
           <p>Understanding your financial starting point allows you to design an investment strategy that is <strong>aligned with your life circumstances rather than driven by market trends or external opinions</strong>.</p>
           <p>Before building a portfolio, take the time to assess your financial foundation carefully. A well-structured investment strategy always begins with <strong>a clear understanding of your current position and future goals</strong>.</p>

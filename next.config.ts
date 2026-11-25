@@ -1,7 +1,17 @@
 import type { NextConfig } from "next";
+import { ventureRedirects } from "./app/lib/features";
 
 const nextConfig: NextConfig = {
   serverExternalPackages: ["isomorphic-dompurify", "jsdom"],
+  // Ensure gated audio in `private/` ships with the API route bundle.
+  // Files outside `public/` are not traced by default.
+  outputFileTracingIncludes: {
+    "/api/audio/money-101/[ch]": ["./private/money-101/audio/**"],
+    "/api/guide/download": ["./private/guide/**"],
+  },
+  async redirects() {
+    return ventureRedirects();
+  },
   async headers() {
     return [
       {

@@ -1,7 +1,7 @@
-import { DBDriver, CreateUserInput, User, SaveConsentInput, CookieConsent, Subscription, CreateSubscriptionInput, BillingInfo, ReferralOffer, ReferralIdentity, ReferralStats, Blog, BlogListItem, BlogAdminListItem, BlogUpsertInput, BlogStatus } from "./types";
+import { DBDriver, CreateUserInput, User, SaveConsentInput, CookieConsent, Subscription, CreateSubscriptionInput, BillingInfo, ReferralOffer, ReferralIdentity, ReferralStats, Blog, BlogListItem, BlogAdminListItem, BlogUpsertInput, BlogStatus, MeetingSettings, SaveMeetingSettingsInput, MeetingBlackout, CreateBlackoutInput, MeetingBooking, CreateBookingInput, GoogleTokenRecord, WeeklyHours } from "./types";
 import { db } from "./connection";
-import { users, userProgress, otpAttempts, cookieConsents, subscriptions, referralOffers, referralRedemptions, blogs } from "./schema";
-import { eq, and, gte, count, sql, desc } from "drizzle-orm";
+import { users, userProgress, otpAttempts, cookieConsents, subscriptions, referralOffers, referralRedemptions, blogs, meetingSettings, meetingBlackouts, meetingBookings, googleTokens } from "./schema";
+import { eq, and, gte, lt, gt, count, sql, desc, asc } from "drizzle-orm";
 import crypto from "crypto";
 
 const DAILY_OTP_LIMIT = 5;
@@ -601,6 +601,156 @@ export const PostgresDB: DBDriver = {
   ----------------------------------*/
   async deleteBlog(slug: string): Promise<void> {
     await db.delete(blogs).where(eq(blogs.slug, slug));
+  },
+
+  /* --------------------------------
+     MEETINGS: settings (singleton row, seeded by migration)
+  ----------------------------------*/
+  async getMeetingSettings(): Promise<MeetingSettings> {
+    const rows = await db.select().from(meetingSettings).where(eq(meetingSettings.id, "default")).limit(1);
+    const r = rows[0];
+    if (!r) throw new Error("getMeetingSettings: default row missing — was migration 012 applied?");
+    return {
+      weeklyHours: r.weeklyHours as WeeklyHours,
+      slotMinutes: r.slotMinutes,
+      timezone: r.timezone,
+      updatedAt: r.updatedAt,
+    };
+  },
+
+  async saveMeetingSettings(input: SaveMeetingSettingsInput): Promise<MeetingSettings> {
+    const now = new Date();
+    await db
+      .update(meetingSettings)
+      .set({
+        weeklyHours: input.weeklyHours,
+        slotMinutes: input.slotMinutes,
+        timezone: input.timezone,
+        updatedAt: now,
+      })
+      .where(eq(meetingSettings.id, "default"));
+    return this.getMeetingSettings();
+  },
+
+  /* --------------------------------
+     MEETINGS: blackouts
+  ----------------------------------*/
+  async listBlackouts(): Promise<MeetingBlackout[]> {
+    return db.select().from(meetingBlackouts).orderBy(asc(meetingBlackouts.startAt));
+  },
+
+  async listBlackoutsInRange(startAt: Date, endAt: Date): Promise<MeetingBlackout[]> {
+    return db
+      .select()
+      .from(meetingBlackouts)
+      .where(and(lt(meetingBlackouts.startAt, endAt), gt(meetingBlackouts.endAt, startAt)))
+      .orderBy(asc(meetingBlackouts.startAt));
+  },
+
+  async createBlackout(input: CreateBlackoutInput): Promise<MeetingBlackout> {
+    const id = crypto.randomUUID();
+    await db.insert(meetingBlackouts).values({
+      id,
+      startAt: input.startAt,
+      endAt: input.endAt,
+      reason: input.reason ?? null,
+    });
+    const rows = await db.select().from(meetingBlackouts).where(eq(meetingBlackouts.id, id)).limit(1);
+    return rows[0] as MeetingBlackout;
+  },
+
+  async getBlackoutById(id: string): Promise<MeetingBlackout | null> {
+    const rows = await db.select().from(meetingBlackouts).where(eq(meetingBlackouts.id, id)).limit(1);
+    return (rows[0] as MeetingBlackout) ?? null;
+  },
+
+  async setBlackoutGoogleEventId(id: string, googleEventId: string): Promise<void> {
+    await db.update(meetingBlackouts).set({ googleEventId }).where(eq(meetingBlackouts.id, id));
+  },
+
+  async deleteBlackout(id: string): Promise<void> {
+    await db.delete(meetingBlackouts).where(eq(meetingBlackouts.id, id));
+  },
+
+  /* --------------------------------
+     MEETINGS: bookings
+  ----------------------------------*/
+  async listBookingsInRange(startAt: Date, endAt: Date): Promise<MeetingBooking[]> {
+    const rows = await db
+      .select()
+      .from(meetingBookings)
+      .where(and(
+        eq(meetingBookings.status, "confirmed"),
+        lt(meetingBookings.startAt, endAt),
+        gt(meetingBookings.endAt, startAt)
+      ))
+      .orderBy(asc(meetingBookings.startAt));
+    return rows.map((r) => ({ ...r, status: r.status as "confirmed" | "cancelled" }));
+  },
+
+  async listUpcomingBookings(): Promise<MeetingBooking[]> {
+    const rows = await db
+      .select()
+      .from(meetingBookings)
+      .where(and(eq(meetingBookings.status, "confirmed"), gte(meetingBookings.startAt, new Date())))
+      .orderBy(asc(meetingBookings.startAt));
+    return rows.map((r) => ({ ...r, status: r.status as "confirmed" | "cancelled" }));
+  },
+
+  async getBookingById(id: string): Promise<MeetingBooking | null> {
+    const rows = await db.select().from(meetingBookings).where(eq(meetingBookings.id, id)).limit(1);
+    const r = rows[0];
+    return r ? { ...r, status: r.status as "confirmed" | "cancelled" } : null;
+  },
+
+  async createBooking(input: CreateBookingInput): Promise<MeetingBooking> {
+    const id = crypto.randomUUID();
+    await db.insert(meetingBookings).values({
+      id,
+      name: input.name,
+      email: input.email,
+      phone: input.phone ?? null,
+      note: input.note ?? null,
+      startAt: input.startAt,
+      endAt: input.endAt,
+      status: "confirmed",
+    });
+    const created = await this.getBookingById(id);
+    if (!created) throw new Error("createBooking: row vanished after insert");
+    return created;
+  },
+
+  async setBookingGoogleEventId(id: string, googleEventId: string): Promise<void> {
+    await db.update(meetingBookings).set({ googleEventId }).where(eq(meetingBookings.id, id));
+  },
+
+  async cancelBooking(id: string): Promise<MeetingBooking | null> {
+    await db.update(meetingBookings).set({ status: "cancelled" }).where(eq(meetingBookings.id, id));
+    return this.getBookingById(id);
+  },
+
+  /* --------------------------------
+     GOOGLE: OAuth token storage (single connected account)
+  ----------------------------------*/
+  async getGoogleTokens(): Promise<GoogleTokenRecord | null> {
+    const rows = await db.select().from(googleTokens).where(eq(googleTokens.id, "default")).limit(1);
+    const r = rows[0];
+    return r ? { refreshTokenEnc: r.refreshTokenEnc, connectedEmail: r.connectedEmail, updatedAt: r.updatedAt } : null;
+  },
+
+  async saveGoogleTokens(input: { refreshTokenEnc: string; connectedEmail: string }): Promise<void> {
+    const now = new Date();
+    await db
+      .insert(googleTokens)
+      .values({ id: "default", refreshTokenEnc: input.refreshTokenEnc, connectedEmail: input.connectedEmail, updatedAt: now })
+      .onConflictDoUpdate({
+        target: googleTokens.id,
+        set: { refreshTokenEnc: input.refreshTokenEnc, connectedEmail: input.connectedEmail, updatedAt: now },
+      });
+  },
+
+  async clearGoogleTokens(): Promise<void> {
+    await db.delete(googleTokens).where(eq(googleTokens.id, "default"));
   },
 };
 

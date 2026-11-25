@@ -430,6 +430,15 @@ blockquote {
   font-weight: 700;
 }
 
+.chapter-dot.locked,
+.chapter-dot.locked:hover {
+  border-color: rgba(13, 13, 13, 0.15);
+  color: rgba(13, 13, 13, 0.35);
+  background: none;
+  cursor: not-allowed;
+  opacity: 1;
+}
+
 /* ── Module Complete Screen ── */
 .complete-body {
   min-height: 80vh;

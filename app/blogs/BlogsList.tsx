@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { VENTURE_ENABLED, VENTURE_PATH } from "@/app/lib/features";
 import { useEffect, useRef, useState } from "react";
 import TermsModal from "../components/TermsModal";
 import PrivacyModal from "../components/PrivacyModal";
@@ -121,7 +122,7 @@ export default function BlogsList({ posts }: { posts: BlogCard[] }) {
             <ul>
               <li><Link href="/modules">Finance Course</Link></li>
               <li><Link href="/vcfo">Virtual CFO</Link></li>
-              <li><Link href="/venture">Venture Capital</Link></li>
+              {VENTURE_ENABLED && <li><Link href={VENTURE_PATH}>Venture Capital</Link></li>}
               <li><Link href="/tools">Finance Tools</Link></li>
               <li><Link href="/blogs">Blogs</Link></li>
             </ul>

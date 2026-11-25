@@ -288,6 +288,86 @@ export async function sendWaitlistEmail(data: { firstName: string; lastName: str
   }
 }
 
+const MEETING_ORGANIZER_EMAIL = "info@bodhaventures.in";
+const MEETING_ORGANIZER_NAME = "Bodha Ventures";
+
+function fmtMeetingTime(d: Date): string {
+  return d.toLocaleString("en-IN", {
+    weekday: "long", day: "numeric", month: "long", year: "numeric",
+    hour: "numeric", minute: "2-digit", hour12: true, timeZone: "Asia/Kolkata",
+  }) + " IST";
+}
+
+export async function sendMeetingBookedEmails(data: {
+  name: string;
+  email: string;
+  note: string | null;
+  start: Date;
+  end: Date;
+  ics: string;
+}) {
+  const resend = new Resend(process.env.RESEND_API_KEY);
+  const when = fmtMeetingTime(data.start);
+  const icsAttachment = { filename: "meeting.ics", content: Buffer.from(data.ics, "utf8") };
+
+  const { error: attendeeErr } = await resend.emails.send({
+    from: `${MEETING_ORGANIZER_NAME} <${MEETING_ORGANIZER_EMAIL}>`,
+    to: data.email,
+    subject: `Confirmed: your meeting with Bodha Ventures — ${when}`,
+    html: `
+      <div style="font-family: sans-serif; max-width: 480px; margin: 0 auto; padding: 32px;">
+        <h2 style="margin: 0 0 8px;">You're booked, ${escapeHtml(data.name)}</h2>
+        <p style="color: #555; margin: 0 0 20px;">Your 30-minute call with Bodha Ventures is confirmed.</p>
+        <div style="background: #f4f4f4; border-radius: 8px; padding: 18px 20px; margin-bottom: 20px;">
+          <div style="font-size: 15px; font-weight: 600;">${escapeHtml(when)}</div>
+        </div>
+        ${data.note ? `<p style="color: #555; margin: 0 0 20px;"><strong>Your note:</strong> ${escapeHtml(data.note)}</p>` : ""}
+        <p style="color: #999; font-size: 12px; margin: 24px 0 0;">A calendar invite is attached. Need to reschedule? Reply to this email.</p>
+      </div>
+    `,
+    attachments: [icsAttachment],
+  });
+  if (attendeeErr) console.error("[Resend] Meeting confirmation (attendee) failed:", attendeeErr);
+
+  const { error: adminErr } = await resend.emails.send({
+    from: `${MEETING_ORGANIZER_NAME} <${MEETING_ORGANIZER_EMAIL}>`,
+    to: MEETING_ORGANIZER_EMAIL,
+    replyTo: data.email,
+    subject: `New meeting booked — ${escapeHtml(data.name)} — ${when}`,
+    html: `
+      <div style="font-family: sans-serif; max-width: 480px; margin: 0 auto; padding: 24px;">
+        <h2 style="margin: 0 0 12px;">New meeting booked</h2>
+        <table style="border-collapse: collapse; width: 100%;">
+          <tr><td style="padding: 6px 0; color: #555;">Name</td><td style="padding: 6px 0; font-weight: 600;">${escapeHtml(data.name)}</td></tr>
+          <tr><td style="padding: 6px 0; color: #555;">Email</td><td style="padding: 6px 0; font-weight: 600;">${escapeHtml(data.email)}</td></tr>
+          <tr><td style="padding: 6px 0; color: #555;">When</td><td style="padding: 6px 0; font-weight: 600;">${escapeHtml(when)}</td></tr>
+          ${data.note ? `<tr><td style="padding: 6px 0; color: #555;">Note</td><td style="padding: 6px 0;">${escapeHtml(data.note)}</td></tr>` : ""}
+        </table>
+      </div>
+    `,
+    attachments: [icsAttachment],
+  });
+  if (adminErr) console.error("[Resend] Meeting confirmation (admin) failed:", adminErr);
+}
+
+export async function sendMeetingCancelledEmail(data: { name: string; email: string; start: Date; ics: string }) {
+  const resend = new Resend(process.env.RESEND_API_KEY);
+  const when = fmtMeetingTime(data.start);
+  const { error } = await resend.emails.send({
+    from: `${MEETING_ORGANIZER_NAME} <${MEETING_ORGANIZER_EMAIL}>`,
+    to: data.email,
+    subject: `Cancelled: your meeting with Bodha Ventures — ${when}`,
+    html: `
+      <div style="font-family: sans-serif; max-width: 480px; margin: 0 auto; padding: 32px;">
+        <h2 style="margin: 0 0 8px;">Meeting cancelled</h2>
+        <p style="color: #555; margin: 0 0 20px;">Hi ${escapeHtml(data.name)}, your meeting scheduled for <strong>${escapeHtml(when)}</strong> has been cancelled. If this wasn't expected, reply to this email and we'll sort out a new time.</p>
+      </div>
+    `,
+    attachments: [{ filename: "meeting-cancelled.ics", content: Buffer.from(data.ics, "utf8") }],
+  });
+  if (error) console.error("[Resend] Meeting cancellation email failed:", error);
+}
+
 export async function sendOtpEmail(to: string, otp: string, firstName: string) {
   const resend = new Resend(process.env.RESEND_API_KEY);
   const { data, error } = await resend.emails.send({
